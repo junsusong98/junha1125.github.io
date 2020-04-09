@@ -1,2 +1,3 @@
-# junha1125.github.io
-Junha Song Blog
+# JunHa Song_Git Pages
+
+This is my first git blog based on [this jekyll theme](https://hydejack.com/)
