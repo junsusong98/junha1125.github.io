@@ -22,6 +22,8 @@ description: >
 
     5. (24살 대학생활)  
 
+    6. (25살 마세라티 공장 견학)  
+
 # accent_color: rgb(38,139,210)
 # accent_image:
 #   background: rgb(32,32,32)
