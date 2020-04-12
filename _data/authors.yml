@@ -6,17 +6,19 @@ author1:
   email:               <sb020518@gmail.com>
 
   # Used at the bottom of each page and at the top of the `about` layout
-  # Markdown enabled, can use multiple paragraphs (enabled by `|`)
+  # Markdown enabled, can use multiple paragraphs (enabled by `|`)  
   about:             |
-    _data/authors.yml 수정하기
+      이 페이지는 개인 연구노트로 사용하고 있습니다. About Me를 참고해주세요.  
+      난 할 수 있다. 아직은 많이 부족하다. 하지만 난 금방 따라잡을 수 있다.  
+      긴장하고 불안해하며 끈기있게 깡다구 있게 그냥 하자. 그리고 거기서 좀 더 하자. 
 
   # This photo will be used in the about section
   picture:
-    path:            https://placehold.it/128x128
+    path:            /assets/post_images/junha_pict_128.jpg
     # srcset is optional, but can be used to provide higher res versions for retina displays
     srcset:
-      1x:            https://placehold.it/128x128
-      2x:            https://placehold.it/256x256
+      1x:            /assets/post_images/junha_pict_128.jpg
+      2x:            /assets/post_images/junha_pict_128.jpg
 
   # Social media icons in sidebar
   # Comment/uncommet to show/hide
