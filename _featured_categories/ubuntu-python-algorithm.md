@@ -10,11 +10,11 @@ sitemap: false
 description: >
     Ubuntu, Language, Algorithm 와 관련된 게시물이 업로드 됩니다.  
 
-    1. [Ubuntu]    
+    1. (Ubuntu)    
 
-    2. [Python, C++, C, C#]  
+    2. (Python, C++, C, C#)  
 
-    3. [Algorithm]  
+    3. (Algorithm)  
 
 # accent_color: rgb(38,139,210)
 # accent_image:
