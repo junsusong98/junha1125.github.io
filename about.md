@@ -20,7 +20,7 @@ sb020518@gmail.com
     Graduated from Gangseo High School  
     Discharged from the military 
 - Mar. 2015 ~ Present   
- Kookmin Universit (Seoul, Korea)  
+ Kookmin University (Seoul, Korea)  
 Department of Automobile and IT Convergence  
 *B.S. Student*
 
