@@ -8,6 +8,7 @@ description: >
 문제링크 : [무지의 먹방라이브](https://programmers.co.kr/learn/courses/30/lessons/42891)
 ## **문제 설명과 최소값 지우기 방법으로 직접 해보기**
 ![image](https://user-images.githubusercontent.com/46951365/79040791-0c964e80-7c26-11ea-94c5-760a1aa3249d.png)
+![image](https://user-images.githubusercontent.com/46951365/79117750-ed82f280-7dc6-11ea-823f-0e44d710e407.png)
 
 # 나의 고민 과정  
 - ## Key point
