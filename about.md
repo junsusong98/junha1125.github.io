@@ -48,8 +48,6 @@ Department of Automobile and IT Convergence
 
  
 
- 
-
 # Research Experiences
 - Research Intern at Intelligence and Interaction Lab, Kookmin University (Feb. 2019 ~ Nov. 2019)
 - Research Intern at Machine Intelligence Lab, Kookmin University (Dec. 2019 ~ Present)
@@ -59,7 +57,7 @@ Department of Automobile and IT Convergence
 # Awards and Honors
 - Honorable Judge Award (Future Transport Design Award), Cloud Programming World Cup, Japan (2019)  
 - Capstone Awards, The Korean Society of Automotive Engineers (한국자동차공학회)(2019)  
-- National Science and Engineering Scholarship (Full Tuition, 국가이공계장학생), Korea Scholarship Foundation(한국과학창의재단) (2019 ~ 2020)  
+- National Science and Engineering Scholarship (Full Tuition, 국가이공계장학생), Korea Scholarship Foundation(한국장학재단) (2019 ~ 2020)  
 
  
 
