@@ -8,7 +8,7 @@ permalink: /projects/
 order: 4
 sitemap: false
 description: >
-    진행하고 있는 프로젝트에 관련된 게시물이 업로드 됩니다.  
+    진행했던 프로젝트에 관련된 게시물이 업로드 됩니다.  
 
     1. (자율주행을 위한 Digital-Twin)   
 

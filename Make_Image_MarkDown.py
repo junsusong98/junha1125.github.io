@@ -9,11 +9,12 @@ b = ')'
 c =  '/'
 
 # ***         수정 필요     ****
-page_num = 73 # Git에 올라간 파일 중 가장 마지막 번호 그대로!
-image_name = "pr057maskrcnn-180107092616" # _num.jpg를 제외한 이미지 이름 (pdf 이름 그대로 이다.)
-link_date = "2020-04-12"  # Git repository 의 폴더 : Ex) "2020-04-12/"
+page_num = 18 # Git에 올라간 파일 중 가장 마지막 번호 그대로!
+image_name = "%EC%8A%AC%EB%9D%BC%EC%9D%B4%EB%93%9C" # _num.jpg를 제외한 이미지 이름 (pdf 이름 그대로 이다.)
+link_date = "2020-04-16"  # Git repository 의 폴더 : Ex) "2020-04-12/"
 
 
+# ***        건들지 말기    ****
 for i in range(1, page_num+1):
     str_complete = link + link_date + c + image_name + a + str(i) + last_str
     full_str = mark + str_complete + b
