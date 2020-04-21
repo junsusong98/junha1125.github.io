@@ -352,3 +352,11 @@ compress_html:
 
 sass:
   style:               compressed
+
+
+
+# 수정 내역 
+# False -> True
+# no_page_style
+# no_google_fonts
+# no_break_layout
