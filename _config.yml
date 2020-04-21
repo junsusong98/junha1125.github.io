@@ -155,7 +155,7 @@ hydejack:
   project_addons:      [about, newsletter, other]
 
   # If you do not use Google Fonts, set to `true`.
-  no_google_fonts:     false
+  no_google_fonts:     true
 
   # Set to `true` if you don't want to show an icon indicating external links
   no_mark_external:    true
@@ -175,11 +175,11 @@ hydejack:
 
   # Set to `true` if you don't intend on changing the accent color on a per-page basis.
   # This will increase site build speed!
-  no_page_style:       false
+  no_page_style:       true
 
   # Code blocks and tables "break" the layout by spanning the full available width.
   # Set this to true if you want them to be the same width as other content.
-  no_break_layout:     false
+  no_break_layout:     true
 
   # Set to `true` if you do not want to expose your resume and projects
   # in machine-readable formats.
