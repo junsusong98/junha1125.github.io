@@ -81,7 +81,7 @@ paginate_path:         /page-:num/
 # ========================================================================================
 
 # Sidebar image and theme color of the site.
-accent_image:          /assets/img/sidebar-bg2.jpg
+accent_image:          /assets/img/sidebar-bg3.jpg
 # accent_color:          rgb(79,177,186)
 
 # This is used for the `theme-color` meta tag,
@@ -179,7 +179,7 @@ hydejack:
 
   # Code blocks and tables "break" the layout by spanning the full available width.
   # Set this to true if you want them to be the same width as other content.
-  no_break_layout:     true
+  no_break_layout:     False
 
   # Set to `true` if you do not want to expose your resume and projects
   # in machine-readable formats.

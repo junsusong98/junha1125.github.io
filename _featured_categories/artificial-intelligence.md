@@ -21,7 +21,7 @@ description: >
     5. (Vision)  
   
 # accent_color: rgb(38,139,210)
-# accent_image:
+accent_image: /assets/img/sidebar-bg2.jpg
 #   background: rgb(32,32,32)
 #   overlay:    false
 ---
