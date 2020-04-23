@@ -81,10 +81,25 @@ description: >
 
 
 ## 4. PS
-1. 논문 읽는 방법 : [논문 읽는 방법]([https://github.com/goofcode/UR/wiki/%EB%85%BC%EB%AC%B8-%EC%9D%BD%EB%8A%94-%EB%B2%95,-Survey-%EB%85%BC%EB%AC%B8-%EC%93%B0%EB%8A%94%EB%B2%95](https://github.com/goofcode/UR/wiki/논문-읽는-법,-Survey-논문-쓰는법)) 
+1. 논문 읽는 방법 : [논문 읽는 방법](https://woongheelee.com/entry/%EB%85%BC%EB%AC%B8%EC%9D%84-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%9D%BD%EB%8A%94-%EB%B0%A9%EB%B2%95) 
    - 하나의 논문은 3 pass 과정을 거쳐서 3번은 훑어야한다. 
      - 논문의 전반적인 아이디어 이해
      - 디테일을 제외한 논문의 내용 이해
      - 깊은 이해
    - Literature Survey
+
+**step1**  
+{.lead}  
+제목, abstract, introduction, 각 섹션의 제목, Conclusion
+
+**step2**  
+{.lead}   
+논문에 더욱 집중해서 읽어라  
+증명과 같은 세세한 것들은 무시해라  
+핵심을 써내려가라  
+그림, 다이어그램, 그리고 다른 삽화들을 주의 깊게 살펴보아라. 특히나 그래프에 신경을 써서 보아라  
+
+**step3**  
+{.lead}  
+가장 중요한 것은 논문을 가상으로 재 실험해보는 것이다  
 
