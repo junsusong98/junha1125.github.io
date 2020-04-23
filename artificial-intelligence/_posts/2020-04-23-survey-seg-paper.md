@@ -121,7 +121,7 @@ description: >
 
 4. 레이어의 단위는 로컬로 연결되어 있다. 
 
-   즉, 각 유닛은 이전 계층의 유닛의 receptive field로 알려진 작은 이웃으로부터 가중 된 입력을 수신한다.
+   즉, 각 유닛은 이전 계층의 유닛의 수용 장으로 알려진 작은 이웃으로부터 가중 된 입력을 수신한다.
 
    다중 해상도 피라미드를 형성하기 위해 레이어를 쌓으면서 더 높은 레벨의 layer는 점점 더 넓은 수용 영역에서 기능을 학습합니다. 
 
@@ -147,7 +147,7 @@ description: >
 
 3. RNN의 한계점?
 
-   RNN은 일반적으로 많은 실제 응용 프로그램에서 장기적인 종속성(long-term dependencies)을 캡처 할 수 없다.(너무 긴 input에 대해 초기에 들어온 input정보가 크게 작아지는 문제) 이 때문에 gradient vanishing 또는 exploding 문제로 고통받는 경우가 많으므로 일반적으로 long sequences에 있어 한계점이 있다.
+   RNN은 일반적으로 많은 실제 응용 프로그램에서 장기적인 종속성(long-term dependencies)을 캡처 할 수 없다. 이 때문에 gradient vanishing 또는 exploding 문제로 고통받는 경우가 많으므로 일반적으로 long sequences에 있어 한계점이 있다.
 
 4. 위와 같은 RNN의 한계점을 극복하기 위해 LSTM(Long Short Term Memory)이 등장하였다.
 
@@ -183,7 +183,7 @@ description: >
 **Auto-Encoder Models**  
 {.lead}  
 
-1. Input과 output이 동일한, 특별한 경우에 사용한다. (즉 input과 같은 output 생성을 원할 때) 
+1. Input과 output이 동일한 특별한 경우에 사용한다. (즉 input과 같은 output 생성 원할 때) 
 
 2. 2가지 종류가 있다. 
 
@@ -208,26 +208,9 @@ description: >
 <img src="https://user-images.githubusercontent.com/46951365/80075518-c32ef300-8585-11ea-8b8d-5c97f765490c.png" alt="image" style="zoom: 67%;" />
 
 3. 초기 GAN 이후의 발전
-   - (Mr. Radford) fully-connected network(G에서)가 아닌, convolutional GAN model 사용
+   - (Mr. Radford) fully-connected network가 아니라, convolutional GAN model 사용
    - (Mr. Mirza) 특정 label 이미지를 생성할 수 있도록 class labes로 conditional된 GAN 
    - (Mr. Arjovsky) 새로운 loss function 사용. y x의 확률 분포가 완전히 겹치지 않게 한다. 
    - 추가 : https://github.com/hindupuravinash/the-gan-zoo
-
-### 2.5 Trainsfer Learning
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
