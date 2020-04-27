@@ -1,13 +1,20 @@
 ---
 layout: post
-title: (논문) Image Segmentation Using Deep Learning -A Survey 1
+title: (논문) Image Segmentation Using Deep Learning -A Survey [1]
 description: >  
     Image Segmentation Using Deep Learning: A Survey 논문 리뷰 및 정리
 ---
-(위성Segment) Segmentation Survey 논문 정리  
+(위성Segment) Segmentation Survey 논문 정리 1  
 논문 원본 : **2020 (cite:6) [Image Segmentation Using Deep Learning: A Survey](https://arxiv.org/abs/2001.05566)** 
 
 
+
+추가로 공부해야 하는 내용 
+
+{:.lead}
+
+1. Autoencoder
+2. LSTM
 
 ## Abstract
 
@@ -212,5 +219,44 @@ description: >
    - (Mr. Mirza) 특정 label 이미지를 생성할 수 있도록 class labes로 conditional된 GAN 
    - (Mr. Arjovsky) 새로운 loss function 사용. y x의 확률 분포가 완전히 겹치지 않게 한다. 
    - 추가 : https://github.com/hindupuravinash/the-gan-zoo
+
+### 2.5 Transfer Learning
+
+1. 이미 학습된 모델은 이미지에서 the semantic information를 뽑아낼 수 있는 능력을 가지므로,  많은 DL(deep learning)모델들은 충분한 train data가 없을 수 있다. 이때 Transfer Learning이 효율적이다.
+
+2. 다른 곳에 사용되던 model을 repurpose화(우리의 데이터에 맞는 신경망으로 학습)시키는 것이다. 
+
+3. Image segmentation에서 많은 사람들은 (인코더 부분에서) ImageNet(많은 데이터셋)으로 학습된 모델을 사용한다. 
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

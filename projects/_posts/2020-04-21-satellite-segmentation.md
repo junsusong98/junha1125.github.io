@@ -63,8 +63,8 @@ description: >
 (1) satellite segmentation 대회 주요 논문  
 {:.lead}
 
-- Kaggle 대회 논문 : [Satellite Imagery Feature Detection: A Kaggle Competition](https://arxiv.org/abs/1706.06169)
-- Codalab 대회 논문: [DeepGlobe 2018: A Challenge to Parse the Earth through Satellite Images](http://openaccess.thecvf.com/content_cvpr_2018_workshops/papers/w4/Demir_DeepGlobe_2018_A_CVPR_2018_paper.pdf)
+- Kaggle 대회 논문(2017) : [Satellite Imagery Feature Detection: A Kaggle Competition](https://arxiv.org/abs/1706.06169)
+- Codalab 대회 논문(2018): [DeepGlobe 2018: A Challenge to Parse the Earth through Satellite Images](http://openaccess.thecvf.com/content_cvpr_2018_workshops/papers/w4/Demir_DeepGlobe_2018_A_CVPR_2018_paper.pdf)
 
 (2) satellite survey 논문  
 {:.lead}
