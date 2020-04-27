@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (논문) Image Segmentation Using Deep Learning - A Survey
+title: (논문) Image Segmentation Using Deep Learning -A Survey 1
 description: >  
     Image Segmentation Using Deep Learning: A Survey 논문 리뷰 및 정리
 ---
@@ -181,7 +181,7 @@ description: >
 5. NLP에서 많이 사용된다. Output이 초해상화된 사진, Segmentation 결과 등이 될 수 있다.
 
 **Auto-Encoder Models**  
-{.lead}  
+{:.lead}  
 
 1. Input과 output이 동일한 특별한 경우에 사용한다. (즉 input과 같은 output 생성 원할 때) 
 
