@@ -89,17 +89,17 @@ description: >
    - Literature Survey
 
 **step1**  
-{.lead}  
+{:.lead}  
 제목, abstract, introduction, 각 섹션의 제목, Conclusion
 
 **step2**  
-{.lead}   
+{:.lead}   
 논문에 더욱 집중해서 읽어라  
 증명과 같은 세세한 것들은 무시해라  
 핵심을 써내려가라  
 그림, 다이어그램, 그리고 다른 삽화들을 주의 깊게 살펴보아라. 특히나 그래프에 신경을 써서 보아라  
 
 **step3**  
-{.lead}  
+{:.lead}  
 가장 중요한 것은 논문을 가상으로 재 실험해보는 것이다  
 
