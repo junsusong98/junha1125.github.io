@@ -53,14 +53,34 @@ description: >
 ### 3.3  Encoder-Decoder Based Models
 
 - 대부분의 DL-based segmentation works에서 encoder-decoder models를 사용했다. 
-- 우리는 아래와 같이 2가지 범주로 분류해 모델들을 확인해볼 것이다. (general segmentation VS Medical and Biomedical segmentation)
+
+- 우리는 아래와 같이 2가지 범주로 분류해 모델들을 확인해볼 것이다. 
+
+  (general segmentation VS Medical and Biomedical segmentation)
 
 3.3.1  Encoder-Decoder Models for General Segmentation
 {:.lead}
 
-1. 
+1. 아래의 그림처럼 Deconvolution(= transposed convolution)을 사용한 Segmentation방법의 첫논문이 [43]이와 같다. (fig11) 그림과 같이 encoder와 decoder가 존재하고, decoder에서 deconvolution and unpooling layers를 사용해서 픽셀단위의 레이블링이 이루어진다. PASCAL VOC 2012 dataset에서 (추가 데이터 없이) 좋은 정확도가 도출되었다.
 
-3.3.2  2 Encoder-Decoder Models for Medical and Biomedical Image Segmentation
+<img src="https://user-images.githubusercontent.com/46951365/80465304-f7375900-8975-11ea-967d-2dba45fc4671.png" alt="image" style="zoom:67%;" />
+
+2. [44] SegNet은 the 13 convolutional layers in the VGG16 network와 구조적으로 동일한 encoder를 사용하였다. (fig12) 가장 중요한 점은 업샘플링을 하며 featrue map을 키울때 encoder에서 max pooling을 했던 그 인덱스를 기억해서 이용하는 것이다. 그리고 SegNet은 다른 모델에 비해서 매개변수가 적다는 장점이 있다. 
+3. [45] SegNet의 upgrade version으로  A Bayesian version of SegNet은 encoder-decoder network의 불확실성(upsampling등의 문제)을 해결하고자 노력했다.
+
+<img src="https://user-images.githubusercontent.com/46951365/80466178-226e7800-8977-11ea-9c51-75ada3315fb9.png" alt="image" style="zoom:67%;" />
+
+4. 최근 개발된 유명한 high-resolution network (HRNet)은 (이전의 고해상도 표현을 복구하려는 DeConvNet, SegNet, U-Net and V-Net과는 조금 다르게) 아래의 사진처럼 고해상, 저해상 이미지와의 정보교환을 이뤄가며 좋은 성능을 얻었다. 
+5. 최근의 많은 Semantic segmentation 모델들은 contextual models, such as self-attention을 사용하면서, HRNet을 Backbone으로 많이 사용합니다. 
+6. 지금까지 봤던 Network이 외에도, transposed convolutions, encoder - decoders를 이용하는 최근 모델에는 Stacked Deconvolutional Network (SDN) [46], Linknet [47], W-Net [48], and locality-sensitive deconvolution networks for RGB-D segmentation [49]와 같은 모델들이 있습니다.
+
+![image](https://user-images.githubusercontent.com/46951365/80488016-b3098000-8998-11ea-8eed-56872ba6777d.png)
+
+
+
+<br>
+
+3.3.2  Encoder-Decoder Models for Medical and Biomedical Image Segmentation
 {:.lead}
 
 1. 
