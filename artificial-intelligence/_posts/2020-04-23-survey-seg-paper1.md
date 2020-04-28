@@ -16,7 +16,7 @@ description: >
 1. Autoencoder
 2. LSTM
 
-## Abstract
+# Abstract
 
 1. Image segmentation은 이미지 처리 및 컴퓨터 비전의 핵심이다. 
 2. 이 논문에서는 Segmentation을 위해, 선구적인 기술들에 대한 Survey를 다룬다. 
@@ -26,7 +26,7 @@ description: >
 
  
 
-## Instruction
+# Instruction
 
 1. image segmentation의 필요성(중요성): 
 
@@ -114,9 +114,9 @@ description: >
 
 
 
-## Section 2: Overview of Deep Neural Networks
+# Section 2: Overview of Deep Neural Networks
 
-### 2.1 Convolutional Neural Network (CNNs)
+## 2.1 Convolutional Neural Network (CNNs)
 
 1. CNN은 주로 3 가지 유형의 layer로 구성된다.
 
@@ -140,7 +140,7 @@ description: >
 
    AlexNet // VGGNet // ResNet // GoogLeNet // MobileNet // DenseNet
 
-### 2.2 Recurrent Neural Networks (RNNs) and the LSTM
+## 2.2 Recurrent Neural Networks (RNNs) and the LSTM
 
 1. RNN은 음성, 텍스트, 비디오 및 시계열과 같은 순차적 데이터를 처리하는 데 널리 사용된다.
 
@@ -177,7 +177,7 @@ description: >
    - $$i_t$$ : input gate (메모리 셀의 input을 제어)
    - $$o_t$$ : output gate (메모리 셀의 output을 제어)
 
-### 2.3 Encoder-Decoder and Auto-Encoder Models
+## 2.3 Encoder-Decoder and Auto-Encoder Models
 
 <img src="https://user-images.githubusercontent.com/46951365/80072708-9547af80-8581-11ea-8c2e-3d3348486759.png" alt="image" style="zoom: 33%;" />
 
@@ -207,7 +207,7 @@ description: >
 
    - prior distribution와 유사한 latent representation를 만들기 위해 adversarial loss를 사용
 
-### 2.4 GANs(Generative Adversarial Networks)
+## 2.4 GANs(Generative Adversarial Networks)
 
 1. 2개의 network 모델 : Generator(위조 지폐 제작사)  VS  Discriminator(경찰. 감별사)
 2. x : 실제 이미지/ z : 노이즈 이미지/ y : G가 생성한 이미지
@@ -220,7 +220,7 @@ description: >
    - (Mr. Arjovsky) 새로운 loss function 사용. y x의 확률 분포가 완전히 겹치지 않게 한다. 
    - 추가 : https://github.com/hindupuravinash/the-gan-zoo
 
-### 2.5 Transfer Learning
+## 2.5 Transfer Learning
 
 1. 이미 학습된 모델은 이미지에서 the semantic information를 뽑아낼 수 있는 능력을 가지므로,  많은 DL(deep learning)모델들은 충분한 train data가 없을 수 있다. 이때 Transfer Learning이 효율적이다.
 

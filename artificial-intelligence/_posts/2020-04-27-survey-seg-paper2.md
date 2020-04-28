@@ -8,7 +8,7 @@ description: >
 (위성Segment) Segmentation Survey 논문 정리 2
 논문 원본 : **2020 (cite:6) [Image Segmentation Using Deep Learning: A Survey](https://arxiv.org/abs/2001.05566)** 
 
-## Section 3: DeepLearning -BASED IMAGE SEGMENTATION MODELS
+# Section 3: DeepLearning -BASED IMAGE SEGMENTATION MODELS
 
 - 여기부터 2019년 이후에 제안된 100가지가 넘는 segmentation methods를 상세히 검토한다.
 - 많은 방법론에서 이것을 사용해서 좋은 성과를 얻었다. 
@@ -18,9 +18,9 @@ description: >
   - the use of dilated convolution... more recently 
 - 많은 methods를 특징(contributions)로 분류하기는 어렵고, Section2의 방법으로 분류하려한다.
 
-### 3.1 Fully Convolutional Networks
+## 3.1 Fully Convolutional Networks
 
-1.  semantic image segmentation을 위한 최초의 신경망이라고 할 수 있다. 
+1. semantic image segmentation을 위한 최초의 신경망이라고 할 수 있다. 
 2. VGG16 및 GoogLeNet를 사용하였고, Fully connected layer와 같이 conv 연산이 아닌 layer를 모두 convolutional layers로 바꾸었다. (fig.7)
 3. 임의 사이즈의 input을  받아도 적절한 크기의 segmentation map output을 도출하는 신경망이다. 
 4. skip connections을 사용했다. 그러기 위해 upsampling을 적절히 사용하여,  [from deep, coarse layers] 정보와 [from shallow, fine layers]정보를 융합하였다. (fig. 8)
@@ -36,7 +36,7 @@ description: >
 
 
 
-### 3.2 Convolutional Models With Graphical Models
+## 3.2 Convolutional Models With Graphical Models
 
 1. FCN은  potentially useful scene-level semantic context(잠제적으로 유용한 전체적 정보)를 무시한다. 이러한 문제를 해결하기 위해  CRF (Conditional Random Field) 및 MRF (Markov Random Field)와 같은 확률 적 그래픽 모델을 통합하는 몇가지 방법이 있다.
 2. CNNs and fully connected CRFs을 융합한 chen은 classification을 위해 high level task를 수행하는 depp CNN의 불가변적 속성(?) 때문에 정확한 Segmentation이 이루어지지 않음을 확인하였다. (fig 10)
@@ -50,7 +50,7 @@ description: >
 
 
 
-### 3.3  Encoder-Decoder Based Models
+## 3.3  Encoder-Decoder Based Models
 
 - 대부분의 DL-based segmentation works에서 encoder-decoder models를 사용했다. 
 
@@ -83,7 +83,17 @@ description: >
 3.3.2  Encoder-Decoder Models for Medical and Biomedical Image Segmentation
 {:.lead}
 
-1. 
+- medical/biomedical image segmentation을 하기 위한 몇가지 모델들을 공부해본다.
+- FCN과 encoder-decoder를 기본으로 하는 U-Net [50], and V-Net [51]이 의료분야에서 유명하다.
+
+![image](https://user-images.githubusercontent.com/46951365/80489728-3a57f300-899b-11ea-8a4f-5f7e0c42fe74.png)
+
+1. 현미경 이미지를 분류하기 위해 U-Net이[50] 개발되었고, 3D medical image(MRI volume) segmentation을 위해서 V-Net[51]이 개발되었다. () (자세한 설명은 논문 참조)
+2. 그 외에 Unet은 3D images를 위한 [52], nested Unet[53], **road extraction [54]**에 많이 사용되었다. 또한 흉부 CT 영상 Progressive Dense V-net (PDV-Net)
+
+
+
+## **3.4**  **Multi-Scale and Pyramid Network Based Models**
 
 
 
