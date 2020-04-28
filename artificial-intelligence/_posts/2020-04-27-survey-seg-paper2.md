@@ -93,7 +93,64 @@ description: >
 
 
 
-## **3.4**  **Multi-Scale and Pyramid Network Based Models**
+
+
+## **3.4**  Multi-Scale and Pyramid Network Based Models
+
+- 주로 Object Detection에서 Multi-scale analysis을 위해서 가장 많이 사용되는 Pyramid Network (FPN) [56]을 중심으로 사용한 모델들을 살펴보자. 
+- FPN은 low and high resolution features를 융합하기 위해서, bottom-up pathway, a top-down pathway and lateral connections방법을 사용합니다. FPN 저자는 Segmentation을 위해서 각 층(다른 해상도 크기의)의 predict단에서 (간단히) 2 layer의 MLP를 사용하였습니다.
+
+<img src="https://user-images.githubusercontent.com/46951365/80493227-1945d100-89a0-11ea-8010-f9aedecef9ae.png" alt="image" style="zoom: 50%;" />
+
+1. [57] PSPN 모델은 (fig17) the global context representation of a scene를 더 잘 이해하기 위해 개발되었다. 특별한 점으로는 ResNet + dilated Network을 사용해서 (b) Featrue Map을 뽑아낸다는 것이다. 그리고 a pyramid pooling module을 사용해서 다른 크기의 pattern(객체)들을 구분해간다. pooling 이후에 1*1 conv를 사용해서 channel을 감소시키고, 마지막 단에는 지금까지의 모든 정보를 concat한 후 conv를 거쳐  픽셀 단위 예측을 수행합니다.
+2. [58]는 고해상도 maps(w,h가 큰)의 skip connection을 이용해서. 저해상도 maps으로 부터 재생성된 segmentation결과에서 경계가 모호한 문제를 해결합니다. 
+3. 이 외에 Multi-scale analysis를 사용한 모델로 DM-Net (Dynamic Multi-scale Filters Network) [59], Context contrasted network and gated multi-scale aggregation (CCN) [60], Adaptive Pyramid Context Network (APC-Net) [61], Multi-scale context intertwining (MSCI) [62], and salient object segmentation [63]. 등이 있다.
+
+
+
+
+
+## 3.5  R-CNN Based Models (for Instance Segmentation)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
