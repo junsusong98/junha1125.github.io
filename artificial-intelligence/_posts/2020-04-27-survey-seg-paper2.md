@@ -1,5 +1,5 @@
 ---
-layout: post
+3layout: post
 title: (논문) Image Segmentation Using Deep Learning -A Survey [2]
 description: >  
     Image Segmentation Using Deep Learning: A Survey 논문 리뷰 및 정리
@@ -112,27 +112,95 @@ description: >
 
 ## 3.5  R-CNN Based Models (for Instance Segmentation)
 
+- R-CNN 계열을 이용해 instance segmentation 문제를 해결하는데 많이 사용되었다. 특히 Faster-RCNN은 RPN을 사용해 ROI를 추출한다. 그리고 RoiPool와 CNN을 통해서 객체 위치와 객체 클래스를 유추한다.
+
+1. Mask R-CNN [65]은 Faster-Rcnn에서 2개의 출력 분기가 아닌, 3개의 출력 분기를 사용하여, 각 객체에 대해서 Instance Segmentation을 수행한다. COCO test set에서 좋은 결과를 도출해 낸다.
+
+   <img src="https://user-images.githubusercontent.com/46951365/80497902-0cc47700-89a6-11ea-8f9c-3ee7cfeb6a65.png" alt="image" style="zoom:50%;" />
+
+2. Path Aggregation Network (PANet) [66]은 Mask R-CNN과 FPN(The feature extractor)을 기반으로 한다. 위의 사진과 같이 (b), (c)를 사용하는게 특징이고, (e)에서 처럼 Roi를 FCN처리를 하여 the object Mask를 예측한다.
+
+3. [67]에서는 instances를 구별하고, estimating masks, categorizing objects 하기 위한  multi-task network를 개발한 것이 특징이다. [68]에서는 a novel weight transfer function,  a new partially-supervised training paradigm을 사용해서 많은 class instance segmentation수행(label을 정의하지 않은 객체에도, 비지도학습을 이용해서(box의 class값을 사용해서) 새로운 label을 예측하는)을 가능케 한 것이 특징이다. 
+
+4. [69]에서는 Faster-RCNN을 개선한 MaskLab을 개발하였다. Roi에 대해서, semantic and direction prediction를 수행하여, segmentation을 수행하는 것이 특징이다.
+
+5. [70]에서는 Tensormask를 개발하였다. 이 모델은 dense (sliding window instance) object segmentation에서 좋은 결과를 도출하였다. 4D 상태에서 Prediction을 수행하였고, tensor view를 사용해 Mask-RCNN과 유사한 성능을 가지는 모델을 만들었다.
+
+6. RCNN을 기반으로 개발된 다른 모델로써, R-FCN [71], DeepMask [72], SharpMask [73], PolarMask [74], and boundary-aware in-stance segmentation [75]와 같은 것들이 있다. 
+
+7. 또한  Deep Watershed Transform [76], and Semantic Instance Segmentation via Deep Metric Learning [77]에서 처럼, grouping cues for bottom-up segmentation을 학습함으로써  instance segmentation에서의 문제를 해결하려고 노력했다는 것도 눈여겨 봐야한다.
+
+
+
+## 3.6 Dilated Convolutional Models and DeepLab Family
+
+- Dilated convolution(=atrous conv)는 the dilation rate(a spacing between the weights of the kernel w)를 사용한다. 이로써 추가적 비용없이 the receptive field를 키울 수 있었다. 따라서 real-time segmentation에서 많이 사용된다. 
+
+  - Dilated Conv를 사용한 많은 모델들 : the DeepLab family [78], multi-scale context aggregation [79], dense upsampling convolution and hybrid dilatedconvolution (DUC-HDC) [80], densely connected Atrous Spatial Pyramid Pooling (DenseASPP) [81], and the efficient neural network (ENet) [82]
+
+  ![image](https://user-images.githubusercontent.com/46951365/80595338-88362f00-8a5f-11ea-9aa7-d5b8cd9141e0.png)
+
+
+
+1. DeepLab2에서는 3가지 주요한 특징이 있다. 
+
+   - max-pooling를 하여 이미지의 해상도(w,h 크기)를 낮추는 대신에 dilated conv를 적극적으로 사용하였다.
+   -  Atrous Spatial Pyramid Pooling(ASPP)를 사용해서 multiple scales object를 더 잘 탐사하였다. 
+   - 객체 경계를 더 잘 구별하기 위해서 deep CNNs and probabilistic graphical models을 사용하였다. 
+
+2. DeepLab은 2012 PASCAL VOC challenge, the PASCAL-Context challenge, the Cityscapes challenge에서 좋은 성능을 내었다. (fig.25)
+
+3. 이후 Deeplabv3[12]에서는 cascaded and parallel modules of dilated convolutions(ASPP{1*1conv를 사용하고 배치 정규화를 사용하는}에서 그룹화된)를 사용하였다.  
+
+4. 2018년 이후에 [83]에서 encoder-decoder architecture를 사용한 Deeplabv3+가 새로 발표되었다. 아래 2개의 기술을 사용한 것이 특징이다. 
+
+   - a depthwise convolution (spatial convolution for each channel of the input)로 만들어진, atrous separable convolution
+   -  pointwise convolution (1*1 convolution with the depthwise convolution as input)
+
+   Deeplabv3+는 DeepLabv3를 encoder 프레임워크(backbone)로 사용하였다. (fig.26)
+
+5. 최근에 수정된 Deeplabv3+ 모델에는 max-pooling와 batch Norm을 사용하지 않고, 더 많은 layers와  dilated depthwise separable convolutions를 사용하는 'Xception backbone'를 사용한다. 
+6. Deeplabv3+는 the COCO and the JFT datasets을 통해 pretrained 된 모델을 사용하여, the 2012 PASCAL VOC challenge Dataset에서 놓은 성적을 얻었다.
 
 
 
 
 
+![image](https://user-images.githubusercontent.com/46951365/80595563-e82cd580-8a5f-11ea-88fc-1be4559ed5c8.png)
+
+<img src="https://user-images.githubusercontent.com/46951365/80597489-df89ce80-8a62-11ea-823b-7efb096ed134.png" alt="image" style="zoom: 67%;" />
+
+<br>
+
+## 3.7 Recurrent Neural Network Based Models
+
+- segmentation을 수행할 때, 픽셀간의  the short/long term dependencies를 모델링할 때 RNN을 사용하는 것도 유용하다. RNN을 사용함으로써 픽셀들이 연결되어 연속적으로 처리된다.  그러므로써 global contexts를 좀 더 잘 찾아내고, semantic segmentation에서의 좋은 성능이 나오게 해준다. RNN을 사용함에 있어 가장 큰 문제점은 이미지가 2D 구조라는 것이다. (RNN은 문자열같은 1차원을 다루는데 특화되어 있으므로.)
+
+1. [84]에서 Object detection을 위한 ReNet[85]를 기반으로 만들어진 ReSeg라는 모델을 소개한다. 여기서 ReNet은 4개의 RNN으로 구성된다. (상 하 좌 우) 이로써 global information를 유용하게 뽑아낸다. (fig.27)
+
+![image](https://user-images.githubusercontent.com/46951365/80601928-6e99e500-8a69-11ea-875a-07477be3dda6.png)
 
 
 
+2. [86]에서는 (픽셀 레이블의 복잡한 공간 의존성을 고려하여) 2D LSTTM을 사용해서 Segmentaion을 수행했다. 이 모델에서는 classification, segmentation, and context integration 모든 것을 LTTM을 이용한다.(fig.29)
+3. [87]에서는 Graphic LSTM을 이용한 Segmentation모델을 제안한다. 의미적으로 일관된 픽셀 Node를 연결하고, 무 방향(적응적으로 랜덤하게) 그래프를 만든다. (edges로 구분된 그래프가 생성된다.)  fig.30을 통해서 Graph LSTM과 basic LSTM을 시각작으로 비교해볼 수 있다. 그리고 Fig31을 통해서 [87]의 전체적 그림을 확인할 수 있다. (자세한 내용은 생략)
 
+![image](https://user-images.githubusercontent.com/46951365/80603862-ecf78680-8a6b-11ea-970f-b3dc93f3fcbd.png)
 
+4. DA-RNNs[88]에서는 Depth카메라를 이용해서 3D sementic segmentation을 하는 모델이다. 이 모델에서는 RGB 비디오를 이용한 RNN 신경망을 사용한다. 출력에서는 mapping techniques such as Kinect-Fusion을 사용해서 semantic information into the reconstructed 3D scene를 얻어 낸다. 
 
+<img src="https://user-images.githubusercontent.com/46951365/80604136-4c559680-8a6c-11ea-8e19-2d5edffc4cca.png" alt="image" style="zoom: 80%;" />
 
+5. [89]에서는 CNN&LSTM  encode를 사용해서 자연어와 Segmentation과의 융합을 수행했다. 예를 들어 "right woman"이라는 문구와 이미지를 넣으면, 그 문구에 해당하는 영역을 Segmentation해준다.  visual and linguistic information를 함께 처리하는 방법을 학습하는 아래와 같은 모델을 구축했다. (fig.33) 
+6. LSTM에서는 언어 백터를 encode하는데 사용하고, FCN을 사용해서 이미지의 특성맵을 추출하였다. 그렇게 최종으로는 목표 객체(언어백터에서 말하는)에 대한 Spatial map (fig 34의 가장 오른쪽)을 얻어낸다. 
 
+<img src="https://user-images.githubusercontent.com/46951365/80604535-ce45bf80-8a6c-11ea-9f19-2682077cf1d8.png" alt="image" style="zoom:80%;" />
 
+<br>
 
+<br>
 
-
-
-
-
-
+## 3.8 Attention-Based Models
 
 
 
