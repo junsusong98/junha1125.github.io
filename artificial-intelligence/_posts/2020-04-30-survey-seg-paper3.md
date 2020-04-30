@@ -72,13 +72,47 @@ description: >
 
 ## 4.2 - 2.5D Datasets
 
+- RGB-D 이미지는 비교적 저렴한 방법으로 데이터를 얻을 수 있기 때문에 많은 분야에서 사용되고 있다. 
+
+1. NYU-D V2 [156]
+   - the RGB and depth cameras of the Microsoft Kinect
+   - 1,449개의 labeled 이미지. 3개의 도시 
+   - instance number가 기록되어 있다.
+   -  407,024 unlabeled frames
+2. SUN-3D [157]
+   - RGB-D video dataset
+3. SUN RGB-D [158]
+   - an RGB-D benchmark for the goal of advancing the state-of-the-art
+   - four different sensors / 10,000 RGB-D images
+   - 2D polygons / 3D bounding boxes
+4. UW RGB-D Object Dataset [159]
+   - a Kinect style 3D camera. 
+   - 51 categories /  640 480 pixel RGB and depth images at 30 Hz
+5. ScanNet [160]
+   - an RGB-D video dataset
+   - nstance- level semantic segmentations
+   - 3D scene understanding tasks에서 사용.
+   - 3D object classification, semantic voxel labeling, and CAD model retrieval.에서도 사용된다. 
 
 
 
+<br>
 
+## 4.3 - 3D Datasets
 
+- robotic, medical image analysis, 3D scene analysis, construction applications(공사 응용)에 사용되는 3D이미지 데이터셋을 살펴본다. 
+- 3D datasets은 point clouds와 같이, meshes or other volumetric representations(표현법)으로 제공된다. 
 
-
+1. Stanford 2D-3D [161]
+   - instance-level semantic and geometric annotations from 2D, 2.5D and 3D
+   - 6 indoor areas
+   - 70,000 RGB images along with the corresponding depths, surface normals, semantic annotations, global XYZ images as well as camera information.
+2. ShapeNet dataset [162] [163]
+   - single clean 3D models
+   - 55 common object categories with about 51,300 unique 3D models
+3. Sydney Urban  Objects  Dataset [164]
+   - urban road objects of Sydney, Australia.
+   - vehicles, pedestrians, signs and trees
 
 
 
