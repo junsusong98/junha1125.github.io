@@ -226,6 +226,68 @@ description: >
 
 <img src="https://user-images.githubusercontent.com/46951365/80678950-dfd3a980-8af6-11ea-9277-d98067f27c91.png" alt="image"  />
 
+1. [100]에서는 segmentation을 위해서, adversarial training approach를 제안하였다. (fig. 38)에서 보는 것처럼 Segmentor(지금까지 했던 아무 모델이나 가능) segmentation을 수행하고, Adversarial Network에서 ground-truth와 함께, discriminate를 수행해나간다. 이러한 방법으로 Stanford Background dataset과 PASCAL VOC 2012에서 더 높은 정확성을 갖도록 해준다는 것을 확인했다. (fig. 39)에서 결과 확인 가능하다.
+2. [101]에서는 semi-weakly supervised semantic segmentation using GAN를 제안하였다.
+3. [102]에서는 adversarial network를 사용한 semi-supervised semantic segmentation를 제안하였다. 그들은 FCN discriminator를 사용해서 adversarial network를 구성하였고, 3가지 loss function을 가진다. 1. the segmentation ground truth와 예측한 결과와의 cross-entropy loss 2. discriminator network 3. emi-supervised loss based on the confidence map. (fig. 40)
+4. [103]에서는 의료 영상 분할을 위한 multi-scale L1 Loss를 제안하였다. 그들은 FCN을 사용해서 segmentor를 구성했고, 새로운 adversarial critic network(multi-scale Loss)를 구상했다. critic(discriminator)가 both global and local features에 대한 Loss를 모두 뽑아낸다. (fig.41) 참조. 
+5. 다른 segmentation models based on adversarial training로는, Cell Image Segmenta-tion Using GANs [104], and segmentation and generation of the invisible parts of objects [105]이 있다.
+
+
+
+<br>
+
+## 3.10 CNN Models With Active Contour Models
+
+- Active Contour Models (ACMs) [7] 를 기본으로 사용하여, Loss function을 바꾼 새로운 모델들이 새롭게 나오고 있다. 
+  - the global energy formulation of [106]
+  -  [107] : MRI 영상 분석
+  - [108] : 미세 혈관 이미지 분석
+- [110] ~ [115]에 대한 간략한 설명은 논문 참조.
+
+
+
+## 3.11  Other Models + Popular Models Timeline
+
+위의 모델을 이외의, DL architectures for segmentation의 몇가지 유명한 모델들을 간략히 소개한다.
+
+- [116] ~ [140]
+- fig. 42는  semantic segmentation를 위한 아주 유명한 모델들을 시간 순으로 설명한다. 지난 몇 년간 개발 된 많은 작품을 고려했을때, 아래의 그림은 가장 대표적인 작품 중에서도 일부만을 보여준다.
+
+![image](https://user-images.githubusercontent.com/46951365/80683802-b4a18800-8aff-11ea-949e-e480e153b16d.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
