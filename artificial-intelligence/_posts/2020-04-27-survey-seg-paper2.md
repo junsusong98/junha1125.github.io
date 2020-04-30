@@ -138,7 +138,7 @@ description: >
 
   - Dilated Conv를 사용한 많은 모델들 : the DeepLab family [78], multi-scale context aggregation [79], dense upsampling convolution and hybrid dilatedconvolution (DUC-HDC) [80], densely connected Atrous Spatial Pyramid Pooling (DenseASPP) [81], and the efficient neural network (ENet) [82]
 
-  ![image](https://user-images.githubusercontent.com/46951365/80595338-88362f00-8a5f-11ea-9aa7-d5b8cd9141e0.png)
+  <img src="https://user-images.githubusercontent.com/46951365/80595338-88362f00-8a5f-11ea-9aa7-d5b8cd9141e0.png" alt="image" style="zoom: 67%;" />
 
 
 
@@ -196,23 +196,35 @@ description: >
 
 <img src="https://user-images.githubusercontent.com/46951365/80604535-ce45bf80-8a6c-11ea-9f19-2682077cf1d8.png" alt="image" style="zoom:80%;" />
 
-<br>
+
 
 <br>
 
 ## 3.8 Attention-Based Models
 
+- [Attention 메카니즘 기본 이론]([https://ratsgo.github.io/from%20frequency%20to%20semantics/2017/10/06/attention/](https://ratsgo.github.io/from frequency to semantics/2017/10/06/attention/))
+- 사실 Attention 알고리즘은 컴퓨터 비전에서 지속적으로 연구되어 왔었다.
+
+1. [90]에서는 multi-scale feature를 사용해서 attention해야할(wdight) 정도를 학습한다. pooling을 적용하는 것보다, attention mechaniism을 사용함으로써 다른 위치 다른 scales(객체크기)에 대한 the importance of features(그 부분을 얼마나 중요하게 집중할지)를 정확하게 판단할 수 있다. (fig. 35)
 
 
 
+<img src="https://user-images.githubusercontent.com/46951365/80677600-24aa1100-8af4-11ea-81ff-eb926d46c4ad.png" alt="image" style="zoom: 67%;" />
+
+<img src="https://user-images.githubusercontent.com/46951365/80677585-1c51d600-8af4-11ea-96e6-25ed433ad3d4.png" alt="image" style="zoom:67%;" />
+
+2. [91]에서는 일반적인 classifier처럼 labeled된 객체의 의미있는 featrue를 학습하는게 아니라,  reverse attention mechanisms(RAN)을 사용한 semantic segmentation방법을 제안하였다. 여기서 RAN은 labeled된 객체만을 학습하는 것이 아닌, 반대의 것들(배경, 객체가 아닌 것)에 대한 개념도 캡처(집중)한다. (fig. 36)
+3. [92]에서는  a Pyramid Attention Network를 사용했다. 따라서 global contextual information을 사용하는데 특화되어 있습니다. 특히 이 모델에서는 dilated convolutions and artificially designed decoder networks를 사용하지 않습니다. 
+4. [93]에서는 최근에 개발된 a dual attention network을 사용한 모델을 제안한다.  중심 용어 - rich con-textual dependencies / self-attention mechanism /  the semantic inter-dependencies in spatial  +  channel dimensions / a weighted sum 
+5. 이 외에도 [94] OCNet(object context pooling), EMANet [95], Criss-Cross Attention Network (CCNet) [96], end-to-end instance segmentation with recurrent attention [97], a point-wise spatial attention network for scene parsing [98], and a discriminative feature network (DFN) [99] 등이 존재한다.
 
 
 
+<br>
 
+## 3.9 Generative Models and Adversarial Training
 
-
-
-
+<img src="https://user-images.githubusercontent.com/46951365/80678950-dfd3a980-8af6-11ea-9277-d98067f27c91.png" alt="image"  />
 
 
 
