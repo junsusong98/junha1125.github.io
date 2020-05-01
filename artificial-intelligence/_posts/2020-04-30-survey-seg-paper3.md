@@ -17,8 +17,6 @@ description: >
 - 일부 데이터셋에서는 data augmentation을 하는 것이 좋다.(특히 의료 이미지에서) 그 방법으로는  reflection, rotation, warping, scaling, color space shifting, cropping, and projections onto principal components과 같은 방법이 있다. 
 - data augmentation를 통해서 모델의 성능을 향상시키고, 수렴 속도를 높히고, Overfitting 가능성을 줄이며, 일반화 성능을 향상시키는데 도움이 될 수 있다. 
 
-
-
 ## 4.1 - 2D Datasets
 
 1. PASCAL Visual Object Classes (VOC) [141]
@@ -66,10 +64,6 @@ description: >
 
 ![image](https://user-images.githubusercontent.com/46951365/80694578-a9565880-8b0f-11ea-85e3-3744f60acc22.png)
 
-
-
-<br>
-
 ## 4.2 - 2.5D Datasets
 
 - RGB-D 이미지는 비교적 저렴한 방법으로 데이터를 얻을 수 있기 때문에 많은 분야에서 사용되고 있다. 
@@ -94,9 +88,7 @@ description: >
    - 3D scene understanding tasks에서 사용.
    - 3D object classification, semantic voxel labeling, and CAD model retrieval.에서도 사용된다. 
 
-
-
-<br>
+<img src="https://user-images.githubusercontent.com/46951365/80783436-c98c2300-8bb4-11ea-95af-cb8952f205b4.png" alt="image" style="zoom: 50%;" />
 
 ## 4.3 - 3D Datasets
 
@@ -116,7 +108,71 @@ description: >
 
 
 
+# Section 5:  PERFORMANCE REVIEW
 
+- segmentation models의 성능을 평가하기 위해서, 사용하는 popular metrics(업무 수행 결과를 보여주는 계량적 분석)을 몇가지 소개해준다.
+- 유망한 DL-based segmentation models에 대한 정량적 성능표도 제공한다.
+- 모델을 평가하기 위해서는 많은 요소를 보아야한다.  Ex. quantitative accuracy, speed (inference time), and storage requirements (memory footprint)
+
+## 5.1 Metrics For Segmentation Models
+
+여기에서는 the accuracy of segmentation을 평가하기 위한 몇가지 metrics을 소개한다. 
+
+<center><img src="https://user-images.githubusercontent.com/46951365/80783668-736baf80-8bb5-11ea-99d2-0cf71b57b26f.png" alt="image" style="zoom:50%;" /></center>
+
+1. Pixel accuracy - 식(2)
+   - 모든 픽셀 중 잘 segmentation한 픽셀의 비율
+   - 식에서 K는 클래스의 갯수. K+1은 forground 추가
+   - ground truth : class j / 예측한 class : i
+   - 이것을 모든 클래스에 대해서 평균낸 것이 MPA(Mean Pixel Accuracy)이다. - 식(3)
+2. Intersection over Union (IoU) == the Jaccard Index  - 식(4)
+   - Mean-IoU : the average IoU over all classes. Sementation모델의 성능을 평가하기 위해 많이 사용되고 있다.
+   - Precision / Recall - 식(5) : [참조링크](https://junha1125.github.io/projects/2020-01-13-ship_5/)
+     - TP : the true positive fraction (클래스를 맞게 예측한 갯수)
+     - FP : the false positive fraction (클래스를 틀리게 예측한 갯수)
+     - FN : the false negative fraction (한 클래스에 대해서, 틀리게 예측한 갯수)
+   - F1 score - 식(6)
+     - precision & recall를 조화롭게 해놓은 mean
+
+3. Dice coefficient - 식(7)
+   - IOU와 비슷하지만 다른 식이다. 비교해서 확인해보기.
+   - Dice coefficient about foreground - 식(8)
+     - binary segmentation maps(배경이냐? 객체냐?)
+     - a positive class로써 foreground라고 생각하고, Dice 식을 쓰면 F1과 같은 식이 된다.
+
+## 5.2 Quantitative Performance of DL-Based Models
+
+<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2020-05-01/table.png?raw=true" alt="imgae" style="zoom:80%;" />
+
+- Table1 : the PASCAL VOC
+- Table2 : the Cityscape test dataset
+- Table3 :  the MS COCO stuff test set
+- Table4 :  the ADE20k validation set
+- Table5 : the NYUD-v2 and SUNRGBD datasets for RGB-D segmentation (논문 참조)
+
+
+
+- 대부분의 모델에서 코드를 제공하지 않기 때문에, 논문의 내용을 재현하기 위해 많은 노력을 투자했다. 
+- 일부 논문에서는 1. performance on non-standard benchmarks, 2. performance only on arbitrary subsets of the test set from a popular benchmark를 발표하고, 적절하고 완벽한 설명을 제공하지 않기 때문에, 실험이 쉽지 않았다.
+
+
+
+# section 6: CHALLENGES AND OPPORTUNITIES
+
+- 앞으로 Image segmentation 기술을 향상시키기 위한, 몇가지 유망한 연구방향을 소개한다.
+
+6.1	More Challenging Datasets {:.laed}
+
+- large-scale image datasets이 많이 있지만, 더 까다로운 조건과 다양한 종류의 데이터가 필요하다. 
+- 객체가 매우 많고나 객체들이 overlapping되어 있는 이미지들이 매우 중요하다. 
+- 의료 이미지에서 더 많은 3D이미지 데이터셋이 필요하다. 
+
+
+
+6.2	Interpretable Deep Models {:.laed}
+
+- 성능이 좋은 모델들은 많지만, what exactly are deep models learning? / How should we interpret the features learned by these models? 에 대한 답변을 정확히 하지 못하고 있다. 
+- 모델들의 구체적인 행동을 충분히 이해하는 연구가 필요하다. 이러한 이해는 더 좋은 모델을 개발하는데 큰 도움을 줄 것이다. 
 
 
 
