@@ -161,7 +161,8 @@ description: >
 
 - 앞으로 Image segmentation 기술을 향상시키기 위한, 몇가지 유망한 연구방향을 소개한다.
 
-6.1	More Challenging Datasets {:.laed}
+6.1	More Challenging Datasets  
+{:.laed}
 
 - large-scale image datasets이 많이 있지만, 더 까다로운 조건과 다양한 종류의 데이터가 필요하다. 
 - 객체가 매우 많고나 객체들이 overlapping되어 있는 이미지들이 매우 중요하다. 
@@ -169,20 +170,56 @@ description: >
 
 
 
-6.2	Interpretable Deep Models {:.laed}
+6.2	Interpretable Deep Models  
+{:.laed}
 
 - 성능이 좋은 모델들은 많지만, what exactly are deep models learning? / How should we interpret the features learned by these models? 에 대한 답변을 정확히 하지 못하고 있다. 
 - 모델들의 구체적인 행동을 충분히 이해하는 연구가 필요하다. 이러한 이해는 더 좋은 모델을 개발하는데 큰 도움을 줄 것이다. 
 
 
 
+6.3	Weakly-Supervised and Unsupervised Learning  
+{:.laed}
+
+- Weakly-supervised (a.k.a. few shot learning)과 unsuper- vised learning은 매우 각광 받고 있는 연구이다. 이 연구를 통해서 Segmentation에서 labeled dataset을 받는데 큰 도움을 받을 수 있을 것이다(특히 의료 분야에서). 
+- The transfer learning(유명한 데이터 셋을 이용해 학습시킨 모델을 이용해 나의 데이터 셋에 맞게 fine-tune하는 것) 과 같이, Self-supervised learning도 우리에게 크게 유용할 것 이다. Self-supervised learning을 통해서 훨씬 적은 수의 데이터셋을 이용해서 Segmentation 모델을 학습시킬 수 있다. 
+- 지금은 강화학습을 기반한 Segmentation 모델이 나오고 있지 않지만, 미래에 좋은 기반 방법이 될 수 있을 것이다.
 
 
 
+6.4 Real-time Models for Various Applications  
+{:.laed}
+
+- 최소 25프레임 상의 segmentation 모델을 가지는 것이 중요하다. 
+- 이것은 자율주행자동차와 같은 컴퓨터 vision 시스템에 매우 유용할 것이다. 
+- 현재 많은 모델들은 frame-rate와 거리가 멀다. 
+- dilated convolution은 the speed of segmentation models을 올리는데 큰 도움을 주지만, 그래도 여전히 개선시켜야할 요지는 많다. 
 
 
 
+6.5	Memory Efficient Models  
+{:.laed}
 
+- 많은 모델들은 inference를 하는데도 많은 메모리를 필요로 한다. 
+- 휴대폰과 같은 장치에도 적합한 모델을 만들려면 네트워크를 단순화해야한다.
+- simpler models/ model compression techniques/ knowledge distillation techniques등을 사용해서 더 작은 메모리로 더 효율적으로 복잡한 내트워크를 수정할 수 있다. 
+
+
+
+6.6	3D Point-Cloud Segmentation  
+{:.laed}
+
+- 3D 포인트 클라우드 세그멘테이션을 다루는 사람은 훨씬 적다. 하지만 그 관심이 점점 높아지고 있다. 특히 3D modeling, self-driving cars, robotics, building modeling에서.
+- 3D unordered and unstructured data를 처리하기 위해서 CNNs and other classical deep learning architectures를 적용하는것이 가장 좋은 방법인지는 확실하지 않다. 
+- Graph-based deep models이 3D point-cloud segmentation를 다루는데에 좋을 수도 있다. 
+- point-cloud segmentation이 가능하다면 많은 산업적 응용이 가능할 것이다.
+
+
+
+7	CONCLUSIONS  
+{:.laed}
+
+- 우리는 100개 이상의 Image segmentation모델을 비교해보았다. 
 
 
 
