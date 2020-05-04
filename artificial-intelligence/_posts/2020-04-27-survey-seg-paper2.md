@@ -21,7 +21,7 @@ description: >
 ## 3.1 Fully Convolutional Networks
 
 1. semantic image segmentation을 위한 최초의 신경망이라고 할 수 있다. 
-2. VGG16 및 GoogLeNet를 사용하였고, Fully connected layer와 같이 conv 연산이 아닌 layer를 모두 convolutional layers로 바꾸었다. (fig.7)
+2. VGG16 및 GoogLeNet를 사용하였고, Fully connected layer와 같이 linear 연산이 아닌 layer를 모두 convolutional layers로 바꾸었다. (fig.7)
 3. 임의 사이즈의 input을  받아도 적절한 크기의 segmentation map output을 도출하는 신경망이다. 
 4. skip connections을 사용했다. 그러기 위해 upsampling을 적절히 사용하여,  [from deep, coarse layers] 정보와 [from shallow, fine layers]정보를 융합하였다. (fig. 8)
 5. PASCAL VOC, NYUDv2, SIFT Flow Dataset에서 SOTA를 달성하였다.
@@ -29,7 +29,7 @@ description: >
 <img src="https://user-images.githubusercontent.com/46951365/80369871-f2b56680-88c9-11ea-85c5-eb16e12ebe87.png" alt="image" style="zoom:50%;" />
 
 6. FCN은 지금의 Image Segmentation에서 milestone으로 여겨지지만, 충분히 빠르지 않고, Global context information을 추출하기에 효과적인 모델이 아니다. 그리고 3D이미지로 transferable 하지 않다.(?)
-7. 이러한 문제를 해결하기 위해 ParseNet이 등장했다. Global context information에 강하기 위해, he average feature for a layer를 사용하였다. 각 레이어의  특징 맵이 전체 이미지에 풀링되어, context vector가 생성된다. 이것은 정규화되고 풀링되어 초기 피쳐 맵과 동일한 크기의 새 피쳐 맵을 생성한다. 그런 다음이 특성 맵에 연결된다.(fig9. (c)) 
+7. 이러한 문제를 해결하기 위해 ParseNet이 등장했다. Global context information에 강하기 위해, he average feature for a layer를 사용하였다. 각 레이어의  특징 맵이 전체 이미지에 풀링되어, context vector가 생성된다. 이것은 정규화하고 언풀링하여 초기 피쳐 맵과 동일한 크기의 새 피쳐 맵을 생성한다. 그런 다음이 특성 맵에 연결된다.(fig9. (c)) 
 8. FCN은  뇌종양 segmentation [34], instance-aware semantic segmentation [35], 피부 병변 segmentation [36] 및 홍채 segmentation [37]와 같은 다양한 세그먼테이션 문제에 적용되어왔다. 
 
 <img src="https://user-images.githubusercontent.com/46951365/80370008-2c866d00-88ca-11ea-9dbe-7aa7de84229e.png" alt="image" style="zoom: 80%;" />

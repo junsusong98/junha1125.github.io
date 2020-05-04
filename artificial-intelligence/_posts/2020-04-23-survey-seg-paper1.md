@@ -10,7 +10,6 @@ description: >
 
 
 추가로 공부해야 하는 내용 
-
 {:.lead}
 
 1. Autoencoder
