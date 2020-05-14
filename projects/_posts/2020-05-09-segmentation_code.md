@@ -61,3 +61,13 @@ description: >
 
 
 
+***
+
+# 3.**pytorch-semseg**  돌려보기
+
+1. pip install -r requirements.txt
+2. Pascal voc를 FCN8을 통해서 돌려보기
+   - 문제점 : sbd_path 설정하기
+   - 해결 : sbd_path를 위한 [파일 다운](http://home.bharathh.info/pubs/codes/SBD/download.html)받기.  -> 다음의 [issue 처리](https://github.com/meetshah1995/pytorch-semseg/issues/188) 따라하기
+     ![image](https://user-images.githubusercontent.com/46951365/81911009-a5463280-9607-11ea-9d60-79bb526f246e.png)
+   - 
