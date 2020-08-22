@@ -273,12 +273,12 @@ plugins:
   - jekyll-sitemap
   - jekyll-titles-from-headings
   - jekyll-replace-img
+  - jekyll-include-cache
 
 # Theme
 # ---------------------------------------------------------------------------------------
 
-# theme: jekyll-theme-hydejack
-# remote_theme: qwtel/hydejack@gem
+remote_theme: hydecorp/hydejack@v9.0.4
 
 # SEO Tag
 # ---------------------------------------------------------------------------------------

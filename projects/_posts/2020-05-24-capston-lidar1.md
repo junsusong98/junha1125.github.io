@@ -3,6 +3,7 @@ layout: post
 title: (캡스톤1) rpLidar + 라즈베리파이 기본 설정하기 1
 description: >  
     캡스톤 수업을 위한 rpLidar + 라즈베리파이 기본 설정하기 1
+
 ---
 
  캡스톤 수업을 위한 rpLidar + 라즈베리파이 기본 설정하기 1
@@ -42,7 +43,7 @@ description: >
 
 Reference 읽기 순서 : 4.1  ->  5  -> 6  ->  7
 
-### (1) Ref 4.1 [rplidar](http://wiki.ros.org/rplidar)
+## (1) Ref 4.1 : [rplidar](http://wiki.ros.org/rplidar)
 
 ```
 차례
@@ -67,32 +68,35 @@ Reference 읽기 순서 : 4.1  ->  5  -> 6  ->  7
 
 2. ROS Nodes
 
-      - rplidarNode - RPLIDAR 스캔 결과를 로스 메세지 형태로 publish하는 노드
-         - Published Topics 
+   - rplidarNode - RPLIDAR 스캔 결과를 로스 메세지 형태로 publish하는 노드
 
-           - 'scan' : 스캔된 데이터의 메세지
+     - Published Topics 
 
-         - Services
+       - 'scan' : 스캔된 데이터의 메세지
 
-           - start_motor, stop_motor 모터의 시작과 중지를 관리하는 서비스
+     - Services
 
-         - Parameters
+       - start_motor, stop_motor 모터의 시작과 중지를 관리하는 서비스
 
-           - ```
-             0. Parameter이름 (자료형, default 값)
-             1. serial_port (string, default: /dev/ttyUSB0)
-                 serial port name used in your system.
-             2. serial_baudrate (int, default: 115200)
-                 serial port baud rate.
-             3. frame_id (string, default: laser_frame)
-                 frame ID for the device.
-             4. inverted (bool, default: false)
-                 indicated whether the LIDAR is mounted inverted.뒤집혔나
-             5. angle_compensate (bool, default: false)
-                 indicated whether the driver needs do angle compensation. 각도 보상 필요?
-             6. scan_mode (string, default: std::string())
-                 the scan mode of lidar.
-             ```
+     - Parameters
+
+       - ```sh
+         0. Parameter이름 (자료형, default 값)
+         1. serial_port (string, default: /dev/ttyUSB0)
+             serial port name used in your system.
+         2. serial_baudrate (int, default: 115200)
+             serial port baud rate.
+         3. frame_id (string, default: laser_frame)
+             frame ID for the device.
+         4. inverted (bool, default: false)
+             indicated whether the LIDAR is mounted inverted.뒤집혔나
+         5. angle_compensate (bool, default: false)
+             indicated whether the driver needs do angle compensation. 각도 보상 필요?
+         6. scan_mode (string, default: std::string())
+             the scan mode of lidar.
+         ```
+
+         
 
 3. Device Setting
 
@@ -120,7 +124,7 @@ Reference 읽기 순서 : 4.1  ->  5  -> 6  ->  7
 
 
 
-### (2) Ref 5 [RPLIDAR and ROS programming](https://www.seeedstudio.com/blog/2018/11/09/rplidar-and-ros-the-best-way-to-learn-robot-and-slam/)
+## (2) Ref 5  : [RPLIDAR and ROS programming](https://www.seeedstudio.com/blog/2018/11/09/rplidar-and-ros-the-best-way-to-learn-robot-and-slam/)
 
 
 
