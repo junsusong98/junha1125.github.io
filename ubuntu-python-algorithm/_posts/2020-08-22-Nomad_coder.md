@@ -6,7 +6,7 @@ title: (Ubuntu) 노마드 코더의 윈도우 10 개발환경 구축
 
 참고 사이트 : 
 [노마드 코더의 윈도우 10 개발환경 구축](https://nomadcoders.co/windows-setup-for-developers/)  
-## 1. Setup
+# 1. Setup
 1. windows Update  
 windows 10 - 2004 버전까지 업데이트가 되어있어야 WSL를 사용가능하다.   
 2. VScode  
@@ -20,7 +20,7 @@ $ sudo apt-get install kolourpaint4
 MS store에서 다운받을 수 있는 터미널. 그리거 [여기 WSL](https://docs.microsoft.com/ko-kr/windows/wsl/install-win10)를 파워셀에 써넣어서 리눅스 계열 OS(Ubunutu) 설치할 수 있게 해준다. 그리고 MS store에 들어가서 Ubuntu를 설치해준다.(다시시작 반복 할 것)   
 설치 후 바로 위의 사이트의 '~옵션 구성 요소 사용', '~기본 버전 설정', '~WSL 2로 설정'등을 그대로 수행한다. 
 
-## 2. Terminal Customization  
+# 2. Terminal Customization  
 1. $ sudo apt install zsh
 2. [사이트](https://github.com/ohmyzsh/ohmyzsh)의 bash install을 이용해 우분투에 설치. curl, wget 이용한 설치든 상관없음. 
 3. Oh my zsh 설치완료.
@@ -37,7 +37,7 @@ setting -> Terminal › Integrated › Shell: Windows -> edit json -> "terminal.
 - powerlevel10k 환경설정을 처음부터 다시 하고 싶다면, $ p10k configure 만 치면 된다.
 - **주의 할 점!!** 우분투에 ~/.zshrc 파일을 몇번 수정해 왔다. oh my zsh를 설치할 때 부터.. 그래서 지금 설치한 우분투 18.04를 삭제하고 다 깔면 지금까지의 일렬의 과정을 다시 해야한다. '## Terminal customization'과정을 처음주터 다시 하면 된다. 
 
-## 3. Installing Everything
+# 3. Installing Everything
 1. 우분투와 윈도우와의 관계  
 $ cd /mnt(mount)/c(c드라이브) -> 우분투와 윈도우를 연결해주는 부분    
 $ ls /mnt/c/Users/sb020 -> 결국에 여기가 나의 Document들이 있는 부분   
@@ -45,5 +45,16 @@ $ ls /mnt/c/Users/sb020 -> 결국에 여기가 나의 Document들이 있는 부�
     - 대부분의 WSL사용자들은 우분투 공간에서 윈도우 파일을 만들고 수정하지 않는다. 일반적인 우분투 사용자처럼 /home/junha/~ 에 파일이나 프로젝트를 넣어두고 다룬다. **하지만!!** 이러한 방법은 WSL에 문제가 생기거나 Ubuntu-18.04에 문제가 생겨서 지우게 된다면 발생하는 문제를 고스란히 감안해야한다. 따라서 노마드 쌤이 추천하길, **우분투 경로 말고 /mnt/c 위의 윈도우 경로에, 프로젝트 파일 등은 저장하고 다루는 것이 좋다.** 
     - 리눅스 콘솔에서 윈도우에 있는 파일을 건드릴 수 있다. 하지만 윈도우에서 리눅스 파일(/home/junha 맞나..? 잘 모르곘다. )을 건드린다면 그건 좋은 방법이 아니다. 문제가 발생할 수도 있다. 
     - conda에 대한 나의 생각 : zsh의 상태를 보면 conda를 쳐도 읽지를 못한다. 이 말은 conda는 윈도우의 powerShell이나 cmd에서만 동장한다. 따라서 우분투에 들어가서 항상 내가 아나콘다부터 설치한 듯이, 아나콘다를 다시 설치해야한다.^^
-2. 우분투에 프로그램 설치하기  
+2. bashrc NO!. zshrc Yes!.
+    - 강의에서 nodejs를 설치했다. 나는 그동안 anaconda를 설치했다. /home/junha/anaconda에 설치가 되었다. /mnt/c/Users/sb020/anaconda와는 완전히 다른 것이다. 즉 내가 설치한 Ubunutu 18.04에 ubuntu를 설치한 것이고, c드라이브와 영향은 없는 것으로 추측할 수 있다. 
+    - conda env를 새로 만들어 주고, [이사이트에서](https://github.com/ageron/handson-ml/blob/master/requirements.txt) 딥러닝에 유용한 package requirements를 다운받을 수 있었다. (python == 3.6 version이어야 requiremtnet.txt가 잘 작동)  
+    - 엄청난 것을 깨달았다. 왜 ~/.bashrc 에 conda에 관한 아무런 내용이 없지? 라고 생각했다.  왜냐하면 나는 지금 zsh shell을 사용하고 있기 때문이다. 따라서 ~/.zshrc 에 들어가면 conda에 대한 설정이 있었다. 
+    - vi를 사용해서 파일을 수정할 필요가 이제 없다. $ vi ~/.zshrc 하지말고 $ code ~/.zshrc를 하면 매우 쉽다. (vscode 자동실행) 여기에 들어가서 alias를 이용해서 단축어를 만들어놨다.
+        ```
+        alias python=python3.8  
+        alias win="cd /mnt/c/Users/sb020"  
+        alias acttor="conda activate torch"  
+        ```
+- python 설치하기 : deadsnakes에서 apt에게 repository위치를 알려주고 설치한다. 
 
+3. 
