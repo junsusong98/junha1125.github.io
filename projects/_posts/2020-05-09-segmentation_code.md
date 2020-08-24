@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (위성Segment) Segmentation 공부할 코드 사이트 정리
+title: 【위성Segment】 Segmentation 공부할 코드 사이트 정리
 description: >  
     공부할 코드를 찾아보고, 안 내용을 기록해 놓았습니다.
 ---

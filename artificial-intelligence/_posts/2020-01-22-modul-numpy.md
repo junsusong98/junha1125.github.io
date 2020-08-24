@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (모듈) Numpy Scipy Matplotlib 기초
+title: 【Python-Module】 Numpy Scipy Matplotlib 기초
 # description: > 
     
 ---

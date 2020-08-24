@@ -1,6 +1,7 @@
 ---
 layout: post
-title: (위성Segment) Segmentation Survey 논문 작성 목표로, 읽을 논문 정리
+title: 【위성Segment】 Segmentation Survey 논문 작성 목표로, 읽을 논문 정리
+
 description: >  
     
 ---

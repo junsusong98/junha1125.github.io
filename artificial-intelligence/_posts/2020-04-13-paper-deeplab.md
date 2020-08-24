@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (논문) Deeplab-Semantic-Segmentation
+title: 【Paper】 Deeplab-Semantic-Segmentation
 description: > 
     Deeplab-Semantic-Segmentation 논문 동영상을 보고 정리한 내용입니다.
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (논문 코드) feature pyramid networks - Code review
+title: 【Paper Code】 feature pyramid networks - Code review
 # description: > 
     
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (캡스톤1) rpLidar + 라즈베리파이 기본 설정하기 1
+title: 【캡스톤1】 rpLidar + 라즈베리파이 기본 설정하기 1
 description: >  
     캡스톤 수업을 위한 rpLidar + 라즈베리파이 기본 설정하기 1
 

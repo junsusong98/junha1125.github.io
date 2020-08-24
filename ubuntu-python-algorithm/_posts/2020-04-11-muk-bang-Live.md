@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (Algo) 무지의 먹방 라이브 - 카카오문제
+title: 【Algorithm】 무지의 먹방 라이브 - 카카오문제
 description: > 
     프로그래머스 무지의 먹방 라이브 문제 풀이
 ---

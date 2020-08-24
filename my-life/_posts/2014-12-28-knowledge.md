@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (20살) 지식은 나누는 것이지, 쥐고 있는 것이 아니다.
+title: 【20살】 지식은 나누는 것이지, 쥐고 있는 것이 아니다.
 # description: >
     # This post introduces Hydejack's now background image, color palette and logo.
 # image: /assets/img/blog/caleb-george.jpg

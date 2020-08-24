@@ -1,6 +1,6 @@
 ---
 3layout: post
-title: (논문) A Brief Survey and an Application of Semantic Image Segmentation for Autonomous Driving
+title: 【Paper】 A Brief Survey and an Application of Semantic Image Segmentation for Autonomous Driving
 description: >  
     Image Segmentation for Autonomous Driving 논문 리뷰 및 정리
 ---

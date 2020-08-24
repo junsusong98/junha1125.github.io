@@ -1,6 +1,7 @@
 ---
 layout: post
-title: (논문) RBox-CNN Rotated Bounding Box 논문 리뷰
+title: 【Paper】 RBox-CNN Rotated Bounding Box 논문 리뷰
+
 # description: > 
     
 ---

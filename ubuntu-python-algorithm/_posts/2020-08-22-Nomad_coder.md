@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (Ubuntu) 노마드 코더의 윈도우 10 개발환경 구축
+title: 【Ubuntu】 노마드 코더의 윈도우 10 개발환경 구축
 # description: > 
 ---
 

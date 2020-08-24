@@ -1,6 +1,6 @@
 ---
 3layout: post
-title: (논문) Image Segmentation Using Deep Learning -A Survey [3]
+title: 【Paper】 Image Segmentation Using Deep Learning -A Survey [3]
 description: >  
     Image Segmentation Using Deep Learning: A Survey 논문 리뷰 및 정리
 ---

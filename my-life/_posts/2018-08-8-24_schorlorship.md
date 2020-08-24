@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (24살) 한국 장학 재단 - 국가 이공계 장학생 추천!
+title: 【24살-장학금】 한국 장학 재단 - 국가 이공계 장학생 추천!
 # description: >
 # image: 
 ---

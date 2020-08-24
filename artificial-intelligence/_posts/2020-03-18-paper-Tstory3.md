@@ -1,6 +1,7 @@
 ---
 layout: post
-title: (논문) feature pyramid networks for object detection
+title: 【Paper】 feature pyramid networks for object detection
+
 # description: > 
     
 ---

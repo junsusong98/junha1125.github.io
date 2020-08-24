@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (확통) 최대 우도(가능도) 방법 (Maximum Likelihood Method)
+title: 【확통】 최대 우도(가능도) 방법 (Maximum Likelihood Method)
 # description: > 
     
 ---
