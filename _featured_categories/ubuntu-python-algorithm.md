@@ -8,13 +8,13 @@ permalink: /ubuntu-python-algorithm/
 order: 2
 sitemap: false
 description: >
-    Ubuntu, Language, Algorithm 와 관련된 게시물이 업로드 됩니다.  
+    Ubuntu, Language, Algorithm 와 관련된 게시물이 업로드 됩니다.    
+ 
+    1. 【Ubuntu】 : 우분투/리눅스 관련 공부 내용 정리     
 
-    1. (Ubuntu)    
+    2. 【Python, C++, C, C#】 : 프로그래밍 언어 이론 및 공부 내용 정리     
 
-    2. (Python, C++, C, C#)  
-
-    3. (Algorithm)  
+    3. 【Algorithm】 : 알고리즘 이론 공부 및 문제 풀이 공부    
 
 # accent_color: rgb(38,139,210)
 # accent_image:
