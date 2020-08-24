@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (강화학습,논문) DQN - playing Atari, Human-level control 논문 리뷰
+title: 【Paper-RL】 DQN - playing Atari, Human-level control 논문 리뷰
 # description: > 
     
 ---
