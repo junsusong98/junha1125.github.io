@@ -60,11 +60,12 @@ $ ls /mnt/c/Users/sb020 -> 결국에 여기가 나의 Document들이 있는 부�
     - python 설치하기 : deadsnakes에서 apt에게 repository위치를 알려주고 설치한다. 
 
 3. WSL ubuntu VScode  
-![image](https://user-images.githubusercontent.com/46951365/90973167-5c810c80-e55a-11ea-8ba4-55fec2aeca32.png)
+    - ![image](https://user-images.githubusercontent.com/46951365/90973167-5c810c80-e55a-11ea-8ba4-55fec2aeca32.png)
     - 위의 사진에서 보이는 것처럼, 2가지의 운영체제에서 하나의 vscode를 사용하고 있다. 따라서 Extentions도 여러가지 다시 설치해줘야했다. 또한 VScode 맨아래 왼쪽에 WSL과 Local VScode로 이동할 수 있는 버튼이 있었다. 
     - prettier를 사용하면 코드를 save하면 코드를 이쁘게 다 재배열해준다. vscode에 가장 필요한 extentions라고 하는데 진짜인 것 같다. WSL setting에 들어가서 'editer format on save'설정을 해줘야한다.  
     - 아래의 사진과 같이 setting도 2가지 환경에서 서로 다르게 셋팅할 수 있으니 주의할 것.   
     ![image](https://user-images.githubusercontent.com/46951365/90973222-f779e680-e55a-11ea-8417-8d6e70ed3c8f.png)
     - **주의** 더이상 vi쓰지마라. $ code \<pathName or fileName or directoryName\>  
 
- 
+ ## final setting Image  
+ ![img](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2020-08-24/KakaoTalk_20200823_101100388.png?raw=true)
