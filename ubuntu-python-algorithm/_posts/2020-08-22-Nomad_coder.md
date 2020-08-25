@@ -6,7 +6,10 @@ title: 【Ubuntu】 노마드 코더의 윈도우 10 개발환경 구축
 
 참고 사이트 : 
 [노마드 코더의 윈도우 10 개발환경 구축](https://nomadcoders.co/windows-setup-for-developers/)    
-이 과정을 메모리가 좀 더 높은 컴퓨터에 하고 싶은데... 지금 새로운 것을 사서 하기도 그렇고 일단 삼성 노트북 팬s에서 잘해보고 나중에 컴퓨터 새로 사면 또 다시 설치 잘 해보자^^
+이 과정을 메모리가 좀 더 높은 컴퓨터에 하고 싶은데... 지금 새로운 것을 사서 하기도 그렇고 일단 삼성 노트북 팬s에서 잘해보고 나중에 컴퓨터 새로 사면 또 다시 설치 잘 해보자^^  
+
+ ## [Final setting Image]
+ ![img](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2020-08-24/KakaoTalk_20200823_101100388.png?raw=true)
 
 # 1. Setup
 1. windows Update  
@@ -67,5 +70,3 @@ $ ls /mnt/c/Users/sb020 -> 결국에 여기가 나의 Document들이 있는 부�
     ![image](https://user-images.githubusercontent.com/46951365/90973222-f779e680-e55a-11ea-8417-8d6e70ed3c8f.png)
     - **주의** 더이상 vi쓰지마라. $ code \<pathName or fileName or directoryName\>  
 
- ## final setting Image  
- ![img](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2020-08-24/KakaoTalk_20200823_101100388.png?raw=true)

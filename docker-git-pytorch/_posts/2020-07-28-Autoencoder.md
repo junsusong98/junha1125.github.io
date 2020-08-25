@@ -2,7 +2,7 @@
 layout: post
 title: 【Pytorch 실습】 AutoEncoder를 사용한, Fashion Mnist data를 활용
 description: > 
-    아래의 코드는 Kaggle 및 Git의 공개된 코드를 적극 활용했습니다. 
+    아래의 코드는 Kaggle 및 Git의 공개된 코드를 적극 활용한, 과거의 공부한 내용을 정리한 내용입니다.  
 ---
 
 
