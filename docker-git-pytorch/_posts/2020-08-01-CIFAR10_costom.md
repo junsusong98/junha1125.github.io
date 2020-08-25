@@ -4,7 +4,7 @@ title: 【Pytorch 실습】 CIFAR10 데이터셋. Dropout, Xivier Weight + ResNe
 description: > 
         아래의 코드는 Kaggle 및 Git의 공개된 코드를 적극 활용한, 과거의 공부한 내용을 정리한 내용입니다.  
 ---
-
+【Pytorch 실습】 CIFAR10 데이터셋. Dropout, Xivier Weight + ResNet18 사용하기
 # 1. Dropout 사용해보기  
 
 ## 1. 데이터 Load
@@ -397,8 +397,9 @@ for epoch in range(1, EPOCHS + 1):
     Train Epoch: 3 [44800/50000 (90%)]	Loss: 0.593489
     [3] Test Loss: 0.7578, accuracy: 73.14%
     
-
-
+# 3. 유명한 모델 그대로 가져와 사용하는 방법
+- 기본적으로 Pytorch에 저장되어 있는 모델 사용하기.
+- 아래와 같이 굳이 모델을 위에 처럼 구현하지 않아도 아래처럼 쉽게, 학습시킬 수 있다. 
 
 ```python
 import torchvision.models as models
@@ -423,7 +424,7 @@ for epoch in range(1, EPOCHS + 1):
     
 --- 
 
-# 3. 유명한 모델 그대로 가져와 사용하는 방법
+
 ```python
 resnet18 = models.resnet18()
 alexnet = models.alexnet()
