@@ -4,6 +4,7 @@ title: 【Ubuntu】 노마드 코더의 윈도우 10 개발환경 구축
 # description: > 
 ---
 
+
 참고 사이트 : 
 [노마드 코더의 윈도우 10 개발환경 구축](https://nomadcoders.co/windows-setup-for-developers/)    
 이 과정을 메모리가 좀 더 높은 컴퓨터에 하고 싶은데... 지금 새로운 것을 사서 하기도 그렇고 일단 삼성 노트북 팬s에서 잘해보고 나중에 컴퓨터 새로 사면 또 다시 설치 잘 해보자^^  
@@ -65,7 +66,9 @@ $ ls /mnt/c/Users/sb020 -> 결국에 여기가 나의 Document들이 있는 부�
 3. WSL ubuntu VScode  
     - ![image](https://user-images.githubusercontent.com/46951365/90973167-5c810c80-e55a-11ea-8ba4-55fec2aeca32.png)
     - 위의 사진에서 보이는 것처럼, 2가지의 운영체제에서 하나의 vscode를 사용하고 있다. 따라서 Extentions도 여러가지 다시 설치해줘야했다. 또한 VScode 맨아래 왼쪽에 WSL과 Local VScode로 이동할 수 있는 버튼이 있었다. 
-    - prettier를 사용하면 코드를 save하면 코드를 이쁘게 다 재배열해준다. vscode에 가장 필요한 extentions라고 하는데 진짜인 것 같다. WSL setting에 들어가서 'editer format on save'설정을 해줘야한다.  
+    - prettier를 사용하면 코드를 save하면 코드를 이쁘게 다 재배열해준다. vscode에 가장 필요한 extentions라고 하는데 진짜인 것 같다. WSL setting에 들어가서 'editer format on save'설정을 해줘야한다. 윈도우, 우분투 vscode Setting은 완전히 다르다. 따라서 윈도우도 같은 설정을 해줬다. 
+    - 하지만... 아래와 같이 이와 같은 오류가 떴다. "Failed to load module. If you have prettier or plugins referenced in package.json, ensure you have run `npm install` Attempted to load prettier from c:\projects\junha1125.github.io" 
+    - 그래서 npm 설치하기 위해서 인터넷에서 찾아보니 nodejs를 다운받으라고 해서 [choco를 통해](https://chocolatey.org/packages/nodejs-lts#install) 빠르게 다운받았다. 그래도 안됐다. 
     - 아래의 사진과 같이 setting도 2가지 환경에서 서로 다르게 셋팅할 수 있으니 주의할 것.   
     ![image](https://user-images.githubusercontent.com/46951365/90973222-f779e680-e55a-11ea-8417-8d6e70ed3c8f.png)
     - **주의** 더이상 vi쓰지마라. $ code \<pathName or fileName or directoryName\>  

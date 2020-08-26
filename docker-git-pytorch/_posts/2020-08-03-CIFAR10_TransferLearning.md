@@ -45,8 +45,8 @@ dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
 ```
 
-## 2. 학습 및 추론 함수 정의
-ㅠ 
+## 2. 학습 및 추론 함수 정의  
+
 ```python
 def train(model, train_loader, optimizer, epoch):
     model.train()
@@ -86,7 +86,8 @@ def evaluate(model, test_loader):
 
 ## 3. 내장 모델 사용하기(Transfer Learning 안함)
 - pretrained = True 를 사용하면 ImageNet에서 사용한 파라메터를 사용한다. 
-- torch의 내장 모델을 그냥 사용할 때, input과 output사이즈(Groud True data size)는 현재 나의 data에 따라서 달라지기 떄문에 전혀 걱정하지 않아도 된다.
+- torch의 내장 모델을 그냥 사용할 때, input과 output사이즈(Groud True data size)는 현재 나의 data에 따라서 달라지기 떄문에 전혀 걱정하지 않아도 된다.   
+
 ```python
 import torchvision.models as models
 import torch.nn as nn
@@ -113,7 +114,7 @@ for epoch in range(1, EPOCHS + 1):
 
 ## 4. 내장 모델 사용하기(Transfer Learning 사용)
 - pretrained된 weight를 사용하면, 마지막 Feature는 1*1000(ImageNet의 Class 갯수)이다.
-- 따라서 마지막에 출력되는 Feature의 갯수를 지금 나의 데이터의 Class의 갯수로 맞춰줘야 한다. 따라서 다음과 같은 작업을 수행한다. 
+- 따라서 마지막에 출력되는 Feature의 갯수를 지금 나의 데이터의 Class의 갯수로 맞춰줘야 한다. 따라서 다음과 같은 작업을 수행한다.    
 
 ```python
 model = models.resnet18(pretrained = True) 
@@ -144,7 +145,8 @@ for epoch in range(1, EPOCHS + 1):
     
 
 - param.requires_grad = False : Backward에 의해서 gradient 계산이 안된다.
-- 아래와 같이 코딩을 하면 'nn.Linear(num_ftrs, 2)'로 정의한 마지막 Layer만 Backpropagation으로 weight가 update되지만, 나머지 pretrained weight 즉 가져온 weight는 변하지 않는다. 
+- 아래와 같이 코딩을 하면 'nn.Linear(num_ftrs, 2)'로 정의한 마지막 Layer만 Backpropagation으로 weight가 update되지만, 나머지 pretrained weight 즉 가져온 weight는 변하지 않는다.    
+
 ```python
 model = models.resnet18(pretrained=True)
 for param in model.parameters():
