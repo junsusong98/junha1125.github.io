@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【GPU_Server】 Google Cloud 딥러닝 플렛폼 이용하기
+title: 【GPU_Server】 Google Cloud 플랫폼 - VM instance Jupyter로 이용하기
 description: > 
     무료로 150시간 정도 편리하게 GPU를 사용할 수 있는 Google Cloud 딥러닝 플렛폼 활용 방법
 ---
@@ -25,7 +25,7 @@ Google Cloud 딥러닝 플렛폼 이용하기
 
 
 
-## 2. Google cloud platform 이란?  
+## 2. Google cloud platform 이란. + Port Open하기. 
 - 다음의 동영상([Youtube링크](https://www.youtube.com/watch?v=z6WOMYI-WiU&list=PL1jdJcP6uQttVWZTd1X2x22kv32Rhkiyc))을 보고 공부한 내용을 기록합니다, 
 1. 구글 클라우드플랫폼 입문 활용  
     - 아마존 AWS와 MS Azure 서비스와 비슷한 서비스이다. 하지만 경쟁사 서비스보다 늦게 시작했기 때문에 가성비가 좋다. 그리고 용어 하나하나가 AWS보다 이해가 쉽다는 장점이 있다. 
@@ -75,7 +75,45 @@ Google Cloud 딥러닝 플렛폼 이용하기
       - [추가 강의 링크](https://www.youtube.com/watch?v=8ld759re0Xg)
 
 
-   ## 3. Insta
+## 3. 딥러닝용 가상환경 구축하기
+- 1에서 GPU 할당을 받았다 그 후 작업하는 과정을 요약해 놓는다.   
+- 아래의 과정은 SSH 크롬 브라우저를 사용해도 되지만, 고정 IP를 사용해서 Putty로 쉽게 윈도우에서 연결할 수 있도록 설정하는 방법을 적어 놓은 것이다. (Google cloud vm instance Putty connect 등으로 구글링하면 나올 내용들을 정리해 놓는다.)
+1. 4코어 15GB 메모리. GPU T4 1개. 부팅디스크 (Deep Learning on Linux) 디스크 300GB. 
+2. Cloud 서버 활용하기 - IP설정(고정적으로 만들기) : VPC 네트워크 - 외부 IP주소 - 고정 주소 예약 (region-연결대상 만 맞춰주고 나머지는 Default로 저장)
+3. 방화벽 규칙 - 방화벽 규칙 만들기 - 8888 port 열기 - 네트워크의 모든 인스턴스 - tcp:8888 -> 
+4. Putty donwnload - Putty gen (Public Private Key 만드는데 사용) 열기 - 인스턴스 세부정보 수정 - Key generate(Key comment : 구글 계정 아이디 넣기) - Key 복사해서 SSH 키 입력 -  (Putty gen) Save private, public key - VM 인스턴스 세부정보 수정 저장. 
+5. 외부 IP를 Putty에 넣어주고, SSH Auth Browsd - 위에 저장한 Private key 클릭 - Host Name을 sb020518@외부IP 로 저장하고 save_sessions - Open.
+6. Nvidia driver 설치 Yes. - Nvidia driver installed - nvidia-smi 체크해보기
+7. Nvidia driver가 잘 설치되지 않는다면 다음의 과정을 거친다.  
+    ```sh
+    $ cd /opt/deeplearning
+    $ sudo ./install-driver.sh
+    ```
+
+## 4. 주피터 노트북 Setup 하기
+- 실습을 위한 코드를 다운 받고, 아나콘다를 설치 후. Jupyter server를 설치한다. 
+- 아래의 과정을 순서대로 수행하면 된다. 
+    ```sh
+    $ git clone ~~culminkw/DLCV
+    - anaconda download 하기.(wget 링크주소복사 및 붙여넣기)
+    $ chmod 777 ./Anaconda3
+    - 콘다 설치 완료
+    $ cd ~/anaconda3/bin    -
+    $ jupyter notebook --generate-config
+    $ cd ~/anaconda3/.jupyter
+    $ vi ~/.vimrc   ->   syntac off  -> :wq!
+    $ vi jupyter*   ->   DLCV/data/util/jupyer_notebook_config.py 의 내용 복붙 해놓기 
+    - (차이점을 비교해서 뭐가 다른지 공부하는 시간가지기 Ex.외부포트 공개, 비밀번호 없음 등... )
+    $ cd && vi start_jn.sh    ->  nohup jupyter notebook $  (back End에서 실행)
+    $ chmod +x start_jn.sh
+    $ ./start_jn.sh
+    $ tail -f nohup.out   (jupyter 실행라인이 보여야 함)
+    - http:// VM instance 외부-IP:8888
+    - jupyter 실행되는 것을 볼 수 있다. 
+    ```  
+    ![image](https://user-images.githubusercontent.com/46951365/91463123-fbdd3100-e8c5-11ea-9853-dd572f5c6eb4.png)
+  - 이와 같이 우리의 SSH 환경이 jupyter에서 실행되는 것을 확인할 수 있다. 
+
 
 
 
