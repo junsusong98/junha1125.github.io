@@ -1,0 +1,82 @@
+---
+layout: post
+title: 【GPU_Server】 Google Cloud 딥러닝 플렛폼 이용하기
+description: > 
+    무료로 150시간 정도 편리하게 GPU를 사용할 수 있는 Google Cloud 딥러닝 플렛폼 활용 방법
+---
+Google Cloud 딥러닝 플렛폼 이용하기
+
+## Google Cloud   VS   Colab
+- Colab을 사용해도 좋지만, Google Cloud를 사용하는 것이 빠르고 편리하므로 이것을 사용하는 방법에 대해서 공부할 계획이다. 
+- 다양한 데이터를 사용해서, 다양한 모델을 사용해서 공부해볼 예정이다. 
+
+## 1. Google cloud platform 가입하고 활용하기
+- google cloud platform [사이트 바로가기](https://cloud.google.com/?hl=ko)
+- 콘솔 -> 서비스 약관 확인하기
+- 무료로 가입하기 -> 서비스 약관 확인하기
+- 무료계정이면 GPU를 사용할 수 없다. 자동 결제를 등록해서 유료계정으로 만들어야 GPU사용가능
+- Computer Engine -> VM 인스턴드 생성하기. 설정은 아래와 같이.  
+    <img src="https://user-images.githubusercontent.com/46951365/91270459-9dc02900-e7b3-11ea-828e-9146da2d4318.png" alt="image" style="zoom:50%;" />
+- 유료 계정으로 업데이트 -> GPU 할당 메일 보니게 -> GPU할당하기
+- 다시 VM 인스턴트 생성하기 - T4(추천), P100과 같은 GPU할당하는 인스턴트로 생성하기(운영체제 : 딥러닝 리눅스) -> 인스탄스 생성 안됨 -> 메일 보내야 함. -> IAM 및 관리자 - 할당량 - GPUs all region - 할당량 수정 - 메일 보내기 - 확인 답변 받고 인스턴트 재생성 (최근 메일에 대한 GPU 할당 거절이 많다. CPU서버를 48시간 이상 가동 후 요청을 다시 해보는 것을 추천한다.)
+    <img src="https://user-images.githubusercontent.com/46951365/91290793-0b2d8300-e7cf-11ea-9e64-c3e590bdccf8.png" alt="image" style="zoom:50%;" />  
+- 우선 Colab에서 작업하고 있자. Colab에서 나의 google drive와 마운트하고 그리고 작업을 수행하자. 코랩 오래 할당시 주의할 점 ([런타임 연결 끊김 방지 정보](https://bryan7.tistory.com/1077))  
+- 
+
+
+
+## 2. Google cloud platform 이란?  
+- 다음의 동영상([Youtube링크](https://www.youtube.com/watch?v=z6WOMYI-WiU&list=PL1jdJcP6uQttVWZTd1X2x22kv32Rhkiyc))을 보고 공부한 내용을 기록합니다, 
+1. 구글 클라우드플랫폼 입문 활용  
+    - 아마존 AWS와 MS Azure 서비스와 비슷한 서비스이다. 하지만 경쟁사 서비스보다 늦게 시작했기 때문에 가성비가 좋다. 그리고 용어 하나하나가 AWS보다 이해가 쉽다는 장점이 있다. 
+    - 프로젝트 단위로 움직이다. 프로젝트당 Computers, VM 인스턴스들, Docker들을 묶음으로 사용할 수 있다. 프로젝트를 크게 한다고 하면 한달에 40만원이면 아주 편하게 사용할 수 있기 때문에 매우 유용하다. 
+    - 컴퓨팅 - 컴퓨터 엔진, 쿠버네틱스 엔진, 클라우드 Function, 클라우드 Run 등 가장 중요한 요소들이 존재한다. 
+    - 이 중 컴퓨터 엔진의 VM instance를 가장 많이 사용하게 되고 이 인스턴트 하나가 가상 컴퓨터 하나(하나의 기본적은 자원)라고 생각하면 편하다. 
+    - VM instance : Region(GPU, CPU 하드웨어가 있는 지역), 영역, 시리즈, 용도들을 선택하면서 가격이 변화하는 것을 확인할 수 있다. GPU를 사용하면 비용이 많이 든다. Colab에서는 무료로 GPU를 사용할 수 있기 때문에 Colab을 사용하는 것이 유용하다.
+    - VM instance 설정 :  엑세스 범위를 설정해서 인스턴트 끼리의 연결, 공유를 가능하며 방화벽 설정은 무조건적으로 체크하는 것이 좋다. (나중에 바꿀 수 있다) 보안, 가용성 정책을 사용하면 가격이 저렴해지나 리소스가 전체적으로 부족해지면 리소스가 뺏길 수도 있다. 
+    - VM instance 생성 완료 : 외부 IP는 가변적이다. 알아두자. 내부 IP는 같은 Region의 인스턴트끼리 소통할 수 있는 IP이다. 
+
+2. 인스턴트 SSH 접속과 도커 서비스, 방화벽 규칙
+    - SSH에 접근하는 방법은 SSH를 클릭하거나, 다른 외부 SSH에서 접속하기, 웹으로 접속하기 3가지 방법이 있다. 아래의 방법을 통해서 웹으로 접속 설정을 해보자.
+    - SSH 접속을 통해서 우분투와 접근할 수 있다. SSH-브라우저창 열기를 하면 Terminal을 쉽게 열 수 있다. apache2를 설치할 것(80/TCP로 웹서비스 사용 가능). git을 설치할 것.
+    - ```sh   
+      $ sudo apt update
+      $ sudo apt-get install apache2
+      $ sudo service apache2 start
+      $ sudo apt-get install git
+      $ sudo netstat -na | grep 80
+      ```
+    - 외부 IP 클릭! -> 주소창 http 지우기 -> Apache2 Debian Default Page 확인 가능.
+      Apache2를 그대로 사용하지 않고 Docker환경을 이용해서 어플리케이션 올릴 예정
+    - Docker설치가 안되면 https://docs.docker.com/engine/install/debian/ 여기서! 우분투 아니라 데비안이다! 그리고 apt-get update에서 docker fetch 문제가 있어도 " sudo apt-get install docker-ce docker-ce-cli containerd.io " 걍 해도 잘 동작하는 것 확인 가능. 
+      ```sh
+        $ sudo apt install docker.io
+
+        $ sudo docker search bwapp
+        $ sudo docker pull raesene/bwapp (또는 wordpress)
+        $ sudo docker run -d --name webconnet -p 81:80 raesene/bwap
+      ```
+    - 이제 웹에서 외부 IP:81 로 들어가준다. 하지만 들어가지지 않은 것을 확인할 수 있다. 이것은 구글 클라우드에서 방화벽 처리를 해놓았기 때문이다. VPC 네트워크 - 방화벽 - 방화벽 규칙 만들기 - 소스 IP 범위 : 0.0.0.0/0  tcp: 81 정의 - 그리고 다시 외부 IP:81로 접근하면 아래와 같은 화면 결과.  
+      <img src="https://user-images.githubusercontent.com/46951365/91317607-3aef8180-e7f5-11ea-8461-c5753a54973a.png" alt="image" style="zoom:67%;" />  
+    - 외부 IP:81/install.php 로 들어가면 bwapp(웹해킹)사이트로 들어갈 수 있다. 
+
+    - 나는 이 방법을 사용해서 8080 port의 방화벽을 허용해 놓고, ml-workspace Image를 가져와서 Container를 실행했다. 다음과 같은 명령어를 사용했다.
+      ```sh
+      $ sudo docker run -d \
+      -p 8080:8080 \
+      --name "ml-workspace" -v "${PWD}:/workspace" \
+      --env AUTHENTICATE_VIA_JUPYTER="eoqkr" \
+      --restart always \
+      mltooling/ml-workspace:latest
+      ```
+
+    3. MarektPlace 활용하기. 저장 디시크 활용
+      - 추가적인 강의는 추후에 들을 예정.
+      - [추가 강의 링크](https://www.youtube.com/watch?v=8ld759re0Xg)
+
+
+   ## 3. Insta
+
+
+
+

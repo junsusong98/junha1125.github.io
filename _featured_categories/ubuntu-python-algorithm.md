@@ -14,7 +14,9 @@ description: >
 
     2. 【Python, C++, C, C#】 : 프로그래밍 언어 이론 및 공부 내용 정리     
 
-    3. 【Algorithm】 : 알고리즘 이론 공부 및 문제 풀이 공부    
+    3. 【Algorithm】 : 알고리즘 이론 공부 및 문제 풀이 공부      
+
+    4. 【GPU_Server】 :  GPU 활용을 위한 팁. Colab, Google Cloud 사용 방법 공부 정리
 
 # accent_color: rgb(38,139,210)
 # accent_image:

@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 【캡스톤1】 rpLidar + 라즈베리파이 기본 설정하기 1
+title: 【캡스톤1】 자율주행 RC카 만들기
 description: >  
-    캡스톤 수업을 위한 rpLidar + 라즈베리파이 기본 설정하기 1
+    캡스톤 수업을 위한 rpLidar + 라즈베리파이 기본 설정하기
 
 ---
 
@@ -124,7 +124,19 @@ Reference 읽기 순서 : 4.1  ->  5  -> 6  ->  7
 
 
 
-## (2) Ref 5  : [RPLIDAR and ROS programming](https://www.seeedstudio.com/blog/2018/11/09/rplidar-and-ros-the-best-way-to-learn-robot-and-slam/)
+(2) Ref 5  : [RPLIDAR and ROS programming](https://www.seeedstudio.com/blog/2018/11/09/rplidar-and-ros-the-best-way-to-learn-robot-and-slam/)
+
+---
+---
+
+# 3. 프로젝트 완수(중간과정 생략...)
+안정적으로 프로젝트를 완수 했다.     
+- 완성된 RC카 이미지.   
+   ![image](https://user-images.githubusercontent.com/46951365/91267461-63a05880-e7ae-11ea-8b62-35d6c22e4440.png)    
+
+완성한 프로젝트의 소스코드는 깃에 Private로 저장해 두었다. (수업 과제이다 보니 공개적으로 오픈해두는 것은 좋지 않을 것 같아서...)
+- 나름 만족스러운 결과를 얻을 수 있어서 뿌듯하고 보람찼던 경험이었다.^^
+
 
 
 
