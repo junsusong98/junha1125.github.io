@@ -33,15 +33,15 @@ description: >
 - University Major Credit  
     4.44 / 4.5 (Total College Grade: 4.0/4.5)   
 - TOEIC     
-    2018.08   880 / 990   
-    2020.08   825 / 990 
+    2018.08 - 880 / 990   
+    2020.08 - 825 / 990 
 - OPIC  
-    2020.07   IH (Intermediate High)
+    2020.07 - IH (Intermediate High)
 
  
 
 # Research Interests  
-- Object Detection and Recognition  
+- Object Detection and Image Segmentation
 - Multi-Target Detection and Tracking  
 - Reinforcement Learning, Adversarial Learning
 

@@ -42,4 +42,9 @@ Detection과 Segmentation 다시 정리1
     - Object Localization 예측 결과  
         - class Number, Confidence Score, x1, y1, width, hight  
     - 2개 이상의 Object 검출하기  
-        -  
+        - Sliding Window 방식 - anchor(window)를 슬라이딩 하면서 그 부분에 객체가 있는지 계속 확인하는 방법. 다양한 크기 다양한. 비율의 windows.   
+        또는 이미지를 조금씩 작게 만든 후 상대적으로 큰 window를 슬라이딩 하는 방식도 있다. (FPN의 기원이라고 할 수 있다.)  
+        - Region Proposal : 위와 같은 방법이 아니라, 일종의 알고리즘 방식으로 물체가 있을 법한 위치를 찾자.  
+            1. [Selective Search](https://donghwa-kim.github.io/SelectiveSearch.html) : window방법보다는 빠르고 비교적 정확한 추천을 해줬다. Pixel by Pixel로 {컬러, 무늬, 형태} 에 따라서 유사한 영역을 찾아준다. 처음에는 하나의 이미지에 대략 200개의 Region을 제안한다. 그 각 영역들에 대해 유사한 것끼리 묶는 Grouping 과정을 반복하여 적절한 영역을 선택해 나간다. (Pixel Intensity 기반한 Graph-based segment 기법에 따라 Over Segmentation을 수행한다.)
+            <img src='https://user-images.githubusercontent.com/46951365/91543970-fb8e7580-e959-11ea-868c-ebd4d8b58daf.png' alt='drawing' width="600"/>
+            2. 

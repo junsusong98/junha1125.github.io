@@ -13,7 +13,7 @@ description: >
     1. tf113 : Tensorflow 1.13, Keras 2.2  
     2. tf115 : Tensorflow 1.15, Keras 2.3  
     2. tf_obj : Tensorflow 1.15, Keras 2.3  -> Tensorflow object dection API 사용하기 위한 Env
-- 아래의 코드 참고할 것 
+- 아래의 코드 참고할 것   
     ```sh
     $ conda create -n tf113 python=3.6
     $ conda activate tf113
@@ -21,13 +21,13 @@ description: >
     $ cd ./site-packages  -> 기본 package들이 설치되어 있다. 
     $ cd ~/DLCV/data/util/
     $ chmod +x *.sh
-    $ ./install_tf113.sh
+    $ ./install_tf113.sh  (중간에 에러나오는거 무시 - 버전 맞춰주는 것)
 
     $ ps -ef | grep jupyter 
-    - jupyter lab 말고 anaconda jupyter PID 
+    - jupyter lab 말고 /계정ID/anaconda3 jupyter PID 
     $ kill -9 PID
     $ conda activate tf113
-    $ cd ~/start_jn.sh         
+    $ cd ~/ && ./start_jn.sh         
     - jupyter의 목록에 conda 라는 목록이 추가된 것을 확인할 수 있다. 
     ```
 - install_tf.sh 내부에 있는 코드 중 $ conda install [nb_conda](https://github.com/Anaconda-Platform/nb_conda) -y 명령어를 통해서 콘다 환경들에게 별도로 jupyter를 따로 실행할 수 있게 해준다.   
@@ -60,13 +60,13 @@ description: >
 2. Object Storage 설정하기
     - 작업을 편하기 하기 위해서 설정해두면 편리하다. 
     - storage - 브라우저 - 버킷 생성 - 단일 region 및 설정 - default 설정 - 저장
-    - 접근 인증을 받아야 한다. - server에서 object storage 에 붙기위해서 몇가지 설정이 필요.
+    - 접근 인증을 받아야 한다. - server에서 object storage 에 붙기위해서 몇가지 설정이 필요.  
         ```sh
         gsutil : google cloud와 연동되어 쉽게 이용할 수 있는 터미널 명령어
         $ gsutil ls gs://my_budcker_Name
         - 아직 권한이 없는 것을 확인할 수 있다. 
         ```
-    - object storage 세부정보 - 권한 - 구성원추가 - 계정이메일 추가, 역할 Storage 저장소 관리자, 저장 - 이제 storage 에 등록을 했다. 하지만 server 인증을 받아야 한다.
+    - object storage 세부정보 - 권한 - 구성원추가 - 계정이메일 추가, 역할 Storage 저장소 관리자, 저장 - 이제 storage 에 등록을 했다. 하지만 server 인증을 받아야 한다.  
     -   ```sh
         $ gcloud auth login
         - Yes
@@ -87,7 +87,7 @@ description: >
 1. 런타임 유형 - GPU 설정 주의
 2. tensorflow 1.13에서 동작이 안되므로, tensorflow 1.15 설치하기.
 3. % cd, ! terminal command 와 같이 %와 !를 적절히 사용해라. 
-4. google drive mount 해서 사용하기  
+4. google drive mount 해서 사용하기    
     ![image](https://user-images.githubusercontent.com/46951365/91525462-86607780-e93c-11ea-8d3a-3fab71096ed0.png)
 
 

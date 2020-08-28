@@ -92,23 +92,23 @@ Google Cloud 딥러닝 플렛폼 이용하기
 
 ## 4. 주피터 노트북 Setup 하기
 - 실습을 위한 코드를 다운 받고, 아나콘다를 설치 후. Jupyter server를 설치한다. 
-- 아래의 과정을 순서대로 수행하면 된다. 
+- 아래의 과정을 순서대로 수행하면 된다.  
     ```sh
     $ git clone ~~culminkw/DLCV
     - anaconda download 하기.(wget 링크주소복사 및 붙여넣기)
     $ chmod 777 ./Anaconda3
     - 콘다 설치 완료
-    $ cd ~/anaconda3/bin    -
+    $ cd ~/
     $ jupyter notebook --generate-config
-    $ cd ~/anaconda3/.jupyter
-    $ vi ~/.vimrc   ->   syntac off  -> :wq!
-    $ vi jupyter*   ->   DLCV/data/util/jupyer_notebook_config.py 의 내용 복붙 해놓기 
+    $ cd ~/.jupyter
+    $ vi ~/.vimrc   ->   syntax off  -> :wq!  (편집창 색깔 이쁘게)
+    $ vi ~/.jupyter/.jupyter*.py   ->   DLCV/data/util/jupyer_notebook_config.py 의 내용 복붙 해놓기 
     - (차이점을 비교해서 뭐가 다른지 공부하는 시간가지기 Ex.외부포트 공개, 비밀번호 없음 등... )
-    $ cd && vi start_jn.sh    ->  nohup jupyter notebook $  (back End에서 실행)
+    $ cd && vi start_jn.sh    ->  nohup jupyter notebook &  (back End에서 실행)
     $ chmod +x start_jn.sh
     $ ./start_jn.sh
     $ tail -f nohup.out   (jupyter 실행라인이 보여야 함)
-    - http:// VM instance 외부-IP:8888
+    - http:// VM instance 외부-IP:8888  (https 아님)
     - jupyter 실행되는 것을 볼 수 있다. 
     ```   
     <img src="https://user-images.githubusercontent.com/46951365/91463123-fbdd3100-e8c5-11ea-9853-dd572f5c6eb4.png" alt="image" style="zoom:67%;" />    
