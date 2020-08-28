@@ -47,4 +47,7 @@ Detection과 Segmentation 다시 정리1
         - Region Proposal : 위와 같은 방법이 아니라, 일종의 알고리즘 방식으로 물체가 있을 법한 위치를 찾자.  
             1. [Selective Search](https://donghwa-kim.github.io/SelectiveSearch.html) : window방법보다는 빠르고 비교적 정확한 추천을 해줬다. Pixel by Pixel로 {컬러, 무늬, 형태} 에 따라서 유사한 영역을 찾아준다. 처음에는 하나의 이미지에 대략 200개의 Region을 제안한다. 그 각 영역들에 대해 유사한 것끼리 묶는 Grouping 과정을 반복하여 적절한 영역을 선택해 나간다. (Pixel Intensity 기반한 Graph-based segment 기법에 따라 Over Segmentation을 수행한다.)
             <img src='https://user-images.githubusercontent.com/46951365/91543970-fb8e7580-e959-11ea-868c-ebd4d8b58daf.png' alt='drawing' width="600"/>
-            2. 
+            2. RPN(Region Proposal Network)
+    
+- IOU : 2개의 Boundiong Box에 대해서 (교집합 / 합집합) 
+- 
