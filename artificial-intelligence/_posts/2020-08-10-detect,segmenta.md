@@ -7,7 +7,7 @@ description: >
 ---
 Detection과 Segmentation 다시 정리1
 
-## 1. Object Detection
+## 1. Object Detection 계보
 1. Pascal VOC 데이터 기반에서 알렉스넷을 통해서 딥러닝이 화두가 되었다. 
 2. Detection을 정확히 분류하면 다음과 같이 분류할 수 있다. 
     - Classification
@@ -23,4 +23,23 @@ Detection과 Segmentation 다시 정리1
 4. Detection은 API가 잘 정해져있지만, Train에 오류가 많이 나서 쉽지가 않다.   
 
 
-## 2. Object Detection 구성 요소
+## 2. Object Detection 
+- 요소
+    - Region Proposal
+    - Feature Extraction & Network Prediction (Deep Nueral Network)
+    - IOU/ NMS/ mAP/ Anchor box
+- 난제 
+    - 하나의 이미지에서 여러개의 물체의 Localization + classification해야함
+    - 물체의 크기가 Multi-Scale Objects 이다. 
+    - Real Time + Accuracy 모두를 보장해야함. 
+    - 물체가 가려져 있거나, 물체 부분만 나와 있거나
+    - 훈련 DataSet의 부족 (Ms Coco, Google Open Image 등이 있다.)  
+
+## 3. Object Localization 개요  
+- 아래와 같은 전체적인 흐름에서 Localizattion을생각해보자.   
+    - <img src='https://user-images.githubusercontent.com/46951365/91536084-27582e00-e94f-11ea-974f-03e4be5913fa.png' alt='drawing' width="600"/>
+    - 위 사진의 4개의 값을 찾는다. (x1, y1, width, hight) 물체가 있을 법한 이 좌표를 찾는 것이 목적이다. 
+    - Object Localization 예측 결과  
+        - class Number, Confidence Score, x1, y1, width, hight  
+    - 2개 이상의 Object 검출하기  
+        -  

@@ -9,33 +9,38 @@ description: >
 
 # Juna Song
 
-Department of Automobile and IT Convergence Kookmin University  
-77, Jeongneung-ro, Seongbuk-gu, Seoul, Republic of Korea   
-sb020518@gmail.com
+- Researcher of [HYUNDAI MOBIS](https://www.mobis.co.kr/main/index.do)
+- Email : sb020518@gmail.com   
+- Git Blog : [https://junha1125.github.io](https://junha1125.github.io/)  
 
  
 
-# Education
+# Education  
 - ~ 2015   
     Graduated from Gangseo High School  
     Discharged from the military 
-- Mar. 2015 ~ Present   
- Kookmin University (Seoul, Korea)  
-Department of Automobile and IT Convergence  
-*B.S. Student*
+- 2015 ~ 2020   
+    Kookmin University (Seoul, Korea)  
+    Department of Automobile and IT Convergence  
+    B.S. Student
+- (Expected) 2021 ~ Present    
+    KAIST  
+    Division of Future Vehicle    
+    **M.S. Candidate**
 
 
-
-# Official Grade
-- Major Credit  
-4.42 / 4.5 (Total College Grade: 4.39/4.5)   
+# Official Grade  
+- University Major Credit  
+    4.44 / 4.5 (Total College Grade: 4.0/4.5)   
 - TOEIC     
-880 / 990
+    2018.08   880 / 990   
+    2020.08   825 / 990 
+- OPIC  
+    2020.07   IH (Intermediate High)
 
  
 
-# Research Interests
-
+# Research Interests  
 - Object Detection and Recognition  
 - Multi-Target Detection and Tracking  
 - Reinforcement Learning, Adversarial Learning
