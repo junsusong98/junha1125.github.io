@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Vision】Selective Search Python Module, IOU 실습해보기
+title: 【Vision】 Selective Search Python Module, IOU 실습해보기
 description: >  
     Selective Search Python 모듈을 사용해보고 IOU를 적용해보자.
 
