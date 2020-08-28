@@ -23,7 +23,6 @@ are achieved with FCN-AlexNet, FCN-8s, FCN-16 and FCN-32s models
 model for the application is FCN-8s.
    3. 각 모델들에 대한 inference 시간 비교는 논문에서 해주지 않는다.
 
-## 3. 앞으로 추가 공부 계획  
-
+## 3. 앞으로 추가 공부 계획   
 - 필수 공부 : [https://paperswithcode.com/sota](https://paperswithcode.com/sota)
 - 사이트 참고해서 논문 읽고 계보 파악하며 매일매일 노력할 예정!

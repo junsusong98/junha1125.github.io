@@ -7,7 +7,7 @@ description: >
 **이전 게시물을 보고 오시는 것을 추천드립니다.**
 
 ## 1. Tensorflow & Keras 버전 세팅 방법
-- 참고자료
+- 참고자료  
     <img src="https://user-images.githubusercontent.com/46951365/91464200-41e6c480-e8c7-11ea-81e4-bca640d8c138.png" alt="image" style="zoom:75%;" />
 - 추천하는 3가지 가상환경 :   
     1. tf113 : Tensorflow 1.13, Keras 2.2  
@@ -49,7 +49,7 @@ description: >
     - VPC network - 외부 IP 주소 - 고정 주소 해제 (이것도 매달 8천원 나간다.. )
     - Strage - 브라우저 - object storage 삭제
     - 프로젝트 설정 - 종료 (모든 결제 및 트래픽 전달 중지 된다)
-7   결제 자주 확인하기
+7   결제 자주 확인하기  
     <img src="https://user-images.githubusercontent.com/46951365/91517045-ec8ecf80-e927-11ea-951e-2e04235235de.png" alt="image" style="zoom:67%;" />
 
 
@@ -87,7 +87,7 @@ description: >
 1. 런타임 유형 - GPU 설정 주의
 2. tensorflow 1.13에서 동작이 안되므로, tensorflow 1.15 설치하기.
 3. % cd, ! terminal command 와 같이 %와 !를 적절히 사용해라. 
-4. google drive mount 해서 사용하기
+4. google drive mount 해서 사용하기  
     ![image](https://user-images.githubusercontent.com/46951365/91525462-86607780-e93c-11ea-8d3a-3fab71096ed0.png)
 
 

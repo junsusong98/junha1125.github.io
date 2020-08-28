@@ -18,7 +18,7 @@ Google Cloud 딥러닝 플렛폼 이용하기
 - Computer Engine -> VM 인스턴드 생성하기. 설정은 아래와 같이.  
     <img src="https://user-images.githubusercontent.com/46951365/91270459-9dc02900-e7b3-11ea-828e-9146da2d4318.png" alt="image" style="zoom:50%;" />
 - 유료 계정으로 업데이트 -> GPU 할당 메일 보니게 -> GPU할당하기
-- 다시 VM 인스턴트 생성하기 - T4(추천), P100과 같은 GPU할당하는 인스턴트로 생성하기(운영체제 : 딥러닝 리눅스) -> 인스탄스 생성 안됨 -> 메일 보내야 함. -> IAM 및 관리자 - 할당량 - GPUs all region - 할당량 수정 - 메일 보내기 - 확인 답변 받고 인스턴트 재생성 (최근 메일에 대한 GPU 할당 거절이 많다. CPU서버를 48시간 이상 가동 후 요청을 다시 해보는 것을 추천한다.)
+- 다시 VM 인스턴트 생성하기 - T4(추천), P100과 같은 GPU할당하는 인스턴트로 생성하기(운영체제 : 딥러닝 리눅스) -> 인스탄스 생성 안됨 -> 메일 보내야 함. -> IAM 및 관리자 - 할당량 - GPUs all region - 할당량 수정 - 메일 보내기 - 확인 답변 받고 인스턴트 재생성 (최근 메일에 대한 GPU 할당 거절이 많다. CPU서버를 48시간 이상 가동 후 요청을 다시 해보는 것을 추천한다.)  
     <img src="https://user-images.githubusercontent.com/46951365/91290793-0b2d8300-e7cf-11ea-9e64-c3e590bdccf8.png" alt="image" style="zoom:50%;" />  
 - 우선 Colab에서 작업하고 있자. Colab에서 나의 google drive와 마운트하고 그리고 작업을 수행하자. 코랩 오래 할당시 주의할 점 ([런타임 연결 끊김 방지 정보](https://bryan7.tistory.com/1077))  
 - 
@@ -110,9 +110,10 @@ Google Cloud 딥러닝 플렛폼 이용하기
     $ tail -f nohup.out   (jupyter 실행라인이 보여야 함)
     - http:// VM instance 외부-IP:8888
     - jupyter 실행되는 것을 볼 수 있다. 
-    ```  
-    ![image](https://user-images.githubusercontent.com/46951365/91463123-fbdd3100-e8c5-11ea-9853-dd572f5c6eb4.png)
-  - 이와 같이 우리의 SSH 환경이 jupyter에서 실행되는 것을 확인할 수 있다. 
+    ```   
+    <img src="https://user-images.githubusercontent.com/46951365/91463123-fbdd3100-e8c5-11ea-9853-dd572f5c6eb4.png" alt="image" style="zoom:67%;" />    
+
+- 이와 같이 우리의 SSH 환경이 jupyter에서 실행되는 것을 확인할 수 있다. 
 
 
 
