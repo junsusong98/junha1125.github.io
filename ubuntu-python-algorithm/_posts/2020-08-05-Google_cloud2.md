@@ -14,7 +14,8 @@ description: >
     2. tf115 : Tensorflow 1.15, Keras 2.3  
     2. tf_obj : Tensorflow 1.15, Keras 2.3  -> Tensorflow object dection API 사용하기 위한 Env
 - 아래의 코드 참고할 것   
-    ```sh
+
+    ```sh  
     $ conda create -n tf113 python=3.6
     $ conda activate tf113
     $ cd envs/tf113/lib/python3.6   -> python3.6 설치
@@ -30,6 +31,7 @@ description: >
     $ cd ~/ && ./start_jn.sh         
     - jupyter의 목록에 conda 라는 목록이 추가된 것을 확인할 수 있다. 
     ```
+
 - install_tf.sh 내부에 있는 코드 중 $ conda install [nb_conda](https://github.com/Anaconda-Platform/nb_conda) -y 명령어를 통해서 콘다 환경들에게 별도로 jupyter를 따로 실행할 수 있게 해준다.   
 - 여러개의 conda 가상환경에서 Jupyter를 열 때. kernel을 골라달라고 창이 뜰 수도 있다. 이때 tf113을 잘 골라주면 된다. 자주 나오니까 각 버전에 맞는 kernel 환경을 선택해 주면 된다. 선택할 kernel 이름이 있는 이유는 install.sh부분에 '$ python -m ipykernel install --user --name tf113'이 있기 때문에 이름이 있는거다. env여서 이름이 뜨는게 아니라 커널 설정을 해줬기 때문에 이름이 뜨는 거다. 
 - retinaNet에서 tf115를 사용하니까, 그때는 원래 띄어진 Jypyter를 죽이고 activate tf115 를 한 후 start_jn.sh를 실행한다. 
