@@ -39,6 +39,7 @@ Google Cloud 딥러닝 플렛폼 이용하기
 2. 인스턴트 SSH 접속과 도커 서비스, 방화벽 규칙
     - SSH에 접근하는 방법은 SSH를 클릭하거나, 다른 외부 SSH에서 접속하기, 웹으로 접속하기 3가지 방법이 있다. 아래의 방법을 통해서 웹으로 접속 설정을 해보자.
     - SSH 접속을 통해서 우분투와 접근할 수 있다. SSH-브라우저창 열기를 하면 Terminal을 쉽게 열 수 있다. apache2를 설치할 것(80/TCP로 웹서비스 사용 가능). git을 설치할 것.
+
     - ```sh   
       $ sudo apt update
       $ sudo apt-get install apache2
@@ -49,6 +50,7 @@ Google Cloud 딥러닝 플렛폼 이용하기
     - 외부 IP 클릭! -> 주소창 http 지우기 -> Apache2 Debian Default Page 확인 가능.
       Apache2를 그대로 사용하지 않고 Docker환경을 이용해서 어플리케이션 올릴 예정
     - Docker설치가 안되면 https://docs.docker.com/engine/install/debian/ 여기서! 우분투 아니라 데비안이다! 그리고 apt-get update에서 docker fetch 문제가 있어도 " sudo apt-get install docker-ce docker-ce-cli containerd.io " 걍 해도 잘 동작하는 것 확인 가능. 
+
       ```sh
         $ sudo apt install docker.io
 
@@ -56,11 +58,13 @@ Google Cloud 딥러닝 플렛폼 이용하기
         $ sudo docker pull raesene/bwapp (또는 wordpress)
         $ sudo docker run -d --name webconnet -p 81:80 raesene/bwap
       ```
+
     - 이제 웹에서 외부 IP:81 로 들어가준다. 하지만 들어가지지 않은 것을 확인할 수 있다. 이것은 구글 클라우드에서 방화벽 처리를 해놓았기 때문이다. VPC 네트워크 - 방화벽 - 방화벽 규칙 만들기 - 소스 IP 범위 : 0.0.0.0/0  tcp: 81 정의 - 그리고 다시 외부 IP:81로 접근하면 아래와 같은 화면 결과.  
       <img src="https://user-images.githubusercontent.com/46951365/91317607-3aef8180-e7f5-11ea-8461-c5753a54973a.png" alt="image" style="zoom:67%;" />  
     - 외부 IP:81/install.php 로 들어가면 bwapp(웹해킹)사이트로 들어갈 수 있다. 
 
     - 나는 이 방법을 사용해서 8080 port의 방화벽을 허용해 놓고, ml-workspace Image를 가져와서 Container를 실행했다. 다음과 같은 명령어를 사용했다.
+
       ```sh
       $ sudo docker run -d \
       -p 8080:8080 \
@@ -85,6 +89,7 @@ Google Cloud 딥러닝 플렛폼 이용하기
 5. 외부 IP를 Putty에 넣어주고, SSH Auth Browsd - 위에 저장한 Private key 클릭 - Host Name을 sb020518@외부IP 로 저장하고 save_sessions - Open.
 6. Nvidia driver 설치 Yes. - Nvidia driver installed - nvidia-smi 체크해보기
 7. Nvidia driver가 잘 설치되지 않는다면 다음의 과정을 거친다.  
+
     ```sh
     $ cd /opt/deeplearning
     $ sudo ./install-driver.sh
@@ -93,6 +98,7 @@ Google Cloud 딥러닝 플렛폼 이용하기
 ## 4. 주피터 노트북 Setup 하기
 - 실습을 위한 코드를 다운 받고, 아나콘다를 설치 후. Jupyter server를 설치한다. 
 - 아래의 과정을 순서대로 수행하면 된다.  
+
     ```sh
     $ git clone ~~culminkw/DLCV
     - anaconda download 하기.(wget 링크주소복사 및 붙여넣기)
