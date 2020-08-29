@@ -5,7 +5,7 @@ description: >
     당연하다고 생각하지만, 아직은 공부할게 많은 Detection과 Segmentation에 대한 개념을 다시 상기하고 정리해보면서 공부해볼 계획이다. 
 
 ---
-Detection과 Segmentation 다시 정리1
+Detection과 Segmentation 다시 정리 1
 
 ## 1. Object Detection 계보
 1. Pascal VOC 데이터 기반에서 알렉스넷을 통해서 딥러닝이 화두가 되었다. 

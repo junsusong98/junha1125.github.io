@@ -63,13 +63,16 @@ description: >
     - 작업을 편하기 하기 위해서 설정해두면 편리하다. 
     - storage - 브라우저 - 버킷 생성 - 단일 region 및 설정 - default 설정 - 저장
     - 접근 인증을 받아야 한다. - server에서 object storage 에 붙기위해서 몇가지 설정이 필요.  
+
         ```sh
         gsutil : google cloud와 연동되어 쉽게 이용할 수 있는 터미널 명령어
         $ gsutil ls gs://my_budcker_Name
         - 아직 권한이 없는 것을 확인할 수 있다. 
         ```
+
     - object storage 세부정보 - 권한 - 구성원추가 - 계정이메일 추가, 역할 Storage 저장소 관리자, 저장 - 이제 storage 에 등록을 했다. 하지만 server 인증을 받아야 한다.  
-    -   ```sh
+
+        ```sh
         $ gcloud auth login
         - Yes
         - link copy
@@ -78,6 +81,7 @@ description: >
         $ gsutil ls gs://my_budcker_Name    -> 이제 여기 접근 가능
         $ qsutil cp <file Name> gs://my_budcker_Name    -> 이런식으로 bucket(object storage)에 접근 가능
         ```
+
     - winSCP를 사용해서 Putty와 연동 및 파일 업로드 가능
         - winSCP 다운로드 및 설치
         - 로그인 - 도구 - 가져오기 - Putty 원하는 환경 선택 
