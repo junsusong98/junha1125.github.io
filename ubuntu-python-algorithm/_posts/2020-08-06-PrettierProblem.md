@@ -10,6 +10,7 @@ Prettier 문제 해결을 위한 과정 기록
 ### 문제점
 
 - junha1125.github.io 폴더의 파일은 Prettier이 동작하지 않는 문제
+
   ![image](https://user-images.githubusercontent.com/46951365/91627900-cf283700-e9f5-11ea-81a9-a1708e539fce.png)
 
 ### 구글링을 통한 해결 과정
@@ -41,3 +42,8 @@ Prettier 문제 해결을 위한 과정 기록
   1. Default Shell 클릭 -> 원하는 Shell 선택
   2. VScode - Terminal - New Terminal
   3. 내가 아까 원했던 Shell이 나오는 것을 확인할 수 있다.
+
+- 막상 Prettier이 있는 상태로 md파일을 수정하니 너무 불편하다. 그래서 Format Save 설정을 꺼버렸다. 
+
+**문제 해결 완료.**
+{:.lead}
