@@ -6,6 +6,7 @@ description: >
 ---
 
 Selective Search Python Module 사용해보기
+DLCV/Detection/preliminary/Selective_search와 IOU구하기 파일 참조
 
 1. conda activate tf113
 2. jupyter notebook 실행 - \$ nphup jupyter notebook &
