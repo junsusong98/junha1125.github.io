@@ -33,7 +33,10 @@ description: >
     ```
 
 - install_tf.sh 내부에 있는 코드 중 $ conda install [nb_conda](https://github.com/Anaconda-Platform/nb_conda) -y 명령어를 통해서 콘다 환경들에게 별도로 jupyter를 따로 실행할 수 있게 해준다.   
-- 여러개의 conda 가상환경에서 Jupyter를 열 때. kernel을 골라달라고 창이 뜰 수도 있다. 이때 tf113을 잘 골라주면 된다. 자주 나오니까 각 버전에 맞는 kernel 환경을 선택해 주면 된다. 선택할 kernel 이름이 있는 이유는 install.sh부분에 '$ python -m ipykernel install --user --name tf113'이 있기 때문에 이름이 있는거다. env여서 이름이 뜨는게 아니라 커널 설정을 해줬기 때문에 이름이 뜨는 거다. 
+- 여러개의 conda 가상환경에서 Jupyter를 열 때. kernel을 골라달라고 창이 뜰 수도 있다. 이때 tf113을 잘 골라주면 된다. 자주 나오니까 각 버전에 맞는 kernel 환경을 선택해 주면 된다. 선택할 kernel 이름이 있는 이유는 install.sh부분에 '$ python -m ipykernel install --user --name tf113'이 있기 때문에 이름이 있는거다. env여서 이름이 뜨는게 아니라 커널 설정을 해줬기 때문에 이름이 뜨는 거다. (Jypyter에서 Python [conda env:tf113] 와 같은 노투븍 커널 셋팅을 할 수 있도록!)
+
+![image](https://user-images.githubusercontent.com/46951365/91634184-71154700-ea29-11ea-84a9-a9a25be503c6.png)
+
 - retinaNet에서 tf115를 사용하니까, 그때는 원래 띄어진 Jypyter를 죽이고 activate tf115 를 한 후 start_jn.sh를 실행한다. 
 
 
