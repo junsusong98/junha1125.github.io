@@ -7,7 +7,7 @@ description: >
 
 Detection과 Segmentation 다시 정리 3
 
-## 1. Object Detection을 위한 다양한 모듈 
+# 1. Object Detection을 위한 다양한 모듈 
 
 1. Keras & Tensorflow, Pytorch
     - Customization 가능 .
@@ -34,7 +34,7 @@ Detection과 Segmentation 다시 정리 3
     - 상대적으로 다루기가 쉽고 절차가 간단. 
 
 
-## 2. 사용하면 좋은 Keras와 Tensorflow 기반의 다양한 오픈소스 패키지들
+# 2. 사용하면 좋은 Keras와 Tensorflow 기반의 다양한 오픈소스 패키지들
 
 - 아래의 코드들은 대부분 Tensorflow & Keras 를 사용하고 있습니다. 
 
@@ -58,7 +58,7 @@ Detection과 Segmentation 다시 정리 3
     - 모델만 Load해서 Inference하면 되는 장점이 있기 때문에 매우 간편
     - CPU 위주이며, GPU 사용이 어렵다. 
 
-## 3. GPU 활용
+# 3. GPU 활용
 1. CUDA : GPU에서 병렬처리 알고리즘을 C언어를 비롯한 산업 표준 언어를 사용하여 작성할 수 있도록 하는 기술. GPU Driver Layer 바로 위에서 동작한다고 생각하면 된다. 
 2. cuDNN :CUDA는 그래픽 작업을 위해서 존재하는 것이고, cuDNN은 딥러닝 라이브러리를 위해서 추가된 기술.
 
@@ -70,7 +70,7 @@ Detection과 Segmentation 다시 정리 3
 4. 학습을 하는 동안 GPU 메모리 초과가 나오지 않게 조심해야 한다.   
     따라서 GPU를 사용하는 다른 Processer를 끄는 것을 추천한다. (nvidia-smi에 나옴)
 
-## 4. Object Detection 개요    
+# 4. Object Detection 개요    
 
 <p align="center"><img src='https://user-images.githubusercontent.com/46951365/91637286-6e731b80-ea42-11ea-9841-5463bd8cf10c.png' alt='drawing' width='500'/></p>
 
