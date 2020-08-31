@@ -1,7 +1,8 @@
 ---
 layout: post
-title: 【Paper ,Vision】 OpenCV DNN 모듈을 사용해서 Detection 수행하기
+title: 【Python-Module】 OpenCV DNN 모듈을 사용해서 Detection 수행하기
 description: >
-  당연하다고 생각하지만, 아직은 공부할게 많은 Detection과 Segmentation에 대한 개념을 다시 상기하고 정리해보면서 공부해볼 예정이다.
+    이전 Post를 통해서 OpenCV와 DNN의 이론에 대해서 공부했다. 코드 사용 방법을 공부해보자
 ---
 
+OpenCV DNN 모듈을 사용해서 Detection 수행하기
