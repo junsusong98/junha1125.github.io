@@ -193,7 +193,7 @@ plt.imshow(img_rgb)
     car: 0.7602
     car: 0.7415
 
-<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91717571-b8880880-ebcc-11ea-81b4-601784dacfa6.png' alt='drawing' width='800'/></p>
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91717571-b8880880-ebcc-11ea-81b4-601784dacfa6.png' alt='drawing' width='500'/></p>
 
 
 ## 1-4  위에서 했던 작업을 def 함수로 만들어보자!
