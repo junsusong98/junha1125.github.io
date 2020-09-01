@@ -16,16 +16,16 @@ Tensorflow 1.3. Faster RCNN API로 Object Detection 수행하기
 
 1. Jupyter - Running - 안쓰는 Notebook Shutdown 하기
 
-2. Notebook - Restart & Clear outpu 하기
+2. Notebook - Restart & Clear output 하기
 
 3. nvidia-smi 에서 나오는 process 중 GPU많이 사용하는 프로세서
 Kill -9 \<Processer ID>하기
 
 4. Jupyter Notebook 을 Terminal에서 kill하고 다시 키기 (~
-start_nb.sh)
+/start_nb.sh)
 
 
-# tensorflow로 Object Detection 수행하기 
+# 2. tensorflow로 Object Detection 수행하기 
 
 ## 1. 단일 이미지 Object Detection
 
@@ -44,17 +44,6 @@ plt.imshow(img_rgb)
 ```
 
     image shape: (450, 814, 3)
-
-
-
-
-
-    <matplotlib.image.AxesImage at 0x7f99d227fba8>
-
-
-
-
-![png](Tensorflow_FasterRCNN_ObjectDetection_files/Tensorflow_FasterRCNN_ObjectDetection_2_2.png)
 
 
 
