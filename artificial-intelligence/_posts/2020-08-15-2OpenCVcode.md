@@ -5,7 +5,8 @@ description: >
     이전 Post를 통해서 Faster RCNN이론에 대해서 공부했다. OpenCV DNN 모델을 사용해서 Faster RCNN을 수행해보자.
 ---
 
-OpenCV DNN 모듈을 사용해서 Detection 수행하기
+OpenCV DNN 모듈을 사용해서 Detection 수행하기  
+/DLCV/Detection/fast_rcnn/OpenCV_FasterRCNN_ObjectDetection.ipynb 참조
 
 # 1. OpenCV DNN 패키지를 이용하여 Faster R-CNN
 * Tensorflow 에서 Pretrained 된 모델 파일을 OpenCV에서 로드하여 이미지와 영상에 대한 Object Detection 수행. 

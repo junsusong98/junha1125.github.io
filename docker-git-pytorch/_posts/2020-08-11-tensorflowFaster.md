@@ -5,7 +5,8 @@ title: 【Tensorlow】v1.3 API로, Faster RCNN Inference 수행하기 / GPU 자�
 
 ---
 
-Tensorflow 1.3. Faster RCNN API로 Object Detection 수행하기
+Tensorflow 1.3. Faster RCNN API로 Object Detection 수행하기  
+/DLCV/Detection/fast_rcnn/Tensorflow_FasterRCNN_ObjectDetection.ipynb 참조
 
 # 1. GPU 자원 주의사항
 
