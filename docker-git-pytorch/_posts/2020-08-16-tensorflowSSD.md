@@ -1,12 +1,16 @@
 ---
 layout: post
-title: 【Tensorlow】v1.3 API로, SSD Inference 수행하기 
+title: 【Tensorlow】SSD Inference // Tensorflow Inference.pb 파일가져와 사용하기
 # description: > 
 
 ---
 
-Tensorflow v1.3 API로, SSD Inference 수행하기 
+Tensorflow v1.3 API로, SSD Inference 수행하기     
+
 /DLCV/Detection/ssd/Tensorflow_SSD_이미지와_영상_Detection.ipynb 참조
+
+/DLCV/Detection/ssd/SSD_Face_Detection.md
+
 
 ## 1. Tensorflow로 SSD - Object Detection 수행하기 
 - [이전 Post](https://junha1125.github.io/artificial-intelligence/2020-08-16-SSD2OpenCV/)에서 받은,     
@@ -241,6 +245,7 @@ cap.release()
 - Graph를 가져오는 것에 대해서 위에서 했던 것과 중첩되면 오류가 날 수 있다.
 - inceptionV2 과 성능차이가 없지만, 수행시간이 CPU에서 더더 빠른 것을 확인할 수 있다. 
 
+### 3-1 함수정의하기
 
 ```python
 labels_to_names = {1:'person',2:'bicycle',3:'car',4:'motorcycle',5:'airplane',6:'bus',7:'train',8:'truck',9:'boat',10:'traffic light',
@@ -300,6 +305,7 @@ def get_tensor_detected_image(sess, img_array, use_copied_array):
     return draw_img
 ```
 
+### 3-2 정의한 함수사용해서 비디오 Detection 수행하기
 
 ```python
 import numpy as np
@@ -359,4 +365,172 @@ cap.release()
 ```
 
 
+## 4. Tensorflow Inference.pb 파일가져와 사용하기(Face Detection)
+
+-  WiderFace 데이터세트로 Pretrained된 Tensorflow graph 모델을 다운로드 받아 이를 이용해 Face Detection 수행. 
+
+- Github : https://github.com/yeephycho/tensorflow-face-detection
+
+- SSD + MobileNet기반으로 Pretrained된 모델 다운로드 
+
+- https://github.com/yeephycho/tensorflow-face-detection/raw/master/model/frozen_inference_graph_face.pb
+
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91841699-c356a200-ec8d-11ea-9fa2-f6986f608a11.png' alt='drawing' width='400'/></p>
+
+### 4-1 SSD + Mobilenet Pretrained된 모델 로딩하여 Face  Detection
+
+```python
+import numpy as np
+import tensorflow as tf
+import cv2
+import time
+import matplotlib.pyplot as plt
+%matplotlib inline
+        
+```
+
+
+
+
+```python
+def get_tensor_detected_image(sess, img_array, use_copied_array):
+    
+    rows = img_array.shape[0]
+    cols = img_array.shape[1]
+    if use_copied_array:
+        draw_img = img_array.copy()
+    else:
+        draw_img = img_array
+    
+    inp = cv2.resize(img_array, (300, 300))
+    inp = inp[:, :, [2, 1, 0]]  # BGR2RGB
+    
+    start = time.time()
+    # Object Detection 수행. 
+    out = sess.run([sess.graph.get_tensor_by_name('num_detections:0'),
+                    sess.graph.get_tensor_by_name('detection_scores:0'),
+                    sess.graph.get_tensor_by_name('detection_boxes:0'),
+                    sess.graph.get_tensor_by_name('detection_classes:0')],
+                   feed_dict={'image_tensor:0': inp.reshape(1, inp.shape[0], inp.shape[1], 3)})
+    
+    green_color=(0, 255, 0)
+    red_color=(0, 0, 255)
+    
+    # Bounding Box 시각화 
+    # Detect된 Object 별로 bounding box 시각화 
+    num_detections = int(out[0][0])
+    for i in range(num_detections):
+        # class id와 object class score, bounding box정보를 추출
+        classId = int(out[3][0][i])
+        score = float(out[1][0][i])
+        bbox = [float(v) for v in out[2][0][i]]
+        if score > 0.4:
+            left = bbox[1] * cols
+            top = bbox[0] * rows
+            right = bbox[3] * cols
+            bottom = bbox[2] * rows
+            # cv2의 rectangle(), putText()로 bounding box의 클래스명 시각화 
+            cv2.rectangle(draw_img, (int(left), int(top)), (int(right), int(bottom)), green_color, thickness=2)
+            caption = "face: {:.4f}".format(score)
+            cv2.putText(draw_img, caption, (int(left), int(top - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, red_color, 2)
+    
+    print('Detection 수행시간:',round(time.time() - start, 3),"초")
+    return draw_img
+
+#inference graph를 읽음. .
+with tf.gfile.FastGFile('./pretrained/frozen_inference_graph_face.pb', 'rb') as f:
+    graph_def = tf.GraphDef()
+    graph_def.ParseFromString(f.read())
+    
+with tf.Session() as sess:
+    # Session 시작하고 inference graph 모델 로딩 
+    sess.graph.as_default()
+    tf.import_graph_def(graph_def, name='')
+    
+    # 입력 이미지 생성, Object Detection된 image 반환, 반환된 image의 BGR을 RGB로 변경 
+    img = cv2.imread('../../data/image/EPL01.jpg')
+    draw_img = get_tensor_detected_image(sess, img, True)
+
+img_rgb = cv2.cvtColor(draw_img, cv2.COLOR_BGR2RGB)
+
+plt.figure(figsize=(12, 12))
+plt.imshow(img_rgb)
+```
+
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91845613-64e0f200-ec94-11ea-914a-a3f41390da44.png' alt='drawing' width='500'/></p>
+
+
+### 4-2 tensorflow로 SSD+ Inception 기반 video Object Detection 수행
+
+
+```python
+from IPython.display import clear_output, Image, display, Video, HTML
+Video('../../data/video/InfiniteWar01.mp4')
+```
+
+
+
+```python
+video_input_path = '../../data/video/InfiniteWar01.mp4'
+# linux에서 video output의 확장자는 반드시 avi 로 설정 필요. 
+video_output_path = '../../data/output/InfiniteWar01_ssd.avi'
+
+cap = cv2.VideoCapture(video_input_path)
+
+codec = cv2.VideoWriter_fourcc(*'XVID')
+
+vid_size = (round(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),round(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+vid_fps = cap.get(cv2.CAP_PROP_FPS)
+    
+vid_writer = cv2.VideoWriter(video_output_path, codec, vid_fps, vid_size) 
+
+frame_cnt = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+print('총 Frame 갯수:', frame_cnt, 'FPS:', vid_fps )
+
+green_color=(0, 255, 0)
+red_color=(0, 0, 255)
+
+# SSD+Inception inference graph를 읽음. .
+with tf.gfile.FastGFile('./pretrained/frozen_inference_graph_face.pb', 'rb') as f:
+    graph_def = tf.GraphDef()
+    graph_def.ParseFromString(f.read())
+    
+with tf.Session() as sess:
+    # Session 시작하고 inference graph 모델 로딩 
+    sess.graph.as_default()
+    tf.import_graph_def(graph_def, name='')
+    index = 0
+    while True:
+        hasFrame, img_frame = cap.read()
+        if not hasFrame:
+            print('더 이상 처리할 frame이 없습니다.')
+            break
+
+        draw_img_frame = get_tensor_detected_image(sess, img_frame, False)
+        vid_writer.write(draw_img_frame)
+    # end of while loop
+
+vid_writer.release()
+cap.release()  
+
+```
+
+  
+    Detection 수행시간: 0.307 초
+    Detection 수행시간: 0.294 초
+    Detection 수행시간: 0.296 초
+    Detection 수행시간: 0.304 초
+    Detection 수행시간: 0.296 초
+    Detection 수행시간: 0.294 초
+    Detection 수행시간: 0.293 초
+    Detection 수행시간: 0.31 초
+    더 이상 처리할 frame이 없습니다.
+
+
+
+```python
+!gsutil cp ../../data/output/InfiniteWar01_ssd.avi gs://my_bucket_dlcv/data/output/InfiniteWar01_ssd.avi
+```
+
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91845378-00be2e00-ec94-11ea-85d3-e39b94496449.png' alt='drawing' width='700'/></p>
 
