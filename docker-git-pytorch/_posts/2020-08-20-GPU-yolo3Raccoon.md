@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Keras】 GPU 학습 유의사항/ 라쿤 데이터 학습시키기 - Keras기반 Yolo3 
+title: 【Keras】 라쿤 데이터 학습시키기 - Keras기반 Yolo3 / GPU 학습 유의사항
 description: >
     GPU Object Detection시 유의 사항을 간단히 알아보고, 이전 게시물에서 공부했던 Keras 기반 Yolo3를 이용해 데이터 학습을 시켜보자.
 ---
@@ -44,7 +44,7 @@ GPU 학습 유의사항/ 라쿤 데이터 학습시키기 - Keras기반 Yolo3
     - 이렇게 fit_generator을 돌리면 data pipeline이 만들어 진다. train_generator가 디렉토리에 가서 배치만큼의 파일을 읽어와서 yeild를 하여 모델에 데이터를 넣는다. 
 
 
-<p align="center"><img src='https://user-images.githubusercontent.com/46951365/92118150-0bfa9080-ee31-11ea-8398-6de32d892007.png' alt='drawing' width='500'/></p>
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/92118150-0bfa9080-ee31-11ea-8398-6de32d892007.png' alt='drawing' width='800'/></p>
 
 
 # 2. qqwweee/Keras-Yolo3로 Training 하기 위한 분석
