@@ -55,5 +55,27 @@ FPN에 대한 자세한 내용 정리는 제가 이전에 정리해놓은 [FPN �
 
 
 # 3. Featur Pyramid Network
-- FPN에 대한 자세한 내용 정리는 제가 이전에 정리해놓은 [FPN 게시물](https://junha1125.github.io/artificial-intelligence/2020-03-18-paper-Tstory3/)을 참고하시면 매우 좋습니다. 
-- 
+- FPN에 대한 자세한 내용 정리는 제가 이전에 정리해놓은 게시물을 참고하시면 좋습니다.   
+    - [FPN PPT 발표 자료](https://junha1125.github.io/artificial-intelligence/2020-03-18-paper-Tstory3/)
+    - [논문을 직접 간략히 구현해 놓은 코드](https://junha1125.github.io/artificial-intelligence/2020-03-18-paper-Tstory3_code/) 
+- 위의 게시물에서 추가적인 내용만 기록해 놓겠습니다. 
+
+1. FPN
+    1. (a) : Sliding window 방식에서 사용하는 방법
+    2. (b) : CNN 맨 위에 Sementic한 Feature를 가지지만 너무 Resolution작음
+    3. (c) : SSD 에서 사용하는 방법
+    4. (d) : FPN
+
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/92300532-96103980-ef96-11ea-99db-8087adbed3d3.png' alt='drawing' width='500'/></p>
+
+2. Upsampling + Lateral connetction 이후 3 x 3 conv를 하는 이유 
+    - upsampling의 불완전한 feature imformation 복원을 해소시켜주기 위해서.
+    - aliasing effect 문제를 해결하기 위해 - Skip connection을 그냥 하면, 서로 다른 Signal이 섞여 혼동되어 본래 자신들의 의미가 서로 사라지는 문제가 있다.(?) 3 x 3 conv를 통해서 그런 문제를 해결 했다고 한다.
+
+3. FPN과 RetinaNet 
+    - 9개의 anchor box가 FPN에서 나온 P2~P5의 개별 Layer의 개별 Grid에 할당된다, 
+    - 3개의 서로다른 크기와 3개의 서로 다른 스케일을 가진다. 
+    - 약 100k개의 anchor box들이 생긴다. 
+    - 개별 anchor(A)는 아래의 이미지 처럼 K와 4에 대한 정보를 가진다. (K개의 클래스 확률값과 Bounding box regression 4개의 좌표)
+
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/92300896-af66b500-ef99-11ea-9616-d802a3045856.png' alt='drawing' width='600'/></p>
