@@ -2,6 +2,7 @@
 title: About Me
 description: > 
     Resume - JunHa Song
+image: /assets/img/catagorys/justdoit.jpg
 ---
 
 

@@ -19,7 +19,7 @@ description: >
     4. 【위성 사진 Segmentation】 : 위성이미지를 Segmentation하여 Road, building 검출     
 
 # accent_color: rgb(38,139,210)
-# accent_image:
+accent_image: /assets/img/sidebar-bg3.jpg
 #   background: rgb(32,32,32)
 #   overlay:    false
 ---

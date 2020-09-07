@@ -21,7 +21,7 @@ description: >
     5. 【Python-Module】 : Deep Laerning에 필요한 모듈 공부내용 정리  
   
 # accent_color: rgb(38,139,210)
-accent_image: /assets/img/sidebar-bg2.jpg
+accent_image: /assets/img/catagorys/artifical_mobis.jpg
 #   background: rgb(32,32,32)
 #   overlay:    false
 ---

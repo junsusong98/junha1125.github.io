@@ -16,7 +16,7 @@ description: >
 
     3. 【Pytorch】 : Pytorch 공부 및 실습 코드 정리    
 # accent_color: rgb(38,139,210)
-accent_image: /assets/img/sidebar-bg2.jpg
+accent_image: /assets/img/catagorys/torch.jpg
 #   background: rgb(32,32,32)
 #   overlay:    false
 ---

@@ -27,7 +27,7 @@ description: >
     8. 【25살 2019 마세라티】 : 25살 마세라티 공장 견학 다녀온 이야기    
 
 # accent_color: rgb(38,139,210)
-accent_image: /assets/img/sidebar-bg2.jpg
+accent_image: /assets/img/catagorys/justdoit.jpg
 #   background: rgb(32,32,32)
 #   overlay:    false 
 
