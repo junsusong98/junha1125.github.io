@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Tensorlow】v1.3 API로, Faster RCNN Inference 수행하기 / GPU 자원 주의사항
+title: 【Tensorflow】v1.3 API로, Faster RCNN Inference 수행하기 / GPU 자원 주의사항
 # description: > 
 
 ---

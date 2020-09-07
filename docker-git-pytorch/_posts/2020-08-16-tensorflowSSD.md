@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Tensorlow】SSD Inference // Tensorflow Inference.pb 파일가져와 사용하기
+title: 【Tensorflow】SSD Inference // Tensorflow Inference.pb 파일가져와 사용하기
 # description: > 
 
 ---
