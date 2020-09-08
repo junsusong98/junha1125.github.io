@@ -32,7 +32,7 @@ image: /assets/img/catagorys/justdoit.jpg
 
 # Official Grade  
 - University Major Credit  
-    4.44 / 4.5 (Total College Grade: 4.0/4.5)   
+    4.43 / 4.5 (Total College Grade: 4.4/4.5)   
 - TOEIC     
     2018.08 - 880 / 990   
     2020.08 - 825 / 990 
@@ -50,7 +50,7 @@ image: /assets/img/catagorys/justdoit.jpg
 
 # Conferences 
 1. Junha Song, et al, "센서 퓨전과 통신을 이용한 차량의 디지털 트윈의 구현", The Korean Sociey of Automotive Engineers, Korea (2019)  
-2. Junha Song, Myunghak Lee, "다양한 생성모델들의 위성 사진으로부터의 지도 변환 성능 비 교", KICS(한국통신학회), Korea (2020)  
+2. Junha Song, Myunghak Lee, "다양한 생성모델들의 위성 사진으로부터의 지도 변환 성능 비교", KICS(한국통신학회), Korea (2020)  
 
  
 
