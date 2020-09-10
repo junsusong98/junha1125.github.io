@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Vision】 Selective Search Python Module, IOU 실습해보기
+title: 【Vision】 Selective Search Python Module, IOU 계산 코드 만들기
 description: >
   Selective Search Python 모듈을 사용해보고 IOU를 적용해보자.
 ---
@@ -57,10 +57,10 @@ print(regions[1])
 
 - 반환된 regions 변수는 리스트 타입으로 세부 원소로 딕셔너리를 가지고 있음.
 - 개별 딕셔너리내 KEY값별 의미
-- rect 키값은 x,y 시작 좌표와 너비, 높이 값을 가지며 이 값이 Detected Object 후보를 나타내는 Bounding box임.
-  size는 Bounding box의 크기
-  labels는 해당 rect로 지정된 Bounding Box내에 있는 오브젝트들의 고유 ID
-  아래로 내려갈 수록 너비와 높이 값이 큰 Bounding box이며 하나의 Bounding box에 여러개의 오브젝트가 있을 확률이 커짐.
+    - rect 키값은 x,y 좌상단 좌표와 너비, 높이 값을 가지며 이 값이 Detected Object 후보를 나타내는 Bounding box임.
+    - size는 Bounding box의 크기.
+    - labels는 해당 rect로 지정된 Bounding Box내에 있는 오브젝트들의 고유 ID.
+    아래로 내려갈 수록 너비와 높이 값이 큰 Bounding box이며 하나의 Bounding box에 여러개의 box가 합쳐진 box이다. 여러개의 오브젝트가 있을 확률이 크다.
 
 ```python
 # rect정보(x1 y1 좌상단 width hight) 만 출력해서 보기
@@ -95,9 +95,9 @@ plt.show()
 ![image](https://user-images.githubusercontent.com/46951365/91564694-f6dab900-e97b-11ea-857d-f3ad6ce70f4d.png)
 
 - bounding box의 크기가 큰 후보만 추출
+    - 바로 위에 코드랑 똑같은 코드지만 size만 조금 더 고려
 
 ```python
-# 바로 위에 코드랑 똑같은 코드지만 size만 조금 더 고려
 cand_rects = [cand['rect'] for cand in regions if cand['size'] > 10000]
 
 green_rgb = (125, 255, 51)
@@ -207,8 +207,9 @@ for index, cand_box in enumerate(cand_rects):
     index: 14 iou: 0.6270619201314865
     index: 15 iou: 0.6270619201314865
 
+- 바로 위의 코드를 적용해서 이미지와 IOU를 표현하는 이미지를 그려보자.
+
 ```python
-# 바로 위의 코드를 적용해서 이미지와 IOU를 표현하는 이미지를 그려보자.
 img = cv2.imread('../../data/image/audrey01.jpg')
 img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 print('img shape:', img.shape)

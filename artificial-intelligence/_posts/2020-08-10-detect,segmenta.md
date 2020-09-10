@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Vision】 Detection과 Segmentation 다시 정리 1
+title: 【Vision】 Detection과 Segmentation 다시 정리 1 - 계보 및 개요, mAP
 description: >  
     당연하다고 생각하지만, 아직은 공부할게 많은 Detection과 Segmentation에 대한 개념을 다시 상기하고 정리해보면서 공부해볼 계획이다. 
 
@@ -8,7 +8,7 @@ description: >
 Detection과 Segmentation 다시 정리 1
 
 ## 1. Object Detection 계보
-1. Pascal VOC 데이터 기반에서 알렉스넷을 통해서 딥러닝이 화두가 되었다. 
+1. Pascal VOC 데이터 기반에서 AlexNet을 통해서 딥러닝이 화두가 되었다. 
 2. Detection을 정확히 분류하면 다음과 같이 분류할 수 있다. 
     - Classification
     - Localization 
@@ -67,7 +67,7 @@ Detection과 Segmentation 다시 정리 1
 2. Precision(예측 기준)과 Recall(정답 기준)의 관계는 다음과 같다.   
     <img src = 'https://user-images.githubusercontent.com/46951365/91571417-4ff91b80-e981-11ea-8bbb-aee275642e62.png' alt ='drawing' width='700'/> 
 
-3. 또 다른 설명은 여기([참고Post](https://junha1125.github.io/projects/2020-01-13-ship_5/))를 참고 할 것. 
+3. 또 다른 설명은 여기([참고 이전 Post](https://junha1125.github.io/projects/2020-01-13-ship_5/))를 참고 할 것. 
 
 4. Precision과 Recall이 적절히 둘다 좋아야 좋은 모델이다. 라고 할 수 있다. 
 
@@ -77,21 +77,25 @@ Detection과 Segmentation 다시 정리 1
     <img src = 'https://user-images.githubusercontent.com/46951365/91576928-fa257300-e982-11ea-9b99-3bde26dd4539.png' alt ='drawing' width='700'/>   
     <img src = 'https://user-images.githubusercontent.com/46951365/91577133-42449580-e983-11ea-9056-8d92f463f5a7.png' alt ='drawing' width='700'/>    
 
-7. 암인데 암이 아니라고 하고, 사기인데 사기가 아니라고 하면 심각한 문제가 발생하므로 '진짜를 진짜라고 판단하는 **Recall**'이 중요하다. 반대로 스팸 메일이 아닌데 스팸이라고 판단하면 심각한 문제가 발생하므로 '내가 진짜라고판단한게 진짜인 **Precision**'이 중요하다.    
+7. 암인데 암이 아니라고 하고, 사기인데 사기가 아니라고 하면 심각한 문제가 발생하므로 '진짜를 진짜라고 판단하는 **Recall**'이 중요하다.(FN이 심각한 문제를 야기한다.) 반대로 스팸 메일이 아닌데 스팸이라고 판단하면 심각한 문제가 발생하므로 '내가 진짜라고판단한게 진짜인 **Precision**'이 중요하다.(FP가 심각한 문제를 야기한다.)    
+
     <img src = 'https://user-images.githubusercontent.com/46951365/91577753-22fa3800-e984-11ea-9c8a-7369f72fbeea.png' alt ='drawing' width='700'/>    
 
-8. 이러한 조절을 Confidence Threshold를 이용해서 할 수 있다. Ex. Confidence Threshold를 낮게 한다면 Recall(재현율)이 높아 진다. Confidence Threshold을 높게 한다면 Precision(정밀도)가 높아진다.   
+8. 이러한 조절을 Confidence Threshold를 이용해서 할 수 있다.   
+Ex. Confidence Threshold를 낮게 한다면 Recall(재현율)이 높아 진다. (다 Positive라고 판단해버리기)    
+Confidence Threshold을 높게 한다면 Precision(정밀도)가 높아진다.(정말 확실한 경우만 Positive라고 예측하기)    
     <img src = 'https://user-images.githubusercontent.com/46951365/91578181-cba89780-e984-11ea-8e1d-7d0cd0ead048.png' alt ='drawing' width='600'/>     
     <img src = 'https://user-images.githubusercontent.com/46951365/91580069-83d73f80-e987-11ea-8039-5b947f3b8b90.png' alt ='drawing' width='600'/>     
 
-9. 즉 Confidence에 따른 Precison과 Recall의 변화 그래프이므로, 여기([참고Post](https://junha1125.github.io/projects/2020-01-13-ship_5/))에서 Confidence에 대해서 내림차순 정렬을 하고, 차근차근 Recall, Precision점을 찍고 그 그래프의 넓이를 구하는 것이다. 
+9. 즉 Confidence에 따른 Precison과 Recall의 변화 그래프이므로, 여기([참고 이전 Post](https://junha1125.github.io/projects/2020-01-13-ship_5/))에서 Confidence에 대해서 내림차순 정렬을 하고, 차근차근 Recall, Precision점을 찍고 그 그래프의 넓이를 구하는 것이다. 
 
-10. 오른쪽 최대 Precision 값을 연결해준다!   
+10. Confidence Threshold가 큰것부터 시작했으므로, Precision은 높고, Recall은 낮은 상태부터 시작한다. 주의할 점은 오른쪽 최대 Precision 값을 연결하고, mAP를 계산한다!   
     <img src = 'https://user-images.githubusercontent.com/46951365/91580875-ad449b00-e988-11ea-9b65-f1efdd835aa4.png' alt ='drawing' width='400'/>
 
-11. 지금까지가 AP를 구하는 방법이었다. 즉 AP는 한개의 Object에 대해서 값을 구하는 것이다. ([참고Post](https://junha1125.github.io/projects/2020-01-13-ship_5/)) 그리고 모든 Object Class(새, 나비, 차, 사람 등등)에 대해서 AP를 구한 후 중간값을 사용하는 것이 바로 mAP이다.  
+11. 지금까지가 AP를 구하는 방법이었다. 즉 AP는 한개의 Object에 대해서 값을 구하는 것이다. ([참고 이전 Post](https://junha1125.github.io/projects/2020-01-13-ship_5/)) 그리고 모든 Object Class(새, 나비, 차, 사람 등등)에 대해서 AP를 구한 후 중간값을 사용하는 것이 바로 mAP이다.  
 
-12. COCO Dataset에 대해서는 IOU를 다양하게 주기 때문에 높은 IOU에 대해서 낮은 mAP가 나올 수 있음을 명심해야 한다. 그리고 COCO는 Object의 Scale 별로 대/중/소에 따른 mAP도 즉정한다.    
+12. COCO Dataset에 대해서는 IOU Threshold를 다양하게(AP@\[.50:.05:.95]) 주기 때문에 높은 IOU에 대해서 낮은 mAP가 나올 수 있음을 명심해야 한다.(높은 IOU Threshold라는 것은 FP와 TP 중 TP가 되기 힘듦을 의미한다.)   
+그리고 COCO는 Object의 Scale 별로 대/중/소에 따른 mAP도 즉정한다.    
     <img src = 'https://user-images.githubusercontent.com/46951365/91581239-29d77980-e989-11ea-89e4-aad3b2f95f7b.png' alt ='drawing' width='600'/>
 
 
