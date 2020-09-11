@@ -44,7 +44,8 @@ image: /assets/img/catagorys/justdoit.jpg
 # Research Interests  
 - Object Detection and Image Segmentation
 - Multi-Target Detection and Tracking  
-- Reinforcement Learning, Adversarial Learning
+- 3D Object Detection and 3D Vehicle Localization 
+- Reinforcement Learning and Adversarial Learning
 
  
 
@@ -63,11 +64,32 @@ image: /assets/img/catagorys/justdoit.jpg
 # Awards and Honors
 - Honorable Judge Award (Future Transport Design Award), Cloud Programming World Cup, Japan (2019)  
 - Capstone Awards, The Korean Society of Automotive Engineers (한국자동차공학회)(2019)  
-- National Science and Engineering Scholarship (Full Tuition, 국가이공계장학생), Korea Scholarship Foundation(한국장학재단) (2019 ~ 2020)  
+- National Science and Engineering Scholarship (Full Tuition, 국가이공계장학생), Korea Scholarship Foundation(국가이공계장학생) (2019 ~ 2020)  
 
  
 
 # Projects
 
 - Detection of Surrounding Vehicles using Deep Neural Network and Fusion of Panoramic Camera and Lidar Sensor, KOFAC(한국과학창의재단), Korea (2019)
-- Satellite image precision object detection, DACON, Korea (2020)
+- Satellite image precision object detection, DACON(국방과학연구소주최), Korea (2020)
+
+# Skills
+
+- Python
+- C++
+- Pytorch, Tensorflow
+- ROS (Robot Operating System)
+- Sensor Utilization (Camera, Stereo-Camera, GPS/IMU, LIDAR)
+
+# Deep Learning Study
+
+- Stanford CS231n - Vision
+- Berkeley CS285 - Deep Reinforcement Learning
+- 오일석, 기계 학습
+- Object Detection Papers 
+    - RCNN, Fast-RCNN, Faster-RCNN, SSD, YOLO, RetinaNet ... 
+- Image Segmentation Papers 
+    - FCN, SegNet, ParseNet, DeepLab, Mask-RCNN, H-Net, PSP-Net .. 
+- GAN 
+    - Pix2Pix GAN, Cycle GAN
+- 블로그를 통한 연구노트 작성. https://junha1125.github.io/
