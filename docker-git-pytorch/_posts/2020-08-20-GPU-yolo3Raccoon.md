@@ -15,7 +15,6 @@ GPU 학습 유의사항/ 라쿤 데이터 학습시키기 - Keras기반 Yolo3
     
 2. Genrator와 Batch
     - 특히 fit_generator를 확인해보면, Python gererator를 사용한다. gerator, next, yield에 대해서 알아보자. [코딩도장 generator 설명](https://dojang.io/mod/page/view.php?id=2412)
-    - 아래의 이미지를 먼저 다 읽어보기
     - 배치 사이즈를 크게 늘린다고 학습이나 추론이 빨라지지 않는다. 100장의 이미지를 한방에 끌어오는것도 힘들지만, 그 이미지를 네트워크에 넣는다 하더라도 어딘가에서 병목이 걸릴건 당연하다. 따라서 배치 사이즈를 어떻게 설정하지는 CPU core, GPU 성능 등을 파악해서 균형있게 맞춰야 한다.(Heuristic 하게 Turning)
     - 한쪽은 열심히 일하고, 한쪽은 기다리는 현상이 일어나지 않게끔. 이렇게 양쪽이 일을 쉬지 않고 균형있게 배치하는 것이 필요하다. 
     - **이러한 Batch를 Keras에서는 (fit_generator 함수가 사용하는) DataGenerator, flow_from_drectory 가 해준다. 알다시피 Torch는 TensorDataset, DataLoader가 해준다.**
@@ -44,10 +43,26 @@ GPU 학습 유의사항/ 라쿤 데이터 학습시키기 - Keras기반 Yolo3
     - 이렇게 fit_generator을 돌리면 data pipeline이 만들어 진다. train_generator가 디렉토리에 가서 배치만큼의 파일을 읽어와서 yeild를 하여 모델에 데이터를 넣는다. 
 
 
-<p align="center"><img src='https://user-images.githubusercontent.com/46951365/92118150-0bfa9080-ee31-11ea-8398-6de32d892007.png' alt='drawing' width='800'/></p>
+    <p align="center"><img src='https://user-images.githubusercontent.com/46951365/92118150-0bfa9080-ee31-11ea-8398-6de32d892007.png' alt='drawing' width='800'/></p>
 
 
 # 2. qqwweee/Keras-Yolo3로 Training 하기 위한 분석
+주의사항{:.lead}
+- 아래의 일렬의 과정들은 패키지의 있는 함수들을 전적으로 사용합니다. 
+- 따라서 그냥 보면 흐름을 이해하지 못할 수도 있습니다. 
+- 꼭 패키지의 코드들과 같이 보는 것을 추천합니다.
+- 만약 케라스를 잘 모른다면, 그냥 다른 Data를 학습시킬때는 이런 일렬의 과정들이 있구나  
+  정도의 감을 잡는 것도 아주 좋은 공부 일 수 있습니다.
+- 아래 전체 과정 요약
+    1. 내가 가진 데이터 전처리(패키지가 원하는 형식으로)
+    2. Data Genereator에 넣기(torch같은 경우 TensorDataset, DataLoader를 이용해서)
+    3. create_model 하기. (torch.nn 모듈을 사용해서 정의한 신경망 모델 클래스로, 객체 생성하기)
+    4. Check point, log 생성을 위한 작업하기.(Keras 같은 경우 keras.callbacks 모듈의 함수 이용)
+    5. model을 위한 optimizer, Loss function(criterion) 설정하기. 
+    6. model.fit_generator를 이용해서 학습 및 가중치 갱신 시키기. (from keras.models import Model에 있는 맴버함수이다.)
+    7. .h5 형식의 Inference를 위한 가중치 파일을 얻을 수 있다.
+    8. .h5 형식 파일을 이용해서, yolo.py함수의 YOLO 클래스를 이용해 객체 생성
+    9. YOLO.detect_image를 이용해서 객체 탐지 수행
 
 - 지금까지는 1. Pretrained된 Weight값을 가져와서 Inference를 수행하거나(Tensorflow(SSD, Yolo), Keras-yolo3) 2. OpenCV DNN 모듈을 사용하거나 해왔다.
 - 참고 : 1개의 객체만 검출한다면 100장이어도 충분하다. 근데 Class가 여러개면 수 많은 이미지 데이터가 필요하다. 
@@ -215,7 +230,7 @@ if is_tiny_version:
     model = create_tiny_model(input_shape, anchors, num_classes,
         freeze_body=2, weights_path=model_weights_path)
 else:
-    # create_model에는 keras 모듈이 많이 사용되었다. 우선 모르는 건 pass하고 넘어가자.
+    # create_model 은 해당 패키지의 tarin.py 내부에 있는 클래스를 사용했다. 이 함수는 keras 모듈이 많이 사용한다. 우선 모르는 건 pass하고 넘어가자.
     model = create_model(input_shape, anchors, num_classes,
         freeze_body=2, weights_path=model_weights_path) # make sure you know what you freeze
 
@@ -263,6 +278,7 @@ num_train = len(lines) - num_val
 # create_model() 로 반환된 yolo모델에서 trainable=False로 되어 있는 layer들 제외하고 학습
 if True:
     # optimizer와 loss 함수 정의
+    # 위에서 사용한 create_model 클래스의 맴버함수를 사용한다. 
     model.compile(optimizer=Adam(lr=1e-3), loss={
         # use custom yolo_loss Lambda layer.
         'yolo_loss': lambda y_true, y_pred: y_pred})

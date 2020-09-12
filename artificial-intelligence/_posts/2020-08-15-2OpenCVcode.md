@@ -61,9 +61,10 @@ plt.figure(figsize=(12, 12))
 
 <p align="center"><img src='https://user-images.githubusercontent.com/46951365/91693776-81066580-eba6-11ea-928c-a30770118e77.png' alt='drawing' width='500'/></p>
 
-- .pdtxt : github raw 파일 전체 복붙을 해서 다운받기 [여기](https://github.com/opencv/opencv_extra/blob/master/testdata/dnn/faster_rcnn_resnet50_coco_2018_01_28.pbtxt)에서 raw클릭해서 나오는 주소를 wget의 입력으로 넣어주어야 한다. 
+- .pdtxt 파일 다운받기 : github raw 파일 전체 복붙을 해서 다운받기 [여기](https://github.com/opencv/opencv_extra/blob/master/testdata/dnn/faster_rcnn_resnet50_coco_2018_01_28.pbtxt)에서 raw클릭해서 나오는 주소를 wget의 입력으로 넣어주어야 한다. 
 
-- .pdtxt파일은 OpenCV를 위한 Config파일이다. 
+- .pdtxt파일 : OpenCV를 위한 Config파일이다. 
+- .pb 파일 : tensorflow inferecne를 위한 가중치 파일
 
 ## 1-2 dnn에서 readNetFromTensorflow()로 tensorflow inference 모델을 로딩
 
@@ -76,8 +77,8 @@ cv_net = cv2.dnn.readNetFromTensorflow('./pretrained/faster_rcnn_resnet50_coco_2
 - 유의 사항 : object ouput은 class index를 return한다. object 이름을 그대로 return해주지 않는다. 
 - COCO는 91번까지의 ID 번호 object가 있는데, 11개가 COCO2017 에서는 사용하지 않아서 80개의 Object name이 존재한다. 
 
-- coco 데이터 세트의 클래스id별 클래스명 지정. 
-- Class ID가 0 ~ 90 , 0 ~ 91 , 0~79 로 다양하게 사용된다. 이것은 모델별로, 프레임워크별로 다 다르다... 아래와 같이. 
+- coco 데이터 세트의 클래스id별 클래스명 지정해 주어야 한다. 
+- Class ID가 0 ~ 90 , 0 ~ 91 , 0~79 로 다양하게 사용된다. 이것은 모델별로, 프레임워크별로 다 다르다... 아래와 같이. 아래의 표를 파악하는 방법은 실험적으로 알아내는 방법 밖에 없다.
 - 여기서는 OpenCV tensorflow FasterRCNN이므로 0 ~ 90을 사용한다
 
 <p align="center"><img src='https://user-images.githubusercontent.com/46951365/91699152-d3e41b00-ebae-11ea-8a3b-50978353c141.png' alt='drawing' width='400'/></p>

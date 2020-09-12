@@ -30,18 +30,126 @@ MS store에서 다운받을 수 있는 터미널. 그리거 [여기 WSL](https:/
 1. $ sudo apt install zsh
 2. [사이트](https://github.com/ohmyzsh/ohmyzsh)의 bash install을 이용해 우분투에 설치. curl, wget 이용한 설치든 상관없음. 
 3. Oh my zsh 설치완료.
-4. 테마 변경하기  
+4. 터미널 테마 변경하기  
 [이 사이트](https://terminalsplash.com/)를 이용해서 새로운 schems를 만들어주고 colorScheme을 변경해주면 좋다. 
-5. Powerlevel10k  
-[이 사이트](https://github.com/romkatv/powerlevel10k)로 좀 더 좋은 테마로 변경. 터미널을 다시 열면 많은 설정이 뜬다. 이때, 나는 추가로 위의 사이트 중간 부분에 존재하는 font 'MesloLGS NG'를 다운받고 윈도위 글꼴 설정에 넣어주었다. 그랬더니 모든 설정을 순조롭게 할 수 있었다. 그리고 신기하게 언제부터인가 터미널에서 핀치줌을 할 수 있다.(개꿀^^) 뭘 설치해서 그런지는 모르겠다. 
+    ```sh
+        
+    // To view the default settings, hold "alt" while clicking on the "Settings" button.
+    // For documentation on these settings, see: https://aka.ms/terminal-documentation
+
+    {
+        "$schema": "https://aka.ms/terminal-profiles-schema",
+
+        "defaultProfile": "{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}",
+
+        "profiles":
+        {
+            "defaults":
+            {
+                    "fontFace" : "MesloLGS NF"
+            },
+            "list":
+            [
+            
+                {
+                    // Make changes here to the powershell.exe profile
+                    "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                    "name": "Windows PowerShell",
+                    "commandline": "powershell.exe",
+                    "hidden": false,
+                    "colorScheme" : "Monokai Night"
+                },
+                {
+                    // Make changes here to the cmd.exe profile
+                    "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                    "name": "cmd",
+                    "commandline": "cmd.exe",
+                    "hidden": true
+                },
+                {
+                    "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+                    "hidden": true,
+                    "name": "Azure Cloud Shell",
+                    "source": "Windows.Terminal.Azure"
+                },
+                {
+                    "guid": "{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}",
+                    "hidden": false,
+                    "name": "Ubuntu-18.04",
+                    "source": "Windows.Terminal.Wsl",
+                    "colorScheme" : "VSCode Theme for Windows Terminal"
+                }
+
+        
+        
+            ]
+        },
+
+        // Add custom color schemes to this array
+        "schemes": [
+            {
+                "name" : "Monokai Night",
+                "background" : "#1f1f1f",
+                "foreground" : "#f8f8f8",
+                "black" : "#1f1f1f",
+                "blue" : "#6699df",
+                "cyan" : "#e69f66",
+                "green" : "#a6e22e",
+                "purple" : "#ae81ff",
+                "red" : "#f92672",
+                "white" : "#f8f8f2",
+                "yellow" : "#e6db74",
+                "brightBlack" : "#75715e",
+                "brightBlue" : "#66d9ef",
+                "brightCyan" : "#e69f66",
+                "brightGreen" : "#a6e22e",
+                "brightPurple" : "#ae81ff",
+                "brightRed" : "#f92672",
+                "brightWhite" : "#f8f8f2",
+                "brightYellow" : "#e6db74"
+            },
+            {
+                "name" : "VSCode Theme for Windows Terminal",
+                "background" : "#232323",
+                "black" : "#000000",
+                "blue" : "#579BD5",
+                "brightBlack" : "#797979",
+                "brightBlue" : "#9BDBFE",
+                "brightCyan" : "#2BC4E2",
+                "brightGreen" : "#1AD69C",
+                "brightPurple" : "#DF89DD",
+                "brightRed" : "#F6645D",
+                "brightWhite" : "#EAEAEA",
+                "brightYellow" : "#F6F353",
+                "cyan" : "#00B6D6",
+                "foreground" : "#D3D3D3",
+                "green" : "#3FC48A",
+                "purple" : "#CA5BC8",
+                "red" : "#D8473F",
+                "white" : "#EAEAEA",
+                "yellow" : "#D7BA7D"
+            }
+
+        ],
+
+        // Add any keybinding overrides to this array.
+        // To unbind a default keybinding, set the command to "unbound"
+        "keybindings": []
+    }
+    ```
+
+5. 명령어 라인 테마 변경하기 - Powerlevel10k  
+[이 사이트](https://github.com/romkatv/powerlevel10k#oh-my-zsh)로 좀 더 좋은 테마로 변경. 터미널을 다시 열면 많은 설정이 뜬다.   
+잠시 발생하는 에러를 헤결하기 위해, 나는 추가로 위의 사이트 중간 부분에 존재하는 [font 'MesloLGS NG'를 다운](https://github.com/romkatv/powerlevel10k#manual-font-installation)받고 윈도위 글꼴 설정에 넣어주었다. 그랬더니 모든 설정을 순조롭게 할 수 있었다. 그리고 신기하게 언제부터인가 터미널에서 핀치줌을 할 수 있다.(개꿀^^) 뭘 설치해서 그런지는 모르겠다. 
 6. vscode 터미널 모양 바꿔주기  
 setting -> Terminal › Integrated › Shell: Windows -> edit json -> "terminal.integrated.shell.windows": "c:\\Windows\\System32\\wsl.exe"  
-7. ls color  
+    ![image](https://user-images.githubusercontent.com/46951365/92989121-ab441580-f50c-11ea-9f1d-fec982d693b9.png)
+7. [ls color](https://qastack.kr/ubuntu/466198/how-do-i-change-the-color-for-directories-with-ls-in-the-console) : code ~/.zshrc  
 
-- 전체적인 과정을 하고 느낀점   
-뭔가 혼자 찾으면 오래 걸릴 것을 순식간에 해버려서... 감당이 안된다. 이 전반적인 원리를 알지 못해서 조금 아쉽지만, 내가 필요한 건 이 일렬의 과정의 원리를 아는 것이 아니라 그냥 사용할 수 있을 정도로만 이렇게 설정할 수 있기만 하면되니까, 걱정하지말고 그냥 잘 사용하자. 이제는 우분투와 윈도우가 어떻게 연결되어 있는지 알아볼 차례이다.   
-- powerlevel10k 환경설정을 처음부터 다시 하고 싶다면, $ p10k configure 만 치면 된다.
-- **주의 할 점!!** 우분투에 ~/.zshrc 파일을 몇번 수정해 왔다. oh my zsh를 설치할 때 부터.. 그래서 지금 설치한 우분투 18.04를 삭제하고 다 깔면 지금까지의 일렬의 과정을 다시 해야한다. '## Terminal customization'과정을 처음주터 다시 하면 된다. 
+- 추가 메모
+    - 뭔가 혼자 찾으면 오래 걸릴 것을 순식간에 해버려서... 감당이 안된다. 이 전반적인 원리를 알지 못해서 조금 아쉽지만, 내가 필요한 건 이 일렬의 과정의 원리를 아는 것이 아니라 그냥 사용할 수 있을 정도로만 이렇게 설정할 수 있기만 하면되니까, 걱정하지말고 그냥 잘 사용하자. 이제는 우분투와 윈도우가 어떻게 연결되어 있는지 알아볼 차례이다.   
+    - powerlevel10k 환경설정을 처음부터 다시 하고 싶다면, $ p10k configure 만 치면 된다.
+    - **주의 할 점!!** 우분투에 ~/.zshrc 파일을 몇번 수정해 왔다. oh my zsh를 설치할 때 부터.. 그래서 지금 설치한 우분투 18.04를 삭제하고 다 깔면 지금까지의 일렬의 과정을 다시 해야한다. '## Terminal customization'과정을 처음주터 다시 하면 된다. 
 
 # 3. Installing Everything
 1. 우분투와 윈도우와의 관계  
@@ -61,7 +169,6 @@ $ ls /mnt/c/Users/sb020 -> 결국에 여기가 나의 Document들이 있는 부�
         alias win="cd /mnt/c/Users/sb020"  
         alias acttor="conda activate torch"  
         ```
-    - python 설치하기 : deadsnakes에서 apt에게 repository위치를 알려주고 설치한다. 
 
 3. WSL ubuntu VScode  
     - ![image](https://user-images.githubusercontent.com/46951365/90973167-5c810c80-e55a-11ea-8ba4-55fec2aeca32.png)

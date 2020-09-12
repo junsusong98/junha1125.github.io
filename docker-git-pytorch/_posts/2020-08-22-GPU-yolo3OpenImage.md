@@ -7,6 +7,8 @@ description: >
  Google Open Image 학습시키기 - Keras기반 Yolo3
  이전의 Pascal VOC, MS coco 데이터 셋에 대해서는 [이전 게시물](https://junha1125.github.io/artificial-intelligence/2020-08-12-detect,segmenta2/) 참조
 
+ 
+
 # 1. Google Open Image 고찰 정리
 - 600개의 object 카테고리, 
 - Object Detection Dataset 170만개 train 4만 validation 12만개 test
@@ -97,6 +99,17 @@ description: >
     
 
 # 3. 데이터 다운로드 및 전처리 해보기(Keras-yolo3 용)
+
+- 아래 전체 과정 요약
+    1. 내가 가진 데이터 전처리(패키지가 원하는 형식으로)
+    2. Data Genereator에 넣기(torch같은 경우 TensorDataset, DataLoader를 이용해서)
+    3. create_model 하기. (torch.nn 모듈을 사용해서 정의한 신경망 모델 클래스로, 객체 생성하기)
+    4. Check point, log 생성을 위한 작업하기.(Keras 같은 경우 keras.callbacks 모듈의 함수 이용)
+    5. model을 위한 optimizer, Loss function(criterion) 설정하기. 
+    6. model.fit_generator를 이용해서 학습 및 가중치 갱신 시키기. (from keras.models import Model에 있는 맴버함수이다.)
+    7. .h5 형식의 Inference를 위한 가중치 파일을 얻을 수 있다.
+    8. .h5 형식 파일을 이용해서, yolo.py함수의 YOLO 클래스를 이용해 객체 생성
+    9. YOLO.detect_image를 이용해서 객체 탐지 수행
 
 1. 실습을 위한 데이터 다운로드
     ```sh

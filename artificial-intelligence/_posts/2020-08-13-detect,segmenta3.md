@@ -51,7 +51,7 @@ Detection과 Segmentation 다시 정리 3
 
 4. Open CV - DNN Pakage [Document](https://docs.opencv.org/master/d2/d58/tutorial_table_of_content_dnn.html)
     - 컴퓨터 비전 처리를 널리 사용되고 있는 범용 라이브러리
-    - 오픈소스 기반 실시간 이미지 프로세싱에 중점을 ㅇ둔 라이브러리.
+    - 오픈소스 기반 실시간 이미지 프로세싱에 중점을 둔 라이브러리.
     - Deep Learning 기반의 Computer Vision 모듈 역시 포팅되어 있음.
     - OpenCV가 지원하는 딥러닝 프레임워크. 이것을 사용해 Inference.
         - Caffe, Tensorflow, Torch, Darknet
@@ -72,15 +72,15 @@ Detection과 Segmentation 다시 정리 3
 
 # 4. Object Detection 개요    
 
-<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91637286-6e731b80-ea42-11ea-9841-5463bd8cf10c.png' alt='drawing' width='500'/></p>
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91637286-6e731b80-ea42-11ea-9841-5463bd8cf10c.png' alt='drawing' width='600'/></p>
 
 - Feature Extraction Network : Backbone Network, Classification을 위해 학습된 모델을 사용한다. 핵심적인 Feature를 뽑아내는 역할을 한다. 
 - Object Detection Network 
 - Region Progosal : Selective Search, RPN 등등.. 
 
-- Image Resolution, FPS, Detection 성능의 당연한 상관 관계  
+- Image Resolution, FPS, Detection 성능의 당연한 상관 관계 아래 그림 참조    
   yoloV2 성능비교를 통해서 확인해 보자. 
-<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91637407-27395a80-ea43-11ea-9952-26a648096738.png' alt='drawing' width='500'/></p>
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91637407-27395a80-ea43-11ea-9952-26a648096738.png' alt='drawing' width='600'/></p>
 
 
   

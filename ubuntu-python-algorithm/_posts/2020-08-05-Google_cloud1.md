@@ -59,7 +59,8 @@ Google Cloud 딥러닝 플렛폼 이용하기
         $ sudo docker run -d --name webconnet -p 81:80 raesene/bwap
       ```
 
-    - 이제 웹에서 외부 IP:81 로 들어가준다. 하지만 들어가지지 않은 것을 확인할 수 있다. 이것은 구글 클라우드에서 방화벽 처리를 해놓았기 때문이다. VPC 네트워크 - 방화벽 - 방화벽 규칙 만들기 - 소스 IP 범위 : 0.0.0.0/0  tcp: 81 정의 - 그리고 다시 외부 IP:81로 접근하면 아래와 같은 화면 결과.  
+    - 이제 웹에서 외부 IP:81 로 들어가준다. 하지만 들어가지지 않은 것을 확인할 수 있다. 이것은 구글 클라우드에서 방화벽 처리를 해놓았기 때문이다. 
+    - Google Cloud Platform - VPC 네트워크 - 방화벽 - 방화벽 규칙 만들기 - 소스 IP 범위 : 0.0.0.0/0  tcp: 81 정의 - 그리고 다시 외부 IP:81로 접근하면 아래와 같은 화면 결과.  
       <img src="https://user-images.githubusercontent.com/46951365/91317607-3aef8180-e7f5-11ea-8461-c5753a54973a.png" alt="image" style="zoom:67%;" />  
     - 외부 IP:81/install.php 로 들어가면 bwapp(웹해킹)사이트로 들어갈 수 있다. 
 
@@ -74,7 +75,7 @@ Google Cloud 딥러닝 플렛폼 이용하기
       mltooling/ml-workspace:latest
       ```
 
-    3. MarektPlace 활용하기. 저장 디시크 활용
+    3. GCP의 MarektPlace 활용하기. 저장 디시크 활용
       - 추가적인 강의는 추후에 들을 예정.
       - [추가 강의 링크](https://www.youtube.com/watch?v=8ld759re0Xg)
 

@@ -13,17 +13,13 @@ Tensorflow 1.3. Faster RCNN API로 Object Detection 수행하기
 <p align="center"><img src='https://user-images.githubusercontent.com/46951365/91733396-6ce15900-ebe4-11ea-8374-29d15df7b464.png' alt='drawing' width='600'/></p>
 
 **해결방안**
-- $ nvidia-smi 를 주기적으로 확인하고 학습을 시작하기 전에, 
-
-1. Jupyter - Running - 안쓰는 Notebook Shutdown 하기
-
-2. Notebook - Restart & Clear output 하기
-
-3. nvidia-smi 에서 나오는 process 중 GPU많이 사용하는 프로세서
-Kill -9 \<Processer ID>하기
-
-4. Jupyter Notebook 을 Terminal에서 kill하고 다시 키기 (~
-/start_nb.sh)
+- $ nvidia-smi 를 주기적으로 확인하고 학습을 시작하기 전에,   
+    1. Jupyter - Running - 안쓰는 Notebook Shutdown 하기
+    2. Notebook - Restart & Clear output 하기
+    3. nvidia-smi 에서 나오는 process 중 GPU많이 사용하는 프로세서
+    Kill -9 \<Processer ID>하기
+    4. Jupyter Notebook 을 Terminal에서 kill하고 다시 키기 (~
+    /start_nb.sh)
 
 
 # 2. tensorflow로 Object Detection 수행하기 

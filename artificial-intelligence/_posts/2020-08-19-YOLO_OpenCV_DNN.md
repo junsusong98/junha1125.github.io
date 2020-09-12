@@ -26,7 +26,7 @@ OpenCV DNN 모듈을 사용해서 YOLO 수행하기
           - 80개의 값 중에서 가장 높은 값을 가지는 위치 인덱스가 객체의 Label값이다. 
           - 4개의 값이 t인 (offset값인지 알았는데... 좌표값이다.) 근데 그 좌표값은 (center_X, center_Y, width, hight)이다. 이 값을 좌상단 우하단(X1 Y1 X2 Y2) 좌표로 변환을 해줘야 한다. 
 
-<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91936541-031f9700-ed2b-11ea-8ee3-25fff18896fa.png' alt='drawing' width='500'/></p>
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91936541-031f9700-ed2b-11ea-8ee3-25fff18896fa.png' alt='drawing' width='600'/></p>
 
 - Pretrained 된 Inferecne 모델 로딩 주의 사항
      - 대부분이 [Darknet 사이트에](https://pjreddie.com/darknet/yolo/)서 직접 weight와 config파일을 다운받와야 한다. 
@@ -36,7 +36,7 @@ OpenCV DNN 모듈을 사용해서 YOLO 수행하기
 - **OpenCV로 Yolo inference 구현 절차 (위의 내용 전체 요약)**
 {:.lead}
 
-<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91937226-707ff780-ed2c-11ea-89b2-15356c711a05.png' alt='drawing' width='500'/></p>
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/91937226-707ff780-ed2c-11ea-89b2-15356c711a05.png' alt='drawing' width='600'/></p>
 
 # 2. OpenCV DNN Yolo Inference 구현 코드 - 단일 이미지
     - 아래의 코드에서 계속 yolo-416 과 tiny-yolo 를 이용
