@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Python-Module】 OpenCV DNN 모듈을 사용해서 Faster RCNN 수행하기
+title: 【Python-Module】 Faster RCNN 수행하기 - OpenCV DNN 모듈
 description: >
     이전 Post를 통해서 Faster RCNN이론에 대해서 공부했다. OpenCV DNN 모델을 사용해서 Faster RCNN을 수행해보자.
 ---

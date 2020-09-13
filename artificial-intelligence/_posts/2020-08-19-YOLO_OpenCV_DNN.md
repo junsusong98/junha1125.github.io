@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Python-Module】 OpenCV DNN 모듈을 사용해서 YOLO 수행하기 
+title: 【Python-Module】  YOLO 수행하기 - OpenCV DNN 모듈
 description: >
      주의 사항 : 지금까지의 OpenCV DNN 모듈 이용과는 흐름이 다르다.      
      이전 Post를 통해서 YOLO의 이론에 대해서 공부했다. OpenCV DNN 모델을 사용해서 YOLO를 수행해보자. 
