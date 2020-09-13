@@ -8,6 +8,12 @@ description: >
 OpenCV DNN 모듈을 사용해서 Detection 수행하기  
 /DLCV/Detection/fast_rcnn/OpenCV_FasterRCNN_ObjectDetection.ipynb 참조
 
+## 0. OpenCV 모듈 과정 요약
+1. cs_net = cv2.dnn.readNetFromFramwork('inference 가중치 파일','config파일') 를 사용해서 
+2. img_drwa = cv2.dnn.blobFromImage(cv2로 read한 이미지, 변환 형식1 , 변환 형식2)
+3. cv_out = cv_net.forward() 
+4. for detection in cv_out\[0,0,:,:]  으로 접근해서 output정보 가져오기.
+
 # 1. OpenCV DNN 패키지를 이용하여 Faster R-CNN
 * Tensorflow 에서 Pretrained 된 모델 파일을 OpenCV에서 로드하여 이미지와 영상에 대한 Object Detection 수행. 
 

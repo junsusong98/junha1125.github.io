@@ -7,7 +7,8 @@ description: >
 ---
 
 OpenCV DNN 모듈을 사용해서 YOLO 수행하기   
-주의 사항 : 지금까지의 OpenCV DNN 모듈 이용과는 흐름이 다르다.    
+주의 사항 : 지금까지의 OpenCV DNN 모듈 이용과는 흐름이 다르다.        
+OpenCV 사용과정 요약은 [이전 Post](https://junha1125.github.io/artificial-intelligence/2020-08-15-2OpenCVcode/) 참조    
 
 참고 파일 (conda tf113 환경)   
 : /DLCV/Detection/yolo/OpenCV_Yolo_이미지와_영상_Detection.ipynb
