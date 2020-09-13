@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Keras】 라쿤 데이터 학습시키기 - Keras기반 Yolo3 / GPU 학습 유의사항
+title: 【Keras】Keras기반 Yolo3 -라쿤 데이터 학습시키기 + GPU 학습 유의사항
 description: >
     GPU Object Detection시 유의 사항을 간단히 알아보고, 이전 게시물에서 공부했던 Keras 기반 Yolo3를 이용해 데이터 학습을 시켜보자.
 ---

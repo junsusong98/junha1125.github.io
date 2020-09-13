@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Tensorflow】SSD Inference // Tensorflow Inference.pb 파일가져와 사용하기
+title: 【Tensorflow】SSD Inference 수행하기
 # description: > 
 
 ---
@@ -11,6 +11,7 @@ Tensorflow v1.3 API로, SSD Inference 수행하기
 
 /DLCV/Detection/ssd/SSD_Face_Detection.md
 
+[이번 post](https://junha1125.github.io/docker-git-pytorch/2020-08-11-tensorflowFaster/)를 참고해서, Tensorflofw inference 흐름 파악하기
 
 ## 1. Tensorflow로 SSD - Object Detection 수행하기 
 - [이전 Post](https://junha1125.github.io/artificial-intelligence/2020-08-16-SSD2OpenCV/)에서 받은,     

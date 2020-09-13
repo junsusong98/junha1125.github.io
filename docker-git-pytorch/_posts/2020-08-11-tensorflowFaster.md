@@ -1,12 +1,21 @@
 ---
 layout: post
-title: 【Tensorflow】v1.3 API로, Faster RCNN Inference 수행하기 / GPU 자원 주의사항
+title: 【Tensorflow】Faster RCNN Inference 수행하기 + GPU 자원 주의사항
 # description: > 
 
 ---
 
 Tensorflow 1.3. Faster RCNN API로 Object Detection 수행하기  
 /DLCV/Detection/fast_rcnn/Tensorflow_FasterRCNN_ObjectDetection.ipynb 참조
+
+## 0. Tensorflow inferece 과정
+1. 이미지 read 하기
+2. .pb 파일만 읽어오기 - tf.gfile.FastGFile, graph_def = tf.GraphDef() 사용
+3. 세션을 시작한다 - with tf.Session() as sess: 
+4. 세션 내부에서 graph를 import한다 - tf.import_graph_def(graph_def, name='')
+5. sess.run으로 forward처리하고, 원하는 정보를 뽑아온다. out = sess.run
+6. 객체 하나하나에 대한 정보를 추출하여 시각화 한다 - for i in range(int(out[0][0])):
+
 
 # 1. GPU 자원 주의사항
 

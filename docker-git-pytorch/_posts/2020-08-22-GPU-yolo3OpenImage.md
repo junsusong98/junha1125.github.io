@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Keras】 Google Open Image 학습시키기 - Keras기반 Yolo3
+title: 【Keras】Keras기반 Yolo3 - Google Open Image 학습시키기 
 description: >
     이전 게시물에서 공부했던 Keras 기반 Yolo3를 이용해 Google Open Image 데이터 학습을 시켜보자.
 ---
