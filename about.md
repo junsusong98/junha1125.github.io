@@ -10,9 +10,10 @@ image: /assets/img/catagorys/justdoit.jpg
 
 # Juna Song
 
-- Researcher of [HYUNDAI MOBIS](https://www.mobis.co.kr/main/index.do)
 - Email : sb020518@gmail.com   
 - Git Blog : [https://junha1125.github.io](https://junha1125.github.io/)  
+- Researcher of [HYUNDAI MOBIS](https://www.mobis.co.kr/main/index.do)      
+    <img src='https://blog.kakaocdn.net/dn/cLyq53/btqyWVrhfsx/UDMKYI8tkKXLobR2bl6QK1/img.jpg' alt='drawing' width='200'/>
 
  
 
@@ -23,12 +24,12 @@ image: /assets/img/catagorys/justdoit.jpg
 - 2015 ~ 2020   
     Kookmin University (Seoul, Korea)  
     Department of Automobile and IT Convergence  
-    B.S. Student
-- (Expected) 2021 ~ Present    
-    KAIST  
-    Division of Future Vehicle    
-    **M.S. Candidate**
-
+    B.S. 
+- 2021 ~ Present    
+    KAIST - Division of Future Vehicle    
+    [RCV Lab](http://rcv.kaist.ac.kr/) under Prof. In So Kweon    
+    **M.S. Candidate**  
+    <img src='https://user-images.githubusercontent.com/46951365/94216164-aeca9a00-ff19-11ea-905e-067b3a8dc327.png' alt='drawing' width='300'/>
 
 # Official Grade  
 - University Major Credit  

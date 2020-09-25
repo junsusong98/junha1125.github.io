@@ -86,7 +86,7 @@ Google Cloud 딥러닝 플렛폼 이용하기
 1. 4코어 15GB 메모리. GPU T4 1개. 부팅디스크 (Deep Learning on Linux) 디스크 300GB. 
 2. Cloud 서버 활용하기 - IP설정(고정적으로 만들기) : VPC 네트워크 - 외부 IP주소 - 고정 주소 예약 (region-연결대상 만 맞춰주고 나머지는 Default로 저장)
 3. 방화벽 규칙 - 방화벽 규칙 만들기 - 8888 port 열기 - 네트워크의 모든 인스턴스 - tcp:8888 -> 
-4. Putty donwnload - Putty gen (Public Private Key 만드는데 사용) 열기 - 인스턴스 세부정보 수정 - Key generate(Key comment : 구글 계정 아이디 넣기) - Key 복사해서 SSH 키 입력 -  (Putty gen) Save private, public key - VM 인스턴스 세부정보 수정 저장. 
+4. Putty donwnload - Putty gen (Private Key 만드는데 사용) 열기 - 인스턴스 세부정보 수정 - Key generate(Key comment : 구글 계정 아이디 넣기) - Key 복사해서 SSH 키 입력 -  (Putty gen) Save private, public key - VM 인스턴스 세부정보 수정 저장. 
 5. 외부 IP를 Putty에 넣어주고, SSH Auth Browsd - 위에 저장한 Private key 클릭 - Host Name을 sb020518@외부IP 로 저장하고 save_sessions - Open.
 6. Nvidia driver 설치 Yes. - Nvidia driver installed - nvidia-smi 체크해보기
 7. Nvidia driver가 잘 설치되지 않는다면 다음의 과정을 거친다.  
