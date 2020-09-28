@@ -15,7 +15,7 @@ python 새롭게 안 사실 및 핵심 내용들
 2. os package 유용한 함수들
     - os.listdir : 폴더 내부 파일이름들 list로 따옴
     - os.walk : sub directory를 iteration으로 반환 (검색해서 아래 활용 예시 보기)
-    - [os.path.dirname](http://pythonstudy.xyz/python/article/507-%ED%8C%8C%EC%9D%BC%EA%B3%BC-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC) : 경로 중 directory name 만 얻기. 
+    - [os.path.dirname](http://pythonstudy.xyz/python/article/507-%ED%8C%8C%EC%9D%BC%EA%B3%BC-%EB%94%94%EB%A0%89%ED%86%A0%EB%A6%AC) : 경로 중 이전 dir에 대한 정보까지만 얻기
 3. image_ids = list(set(image_ids) - set(val_indexs)) 
     - set과 list를 동시에 이용한다. 교집합을 제거하고, 남은 내용들만 list로 반환
 4. 문자열함수 [endwith(문자열)](http://www.w3big.com/ko/python/att-string-endswith.html) : 문자열에 해당 문자가 있으면 True, 없으면 False
@@ -23,6 +23,9 @@ python 새롭게 안 사실 및 핵심 내용들
     - mask 데이터 뽑아 오는 하나의 방법
 6. masks = np.stack(mask_list, axis=-1) 
     - 한장한장의 mask 데이터를 concatenation하는 방법
+    - [공식 dacument](https://numpy.org/doc/stable/reference/generated/numpy.stack.html)
+    - 만약 내가 묶고 싶은 list의 원소가 n개 일 때, axis가 명시하는 shape의 index가 n이 된다. 
+    - **2**개의 list(1*3)를 합치고 axis가 -1이라면, 최종 result는 3x**2**가 된다. 
 
 ---
 
@@ -31,7 +34,8 @@ python 새롭게 안 사실 및 핵심 내용들
 - 전체 흐름도 정리 : [이전 포스트 자료](https://junha1125.github.io/docker-git-pytorch/2020-09-04-BalloonMask/#4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%95%99%EC%8A%B5%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%A0%84%EC%B2%B4-%ED%9D%90%EB%A6%84%EB%8F%84)
 
 ## 1. Kaggle API로 데이터 다운로드 및 데이터 탐방
-
+- 이전에 배웠던 [winSCP](https://junha1125.github.io/ubuntu-python-algorithm/2020-08-05-Google_cloud2/#3-cloud-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD-%EB%B0%8F-object-storage-%EC%84%A4%EC%A0%95), 서버의 directory 구조 그대로 보고, 데이터를 주고 받을 수 있는 프로그램, 을 사용해도 좋다. 하지만 여기서는 kaggle API를 이용해서 data받는게 빠르고 편하다. 
+- kaggle API 설치 및 데이터 다운로드 [사용법 사이트](https://teddylee777.github.io/kaggle/Kaggle-API-%EC%82%AC%EC%9A%A9%EB%B2%95)
 
 ```python
 import os
@@ -115,7 +119,9 @@ for dir in next(os.walk(train_dataset_dir))[1]:
                 break
 ```
 
-![image](https://user-images.githubusercontent.com/46951365/94339315-183ecb80-0034-11eb-8ed3-6ce54b53ec09.png)
+![image](https://user-images.githubusercontent.com/46951365/94460930-67335f00-01f4-11eb-90b7-01d3f7bcd26a.png)
+
+- 하나의 dir에는 '하나의 이미지(images)'와 '그 이미지에 대한 새포핵 하나하나에 대한 mask 흑백이미지들'이 저장되어 있다. 
 
 ## 2. Dataset 객체와 Data load 메소드 작성
 
@@ -478,9 +484,10 @@ img_aug = iaa.SomeOf((0, 2), [
     ])
 ```
 
+- warning ignore를 안해도 학습은 되지만, imgagu와 충돌하는동안 계속 warning이 발생해서 ignore처리를 하였다. 이런 방법도 있구나 알아두자. 
 
 ```python
-import warnings
+import warnings 
 warnings.filterwarnings('ignore')
 
 print("Train all layers")
@@ -693,7 +700,7 @@ dataset_test.image_ids
 
 
 
-- 우선 test 셋에 있는 데이터를 model에 통과시켜서 Segmentation결과를 추출하고 visualize 해보기
+- 우선 test 셋에 있는 데이터를 model에 통과시켜서, 모든 test data 64개에 대해서, Segmentation결과를 추출하고 visualize 해보자.
 
 
 ```python
@@ -711,7 +718,7 @@ for image_id in dataset_test.image_ids:
             title="Predictions")
 ```
 
-
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/94464274-3a357b00-01f9-11eb-81f3-f6e3a427957a.png' width='600'/></p>  
 
 ```python
 for image_id in dataset_test.image_ids:
