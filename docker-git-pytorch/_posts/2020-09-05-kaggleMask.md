@@ -4,6 +4,7 @@ title: 【Keras】Keras기반 Mask-RCNN - Kaggle Necleus 데이터셋
 description: >
     Keras 기반 Mask-RCNN를 이용해 Kaggle Necleus 데이터셋을 학습시키고 추론해보자.
 ---
+【Keras】Keras기반 Mask-RCNN - Kaggle Necleus 데이터셋
 
 # 1. python 핵심 정리 모음(새롭게 안 사실)  
 python 새롭게 안 사실 및 핵심 내용들  

@@ -1,11 +1,25 @@
 ---
 layout: post
-title: 【GPU_Server】 Google Cloud 플랫폼 - VScode SSH remote
+title: 【GPU_Server】 Google Cloud 플랫폼 - VScode SSH, SSH 란?
 description: > 
     VScode를 SSH를 사용하여 remote연결하기
 ---
 
 VScode를 SSH를 사용하여 remote연결하기   
+
+# PS
+onedrive의 파일 wget으로 가져오기    
+[stackoverflow 답변 링크](https://unix.stackexchange.com/questions/223734/how-to-download-files-and-folders-from-onedrive-using-wget)  
+```
+파일에 오른쪽 클릭하면 '임베드' 찾을 수 있음
+
+<iframe src="https://onedrive.live.com/embed?cid=FBB2D8FB591497AB&resid=FBB2D8FB591497AB%2155221&authkey=AL6ELFsqIIuTp_s" width="98" height="120" frameborder="0" scrolling="no"></iframe>
+
+
+https://onedrive.live.com/download?cid=FBB2D8FB591497AB&resid=FBB2D8FB591497AB%2155221&authkey=AL6ELFsqIIuTp_s
+
+wget --no-check-certificate "https://onedrive.live.com/download?cid=FBB2D8FB591497AB&resid=FBB2D8FB591497AB%2155221&authkey=AL6ELFsqIIuTp_s"
+```
 
 # 0. Reference
 1. 참고 동영상 [https://www.youtube.com/watch?v=7kum46SFIaY](https://www.youtube.com/watch?v=7kum46SFIaY)
@@ -62,3 +76,22 @@ VScode를 SSH를 사용하여 remote연결하기
 1. 앞으로 WSL에 들어가서 굳이 작업하지 말자. WSL에서 작업할 이유가 전혀 없다. 
 2. WSL을 전체 삭제해도 지금 될 것 같다. 하지만 일단 놔두자. 추가 환경설정 ~/.zshrc 파일이 나중에 도움이 될지도 모른다
 2. zsh 설정한 것은 매우 좋지만, 굳이 더 이상 쓸 필요 없다. 만약 필요하면 다른 우분투 서버 환경을 zsh 설치해서 shell사용하면 된다. 
+
+
+# 5. SSH 란?
+- 강의 듣기 : [https://opentutorials.org/module/432/3738](https://opentutorials.org/module/432/3738)
+- Client로 명령을 내리고 Server는 명령을 수행한다. 
+- Linux에서는 Client가 이미 설치되어 있다. 
+- 하지만 윈도우에서는 PuTTY로 SSH Client를 수행할 수 있다. 
+- SSH server 설치 과정은 다음과 같다 ([참고 사이트1](https://technote.kr/318), [참고 사이트2](http://programmingskills.net/archives/315), [참고 사이트3](https://wlsvud84.tistory.com/12))
+    1. $ sudo apt install openssh-server
+    2. $ netstat -an|grep :22    
+        여기서 22번 포트가 LISTEN 라면 openssh-server가 잘 동작중이라는 것.
+    3. $ ifconfig 를 통해서 ip를 알아내고 putty에 적어서 실행.
+    4. [putty 사용법](https://opentutorials.org/module/432/3740) 
+
+- SSH Key - 비밀번호 보다 높은 수준의 보안이 필요할 때 사용.
+    - [참고 사이트1](https://opentutorials.org/module/432/3742), [참고 사이트2](https://arsviator.blogspot.com/2015/04/ssh-ssh-key.html), [참고 사이트3 - putty Gen](http://taewan.kim/post/ssh_key/)
+    - 
+
+
