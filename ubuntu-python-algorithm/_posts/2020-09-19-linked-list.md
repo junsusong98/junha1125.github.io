@@ -1,7 +1,6 @@
-
 ---
 layout: post
-title: 【Algorithm】 [leet] linked-list - swap-nodes-in-pairs
+title: 【Algorithm】[leetcode] linked-list - swap-nodes-in-pairs
 # description: > 
 ---
 
