@@ -165,6 +165,7 @@ $ ls /mnt/c/Users/sb020 -> 결국에 여기가 나의 Document들이 있는 부�
         ```sh
         $ conda install Numpy Scipy Scikit-learn Theano TensorFlow Keras PyTorch Pandas Matplotlib      
         $ conda install -c conda-forge opencv  
+        $ conda install -c pytorch torchvision
         ```  
     - 엄청난 것을 깨달았다. 왜 ~/.bashrc 에 conda에 관한 아무런 내용이 없지? 라고 생각했다.  왜냐하면 나는 지금 zsh shell을 사용하고 있기 때문이다. 따라서 ~/.zshrc 에 들어가면 conda에 대한 설정이 있었다. 
     - vi를 사용해서 파일을 수정할 필요가 이제 없다. $ vi ~/.zshrc 하지말고 $ code ~/.zshrc를 하면 매우 쉽다. (vscode 자동실행) 여기에 들어가서 alias를 이용해서 단축어를 만들어놨다.  
