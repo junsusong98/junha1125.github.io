@@ -122,7 +122,25 @@ Google Cloud 딥러닝 플렛폼 이용하기
 
 - 이와 같이 우리의 SSH 환경이 jupyter에서 실행되는 것을 확인할 수 있다. 
 
+## 5. GCP tensorboard 열기
+- GCP의 SSH를 이용하는 경우
+    1. SSH를 GCP를 통해서 열어서 $ tensorboard --logdir=runs 실행
+    2. TensorBoard 2.2.1 at http://localhost:6006/ (Press CTRL+C to quit)  
+      라고 나오면 이떄 나오는 링크를 클릭해서 들어가야 tensorboard를 볼 수 있다. 
+    3. [참고했던 사이트](https://www.montefischer.com/2020/02/20/tensorboard-with-gcp.html) 이 작업을 해서 되는건지 아닌지는 모르겠다. 이거 했을 때 에러가 많았는데...
+    3. 인스턴스_외부_IP:6006/ 와 같은 링크로 크롬에 직접 쳐서는 들어갈 수 없다.
 
+- jupyter notebook의 terminal를 이용하는 경우
+    1. 이상하게 jupyter notebook을 틀어서 위와 같은 작업을 똑같이 실행하면
+        - localhost:6006/로 들어갈 수 없다
+        - 실행하던 terminal이 멈처버린다. ctrl+c도 안 먹힌다. 
+        - terminal을 shortdown할 수도 없다. 
+    2. 내 생각인데, 인스턴스_외부_IP:8888에서 다시 6006을 열라고 하니까 안되는 것 같다. 
+        - 주인이 있는데, 고객이 고객을 상대하려고 하는 꼴인건가??
+    3. 옛날에 은환이가 하던 jupyter 메뉴에서 tensorboard를 여는 방법은, 은환이 왈, 'jupyter notebook에서 tensorboard와 연동이 안되어 있을 거다.' 나중에 jupyter에서 tensorboard를 여는 방법은 연동을 해서 할 수 있도록 찾아보자. ([ml_workspace](https://github.com/ml-tooling/ml-workspace#tensorboard) 에서 할 수 있는 것처럼.)
 
-
+- vscode를 이용하는 경우
+    1. terminal에서 $ tensorboard --logdir=runs 실행하면, localhost:6006링크를 준다. 
+    2. 그리고 그 링크를 클릭하면, 나의 노트북 ip를 이용해서(신기방기) tensorboard를 열어준다!!
+    3. 이게 GCP SSH 보다 훨씬 편할 듯 하다! Goode
 
