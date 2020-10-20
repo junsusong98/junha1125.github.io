@@ -5,7 +5,7 @@ title: Projects
 slug: projects
 menu: true
 permalink: /projects/
-order: 4
+order: 5
 sitemap: false
 description: >
     진행했던 프로젝트에 관련된 게시물이 업로드 됩니다.    

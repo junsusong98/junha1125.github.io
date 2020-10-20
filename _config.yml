@@ -52,6 +52,8 @@ menu:
     url:               /ubuntu-python-algorithm/
   - title:             Docker / Git / Pytorch
     url:               /docker-git-pytorch/
+  - title:             Self Study
+    url:               /Self-Study/
   - title:             Projects
     url:               /projects/
   - title:             My Life

@@ -138,9 +138,18 @@ Google Cloud 딥러닝 플렛폼 이용하기
     2. 내 생각인데, 인스턴스_외부_IP:8888에서 다시 6006을 열라고 하니까 안되는 것 같다. 
         - 주인이 있는데, 고객이 고객을 상대하려고 하는 꼴인건가??
     3. 옛날에 은환이가 하던 jupyter 메뉴에서 tensorboard를 여는 방법은, 은환이 왈, 'jupyter notebook에서 tensorboard와 연동이 안되어 있을 거다.' 나중에 jupyter에서 tensorboard를 여는 방법은 연동을 해서 할 수 있도록 찾아보자. ([ml_workspace](https://github.com/ml-tooling/ml-workspace#tensorboard) 에서 할 수 있는 것처럼.)
+    4. jupyter로 작업하는 동안, vscode와 GCP로 tensorboard를 열려고 하면 event파일을 다른 프로세서에서 잡고 있기 때문에 열 수 없다. 따라서, 주피터 cell에다가 ! tensorboard --logdir=runs 를 치고 localhost로 들어가면 된다. 신기하게 여기서 localhost도 내 노트북 IP를 사용한다.
+    5. 근데 4번처럼 하면 다른 셀을 실행할 수가 없다. 개같다...
 
 - vscode를 이용하는 경우
     1. terminal에서 $ tensorboard --logdir=runs 실행하면, localhost:6006링크를 준다. 
     2. 그리고 그 링크를 클릭하면, 나의 노트북 ip를 이용해서(신기방기) tensorboard를 열어준다!!
-    3. 이게 GCP SSH 보다 훨씬 편할 듯 하다! Goode
+    3. 이게 GCP SSH 보다 훨씬 편할 듯 하다! 
+
+- 최종방법! 
+    1. 다음 사이트를 참고 했다. [jupyter에서 tensorboard 사용법](https://lucycle.tistory.com/274)
+    2. 'vision' conda env에서 pip install jupyter-tensorboard 실행(conda install 없다.)
+    3. 성공!  
+      ![image](https://user-images.githubusercontent.com/46951365/96361914-98081380-1164-11eb-9cc2-7c969820a211.png)
+    
 

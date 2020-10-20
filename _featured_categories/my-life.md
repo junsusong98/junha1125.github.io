@@ -5,7 +5,7 @@ title: My Life
 slug: my-life
 menu: true
 permalink: /my-life/
-order: 5
+order: 6
 sitemap: false
 description: >
     살면서 했던 소소한 활동에 관련된 게시물을 업로드합니다.     
