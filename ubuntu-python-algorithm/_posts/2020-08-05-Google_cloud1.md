@@ -153,3 +153,24 @@ Google Cloud 딥러닝 플렛폼 이용하기
       ![image](https://user-images.githubusercontent.com/46951365/96361914-98081380-1164-11eb-9cc2-7c969820a211.png)
     
 
+## 6. GPU 할당 받은 instance 만들기
+1. GPU 할당은 받았다. 하지만 Credit을 사용하고 있어서 GPU instance 만들기 불가능
+2. $ gcloud computer 를 사용하는, google console 을 사용해보기로 했다. 
+3. 다음과 같은 명령어를 사용했다. 걸리는 점은 image project와 family설정을 아무리 해줘도, cuda가 이미 잘 설치된 image는 설정이 불가능하더라. [GCP image document](https://cloud.google.com/compute/docs/images#image_families)   
+
+  ```sh
+    gcloud compute instances create p100-1 \
+    --machine-type e2-standard-2 --zone us-west1-b \
+    --accelerator type=nvidia-tesla-p100,count=1 \
+    --image-family debian-9  --image-project debian-cloud   \
+     --restart-on-failure 
+    # [--preemptible] 다른 사람이 사용하면 나의 GPU를 뺏기게 가능하게 설정 But 저렴한 가격으로 GPU 사용가능
+
+    >> ERROR: (gcloud.compute.instances.create) Could not fetch resource:
+    >> - Instances with guest accelerators do not support live migration.
+  ```
+
+4. 결국 나는 guest 이므로 accelerators (GPU) 사용 불가능. 하...
+
+## 7. snapshot 과 image를 이용해서 vm-instance 복사 및 저장하기
+- 참고 사이트 [https://geekflare.com/clone-google-cloud-vm/](https://geekflare.com/clone-google-cloud-vm/)
