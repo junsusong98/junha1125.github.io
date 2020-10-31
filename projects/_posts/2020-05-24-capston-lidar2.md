@@ -24,6 +24,7 @@ description: >
 ## 0. 대표 상수 및 전역 벽수
 - theta1 : 첫 직선 기준 각도
 - theta2 : 곡선 후 직선 기준 각도
+- wall_c_l_count : wall_c_l가 발견된 갯수
 
 ## 1. Lidar Point Clouds를 2D 이미지로 변환하기. 
 - 이때 중요한 점은 차가 회전해도 이미지는 회전하지 않도록 아래 중 하나 이용.
@@ -51,6 +52,7 @@ description: >
     - 한 lebel에 대해서 여러개의 직선이 검출된다면? 하나만 선택? 평균값 이용?
     - left, right 벽이 잘 검출되지 않는다면? 직선이 겨우겨우 검출된다면? threshold 낮춰서 직선 검출하기. 꼭 필요한게 검출되지 않는다면 그 순간은 속도 0하기.(?)
 
+
 ## 4. 주행 알고리즘 설계하기
 - 경우1 : 장애물과의 거리가 충분히 멀 때
     - 점과 직선사이 거리 이용
@@ -77,3 +79,43 @@ description: >
     - wall_c_r이 감지되기 시작하면, 경우1 알고리즘을 사용해서 직선 주행.
 
 - 최종 조향에서! 차가 이미 많이 비틀어진 상태라면 반대방향으로 조향하도록 상수값의 steering 값 return.(경우1,2. 경우3에 대해 다른 상수값 적용)
+
+
+---
+---
+# 2. PseudoCode in detail
+
+## 0. To DO List
+1. 가상의 line이 그려져 있는 이미지 만들기
+1. c++ class 공부하기
+1. 그 이미지를 통해서 class 만들고 테스트 해보기
+
+## 1. class의 종류와 맴버변수와 맴버함수
+1. class Line 
+    - 맴버변수
+        1. x1
+        1. y1
+        1. x2
+        1. y2
+        1. length - cm
+        1. dis_center - cm
+        1. slope - rad
+        1. label/class - 1(obstacle_l),2(obstacle_r),11(wall_l),12(wall_r),21(wall_c_r),22(wall_c_l)
+    - 맴버함수
+        1. lengh 계산하기
+        1. dis_center 계산하기
+        1. slope 계산하기
+
+2. class Cal_lines
+    - 맴버변수
+        1. 현재 검출된 line의 갯수
+        1. 검출되는 line 최대 18개
+        1. 각 lebel 별 갯수 - 6개의 객체
+    - 맴버함수
+        1. line 검출하기
+        1. obstacle 검출하기
+        1. 갯수 변수에 값 저장해 두기
+        
+        - 경우1 주행알고리즘
+        - 경우2 주행알고리즘
+        - 경우3 주행알고리즘
