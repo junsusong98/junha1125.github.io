@@ -99,8 +99,9 @@ description: >
         1. y2
         1. length - cm
         1. dis_center - cm
-        1. slope - rad
+        1. slope - degree
         1. label/class - 1(obstacle_l),2(obstacle_r),11(wall_l),12(wall_r),21(wall_c_r),22(wall_c_l)
+        1. position - 1(back or left),2(front or right)
     - 맴버함수
         1. lengh 계산하기
         1. dis_center 계산하기
@@ -110,12 +111,288 @@ description: >
     - 맴버변수
         1. 현재 검출된 line의 갯수
         1. 검출되는 line 최대 18개
-        1. 각 lebel 별 갯수 - 6개의 객체
+        1. lebel 별 갯수 - 6개의 객체
     - 맴버함수
-        1. line 검출하기
+        1. wall 검출하기
         1. obstacle 검출하기
         1. 갯수 변수에 값 저장해 두기
         
         - 경우1 주행알고리즘
         - 경우2 주행알고리즘
         - 경우3 주행알고리즘
+
+
+# Basic Code - step1
+```cpp
+#include <opencv2/opencv.hpp>
+#include <unistd.h>
+#include <istream>
+
+using namespace cv;
+using namespace std;
+
+// Class Line --------------------------------
+class Line{
+public:
+	int x1,y1,x2,y2;
+	float length, dis_center;
+	double slope;
+	int label;
+
+	Line();
+	Line(int _x1, int _y1, int _x2, int _y2);
+	float cal_length();
+	float cal_center();
+	double cal_slope();
+};
+
+Line::Line(){
+	x1 = 1;
+	y1 = 1;
+	x2 = 1;
+	y2 = 1;
+}
+
+Line::Line(int _x1, int _y1, int _x2, int _y2){
+	x1 = _x1;
+	y1 = _y1;
+	x2 = _x2;
+	y2 = _y2;
+	length = this->cal_length();
+	dis_center = this->cal_center();
+	slope = this->cal_slope();
+}
+
+float Line::cal_length(){
+	return 1;
+}
+
+float Line::cal_center(){
+	return 1;
+}
+
+double Line::cal_slope(){
+	return 1;
+}
+
+// Class Cal_lines --------------------------------
+class Cal_lines{
+	public:
+		int num_lines;
+		Line line[18];
+		int num_1, num_2, num_11, num_12, num_21, num_22; 
+
+		void append(Line line_t);
+		void labeling_wall();
+		void labeling_obstacle();
+		void howmany_num();
+		Cal_lines();
+};
+
+Cal_lines::Cal_lines(){
+	num_lines = 0;
+	num_1 = num_2 = num_11 = num_12 = num_21 = num_22 = 0;
+}
+
+void Cal_lines::append(Line line_t){
+
+}
+
+void Cal_lines::labeling_wall(){
+
+}
+void Cal_lines::labeling_obstacle(){
+
+}
+void Cal_lines::howmany_num(){
+
+}
+
+
+
+
+// Main --------------------------------
+
+int main()
+{
+	// 컬러 이미지를 저장할 Mat 개체를 생성합니다.
+
+	cv::Mat img(1200, 1200, CV_8UC3, cv::Scalar(0,0,0));
+	line(img, Point(450,400), Point(450,750), Scalar(255,255,255),1);
+	line(img, Point(750,400), Point(750,750), Scalar(255,255,255),1);
+	line(img, Point(630,450), Point(680,450), Scalar(255,255,255),1);
+	line(img, Point(630,450), Point(630,420), Scalar(255,255,255),1);
+	line(img, Point(450,300), Point(1100,300), Scalar(255,255,255),1);
+
+	Line temp_line(450,400,450,750);
+	cout << temp_line.slope << endl;
+
+	Cal_lines Cal;
+	cout << Cal.num_lines << endl;
+	
+	imshow("result", img);
+	waitKey(0);
+}
+```
+
+# Basic Code - step2
+```cpp
+// 실행하기 전에 꼭 아래의 문구 터미널에 치기!!
+// $ export DISPLAY=:0.0
+// circle : https://webnautes.tistory.com/1207
+// opencv setup : https://webnautes.tistory.com/933
+// shortcut : billd : Ctrl + b
+// shortcut : excute : Ctrl + r
+// 하지만 반드시 실행은 terminal 에서 하도록 해라!! ./opencv
+// last sentence : waitKey(0); 필수이다!
+// for is going to iterate only if there is keyboard input!
+
+
+#include <opencv2/opencv.hpp>
+#include <unistd.h>
+#include <istream>
+#include <math.h>
+#define PI 3.14159265
+
+using namespace cv;
+using namespace std;
+
+// Class Line --------------------------------
+class Line{
+public:
+	int x1,y1,x2,y2;
+	float length, dis_center;
+	double slope;
+	int label;
+	int position;
+
+	Line();
+	Line(int _x1, int _y1, int _x2, int _y2);
+	float cal_length();
+	float cal_center();
+	double cal_slope();
+	int cal_position();
+};
+
+Line::Line(){
+	x1 = 1;
+	y1 = 1;
+	x2 = 1;
+	y2 = 1;
+}
+
+Line::Line(int _x1, int _y1, int _x2, int _y2){
+	x1 = _x1;
+	y1 = _y1;
+	x2 = _x2;
+	y2 = _y2;
+	length = this->cal_length();
+	slope = this->cal_slope();
+	dis_center = this->cal_center();
+	position = cal_position();
+}
+
+float Line::cal_length(){
+	return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+}
+
+float Line::cal_center(){
+	// By https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+	int center_x = 600;
+	int center_y = 600;
+	float dis = abs(((y2-y1)*center_x - (x2-x1)* center_y + x2*y1 - y2*x1) / (this->length));
+	return dis;
+}
+
+double Line::cal_slope(){
+	// return degree {-180 ~ +180}
+	return atan2((y2 - y1),(x2 - x1)) * 180 / PI ; 
+}
+
+int Line::cal_position(){
+	return 1;
+}
+
+// Class Cal_lines --------------------------------
+class Cal_lines{
+	public:
+		int num_lines;
+		Line line[18];
+		int num_1, num_2, num_11, num_12, num_21, num_22; 
+
+		Cal_lines();
+		void append(Line line_t);
+		void labeling_wall();
+		void labeling_obstacle();
+		void howmany_num();
+};
+
+Cal_lines::Cal_lines(){
+	num_lines = 0;
+	num_1 = num_2 = num_11 = num_12 = num_21 = num_22 = 0;
+}
+
+void Cal_lines::append(Line line_t){
+	// Have to change IF condition 85~95...
+	// if(line_t.slope == 90 || line_t.slope == 0){
+		if(num_lines<18){
+			line[num_lines] = line_t;
+			num_lines++;	
+	}
+	// }
+}
+
+void Cal_lines::labeling_wall(){
+
+}
+
+void Cal_lines::labeling_obstacle(){
+
+}
+
+void Cal_lines::howmany_num(){
+
+}
+
+
+
+
+// Main --------------------------------
+int main()
+{
+	// 컬러 이미지를 저장할 Mat 개체를 생성합니다.
+
+	cv::Mat img(1200, 1200, CV_8UC3, cv::Scalar(0,0,0));
+	int arr[5][4] = 
+					{ {450,400,450,750}, //0
+				    	{750,400,750,750}, //1
+				    	{630,450,680,450}, //2
+				    	{700,420,700,700}, //3
+				    	{1100,300, 450,300} //4
+					};
+	
+	line(img, Point(arr[0][0],arr[0][1]), Point(arr[0][2],arr[0][3]), Scalar(255,255,255),1);
+	line(img, Point(arr[1][0],arr[1][1]), Point(arr[1][2],arr[1][3]), Scalar(255,255,255),1);
+	line(img, Point(arr[2][0],arr[2][1]), Point(arr[2][2],arr[2][3]), Scalar(255,255,255),1);
+	line(img, Point(arr[3][0],arr[3][1]), Point(arr[3][2],arr[3][3]), Scalar(255,255,255),1);
+	line(img, Point(arr[4][0],arr[4][1]), Point(arr[4][2],arr[4][3]), Scalar(255,255,255),1);
+	circle(img, Point(600,600),2,Scalar(255,0,0),2);
+	
+
+	Cal_lines lines;
+	for(int i = 0; i < 5; i++ ){
+		Line temp_line(arr[i][0],arr[i][1],arr[i][2],arr[i][3]);
+		lines.append(temp_line);
+	}
+
+	cout << lines.num_lines << endl;
+	cout << lines.line[0].dis_center << endl;
+
+
+
+	
+	imshow("result", img);
+	waitKey(0);
+	//waitKey(1);
+}
+```
