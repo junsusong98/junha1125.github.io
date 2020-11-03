@@ -419,13 +419,13 @@ int main()
 using namespace cv;
 using namespace std;
 
-// Class Line ----------------------------------------------------------------------------------------------------------------------------
+// 1. Class Line ----------------------------------------------------------------------------------------------------------------------------
 class Line{
 public:
 	int x1,y1,x2,y2;
 	float length, dis_center;
 	double slope;
-	int label;
+	int label; // 1,2,11,12,21,22
 	int position;
 
 	Line();
@@ -468,15 +468,27 @@ float Line::cal_center(){
 double Line::cal_slope(){
 	// return degree {-180 ~ +180}
 	slope = atan2((y2 - y1),(x2 - x1)) * 180 / PI;  
-	slope = (slope >= 0)? slope : 180 + slope; 
+	slope = (slope >= 0)? slope : 180 + slope; // 0~180 degree
 	return slope; 
 }
 
 int Line::cal_position(){  // ***********
-	return 1;
+	/*
+	front, right = return 2
+	back, left = return 1
+	*/
+	if((slope > 90-3 && slope < 90+3 )){ // vertical
+		return (x1>600)? 2:1; // 1: left,  2: right
+	}
+	else if(slope > (0-3)+180 || slope < 0+3){  // horizontal
+		int y_min = min(y1,y2);
+		return (y1>600)? 2:1; // 1: back,  2: front
+	}
+	else return 0; // not (vertical or horizontal)
+	
 } 
 
-// Class Cal_lines ----------------------------------------------------------------------------------------------------------------------------
+// 2. Class Calculate_lines ----------------------------------------------------------------------------------------------------------------------------
 class Cal_lines{
 	public:
 		int num_lines;
@@ -490,7 +502,7 @@ class Cal_lines{
 		void howmany_num();
 
 		// Driving Algorithm
-		int what_case(); // 
+		int what_case(); 
 		void drive_case1(int *velocity, int *steering, int case_is);
 		void drive_case2(int *velocity, int *steering, int case_is);
 		void drive_case3(int *velocity, int *steering, int case_is);
@@ -512,11 +524,19 @@ void Cal_lines::append(Line line_t){
 }
 
 void Cal_lines::labeling_wall(){ // ***********
+	for (int i = 0; i < num_lines; i++)
+	{
+		line[i].label= 0; //??
 
+	}
 }
 
 void Cal_lines::labeling_obstacle(){ // ***********
+	for (int i = 0; i < num_lines; i++)
+	{
+		line[i].label= 0; //??
 
+	}
 }
 
 void Cal_lines::howmany_num(){ 
@@ -551,7 +571,7 @@ void Cal_lines::drive_case3(int *velocity, int *steering, int case_is){ // *****
 
 
 
-// Class detected_lines ------------------------------------------------------------------------------------------------------------------------
+// 3. Class detected_lines ------------------------------------------------------------------------------------------------------------------------
 class Detected_lines{
 	public:
 		Line line_1[3];
@@ -640,6 +660,9 @@ int main()
 		lines.append(temp_line);
 	}
 
+	lines.labeling_wall();
+	lines.labeling_obstacle();
+
 	int velocity = 1111;
 	int steering = 2222;
 	int case_is = lines.what_case();
@@ -658,7 +681,7 @@ int main()
 	cout << "Final ToArduData.data is :" << data << endl;
 
 	cout << lines.num_lines << endl;
-	cout << lines.line[0].slope << endl;
+	cout << lines.line[0].position << endl;
 
 	flip(img,img_fliped,0);
 	imshow("result", img_fliped);
