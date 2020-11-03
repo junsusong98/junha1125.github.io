@@ -396,3 +396,273 @@ int main()
 	//waitKey(1);
 }
 ```
+
+# Intermediate Code - step3
+```cpp
+// 실행하기 전에 꼭 아래의 문구 터미널에 치기!!
+// $ export DISPLAY=:0.0
+// circle : https://webnautes.tistory.com/1207
+// opencv setup : https://webnautes.tistory.com/933
+// shortcut : billd : Ctrl + b
+// shortcut : excute : Ctrl + r
+// 하지만 반드시 실행은 terminal 에서 하도록 해라!! ./line_test
+// last sentence : waitKey(0); 필수이다!
+// For(including waitkeyy_function) is going to iterate only if there is keyboard input!
+
+
+#include <opencv2/opencv.hpp>
+#include <unistd.h>
+#include <istream>
+#include <math.h>
+#define PI 3.14159265
+
+using namespace cv;
+using namespace std;
+
+// Class Line ----------------------------------------------------------------------------------------------------------------------------
+class Line{
+public:
+	int x1,y1,x2,y2;
+	float length, dis_center;
+	double slope;
+	int label;
+	int position;
+
+	Line();
+	Line(int _x1, int _y1, int _x2, int _y2);
+	float cal_length();
+	float cal_center();
+	double cal_slope();
+	int cal_position();
+};
+
+Line::Line(){
+	x1 = 1;
+	y1 = 1;
+	x2 = 1;
+	y2 = 1;
+}
+
+Line::Line(int _x1, int _y1, int _x2, int _y2){
+	x1 = _x1;
+	y1 = _y1;
+	x2 = _x2;
+	y2 = _y2;
+	length = this->cal_length();
+	slope = this->cal_slope();
+	dis_center = this->cal_center();
+	position = this->cal_position();
+}
+
+float Line::cal_length(){
+	return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+}
+
+float Line::cal_center(){
+	int center_x = 600;
+	int center_y = 600;
+	float dis = abs(((y2-y1)*center_x - (x2-x1)* center_y + x2*y1 - y2*x1) / (this->length));
+	return dis;
+}
+
+double Line::cal_slope(){
+	// return degree {-180 ~ +180}
+	slope = atan2((y2 - y1),(x2 - x1)) * 180 / PI;  
+	slope = (slope >= 0)? slope : 180 + slope; 
+	return slope; 
+}
+
+int Line::cal_position(){  // ***********
+	return 1;
+} 
+
+// Class Cal_lines ----------------------------------------------------------------------------------------------------------------------------
+class Cal_lines{
+	public:
+		int num_lines;
+		Line line[18];
+		int num_1, num_2, num_11, num_12, num_21, num_22; 
+
+		Cal_lines();
+		void append(Line line_t);
+		void labeling_wall();
+		void labeling_obstacle();
+		void howmany_num();
+
+		// Driving Algorithm
+		int what_case(); // 
+		void drive_case1(int *velocity, int *steering, int case_is);
+		void drive_case2(int *velocity, int *steering, int case_is);
+		void drive_case3(int *velocity, int *steering, int case_is);
+};
+
+Cal_lines::Cal_lines(){
+	num_lines = 0;
+	num_1 = num_2 = num_11 = num_12 = num_21 = num_22 = 0;
+}
+
+void Cal_lines::append(Line line_t){  
+	// Have to change IF condition 85~95...
+	if( (line_t.slope > 90-3 && line_t.slope < 90+3 ) || (line_t.slope > (0-3)+180 || line_t.slope < 0+3) ){
+		if(num_lines<18){
+			line[num_lines] = line_t;
+			num_lines++;
+		}
+	}
+}
+
+void Cal_lines::labeling_wall(){ // ***********
+
+}
+
+void Cal_lines::labeling_obstacle(){ // ***********
+
+}
+
+void Cal_lines::howmany_num(){ 
+	for (int i = 0; i < num_lines; i++)
+	{
+		if(line[i].label == 1)       num_1++;
+		else if(line[i].label == 2)  num_2++;
+		else if(line[i].label == 11) num_11++;
+		else if(line[i].label == 12) num_12++;
+		else if(line[i].label == 21) num_21++;
+		else if(line[i].label == 22) num_22++;
+		else cout << "line[i]'s label has to be 1,2,11,12,21,22";
+
+	}
+}
+
+int Cal_lines::what_case(){ // ***********
+	return 1;
+}
+
+void Cal_lines::drive_case1(int *velocity, int *steering, int case_is){ // ***********
+
+}
+
+void Cal_lines::drive_case2(int *velocity, int *steering, int case_is){ // ***********
+
+}
+
+void Cal_lines::drive_case3(int *velocity, int *steering, int case_is){ // ***********
+
+}
+
+
+
+// Class detected_lines ------------------------------------------------------------------------------------------------------------------------
+class Detected_lines{
+	public:
+		Line line_1[3];
+		Line line_2[3];
+		Line line_11[3];
+		Line line_12[3];
+		Line line_21[3];
+		Line line_22[3];
+		int counted_1, counted_2;
+		int counted_11, counted_12;
+		int counted_21, counted_22;
+		void append(Line line_t);
+		Detected_lines();
+
+};
+
+Detected_lines::Detected_lines(){
+	counted_1 = counted_2 = counted_11 = counted_12 = counted_21 = counted_22 = 0;
+}
+
+void Detected_lines::append(Line line_t){
+	switch (line_t.label){
+		case 1:
+			line_1[counted_1] = line_t;
+			counted_1++;
+			if (counted_1 == 3) counted_1 = 0;
+			break;
+		case 2:
+			line_2[counted_2] = line_t;
+			counted_2++;
+			if (counted_2 == 3) counted_2 = 0;
+			break;
+		case 11:
+			line_11[counted_11] = line_t;
+			counted_11++;
+			if (counted_11 == 3) counted_11 = 0;
+			break;
+		case 12:
+			line_12[counted_12] = line_t;
+			counted_12++;
+			if (counted_12 == 3) counted_12 = 0;
+			break;
+		case 21:
+			line_21[counted_21 %3] = line_t;
+			counted_21++;
+			if (counted_21 == std::numeric_limits<int>::max()) counted_21 = 300;
+			break;
+		case 22:
+			line_22[counted_22 %3] = line_t;
+			counted_22++;
+			if (counted_22 == std::numeric_limits<int>::max()) counted_22 = 300;
+			break;
+		default:
+			cout << "line's label must be one of 1,2,11,12,21,22" << endl;
+	}
+}
+
+Detected_lines global_lines;
+
+// Main -------------------------------------------------------------------------------------------------------------------------------------------------------------
+int main()
+{
+	// 컬러 이미지를 저장할 Mat 개체를 생성합니다.
+
+	cv::Mat img(1200, 1200, CV_8UC3, cv::Scalar(0,0,0));
+	cv::Mat img_fliped(1200, 1200, CV_8UC3, cv::Scalar(0,0,0));
+	int arr[5][4] = 
+					{ {450,800,450,450}, //0
+				    	{750,800,750,450}, //1
+				    	{630,750,680,750}, //2
+				    	{610,780,630,750}, //3
+				    	{1100,900, 450,900} //4
+					};
+	
+	line(img, Point(arr[0][0],arr[0][1]), Point(arr[0][2],arr[0][3]), Scalar(255,255,255),1); // 0
+	line(img, Point(arr[1][0],arr[1][1]), Point(arr[1][2],arr[1][3]), Scalar(255,255,255),1); // 1
+	line(img, Point(arr[2][0],arr[2][1]), Point(arr[2][2],arr[2][3]), Scalar(255,255,255),1); // 2
+	line(img, Point(arr[3][0],arr[3][1]), Point(arr[3][2],arr[3][3]), Scalar(255,255,255),1); // 3
+	line(img, Point(arr[4][0],arr[4][1]), Point(arr[4][2],arr[4][3]), Scalar(255,255,255),1); // 4
+	circle(img, Point(600,600),2,Scalar(255,0,0),2);
+	
+
+	Cal_lines lines;
+	for(int i = 0; i < 5; i++ ){
+		Line temp_line(arr[i][0],arr[i][1],arr[i][2],arr[i][3]);
+		lines.append(temp_line);
+	}
+
+	int velocity = 1111;
+	int steering = 2222;
+	int case_is = lines.what_case();
+	if(case_is == 1)      lines.drive_case1(&velocity, &steering, case_is);
+	else if(case_is == 2) lines.drive_case2(&velocity, &steering, case_is);
+	else if(case_is == 3) lines.drive_case3(&velocity, &steering, case_is);
+	else if(case_is == 4) lines.drive_case1(&velocity, &steering, case_is);
+	else if(case_is == 5) lines.drive_case2(&velocity, &steering, case_is);
+	else if(case_is == 6) lines.drive_case3(&velocity, &steering, case_is);
+	else cout << "case_is is not valid";
+
+	
+	float data = float(velocity) + float(steering+1) / 10000;
+	cout << fixed;
+	cout.precision(5);
+	cout << "Final ToArduData.data is :" << data << endl;
+
+	cout << lines.num_lines << endl;
+	cout << lines.line[0].slope << endl;
+
+	flip(img,img_fliped,0);
+	imshow("result", img_fliped);
+	waitKey(0);
+	//waitKey(1);
+}
+```
