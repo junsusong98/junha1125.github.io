@@ -10,7 +10,8 @@ image: /assets/img/catagorys/justdoit.jpg
 
 # Juna Song
 
-- Email : sb020518@gmail.com   
+- Email : sb020518@gmail.com
+- Email : sb020518@kaist.ac.kr
 - Git Blog : [https://junha1125.github.io](https://junha1125.github.io/)  
 - Researcher of [HYUNDAI MOBIS](https://www.mobis.co.kr/main/index.do)      
     <img src='https://blog.kakaocdn.net/dn/cLyq53/btqyWVrhfsx/UDMKYI8tkKXLobR2bl6QK1/img.jpg' alt='drawing' width='200'/>

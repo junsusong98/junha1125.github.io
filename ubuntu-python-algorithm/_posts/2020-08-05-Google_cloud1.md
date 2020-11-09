@@ -173,4 +173,11 @@ Google Cloud 딥러닝 플렛폼 이용하기
 4. 결국 나는 guest 이므로 accelerators (GPU) 사용 불가능. 하...
 
 ## 7. snapshot 과 image를 이용해서 vm-instance 복사 및 저장하기
-- 참고 사이트 [https://geekflare.com/clone-google-cloud-vm/](https://geekflare.com/clone-google-cloud-vm/)
+- 참고 사이트 [https://geekflare.com/clone-google-cloud-vm/](https://geekflare.com/clone-google-cloud-vm/) 원래 알던 사이트는 아니다...
+
+1. snapshot 만들기
+2. Image 만들기
+3. 프로젝트 구성원 추가하기
+4. 다른 계정에서 인스턴스 만들기
+5. 이미지 선택 -> 맞춤 이미지 -> 프로젝트 선택 -> 아까 만든 이미지 선택
+6. 이미지 공유 성공!(공유는 불가능하고 migration은 가능하다)
