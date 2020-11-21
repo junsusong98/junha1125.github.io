@@ -8,11 +8,13 @@ description: >
 
 [youtube 강의 링크](https://www.youtube.com/playlist?list=PLdEdazAwz5Q_n47tqf0QY94ASCmWqeGX1) : 쓔튜브 선형대수 강의 링크
 
-## 6강 Systems of linear equations
+1강~5강까지는 매우 기초적인 내용이라 정리하지 않았습니다.
+
+### 6강 Systems of linear equations
 
 1. 확장 행렬(Augmented matrix)이란? 선형연립방정식을 행렬로 표현한 것.
 
-   ![image-20201111204926141](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2020-11-20/image-20201111204926141.png?raw=true)
+   ![image-20201111204926141](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20201111204926141.png?raw=true)
 
 
 
@@ -27,7 +29,7 @@ description: >
 
 
 
-## 7강 Gauss Jordan Elimination
+### 7강 Gauss Jordan Elimination
 
 - 일반적인 연립선형의 확장행렬을 reduced row echolon form(기약행사다리꼴)으로 바꿔주는 방법
 
@@ -65,7 +67,7 @@ description: >
   - 귀류법을 이용한 증명에 의해, 한 행렬의 역행렬은 유일하다 (1개만 존재한다).
   - 영인자(zero divisor) - 0이 아닌 두 행렬을 곱해서 0이 나올 수 있다.
   - 가오스 조던 소거법을 이용한 역행렬 구하는 방법
-    - ![image-20201113213128976](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2020-11-20/image-20201113213128976.png?raw=true)
+    - ![image-20201113213128976](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20201113213128976.png?raw=true)
     - 파랑색 행렬에 대해서, 가오스 조던 소거법을 사용해 x,y,z,w를 구하면 우리에게 익숙한 2차 정사각행렬의 역행렬 공식을 구할 수 있다. 15강 역행렬의 성질
 
 - 15강 역행렬의 성질
@@ -73,7 +75,7 @@ description: >
   - invertable (역행렬 존재하는 행렬=가역행렬)을 판단하는 방법? determinent(행렬식)=0 인지를 판단
   - non-invertible한 행렬? singular matrix. determinent(행렬식)=0인 metrix
   - 역행렬의 지수곱. 역행렬의 역행렬은 자기자신. 스칼라배는 역수. 
-  - ![image-20201113222625212](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2020-11-20/image-20201113222625212.png?raw=true)
+  - ![image-20201113222625212](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20201113222625212.png?raw=true)
 
 - 16강 전치행렬(transposed matrix)
 
@@ -97,7 +99,7 @@ description: >
 - 18강 기본행연산의 행렬화
   - 열백터 -> 백터로 취급하기 
     - 열백터의 행교환 = 백터의 좌표 뒤바꿈 -> 선형변환(linear transformation) -> 이 변환식을 행렬로 표현(행렬화)할 수 있다. 
-    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2020-11-20/image-20201113225645176.png?raw=true" alt="image-20201113225645176" style="zoom:80%;" />
+    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20201113225645176.png?raw=true" alt="image-20201113225645176" style="zoom:80%;" />
     - 즉 열백터의 행교환을 하고 싶으면 I의 행교환 시킨 행렬을 곱해주면 되고/ 행렬 행백터의 열교환을 하고 싶으면 I의 열교환 시킨 행렬을 곱해주면 된다.
     - 스칼라곱을 하는 linear transformation은, I의 i행에 상수배를 한 행렬이 변환행렬이다. (행렬화)
     - 이와 같은 **기본 행연산(행변환, 열변환, 상수배, 행or열이 일차 결합)**을 행렬화 할 수 있다. = 기본행렬
@@ -118,7 +120,7 @@ description: >
   - 위의 명제의 역도 성립한다. **A의 (가오스 조던 소거법을 적용해 구한) 기약행렬사다리꼴이 I라면, A는 가역행렬이다.** 
   - 이때 나오는 명제는 이것이다. **A가 역행렬이 존재하면, A는 기본행렬들의 곱으로 표현가능하다**. 
   - 따라서 삼각형으로 연결된 3개의 명제는 서로서로 필요충분조건이다. 서로 동치(사실상 같은 말)이다. 
-  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2020-11-20/image-20201115194429022.png?raw=true" alt="image-20201115194429022" style="zoom:67%;" />
+  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20201115194429022.png?raw=true" alt="image-20201115194429022" style="zoom:67%;" />
   - 행동치(row equivalent)를 이용한 A의 역행렬 구하기
 
     - Ek x ... x E2 x E1 (기본 행 연산들) x A = B 에서 A와 B는 행동치이다. = A에서 기본행 연산을 몇개 수행하면 B가 나온다 = B에서 기본행렬산을 몇개 수행하면 A가 나온다. 
@@ -127,7 +129,7 @@ description: >
         1. Ek x ... x E2 x E1 (기본 행 연산들) = 가오스 조던 소거법을 위한 기본행 연산들
         2. 이 연산들을 I에다가도 적용해 주기
         3. 따로따로 계산하지 말고 블록으로 묶어서 한번에 연산하기
-        4. ![image-20201120124739888](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2020-11-20/image-20201120124739888.png?raw=true)
+        4. ![image-20201120124739888](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20201120124739888.png?raw=true)
         5. 
 
 
