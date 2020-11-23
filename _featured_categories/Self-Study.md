@@ -14,7 +14,9 @@ description: >
 
     2. 【강화학습】 
 
-    3. 【기계학습】 : 오일석의 기계학습    
+    3. 【기계학습】
+
+    4. 【기본수학】
 
 # accent_color: rgb(38,139,210)
 # accent_image: /assets/img/catagorys/programmer.jpg
