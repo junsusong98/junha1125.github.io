@@ -9,6 +9,11 @@ description: >
 - rplidar, IMU, 아두이노, 라즈베리파이를 이용한 자율주행 RC카 제작하기.
 - 코드는 현재 github에 private repository로 관리 중 입니다. 필요하신 분은 따로 연락주세요.
 
+# 0. 주행 완성 동영상
+[![self-RCcar2](https://i.ytimg.com/vi/R8Ti7Q9i_OA/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLDkyM3i5Z6sePZQz7C1IwJMXba-Rw)](https://www.youtube.com/watch?v=R8Ti7Q9i_OA "self-RCcar2")
+[![self-RCcar](https://i.ytimg.com/vi/6XvvjGV5a18/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLATClCbMVifmGrR_OyHB-RzTN8owg)](https://www.youtube.com/watch?v=6XvvjGV5a18 "self-RCcar")
+
+
 # 1. 큰그림 간결 손코딩
 - 주의사항
    1. 추후에 하나하나의 함수에 대한 손코딩 꼭 하고 코딩하기
