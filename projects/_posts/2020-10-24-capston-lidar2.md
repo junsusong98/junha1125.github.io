@@ -10,7 +10,12 @@ description: >
 - 코드는 현재 github에 private repository로 관리 중 입니다. 필요하신 분은 따로 연락주세요.
 
 # 0. 주행 완성 동영상
+- 주행영상 1 (아래 이미지를 클릭!)
+
 [![self-RCcar2](https://i.ytimg.com/vi/R8Ti7Q9i_OA/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLDkyM3i5Z6sePZQz7C1IwJMXba-Rw)](https://www.youtube.com/watch?v=R8Ti7Q9i_OA "self-RCcar2")
+
+- 주행영상 2 (아래 이미지를 클릭!)
+
 [![self-RCcar](https://i.ytimg.com/vi/6XvvjGV5a18/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLATClCbMVifmGrR_OyHB-RzTN8owg)](https://www.youtube.com/watch?v=6XvvjGV5a18 "self-RCcar")
 
 
