@@ -29,6 +29,15 @@ python 새롭게 안 사실 및 핵심 내용들
     - \_\_init\_\_ 나 다른 맴버 함수를 포함해서, 자식 클래스에서 아무런 def을 하지 않으면 고대로~ 부모 클래스의 내용이 상속된다. 자식 클래스에서도 함수든 변수든 모두 사용 가능하다.   
     - 하지만 문제가 언제 발생하냐면, def 하는 순간 발생한다. 만약 def \_\_init\_\_(self, ..): 하는 순간, 오버라이딩이 되어 원래 부모 클래스의 내용은 전부 사라지게 된다. 이럴 떄, 사용하는게 super이다.   
     - 대신 클래스 변수를 사용하는 공간에는 super를 사용하지 않아도 상속한 부모 클래스의 내용이 전부 알아서 들어간다. 
+    - **super자리에 코드들이 쫘르르륵 들어간다고 생각하라.(마치 해더파일에 있는 함수의 내용이 링크에 의해서 쫘르르 코드가 옮겨 들어가듯)**
+    - 아래와 같이, super(MethodFunctionName, self).__init__(객체 생성자에 들어가야 할 input parameter) 를 사용하면, 이렇게 생성된 부모클래스로 만들어진 객체의 맴버변수, 맴버함수를 그대로 사용할 수 있다. 
+        ```python
+            super(MaskRCNNPredictor, self).__init__(OrderedDict([
+                ("conv5_mask", misc_nn_ops.ConvTranspose2d(in_channels, dim_reduced, 2, 2, 0)),
+                ("relu", nn.ReLU(inplace=True)),
+                ("mask_fcn_logits", misc_nn_ops.Conv2d(dim_reduced, num_classes, 1, 1, 0)),
+            ]))
+        ```
 2. VS code - [새롭게 파일을 열 떄 강제로 새로운 탭으로 나오게하는 방법](https://stackoverflow.com/questions/38713405open-files-always-in-a-new-tab) : setting -> workbencheditor.enablePreview" -> false 체크
 3. jupyter Notebook font size 바꾸기 : setting -> Editor:Font Size Controls the font size in pixels. -> 원하는size대입
 4. **함수안에 함수를 정의하는 행동은 왜 하는 것일까?**   
