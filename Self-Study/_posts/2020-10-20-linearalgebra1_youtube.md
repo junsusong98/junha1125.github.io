@@ -14,7 +14,7 @@ description: >
 
 1. 확장 행렬(Augmented matrix)이란? 선형연립방정식을 행렬로 표현한 것.
 
-   ![image-20201111204926141](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20201111204926141.png?raw=true?raw=true)
+   ![image-20201111204926141](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20201111204926141.png?raw=true)
 
 
 
