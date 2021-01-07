@@ -26,9 +26,10 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
     - Numpy와 거의 동일하지만 매소드 함수 이름이 가끔 다름
 3. Autograd
     - backward를 손수 chane법칙으로 계산할 필요없다. 
-    - lossbackward() 해버리면 끝!
+    - loss.backward() 해버리면 끝!
     - 갱신은 w2 -= learning_rate * w2.grad
-    - torch.autograd 에 대한 작은 고찰
+    - [torch.tensor.autograd](https://pytorch.org/docs/stable/autograd.html#tensor-autograd-functions) : grad, required_grad 맴버변수 있음
+    - [nn.Module 클래스의 parameters에 대한 고찰](https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.parameters) : 
 4. 새로운 Layer, Function 정의하기
     - torch.clamp라는 함수를 사용하면, relu 처럼 동작 가능 + loss.backward할 때 backward알아서 처리 됨.
     - 하지만 직접 relu를 정의하면?? backward가 안된다. 
@@ -170,6 +171,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
         - writer.add_pr_curve(class이름, TrueOrFalse, PositiveOrNagative)
 
 # 5.torchvision_finetuning_instance_segmentation.ipynb
+- 6.Tuto.ipynb를 먼저 공부하고, 여기 보는게 낫다.
 1. 새로운 Dataset 정의하는 방법
     - torch.utils.data.Dataset을 상속하는 클래스. 
     - \_\_len\_\_ and **\_\_getitem\_\_** 정의하기
@@ -180,11 +182,11 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
     - target["masks"]를 정의하기 위한 변수 만들기
         - broadcastion 적용 : masks = (mask == obj_ids[:, None, None]) 
 3. torchvision.models를 사용한 model 정의하기
-    - 아래의 내용은 필요할 때! 코드를 확인해 공부하기
+    - 아래의 내용은 필요할 때! Tuto 코드 & Torch Git 코드 꼭 봐야 함. 
     1. torch Git, torchvision Git의 함수나 클래스 호출하는 방법 (헷갈리면 읽어보기!)
-    1. model의 마지막 단에 나오는 class 갯수만 바꾸고 싶을 때
+    1. model의 마지막 단에 나오는 class 갯수만 바꾸고 싶을 때.
     1. model의 class갯수와 backbone network를 모두 바꾸고 싶을 때
-    1. 지금까지의 방법으로 maskRCNN을 사용하는 get_model_instance_segmentation함수 정의하기.
+    1. 2번 방법으로 get_model_instance_segmentation함수 정의하기.
 4. train과 evaluation 하기
     1. dataset = PennFudanDataset(위에서 내가 만든 클래스)
     1. 하나의 데이터를, train set, validation set으로 나누는 방법     
@@ -193,8 +195,47 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
             dataset = torch.utils.data.Subset(dataset, indices[:-50])
             dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
         ```     
-    1. data_loader = torch.utils.data.DataLoader( dataset, batch_size=2 ... )
+    1. data_loader = torch.utils.data.DataLoader(dataset, batch_size=2 ... )
     1. model.to(device)
-    1. optimizer정의 후 lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer ...) 그리고 lr_scheduler.step()
+    1. optimizer정의 후 lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer ...) 그리고 optimizer.step,() 후 lr_scheduler.step() 또한 해줘야 함.
     1. epoch 돌면서 Git의 vision.reference.detection.engine의 train_one_epoch, evalate 사용해서 log 출력
+
+# 6.transfer_learning_tutorial.ipynb
+- 4Classiffier.ipynb에 이어서, 실용성이 매우 좋은 파일.
+1. Import Modules, Dataloader Define
+    - datasets.ImageFolder(root, transforms)
+    - dictionary구조를 이용한, datasets, dataloaders 정의 -Ex) dataloaders['train'], dataloaders['test']
+2. dataloader가 잘 정의 되었나 확인
+    - torchvision.utils.make_grid 를 완벽하게 사용하는 방법 - imshow 함수 정의(np.transpose, 정규화, np.clip, show)
+3. **Train과 Validation 전체를 하는 함수 정의**
+    - def train_model(model, criterion, optimizer, scheduler, num_epochs=25):  
+        - return model.load_state_dict(best_model_wts)
+    - best_model_wts = copy.deepcopy(model.state_dict())
+    - time_elapsed = time.time() - since
+    - 전체 순서 정리(원본은 ipynb 파일 참조)  
+        ![image](https://user-images.githubusercontent.com/46951365/103886436-d76f4c00-5124-11eb-80c6-6b8bc801ee7d.png)
+4. Define Function visualizing the model predictions
+    - def visualize_model(model, num_images=6):
+        - ax = plt.subplot(num_images//2 , 2, images_so_far )
+5. model 정의하고, Train 및 validation 해보기
+    1. Finetuning the convnet
+        - 직접 torch git 에서 전체 코드를 꼭 봐야 함.
+        - 요약  
+            ```Python
+            model_ft = models.resnet18(pretrained=True)
+            model_ft.fc = nn.Linear(num_in_features, 2)  
+            model_ft = train_model(model_ft, criterion, optimizer_ft, ...)
+            visualize_model(model_ft)
+            ```  
+    2. ConvNet as fixed feature extractor
+        - 요약  
+            ```Python
+            model_conv = torchvision.models.resnet18(pretrained=True)
+            for param in model_conv.parameters():
+                param.requires_grad = False
+            num_ftrs = model_conv.fc.in_features
+            model_conv.fc = nn.Linear(num_ftrs, 2)
+            model_conv = train_model(model_conv, criterion, optimizer_ft, ...)
+            visualize_model(model_conv)
+            ```  
 
