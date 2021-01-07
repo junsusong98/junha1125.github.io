@@ -28,7 +28,7 @@ image: /assets/img/catagorys/justdoit.jpg
     B.S. 
 - 2021 ~ Present    
     KAIST - Division of Future Vehicle    
-    [RCV Lab](http://rcv.kaist.ac.kr/) under Prof. In So Kweon    
+    [RCV Lab](http://rcv.kaist.ac.kr/) under [Prof. In So Kweon](http://rcv.kaist.ac.kr/index.php?mid=rcv_faculty)    
     **M.S. Candidate**  
     <img src='https://user-images.githubusercontent.com/46951365/94216164-aeca9a00-ff19-11ea-905e-067b3a8dc327.png' alt='drawing' width='300'/>
 

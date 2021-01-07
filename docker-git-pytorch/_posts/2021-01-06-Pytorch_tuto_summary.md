@@ -147,7 +147,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
         4. PS: return되는 type은 list\[ x_torch.tensor_batch, y_torch.tensor_batch ] 이다. 
 4. torch.utils.tensorboard.SummaryWriter()의 대표 매소드 함수
     - writer.add_image("title=tag",img_grid) : input img_grid 보기
-        - img_grid = torchvision.utils.make_grid( torch.tensor( 몇장, depth, w, h) ) : '몇장' 에 대해서 grid_image를 만들어 tensor로 뱉어줌.
+        - img_grid = torchvision.utils.make_grid( torch.tensor( 몇장, depth, w, h) ) : '몇장' 에 대해서 grid_image를 만들어 tensor로 뱉어줌.(torch_module_research.ipynb 꼭 참조) 
     - writer.add_graph(model,input_data) : model Architecture 보기
     - writer.add_embedding() : 고차원 Data 3차원으로 Visualization 하기
 5. Train
