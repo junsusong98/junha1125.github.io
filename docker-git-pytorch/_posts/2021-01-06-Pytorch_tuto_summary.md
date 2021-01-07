@@ -172,6 +172,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
 
 # 5.torchvision_finetuning_instance_segmentation.ipynb
 - 6.Tuto.ipynb를 먼저 공부하고, 여기 보는게 낫다.
+
 1. 새로운 Dataset 정의하는 방법
     - torch.utils.data.Dataset을 상속하는 클래스. 
     - \_\_len\_\_ and **\_\_getitem\_\_** 정의하기
@@ -202,6 +203,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
 
 # 6.transfer_learning_tutorial.ipynb
 - 4Classiffier.ipynb에 이어서, 실용성이 매우 좋은 파일.
+
 1. Import Modules, Dataloader Define
     - datasets.ImageFolder(root, transforms)
     - dictionary구조를 이용한, datasets, dataloaders 정의 -Ex) dataloaders['train'], dataloaders['test']

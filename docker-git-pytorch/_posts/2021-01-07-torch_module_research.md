@@ -1063,3 +1063,48 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 ```
 
 ```
+
+# 21. copy.deepcopy
+- reference : [https://wikidocs.net/16038](https://wikidocs.net/16038)
+- **python은 변수값이 메모리에 먼저 적히고, 객체가 그 메모리 위치를 기억하는 형태의 동적 언어인 것을 잊지 말자.**
+- copy의 종류는 3가지가 있다고 생각하자. (1) shallow copy, (2) deep copy 가 아니라, (1) just shallow copy, (2) slicing shallow copy, (3)deep copy.
+- 내용 정리
+    1. mutable
+        - mutable : list, set, dict
+        - immutable : 위의 3가지 외 나머지 class(자료형)
+        - [mutable에 대한 작은 고찰, 나의 블로그](https://junha1125.github.io/ubuntu-python-algorithm/2020-03-24-Tstory_7/)
+    2. 중요 파이썬 기본 함수
+        - id(object) : 메모리 공간 번호
+        -  == : 서로 내용이 같은 값을 가지는 가?
+        - is : 객체가 서로 같은 메모리 공간 번호를 가지나?
+    3. shallow copy (just copy)
+        - a = b
+        - a is b >> Ture
+        - a == b >> True
+        - a[0] = 'hi' >> b[0] = 'hi'
+    4. shallow copy (using slicing or copy.copy)
+        - 사용법 : a = b[:] or a=copy.copy(b)
+            - a is b >> False (즉 b에 새로운 id 부여됨)
+            - a == b >> True
+            - a[0] = 'hi' >> b[0] != 'hi'
+            - 이처럼, a의 **'원소'**가 immutable이면 deepcopy라고 해도 무방하다. 즉 서로 영향없이 안전하다.   
+            ```python
+                import copy
+                a = [1,2,3]
+                b = copy.copy(a)
+                print(a == b, a is b) >> True, False
+                a[0] = 4
+                print(b[0]) >> 1
+              ```   
+        - 하지만!! a의 **'원소'**가 mutable이면 문제가 발생한다. ex) a = [[1,2],[3,4]]
+            - a = b[:] 
+                - a is b >> False, BUT!!!
+                - a[0] is b[0] >> True
+            - a[0] 그 자체를 바꾸면 b[0]도 같이 바뀐다. ex)a[0].append(num), a[0].remove/pop(index), del a[0][2] 
+            - 하지만, a[0] = [1,5] 와 같이 재할당 하면, b[0]은 안바뀐다.
+    5. deep copy
+        - 그냥 모~~든게 새로 만들어 진다. mutale객체의 **'원소'**들 까지도.
+        - b = copy.deepcopy(a)
+        - a is b >> False 
+        - a[0] is b[0] >> False 
+        - a == b >> True (초기에 서로 내용은 같을 수 있다.)
