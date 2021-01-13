@@ -219,7 +219,40 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
         - 이 모듈에는 download_url_to_file/ urlparse/ HASH_REGEX 와 같은 함수가 있다.
         - 나의 신경망 파라미터를 pht파일로 저장하고, 그것을 github에 올려놓고 누군가가 나의 신경망 파라미터를 사용할 수 있게 하려면, 이 torch.hub모듈을 사용해야겠다. 
     - registry.py
-        - 아래 \[3. Analysis of lufficc/SSD/ssd/modeling\]에 있는 설명 참조
+       - registry - 모듈을 config의 dictionary구조처럼 저장해 놓고, 쉽게 불러와 사용할 수 있게 해놓은 툴. 
+        - 이와 같이 사용함  
+            ```python
+                # ssd/modeling/backbone/vvg.py
+                @registry.BACKBONES.register('vgg')
+                def vgg(cfg, pretrained=True):
+                    model = VGG(cfg)  # 같은 파일에서 정의한 클래스
+                    if pretrained:
+                        model.init_from_pretrain(load_state_dict_from_url(model_urls['vgg']))
+                    return model
+
+                # ssd/modeling/backbone/__init__.py
+                def build_backbone(cfg):
+                    return registry.BACKBONES[cfg.MODEL.BACKBONE.NAME](cfg, cfg.MODEL.BACKBONE.PRETRAINED)
+            ```
+        - 또는 이와 같이 사용됨. 
+            ```python
+                # ssd/modeling/box_head/vvg.py
+                @registry.BOX_HEADS.register('SSDBoxHead')
+                class SSDBoxHead(nn.Module):
+                    def __init__(self, cfg):
+                        super().__init__()
+                        self.cfg = cfg
+                        self.predictor = make_box_predictor(cfg)
+                        self.loss_evaluator = MultiBoxLoss(neg_pos_ratio=cfg.MODEL.NEG_POS_RATIO)
+                        self.post_processor = PostProcessor(cfg)
+                        self.priors = None
+                # ssd/modeling/box_head/__init__.py
+                def build_box_head(cfg):
+                    return registry.BOX_HEADS[cfg.MODEL.BOX_HEAD.NAME](cfg)
+            ```
+        - registry에 모듈을 저장해두고, config에 적혀있는데로, 각각의 상황마다 각각의 모듈을 호출하기 쉽게 만들어 놓음. switch문이나 if문을 여러개써서 어떤 boakbone을 string으로 입력했는지 확인하는 작업이 필요없다. 
+        - 어려울 것 없고, 이 registry도 하나의 dictionary이다. 전체 코드에서는 dict{dict, dict, dict, dict ...} 와 같은 구조로 사용 중.
+
 
 3. ssd/data/transforms
     - transforms.py 
@@ -285,42 +318,72 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
         - Image.fromarray(drawn_image).save(path)
 
 # 3. Analysis of lufficc/SSD/ssd/modeling
-- registry - 모듈을 config의 dictionary구조처럼 저장해 놓고, 쉽게 불러와 사용할 수 있게 해놓은 툴. 
-    - 이와 같이 사용함  
+- SSD/ssd/modeling/backbone/vvg.py
+    - class vvg16(nn.module) 
+        - input(300x300,500x500) 따라서 많은 convd2d, relu, Maxpooling 등을 처리해나간다. 
+        - 3개의 feature이 returm되며, features = [(1024,w,h),(512,w/2,h/2),(256,w/4,h/4)] 이다. (정확하지 않다.)
+- SSD/ssd/modeling/box_head/box_head.py
+    - class SSDBoxHead(nn.Module)
+    - 여기에서 많은 모듈을 사용한다  
         ```python
-        # ssd/modeling/backbone/vvg.py
-        @registry.BACKBONES.register('vgg')
-        def vgg(cfg, pretrained=True):
-            model = VGG(cfg)  # 같은 파일에서 정의한 클래스
-            if pretrained:
-                model.init_from_pretrain(load_state_dict_from_url(model_urls['vgg']))
-            return model
-
-        # ssd/modeling/__init__.py
-        def build_backbone(cfg):
-            return registry.BACKBONES[cfg.MODEL.BACKBONE.NAME](cfg, cfg.MODEL.BACKBONE.PRETRAINED)
+            from ssd.modeling.anchors.prior_box import PriorBox
+        (1) from ssd.modeling.box_head.box_predictor import make_box_predictor
+            from ssd.utils import box_utils
+            from .inference import PostProcessor
+        (2) from .loss import MultiBoxLoss
         ```
-    - registry에 모듈을 저장해두고, config에 적혀있는데로, 각각의 상황마다 각각의 모듈을 호출하기 쉽게 만들어 놓음. switch문이나 if문을 여러개써서 어떤 boakbone을 string으로 입력했는지 확인하는 작업이 필요없다. 
-    - 어려울 것 없고, 이 registry도 하나의 dictionary이다. 전체 코드에서는 dict{dict, dict, dict, dict ...} 와 같은 구조로 사용 중.
-- 
+    - 하나하나 간략이 알아가보자. 
+        1. self.predictor = make_box_predictor(cfg)
+            - cls_logits, bbox_pred = self.predictor(features)
+            - cls_logits, bbox_pred : 모든 class에 대한 점수값, 이미지에서 bbox의 의미를 return한다. 
+            - conv2d만을 사용해서 최종결과를 반환한다. 생각보다 softmax 이런거 안하고 생각보다 단순하게 conv2d를 반복해서 적용하여, 마지막에 가져야할 tensor size에 맞춘다. 
+            - 그렇게 적당한 크기에 맞춰진 cls_logits, bbox_pred가 return 되는 것이다
+        2. self.loss_evaluator = MultiBoxLoss(neg_pos_ratio=cfg.MODEL.NEG_POS_RATIO)
+            - ```python
+                gt_boxes, gt_labels = targets['boxes'], targets['labels']
+                reg_loss, cls_loss = self.loss_evaluator(cls_logits, bbox_pred, gt_labels, gt_boxes)
+                ```
+            - 코드에서 위와 같이 사용된다. 즉 ground true와 비교해서 regressing_loss와 class_loss를 계산하게 된다.
+            - class MultiBoxLoss(nn.Module)의 forward에서 loss함수를 정의했다. 
+                - ```python
+                    classification_loss = F.cross_entropy(confidence.view(-1, num_classes), labels[mask], reduction='sum')
+                    smooth_l1_loss = F.smooth_l1_loss(predicted_locations, gt_locations, reduction='sum')
+                    return smooth_l1_loss / num_pos, classification_loss / num_pos
+                    ```  
+                - 이와 같이 우리가 흔히 아는, torch.nn.functional.Fcross_entropy, torch.nn.functional.smooth_l1_loss 함수를 사용한 것을 볼 수 있다.
+            - 앞으로 코드는 이 loss를 줄이기 위해 노력할 것이다. 
+            - 그렇다면 cls_logits, bbox_pred가 self.predictor(features)에 의해서 더욱 정확하게 나오기 위해 노력할 것이다. 
+            - 코드 전체에서 forward만 잘 구현해 놓음으로써 이렇게 자동으로 backpropagation이 이뤄지고, 신경망 내부의 모든 weight, bias가 갱신되게 만들어 놓았다. 막상 backward까지 직접 구현하는 코드는 많이 없는듯 하다.
+        3. self.post_processor = PostProcessor(cfg)
+        4. self.priors = None
+            - inference를 위한 코드이다. 나중에 필요하면 보자. 
+            - 지금은 빨리 mmdetection구조를 알아가고 싶다. 
+            - 코드 구조와 모듈들 알아가는게 너무 재미있다. 
+            - 이제 torch layer가 구현되는 코드는 완전히 이해가 가능하다. 모르는 것도 없고, 모르면 금방 찾을 수 있겠다. 
+    - 그래서 결국에는 아래와 같은 값을 return 한다.
+        - train : detections, loss_dict
+        - test : detections, {}
+        - detections = (cls_logits, bbox_pred)
+        - loss_dict = 위의 regressing_loss와 class_loss가 dictionary 형태로 return 된다.
+- SSD/ssd/modeling/detector/ssd_detector.py
+    - 위의 2개의 큰 모듈을 modeling/backbone, modeling/boxhead를 사용하는 간단한 코드
+    - ```python
+        class SSDDetector(nn.Module):
+            def __init__(self, cfg):
+                super().__init__()
+                self.cfg = cfg
+                self.backbone = build_backbone(cfg)
+                self.box_head = build_box_head(cfg)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            def forward(self, images, targets=None):
+                features = self.backbone(images)
+                detections, detector_losses = self.box_head(features, targets)
+                if self.training:
+                    return detector_losses
+                return detections
+        
+        ```
+    - 여기서 신기한건, train하는 과정에서 detection결과(cls_logits, bbox_pred)는 아에 버려진다. 왜냐면 이미, loss 계산을 마쳤으니까!!
 
 
 # 4. Analysis of lufficc/SSD/train.py

@@ -59,7 +59,6 @@ description: >
 
 # 4. ModuleList
 - ```python
-    { % highlight python linenos % }
     class VGG(nn.Module):
         def __init__(self, cfg):
             super().__init__()
@@ -67,7 +66,7 @@ description: >
             vgg_config = vgg_base[str(size)]
             extras_config = extras_base[str(size)]
 
-            self.vgg = nn.ModuleList(add_vgg(vgg_config : [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'C', 512, 512, 512, 'M', 512, 512, 512])
+            self.vgg = nn.ModuleList(add_vgg(vgg_config : [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'C', 512, 512, 512, 'M', 512, 512, 512]))
 
     def add_vgg(cfg, batch_norm=False):
         layers = []
@@ -78,7 +77,7 @@ description: >
             elif v == 'C':
                 layers += [nn.MaxPool2d(kernel_size=2, stride=2, ceil_mode=True)]
             else:
-                conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1) # 이런식으로 해
+                conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1) 
                 if batch_norm:ㅍ
                     layers += [conv2d, nn.BatchNorm2d(v), nn.ReLU(inplace=True)]
                 else:
@@ -90,9 +89,71 @@ description: >
         layers += [pool5, conv6,
                 nn.ReLU(inplace=True), conv7, nn.ReLU(inplace=True)]
         return layers
-        { % endhighlight % }
+    ```  
+- 코드 설명 
+    - ModuleList()에는 input으로 python-list가 들어가고 list-component는 nn.layer 이다. 
+    - conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1) 이 문장.
+        - conv2d은 계속 새로운 nn.Conv2d 객체로 바끤다.
+        - 아래의 코드를 참고해보자.
+        - ```python
+            >>> a = (1,2)
+            >>> id(a)
+            2289005091144
+            >>> id((1,2))
+            2289005102280
+            >>> a = (1,2)
+            >>> id(a)
+            2289005092296
+            ```   
+        - 이처럼 같은 클래스 tuple이지만, 객체 (1,2)는 다시 만들어지고 그것을 a가 가리킨다.
+
+
+
+# 5. \_\_init\_\_() defined in Class
+- Class의 __init__함수는 객체 선언시 처음부터 끝까지 읽혀진다.
+- 아래의 코드에서도 self.set_c()까지 처리되는 것을 확인할 수 있다.
+- ```python
+    class a():
+    def __init__(self, a,b):
+        self.a = a
+        self.b = b
+        self.c = 1
+        self.set_c()
+
+    def set_c(self):
+        self.c = self.a + self.b
+
+    obj = a(4,3)
+    print(obj.c) 
+    >> 7
+    ```  
+- ```python
+    class VGG(nn.Module):
+    def __init__(self, cfg):
+        super().__init__()
+        size = cfg.INPUT.IMAGE_SIZE
+        vgg_config = vgg_base[str(size)]
+        extras_config = extras_base[str(size)]
+
+        self.vgg = nn.ModuleList(add_vgg(vgg_config))
+        self.extras = nn.ModuleList(add_extras(extras_config, i=1024, size=size))
+        self.l2_norm = L2Norm(512, scale=20)
+        self.reset_parameters()
     ```
-- 코드 설명 - 
+- 따라서 위 코드의 reset_parameters도 반드시 실행된다.
 
-
-
+# 6. tensor의 새로운 함수
+- ```python
+    cls_logits = []
+    bbox_pred = []
+    for feature, cls_header, reg_header in zip(features, self.cls_headers, self.reg_headers):
+        cls_logits.append(cls_header(feature).permute(0, 2, 3, 1).contiguous())
+        bbox_pred.append(reg_header(feature).permute(0, 2, 3, 1).contiguous())
+    ```
+- 위의 cls_header, reg_header 는 nn.Conv2d 이다. 
+    - cls_header(feature) : nn.Conv2d를 통과하고 나온 feature(type = tensor) 이다.  
+    - [torch.Tensor.permute](https://pytorch.org/docs/stable/tensors.html?highlight=permute#torch.Tensor.permute) 를 사용해서 tenor 연산 이뤄지는 중
+    - [torch.Tensor.contiguous](https://pytorch.org/docs/stable/tensors.html#torch.Tensor.contiguous)
+- torch document에 적혀 있는 view는 tensor의 shape, size를 의미한다. view라는 단어를 더 자주쓰지 하나의 명사로 알아두기
+    - [torch.tensor.view](https://pytorch.org/docs/stable/tensors.html?highlight=permute#torch.Tensor.permute)
+    
