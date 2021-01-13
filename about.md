@@ -44,10 +44,19 @@ image: /assets/img/catagorys/justdoit.jpg
  
 
 # Research Interests  
-- Object Detection and Image Segmentation
-- Multi-Target Detection and Tracking  
-- 3D Object Detection and 3D Vehicle Localization 
-- Reinforcement Learning and Adversarial Learning
+- Data hungry problem 
+- Performance decrease of  domain change
+- 3D Recognition, Depth Perception, 3D Object Detection  
+
+SO...
+- domain adaptation 
+- self-supervise learning
+- semi-supervise learning
+- 3D object detection
+- 2D Image Segmentation with Stere, Lidar sensor
+- Reinforcement Learning (hobby)
+
+but not limited to.
 
  
 

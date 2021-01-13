@@ -57,8 +57,42 @@ description: >
 - os.path.join(path1[,path2[,...]]) : 나의 os 확인하니, 일반 string class의 + 연산자보다 이게 낫겠다. 
 - os.path.normpath(path) : 현재 디렉터리(".")나 상위 디렉터리("..")와 같은 구분자를 최대한 삭제
 
-# 4.
+# 4. ModuleList
+- ```python
+    { % highlight python linenos % }
+    class VGG(nn.Module):
+        def __init__(self, cfg):
+            super().__init__()
+            size = cfg.INPUT.IMAGE_SIZE
+            vgg_config = vgg_base[str(size)]
+            extras_config = extras_base[str(size)]
 
+            self.vgg = nn.ModuleList(add_vgg(vgg_config : [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'C', 512, 512, 512, 'M', 512, 512, 512])
+
+    def add_vgg(cfg, batch_norm=False):
+        layers = []
+        in_channels = 3
+        for v in cfg:
+            if v == 'M':
+                layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
+            elif v == 'C':
+                layers += [nn.MaxPool2d(kernel_size=2, stride=2, ceil_mode=True)]
+            else:
+                conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1) # 이런식으로 해
+                if batch_norm:ㅍ
+                    layers += [conv2d, nn.BatchNorm2d(v), nn.ReLU(inplace=True)]
+                else:
+                    layers += [conv2d, nn.ReLU(inplace=True)]
+                in_channels = v
+        pool5 = nn.MaxPool2d(kernel_size=3, stride=1, padding=1)
+        conv6 = nn.Conv2d(512, 1024, kernel_size=3, padding=6, dilation=6)
+        conv7 = nn.Conv2d(1024, 1024, kernel_size=1)
+        layers += [pool5, conv6,
+                nn.ReLU(inplace=True), conv7, nn.ReLU(inplace=True)]
+        return layers
+        { % endhighlight % }
+    ```
+- 코드 설명 - 
 
 
 

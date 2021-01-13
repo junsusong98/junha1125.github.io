@@ -93,6 +93,111 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
         ```
 
 # 2. Package Github Exploration 
+- file Tree  
+    ```sh
+    📦SSD
+    ┣ 📂configs
+    ┃ ┣ 📜efficient_net_b3_ssd300_voc0712.yaml
+    ┃ ┣ 📜mobilenet_v2_ssd320_voc0712.yaml
+    ┃ ┣ 📜mobilenet_v3_ssd320_voc0712.yaml
+    ┃ ┣ 📜vgg_ssd300_coco_trainval35k.yaml
+    ┃ ┣ 📜vgg_ssd300_voc0712.yaml
+    ┃ ┣ 📜vgg_ssd512_coco_trainval35k.yaml
+    ┃ ┗ 📜vgg_ssd512_voc0712.yaml
+    ┣ 📂demo
+    ┃ ┣ 📜000342.jpg
+    ┃ ┣ 📜000542.jpg
+    ┃ ┣ 📜003123.jpg
+    ┃ ┣ 📜004101.jpg
+    ┃ ┗ 📜008591.jpg
+    ┣ 📂figures
+    ┃ ┣ 📜004545.jpg
+    ┃ ┣ 📜losses.png
+    ┃ ┣ 📜lr.png
+    ┃ ┗ 📜metrics.png
+    ┣ 📂outputs
+    ┃ ┗ 📜.gitignore
+    ┣ 📂ssd
+    ┃ ┣ 📂config
+    ┃ ┃ ┣ 📜defaults.py
+    ┃ ┃ ┣ 📜path_catlog.py
+    ┃ ┃ ┗ 📜__init__.py
+    ┃ ┣ 📂data
+    ┃ ┃ ┣ 📂datasets
+    ┃ ┃ ┃ ┣ 📂evaluation
+    ┃ ┃ ┃ ┃ ┣ 📂coco
+    ┃ ┃ ┃ ┃ ┃ ┗ 📜__init__.py
+    ┃ ┃ ┃ ┃ ┣ 📂voc
+    ┃ ┃ ┃ ┃ ┃ ┣ 📜eval_detection_voc.py
+    ┃ ┃ ┃ ┃ ┃ ┗ 📜__init__.py
+    ┃ ┃ ┃ ┃ ┗ 📜__init__.py
+    ┃ ┃ ┃ ┣ 📜coco.py
+    ┃ ┃ ┃ ┣ 📜voc.py
+    ┃ ┃ ┃ ┗ 📜__init__.py
+    ┃ ┃ ┣ 📂transforms
+    ┃ ┃ ┃ ┣ 📜target_transform.py
+    ┃ ┃ ┃ ┣ 📜transforms.py
+    ┃ ┃ ┃ ┗ 📜__init__.py
+    ┃ ┃ ┣ 📜build.py
+    ┃ ┃ ┗ 📜__init__.py
+    ┃ ┣ 📂engine
+    ┃ ┃ ┣ 📜inference.py
+    ┃ ┃ ┣ 📜trainer.py
+    ┃ ┃ ┗ 📜__init__.py
+    ┃ ┣ 📂layers
+    ┃ ┃ ┣ 📜separable_conv.py
+    ┃ ┃ ┗ 📜__init__.py
+    ┃ ┣ 📂modeling
+    ┃ ┃ ┣ 📂anchors
+    ┃ ┃ ┃ ┣ 📜prior_box.py
+    ┃ ┃ ┃ ┗ 📜__init__.py
+    ┃ ┃ ┣ 📂backbone
+    ┃ ┃ ┃ ┣ 📂efficient_net
+    ┃ ┃ ┃ ┃ ┣ 📜efficient_net.py
+    ┃ ┃ ┃ ┃ ┣ 📜utils.py
+    ┃ ┃ ┃ ┃ ┗ 📜__init__.py
+    ┃ ┃ ┃ ┣ 📜mobilenet.py
+    ┃ ┃ ┃ ┣ 📜mobilenetv3.py
+    ┃ ┃ ┃ ┣ 📜vgg.py
+    ┃ ┃ ┃ ┗ 📜__init__.py
+    ┃ ┃ ┣ 📂box_head
+    ┃ ┃ ┃ ┣ 📜box_head.py
+    ┃ ┃ ┃ ┣ 📜box_predictor.py
+    ┃ ┃ ┃ ┣ 📜inference.py
+    ┃ ┃ ┃ ┣ 📜loss.py
+    ┃ ┃ ┃ ┗ 📜__init__.py
+    ┃ ┃ ┣ 📂detector
+    ┃ ┃ ┃ ┣ 📜ssd_detector.py
+    ┃ ┃ ┃ ┗ 📜__init__.py
+    ┃ ┃ ┣ 📜registry.py
+    ┃ ┃ ┗ 📜__init__.py
+    ┃ ┣ 📂solver
+    ┃ ┃ ┣ 📜build.py
+    ┃ ┃ ┣ 📜lr_scheduler.py
+    ┃ ┃ ┗ 📜__init__.py
+    ┃ ┣ 📂structures
+    ┃ ┃ ┣ 📜container.py
+    ┃ ┃ ┗ 📜__init__.py
+    ┃ ┣ 📂utils
+    ┃ ┃ ┣ 📜box_utils.py
+    ┃ ┃ ┣ 📜checkpoint.py
+    ┃ ┃ ┣ 📜dist_util.py
+    ┃ ┃ ┣ 📜logger.py
+    ┃ ┃ ┣ 📜metric_logger.py
+    ┃ ┃ ┣ 📜misc.py
+    ┃ ┃ ┣ 📜model_zoo.py
+    ┃ ┃ ┣ 📜nms.py
+    ┃ ┃ ┣ 📜registry.py
+    ┃ ┃ ┗ 📜__init__.py
+    ┃ ┗ 📜__init__.py
+    ┣ 📜demo.py
+    ┣ 📜DEVELOP_GUIDE.md
+    ┣ 📜requirements.txt
+    ┣ 📜setup.py
+    ┣ 📜test.py
+    ┣ 📜train.py
+    ```  
+
 1. ssd/modeling/detector
     - **ssd/modeling**에는 아래와 같은 신경망 구성 요소를 nn.module로 구현해놓은 파일이 있다. 
         1. anchors
@@ -113,7 +218,9 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
         - torch.hub 모듈을 사용한다. 
         - 이 모듈에는 download_url_to_file/ urlparse/ HASH_REGEX 와 같은 함수가 있다.
         - 나의 신경망 파라미터를 pht파일로 저장하고, 그것을 github에 올려놓고 누군가가 나의 신경망 파라미터를 사용할 수 있게 하려면, 이 torch.hub모듈을 사용해야겠다. 
-    - 
+    - registry.py
+        - 아래 \[3. Analysis of lufficc/SSD/ssd/modeling\]에 있는 설명 참조
+
 3. ssd/data/transforms
     - transforms.py 
         -torchvision.transfoms 에 있을 법한 함수들이 직접 만들어져 있다. 
@@ -135,7 +242,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
     - \_\_init\_\_.py : 
         - build_transforms, build_target_transform 와 같은 함수들이 정의되어 있고, 다른 파일에서 이 함수만 사용함으로써 쉽게 transform을 수행할 수 있다. 
 
-4. ssd
+4.
 
 
 # 3. Analysis of lufficc/SSD/demo.py
@@ -178,10 +285,43 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
         - Image.fromarray(drawn_image).save(path)
 
 # 3. Analysis of lufficc/SSD/ssd/modeling
-- 시작은 model = build_detection_model(cfg) 이것부터!
+- registry - 모듈을 config의 dictionary구조처럼 저장해 놓고, 쉽게 불러와 사용할 수 있게 해놓은 툴. 
+    - 이와 같이 사용함  
+        ```python
+        # ssd/modeling/backbone/vvg.py
+        @registry.BACKBONES.register('vgg')
+        def vgg(cfg, pretrained=True):
+            model = VGG(cfg)  # 같은 파일에서 정의한 클래스
+            if pretrained:
+                model.init_from_pretrain(load_state_dict_from_url(model_urls['vgg']))
+            return model
+
+        # ssd/modeling/__init__.py
+        def build_backbone(cfg):
+            return registry.BACKBONES[cfg.MODEL.BACKBONE.NAME](cfg, cfg.MODEL.BACKBONE.PRETRAINED)
+        ```
+    - registry에 모듈을 저장해두고, config에 적혀있는데로, 각각의 상황마다 각각의 모듈을 호출하기 쉽게 만들어 놓음. switch문이나 if문을 여러개써서 어떤 boakbone을 string으로 입력했는지 확인하는 작업이 필요없다. 
+    - 어려울 것 없고, 이 registry도 하나의 dictionary이다. 전체 코드에서는 dict{dict, dict, dict, dict ...} 와 같은 구조로 사용 중.
 - 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 4. Analysis of lufficc/SSD/train.py
+# 5. Analysis of lufficc/SSD/inferene.py
