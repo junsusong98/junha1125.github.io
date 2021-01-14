@@ -164,7 +164,7 @@ description: >
   - JPG는 원본 이미지 데이터가 약간 손실됨. 인간은 못 느끼는 정도
   - GIF는 움짤용. 영상 처리에서 사용 안함
   - PNG 영상처리에서 가장 많이 사용
-  - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210111224950317.png" alt="image-20210111224950317" style="zoom: 50%;" />
+  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210111224950317.png?raw=true" alt="image-20210111224950317" style="zoom: 50%;" />
 
 
 
@@ -321,8 +321,8 @@ cv2.destroyAllWindows()
         dst[mask > 0] = src[mask > 0] # -> dist = dst1
       ```  
     - src, mask, dst는 w,h 모두 크기가 같아야 함. src와 dst는 같은 타입. mask는 그레이스케일 타입의 이진 영상.
-    - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210113090901294.png" alt="image-20210113090901294" style="zoom:80%;" />
-    - dst2 : <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210113090939395.png" alt="image-20210113090939395" style="zoom: 33%;" />
+    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210113090901294.png?raw=true" alt="image-20210113090901294" style="zoom:80%;" />
+    - dst2 : <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210113090939395.png?raw=true" alt="image-20210113090939395" style="zoom: 33%;" />
     - dst과 dst2는 완전히 다른 이미지로 생성되니 주의해서 사용할 것. 
 - 투명한 배경이 있는 png 파일 (4channel)
   - ```python
@@ -345,11 +345,11 @@ cv2.destroyAllWindows()
 
 ### 5강 - 카메라와 동영상 처리하기 1
 - OpenCV에서는 카메라와 동영상으로부터 프레임(frame)을 받아오는 작업을 **cv2.VideoCapture** 클래스 하나로 처리함  
-  <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210113093215343.png" alt="image-20210113093215343" style="zoom: 80%;" />
+  <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210113093215343.png?raw=true" alt="image-20210113093215343" style="zoom: 80%;" />
 - 카메라 열기
   - index : 2대가 있으면 테스트 해봐서 0,1번 중 하나 이다. domain_offset_id는 무시하기(카메라를 Open하는 방법을 운영체제가 적절한 방법을 사용한다.) 
   - 아래 코드 꼭 읽어 보기:
-    <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210113093306495.png" alt="image-20210113093306495" style="zoom:80%;" />
+    <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210113093306495.png?raw=true" alt="image-20210113093306495" style="zoom:80%;" />
   - 추가 함수
     - 준비 완료? : cv2.VideoCapture.isOpened() -> retval
     - 프래임 받아오기 : cv2.VideoCapture.read(image=None) -> retval, image
@@ -389,9 +389,9 @@ cv2.destroyAllWindows()
   - 소리는 저장이 안된다!! 
   - cv2.VideoWriter / cv2.VideoWriter.open
   - cv2.VideoWriter.isOpened() / cv2.VideoWriter.write(image)
-  - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210113094959326.png" alt="image-20210113094959326" style="zoom: 80%;" />
+  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210113094959326.png?raw=true" alt="image-20210113094959326" style="zoom: 80%;" />
 - 코덱 종류와 다운로드 링크
-  - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210113094922834.png" alt="image-20210113094922834" style="zoom:80%;" />
+  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210113094922834.png?raw=true" alt="image-20210113094922834" style="zoom:80%;" />
 - 예시 코드
   - 이미지 반전 :  inversed = ~frame. RGB 중 Grean = 0, RB는 255에 가까워짐
   - ```python
@@ -498,7 +498,7 @@ cv2.destroyAllWindows()
 - cv2의 시간측정함수를 소개한다.
 
 ### 11장 - 동영상 전환 이펙트 코드 만들기
-- <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114084035017.png" alt="image-20210114084035017" style="zoom:80%;" />
+- <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114084035017.png?raw=true" alt="image-20210114084035017" style="zoom:80%;" />
 ```python
 import sys
 import numpy as np
@@ -642,7 +642,7 @@ Ch 03. 기본적인 영상 처리 기법 - 04. 히스토그램 분석
 Ch 03. 기본적인 영상 처리 기법 - 05. 영상의 명암비 조절
 
 - dst( , ) = saturate(src( , ) +  (src( , ) - 128) ) + a
-- <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114085414553.png" alt="image-20210114085414553" style="zoom:50%;" />
+- <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114085414553.png?raw=true" alt="image-20210114085414553" style="zoom:50%;" />
 - ```python
     src = cv2.imread('lenna.bmp', cv2.IMREAD_GRAYSCALE)
     alpha = 1.0
@@ -670,7 +670,7 @@ Ch 03. 기본적인 영상 처리 기법 - 07. 특정 색상 영역 추출하기
 Ch 03. 기본적인 영상 처리 기법 - 08. 히스토그램 역투영
 
 - **cv2.calcBackProjec**t(images, channels, hist, ranges, scale, dst=None) -> dst
-- <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114090121180.png" alt="image-20210114090121180" style="zoom:50%;" />
+- <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114090121180.png?raw=true" alt="image-20210114090121180" style="zoom:50%;" />
 
 
 
@@ -678,7 +678,7 @@ Ch 03. 기본적인 영상 처리 기법 - 09. 실전 코딩 - 크로마키 합�
 
 - cv2.inRange() 함수를 사용하여 50 ≤ 𝐻 ≤ 80, 150 ≤ 𝑆 ≤ 255, 0 ≤ 𝑉 ≤ 255 범위의 영역을 검출
 - 마스크 연산을 지원하는 cv2.copyTo() 함수 사용
-- <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114090209199.png" alt="image-20210114090209199" style="zoom:50%;" />
+- <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114090209199.png?raw=true" alt="image-20210114090209199" style="zoom:50%;" />
 - 강의자료 FastCampus_CV\opencv_python_ch01_ch05\ch03\chroma_key.py 참조
 
 
@@ -704,9 +704,9 @@ Ch 03. 기본적인 영상 처리 기법 - 09. 실전 코딩 - 크로마키 합�
 
   - 아래의 방법은 사람들이 찾아낸 방법 중 하나. 다양한 방법이 있다.
 
-  - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114090945601.png" alt="image-20210114090945601" style="zoom: 50%;" />
+  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114090945601.png?raw=true" alt="image-20210114090945601" style="zoom: 50%;" />
 
-  - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114091006607.png" alt="image-20210114091006607" style="zoom:50%;" />
+  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114091006607.png?raw=true" alt="image-20210114091006607" style="zoom:50%;" />
 
   - ```python
     # 카툰 필터 카메라
@@ -780,7 +780,7 @@ Ch 03. 기본적인 영상 처리 기법 - 09. 실전 코딩 - 크로마키 합�
 
 - 어파인 변환과 투시 변환
 
-  - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114091721057.png" alt="image-20210114091721057" style="zoom: 80%;" />
+  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114091721057.png?raw=true" alt="image-20210114091721057" style="zoom: 80%;" />
 
   - cv2.getAffineTransform(src, dst) -> retval
 
@@ -800,7 +800,7 @@ Ch 03. 기본적인 영상 처리 기법 - 09. 실전 코딩 - 크로마키 합�
     dst = cv2.warpPerspective(src, pers, (w, h))
     ```
 
-  - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114091945757.png" alt="image-20210114091945757" style="zoom: 67%;" />
+  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114091945757.png?raw=true" alt="image-20210114091945757" style="zoom: 67%;" />
 
 - 리매핑 : 영상의 특정 위치 픽셀을 다른 위치에 재배치하는 일반적인 프로세스
 
