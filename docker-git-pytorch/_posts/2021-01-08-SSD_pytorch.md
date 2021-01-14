@@ -30,7 +30,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
     $ python setup.py install  # or $ pip install .
     ```
 
-# (Short) Detectron2 & mmdetection short research
+# Detectron2 & mmdetection **short** research
 - reference 
     - [https://github.com/facebookresearch/detectron2](https://github.com/facebookresearch/detectron2)
     - [https://towardsdatascience.com/object-detection-in-6-steps-using-detectron2-705b92575578](https://towardsdatascience.com/object-detection-in-6-steps-using-detectron2-705b92575578)
@@ -275,7 +275,6 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
     - \_\_init\_\_.py : 
         - build_transforms, build_target_transform 와 같은 함수들이 정의되어 있고, 다른 파일에서 이 함수만 사용함으로써 쉽게 transform을 수행할 수 있다. 
 
-4.
 
 
 # 3. Analysis of lufficc/SSD/demo.py
@@ -356,13 +355,13 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
             - 코드 전체에서 forward만 잘 구현해 놓음으로써 이렇게 자동으로 backpropagation이 이뤄지고, 신경망 내부의 모든 weight, bias가 갱신되게 만들어 놓았다. 막상 backward까지 직접 구현하는 코드는 많이 없는듯 하다.
         3. self.post_processor = PostProcessor(cfg)
         4. self.priors = None
-            - inference를 위한 코드이다. 나중에 필요하면 보자. 
+            - 위의 3,4는 inference를 위한 코드이다. 나중에 필요하면 보자. 
             - 지금은 빨리 mmdetection구조를 알아가고 싶다. 
             - 코드 구조와 모듈들 알아가는게 너무 재미있다. 
             - 이제 torch layer가 구현되는 코드는 완전히 이해가 가능하다. 모르는 것도 없고, 모르면 금방 찾을 수 있겠다. 
     - 그래서 결국에는 아래와 같은 값을 return 한다.
-        - train : detections, loss_dict
-        - test : detections, {}
+        - train 과정에서는 (detections, loss_dict)
+        - test 과정에서는 (detections, {})
         - detections = (cls_logits, bbox_pred)
         - loss_dict = 위의 regressing_loss와 class_loss가 dictionary 형태로 return 된다.
 - SSD/ssd/modeling/detector/ssd_detector.py
@@ -387,4 +386,12 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
 
 
 # 4. Analysis of lufficc/SSD/train.py
+- 시작 하기 전에 
+    - 여기에 좋은 모듈을 많이 사용했다. 
+    - 처음 보는 pypi 모듈이라고 하더라도, 쫄지말고 공부하자. 
+    - 앞으로 mmdetection, detectron2에서 더 모르는 모듈이 많이 나올텐데, 이 정도로 쫄면 안된다.
+    - SSD package 부시기로 했는데, 내가 부셔지면 안되지!! 화이팅!
+-
+
+
 # 5. Analysis of lufficc/SSD/inferene.py
