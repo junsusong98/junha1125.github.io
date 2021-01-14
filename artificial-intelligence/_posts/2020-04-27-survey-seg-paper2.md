@@ -202,8 +202,11 @@ description: >
 
 ## 3.8 Attention-Based Models
 
-- [Attention 메카니즘 기본 이론]([https://ratsgo.github.io/from%20frequency%20to%20semantics/2017/10/06/attention/](https://ratsgo.github.io/from frequency to semantics/2017/10/06/attention/))
+- [Attention 메카니즘 기본 이론](https://ratsgo.github.io/from%20frequency%20to%20semantics/2017/10/06/attention/)
 - 사실 Attention 알고리즘은 컴퓨터 비전에서 지속적으로 연구되어 왔었다.
+- attention에 대한 위의 사이트 내용정리 필기는 아래 참조하기.
+
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/104551720-c2417280-567a-11eb-9d90-53f6858d98f3.jpg' alt='drawing' width='500'/></p>
 
 1. [90]에서는 multi-scale feature를 사용해서 attention해야할(wdight) 정도를 학습한다. pooling을 적용하는 것보다, attention mechaniism을 사용함으로써 다른 위치 다른 scales(객체크기)에 대한 the importance of features(그 부분을 얼마나 중요하게 집중할지)를 정확하게 판단할 수 있다. (fig. 35)
 

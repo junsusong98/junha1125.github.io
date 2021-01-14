@@ -159,6 +159,8 @@ description: >
 4. 위와 같은 RNN의 한계점을 극복하기 위해 LSTM(Long Short Term Memory)이 등장하였다.
 
 5. LSTM 구조
+   
+   추가 내용 : 백업완료_2020.03\ML\CS231n 의 RRN 파일 참조
 
    ![image](https://user-images.githubusercontent.com/61573968/80075314-79dea380-8585-11ea-8b2e-6362297f90de.png)
 
