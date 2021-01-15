@@ -142,7 +142,7 @@ description: >
     ```
 - 따라서 위 코드의 reset_parameters도 반드시 실행된다.
 
-# 6. tensor의 새로운 함수
+# 6. torch.tensor.function (permute, contiguous)
 - ```python
     cls_logits = []
     bbox_pred = []
@@ -157,4 +157,7 @@ description: >
 - torch document에 적혀 있는 view는 tensor의 shape, size를 의미한다. view라는 단어를 더 자주쓰지 하나의 명사로 알아두기
     - [torch.tensor.view](https://pytorch.org/docs/stable/tensors.html?highlight=permute#torch.Tensor.permute)
 
-# 7. sadfasdf
+# 7. os.environ(\["variable"\])
+- 터미널 내부 환경 변수를 읽어오는 모듈이다.
+- $ export COCO_ROOT="/path/to/coco_root"  와 같이 환경변수를 설정해 두면, python내부 os.environ 함수가 이 환경변수를 읽오와 변수에 저장해둔다.
+- <img src='https://user-images.githubusercontent.com/46951365/104723082-0bc0b900-5772-11eb-99cd-655fd6631f2a.png' alt='drawing' width='300'/>

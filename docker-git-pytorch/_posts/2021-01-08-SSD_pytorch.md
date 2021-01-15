@@ -83,14 +83,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
         - $ python train.py --config-file configs/vgg_ssd300_voc0712.yaml
     - Single GPU evaluating
         - $ python test.py --config-file configs/vgg_ssd300_voc0712.yaml
-4.  ssd/data/datasets/coco.py & SSD/dataset/voc.py 
-    - 각 데이터 셋을 사용하기 위한 함수들이 잘 정의되어 있다. 
-    - Readme.md에 있는 [data directory 구조](https://github.com/lufficc/SSD#setting-up-datasets)를 똑같이 사용한다면, 나중에도 사용 가능! 
-    - terminal 필수
-        ```
-        $ VOC_ROOT="/path/to/voc_root"
-        $ export COCO_ROOT="/path/to/coco_root"
-        ```
+
 
 # 2. Package Github Exploration 
 - file Tree  
@@ -274,7 +267,24 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
             ```
     - \_\_init\_\_.py : 
         - build_transforms, build_target_transform 와 같은 함수들이 정의되어 있고, 다른 파일에서 이 함수만 사용함으로써 쉽게 transform을 수행할 수 있다. 
-
+        
+4.  SSD/ssd/data
+    - ssd/data/datasets/coco.py & SSD/dataset/voc.py 각 데이터 셋을 사용하기 위한 함수들이 잘 정의되어 있다. 
+        - Readme.md에 있는 [data directory 구조](https://github.com/lufficc/SSD#setting-up-datasets)를 똑같이 사용한다면, 나중에도 사용 가능! 
+        - terminal 필수
+            ```
+            $ VOC_ROOT="/path/to/voc_root"
+            $ export COCO_ROOT="/path/to/coco_root"
+            ```
+        - export한 정보는 아래와 같이, os.environ 함수를 사용해 호출 될 수 있다.
+            ```python
+            # SSD/train.py
+            num_gpus = int(os.environ["WORLD_SIZE"]) if "WORLD_SIZE" in os.environ else 1
+            voc_root = os.environ['VOC_ROOT']
+            coco_root = os.environ['COCO_ROOT']
+            ``` 
+    - ssd/data/datasets/build.py & SSD/dataset/\_\_init\_\_.py 
+        - build.py : make_data_loader라는 함수가 정의되어 있고, from torch.utils.data.dataloader import default_collate 를 사용해서, 거의 직접 dataloader를 구현해 놓았다. 
 
 
 # 3. Analysis of lufficc/SSD/demo.py
@@ -316,12 +326,12 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
         - drawn_image = draw_boxes(image, boxes, ...)
         - Image.fromarray(drawn_image).save(path)
 
-# 3. Analysis of lufficc/SSD/ssd/modeling
-- SSD/ssd/modeling/backbone/vvg.py
+# 4. Analysis of lufficc/SSD/ssd/modeling
+- SSD/ssd/modeling/**backbone/vvg.py**
     - class vvg16(nn.module) 
         - input(300x300,500x500) 따라서 많은 convd2d, relu, Maxpooling 등을 처리해나간다. 
         - 3개의 feature이 returm되며, features = [(1024,w,h),(512,w/2,h/2),(256,w/4,h/4)] 이다. (정확하지 않다.)
-- SSD/ssd/modeling/box_head/box_head.py
+- SSD/ssd/modeling/**box_head/box_head.py**
     - class SSDBoxHead(nn.Module)
     - 여기에서 많은 모듈을 사용한다  
         ```python
@@ -334,7 +344,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
     - 하나하나 간략이 알아가보자. 
         1. self.predictor = make_box_predictor(cfg)
             - cls_logits, bbox_pred = self.predictor(features)
-            - cls_logits, bbox_pred : 모든 class에 대한 점수값, 이미지에서 bbox의 의미를 return한다. 
+            - **cls_logits, bbox_pred** : 모든 class에 대한 점수값, 이미지에서 bbox의 의미를 return한다. 
             - conv2d만을 사용해서 최종결과를 반환한다. 생각보다 softmax 이런거 안하고 생각보다 단순하게 conv2d를 반복해서 적용하여, 마지막에 가져야할 tensor size에 맞춘다. 
             - 그렇게 적당한 크기에 맞춰진 cls_logits, bbox_pred가 return 되는 것이다
         2. self.loss_evaluator = MultiBoxLoss(neg_pos_ratio=cfg.MODEL.NEG_POS_RATIO)
@@ -349,9 +359,8 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
                     smooth_l1_loss = F.smooth_l1_loss(predicted_locations, gt_locations, reduction='sum')
                     return smooth_l1_loss / num_pos, classification_loss / num_pos
                     ```  
-                - 이와 같이 우리가 흔히 아는, torch.nn.functional.Fcross_entropy, torch.nn.functional.smooth_l1_loss 함수를 사용한 것을 볼 수 있다.
-            - 앞으로 코드는 이 loss를 줄이기 위해 노력할 것이다. 
-            - 그렇다면 cls_logits, bbox_pred가 self.predictor(features)에 의해서 더욱 정확하게 나오기 위해 노력할 것이다. 
+                - 이와 같이 우리가 흔히 아는, torch.nn.functional.**Fcross_entropy**, torch.nn.functional.**smooth_l1_loss** 함수를 사용한 것을 볼 수 있다.
+            - 앞으로 코드는 이 loss를 줄이기 위해 노력할 것이다. 그렇다면 cls_logits, bbox_pred가 self.predictor(features)에 의해서 더욱 정확하게 나오기 위해 노력할 것이다. 
             - 코드 전체에서 forward만 잘 구현해 놓음으로써 이렇게 자동으로 backpropagation이 이뤄지고, 신경망 내부의 모든 weight, bias가 갱신되게 만들어 놓았다. 막상 backward까지 직접 구현하는 코드는 많이 없는듯 하다.
         3. self.post_processor = PostProcessor(cfg)
         4. self.priors = None
@@ -359,11 +368,11 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
             - 지금은 빨리 mmdetection구조를 알아가고 싶다. 
             - 코드 구조와 모듈들 알아가는게 너무 재미있다. 
             - 이제 torch layer가 구현되는 코드는 완전히 이해가 가능하다. 모르는 것도 없고, 모르면 금방 찾을 수 있겠다. 
-    - 그래서 결국에는 아래와 같은 값을 return 한다.
-        - train 과정에서는 (detections, loss_dict)
-        - test 과정에서는 (detections, {})
-        - detections = (cls_logits, bbox_pred)
-        - loss_dict = 위의 regressing_loss와 class_loss가 dictionary 형태로 return 된다.
+    - 그래서 **결국에는 아래와 같은 값을 return** 한다.
+        - train 과정에서는 **tuple(detections, loss_dict)**
+        - test 과정에서는 **tuple(detections, {})**
+        - 이때, detections = (cls_logits, bbox_pred)
+        - 그리고, loss_dict = 위의 regressing_loss와 class_loss가 dictionary 형태로 return 된다.
 - SSD/ssd/modeling/detector/ssd_detector.py
     - 위의 2개의 큰 모듈을 modeling/backbone, modeling/boxhead를 사용하는 간단한 코드
     - ```python
@@ -385,13 +394,66 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
     - 여기서 신기한건, train하는 과정에서 detection결과(cls_logits, bbox_pred)는 아에 버려진다. 왜냐면 이미, loss 계산을 마쳤으니까!!
 
 
-# 4. Analysis of lufficc/SSD/train.py
+# 5. Analysis of lufficc/SSD/train.py
 - 시작 하기 전에 
-    - 여기에 좋은 모듈을 많이 사용했다. 
     - 처음 보는 pypi 모듈이라고 하더라도, 쫄지말고 공부하자. 
     - 앞으로 mmdetection, detectron2에서 더 모르는 모듈이 많이 나올텐데, 이 정도로 쫄면 안된다.
     - SSD package 부시기로 했는데, 내가 부셔지면 안되지!! 화이팅!
--
 
+- main()
+    1. import torch.distributed
+        - GPU가 2개 이상일 때 사용하는 코드이다. 데이터 병렬처리 작업을 하고 싶으면 공부해서 사용하면 된다. 
+        - [Official document](https://pytorch.org/docs/stable/distributed.html)
+        - [Data Parallel Tutorial](https://pytorch.org/tutorials/beginner/dist_overview.html#data-parallel-training) : 나의 상황(single-device training, single-machine multi-GPU)에 따라서 torch에서 추천해주는 모듈을 사용하면 된다.
+    2. 코드 제작자는 **print를 절대 사용하지 않는다. logger를 사용**해서 terminal에 출력!
+    3. model = train(cfg, args)
+- train(cfg, args):
+    1. optimizer, scheduler 정의
+        - from ssd.solver.build import make_optimizer, make_lr_scheduler
+        - from ssd.solver.build 에는 optimizer, lr_scheduler 가 정의되어 있다. (별거 없음)
+        - optimizer = torch.optim.SGD(model.parameters(), lr=lr, ... )
+        - LRscheduler = torch.optim.lr_scheduler(optimizer, last_epoch)
+    2. checkpointer = CheckPointer(model, optimizer, scheduler, cfg.OUTPUT_DIR, save_to_disk, logger)
+        - ssd/utils/checkpoint.py : 모델을 학습시키는 중간중간, model, optimizer, scheduler를 save, load하는 함수가 def 되어 있다.
+        - data = {'model': ~ ,'optimizer': ~  ,'scheduler': ~ } 이와 같이 dict으로 저장한다음, torch.save(data, "{}.pth 형식의 paht")로 저장하면 된다.
+    3.  model = do_train(cfg, model, train_loader, optimizer, scheduler, checkpointer, device, arguments, args)
+- do_train (ssd/engine/trainer.py)
+    - torchvision을 만들기 
+    - dataloder에서 data 가져오기
+    - 파라메터 갱신하기
+    - ```python
+        summary_writer = SummaryWriter(log_dir=os.path.join(cfg.OUTPUT_DIR, 'tf_logs'))
+        for iteration, (images, targets, _) in enumerate(data_loader, start_iter):
+            loss_dict = model(images, targets=targets)
+            loss = sum(loss for loss in loss_dict.values())    
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            scheduler.step()
 
-# 5. Analysis of lufficc/SSD/inferene.py
+            if iteration % args.log_step == 0:
+                logger.info( # 현재 학습 상태 출력
+                summary_writer.add_scalar
+        ```
+    - MAX_ITER = ephch: 160000 정도로 설정되었지만, 그래도 아마 scheduler에 의해서 조기 학습 종료도 가능할 듯 싶다.
+
+# 6. Analysis of lufficc/SSD/inferene.py
+- pass
+
+# 7. summary
+- 지금까지의 과정을 통해서 [**lufficc/SSD**](https://github.com/lufficc/SSD)을 이용해서 아래와 같은 것을 알아보았다. 
+    1. 어떻게 구성되어 있는지 
+    2. 각각의 파일들은 대충 어떤 역할을 하는지 
+    3. 파일들이 서로 어떻게 호출되고, 어떻게 사용되는지
+    4. 다음에 이런 방식으로 모듈화 되어 있는 패키지를 어떻게 사용해야 할지
+- 분명 지금은 코드를 한줄한줄 정확히 알고, 코드 한줄을 지나면 데이터들의 형태나 타입이 어떻게 되는지 확인해보지는 않았다.
+- 지금은 당장 사용할 것도 아닌데 그렇게 까지 코드를 공부할 필요는 없다고 생각했다. 차라리 **detectron2 혹은 mmdetection의 내부 코드들을 하나하나 씹어 먹는게 낫지** 굳이 이거는 그냥 꿀덕꿀덕 삼키는 식으로 공부했다. 
+- 이 과정을 통해서, **패키지를 보고 탐구하는 것에 대한 두려움이 사라졌다.** 
+- **패키지 내부의 코드를 부셔버려야지, 내가 맨붕와서 부셔지면 안된다.** 라는 것을 깨달았다.
+- 이와 같은 방식으로 탐구해 나간다면, 어떤 패키지와 코드를 만나든, 잘 분석할 수 있겠다. 
+- 추가로!! 다음에 정말 정확히 분성해야할 패키지가 생긴다면, 아래와 같은 작업을 꼭 하자.
+    - 원하는 모듈만 import해서, 직접 함수나 클래스를 사용해보거나
+    - 디버깅을 해서, 데이터 흐름이 어떻게 되는지 정확하게 뜯어보거나
+    - 직접 코드 전체를 가지고 학습이나, inference를 해보거나
+    - 즉. **눈으로만 코드 보지말고, 직접 코드를 실행해보고 확인해보자!!**
+와

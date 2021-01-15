@@ -14,7 +14,7 @@ Self-Supervised-Learning Basics
 - [https://www.fast.ai/2020/01/13/self_supervised/](https://www.fast.ai/2020/01/13/self_supervised/)
 
 
-# 2. \<zisserman-self-supervised\> - 2018.07
+# 2. zisserman-self-supervised - 2018.07
 
 1. 모델에 대한 상세한 설명은 없다. 하지만 전체적은 윤각선을 만들기 위해 먼저 빠르게 보기로 했다. 
 2. Supervise-learning : With a large-scale dataset labelled / Can Specify a training loss / Easy to Train the network
@@ -22,7 +22,7 @@ Self-Supervised-Learning Basics
 3. how infants may learn : The Development of Embodied Cognition
 4. What is Self-Supervision?
 
-   - **supervision**에게 데이터/pretrain결과를 제공하기 위한 A form of unsupervised learning.
+   - **supervision**에게 **'데이터/pre-train결과/FeatureExtractor'**를 제공하기 위한 A form of unsupervised learning.
    - withhold some part of the data (일부 데이터를 주지 않고) and task the network with predicting it. (예측하라고 과제 준다.)
    - with a proxy loss (대체된 손실값),  the Network learn what we really care about.
 5. Three parts
@@ -48,7 +48,9 @@ Self-Supervised-Learning Basics
 ## 2.Part (2) - Videos
 
 - What can we use to define a proxy loss 
-  - Temporal order of the frames / Nearby (in time) frames / Motion of objects
+  1. Temporal order of the frames 
+  2. Nearby (in time) frames 
+  3. Motion of objects
 
 - ### Video sequence order 
 
@@ -117,8 +119,8 @@ Self-Supervised-Learning Basics
 ## 2.3 - Summary
 
 1. Self-supervised learning from images/video
-   - without explicit supervision, 학습이 가능하다. (Pre-train모델을 만들 수 있었다.)
-   - Learns visual representations = 적절한 Visual Feature Extractor들을 뽑을 수 있었다.
+   - **without explicit supervision, 학습이 가능하다. (Pre-train모델을 만들 수 있었다.)**
+   - **Learns visual representations = 적절한 Visual Feature Extractor들을 뽑을 수 있었다.**
 2. Self-Supervised Learning from videos with sound
    1. Intra- and cross-modal retrieval - 서로의 데이터로 상호 학습이 가능했다.
    2. Learn to localize sounds (어디서 소리가 나는지 예측하는 모델)
