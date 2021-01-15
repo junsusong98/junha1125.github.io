@@ -67,7 +67,7 @@ Deep Learning for Generic Object Detection, A Survey 논문 리뷰 및 정리
 
 2.3 Progress in the Past 2 Decades
 
-- <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114173125275.png" alt="image-20210114173125275" style="zoom: 80%;" />
+- <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114173125275.png?raw=tru" alt="image-20210114173125275" style="zoom: 80%;" />
 - accurate annotations are labor intensive to obtain
 - Ability to detect many object categories matches that of humans(인간 같은) 3000~3000 categories  is undoubtedly an unresolved problem so far.
 
@@ -99,6 +99,6 @@ Deep Learning for Generic Object Detection, A Survey 논문 리뷰 및 정리
 
 ## 5. Basic Frameworks
 
-- <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114192428720.png" alt="image-20210114192428720" style="zoom:67%;" />
-- <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210114201752611.png" alt="image-20210114201752611" style="zoom: 80%;" />
+- <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114192428720.png?raw=tru" alt="image-20210114192428720" style="zoom:67%;" />
+- <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114201752611.png?raw=tru" alt="image-20210114201752611" style="zoom: 80%;" />
 

@@ -16,7 +16,7 @@ description: >
 
 3. ROS 홈페이지에서 rplidar를 검색했을 때 나오는 코드 목록
 
-   <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20200524194150672.png" alt="image-20200524194150672" style="zoom:50%;" />
+   <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20200524194150672.png" alt="image-20200524194150672" style="zoom:50%;" />
 
 4. 라이더 드라이버 로스 패키지 목록 (위의 3개 하나하나)
 
@@ -104,7 +104,7 @@ Reference 읽기 순서 : 4.1  ->  5  -> 6  ->  7
      - [rplidar basic document](http://bucket.download.slamtec.com/e680b4e2d99c4349c019553820904f28c7e6ec32/LM108_SLAMTEC_rplidarkit_usermaunal_A1M8_v1.0_en.pdf)
      - [rplidar sdk](https://www.slamtec.com/en/Support#rplidar-a-series) - slamtec에서 재공해 줌 - [SDK Git Code](https://github.com/slamtec/rplidar_sdk)과 연결됨
      - 위의 Ref1에서 봤던 내용이 좀더 간략히 나와 있다. 코드 실행 순서..
-       <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20200524204312223.png" alt="image-20200524204312223" style="zoom:50%;" />
+       <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20200524204312223.png" alt="image-20200524204312223" style="zoom:50%;" />
      - 이 사진과 같이 라이더를, 자동차에 해야한다. theta와 d가 publish되는 메세지값에 나타나는 듯 하다.
      - remap the USB serial port name 했을 때의 방법도 나온다. 이건 건들지 말자.
 
