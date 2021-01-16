@@ -20,6 +20,7 @@ Deep Domain Adaptation Basics
     - shallow (not deep) : reweighting the source samples. trying to learn a shared space to match the distributions. (데이터 분포의 공통 부분을 학습하기 위해, source samples에 대해 다시 학습)
     - Deep : **아래 layer에서 배우는 학습값은 transferable representations** (inference에 많은 영향을 끼킬 수 있는. 결과가 크게 변할 수 있는.) 이다. **반대로 윗 layer에서 배우는 값은 sharply transferability가 떨어진다.** 
     - Deep Domain Adaptation 에서 이러한 성질을 사용한다. 
+
 ## 2. Domain Adaptation Categories
   - 참고 논문 
     1. Deep Visual Domain Adaptation: A Survey (2018)
@@ -36,13 +37,16 @@ Deep Domain Adaptation Basics
     - supervised : target data is labeled
     - semi-supervised : labeled and unlabeled
     - self-supervised : No labeled data
-## 3. Task Relatedness
+
+## 3. Task Relatedness(상관성, 유사성)
   - task relatedness : source가 task에 얼마나 적응될 수 있는지
   - Task Relatedness를 정의(수치화)하는 방법
     1. how close their **parameter vectors**. 
     2. how **same features** 
     3. 각각의 데이터가 정해진(fixed) 확률분포에 의해서 생성된 데이터라면, 서로 (transformations) F-related (Task Relatedness가 크다) 하다.
   - 그래도 domain adaptation을 사용할 수 있는지는, 학습을 시켜보고 이점을 얻을 수 있는지 없는지를 직접 확인해보는 방법 뿐이다. 
+
+
 ## 4. One-Step Domain Adaptation
 3 basic techniques
 1. divergence-based domain adapatation.
@@ -57,11 +61,11 @@ Deep Domain Adaptation Basics
       - RKHS(Reproducing Kernel Hilbert Space)에 두 데이터를 mapping 후, 두 데이터의 feature 의 **평균을 비교**함으로써 두 데이터가 같은 분포의 데이터인지 확인한다.
       - 평균이 다르면, 다른 분포 데이터. 
       - 두 분포가 동일한 경우, 각각 분포의 샘플 간의 평균 유사성은 두 분포를 합한 샘플 간의 평균 유사성과 동일할 것.(?) 이라는 직관을 이용한다.
-      - <img src='https://user-images.githubusercontent.com/46951365/104798356-85f04c80-5809-11eb-8d0d-4fae09915519.png' alt='drawing' width='350'/>  
+      - <img src='https://user-images.githubusercontent.com/46951365/104798356-85f04c80-5809-11eb-8d0d-4fae09915519.png' alt='drawing' width='300'/>  
       - two-stream architecture는 파라메터 공유하지 않음. 
       - Soft-max, Regularization(Domain-discrepancy) loss를 사용해서, two-architecture가 **similar feature representation(=extractor)**가 되도록 만든다.
     - (2) CORAL : 
-      - <img src='https://user-images.githubusercontent.com/46951365/104798534-f2b81680-580a-11eb-9507-7881188b601d.png' alt='drawing' width='400'/>
+      - <img src='https://user-images.githubusercontent.com/46951365/104798534-f2b81680-580a-11eb-9507-7881188b601d.png' alt='drawing' width='250'/>
       - (b)처럼 distribution만 맞춘다고 해서 해결되지 못한다. (c)처럼 soure에 target correlation값을 추가함으로써 align시켜준다.
       - align the second-order statistics (correlations) instead of the means
       - [좋은 논문](https://arxiv.org/pdf/1607.01719.pdf) : Using a differentiable CORAL loss.
@@ -72,14 +76,87 @@ Deep Domain Adaptation Basics
       - [좋은논문](https://arxiv.org/pdf/1901.00976.pdf) : target labels are found by **clustering**. CCD is minimized.
     - 이런 방법으로
       1. 이런 방법을 optimal transport 라고 한다. 
-      2. 두 데이터 간의 feature and label distributions 가 서로 비슷해 질 것이다.
+      2. 두 데이터 간의 feature and label distributions 가 서로 비슷해지게 만들거나,
       3. **두 architecture(extractor, representation)** 간의 차이가 줄어들게 만든다.
 2. Adversarial-based Domain Adaptation
-    - 
+    - **source domain에 관련된 인위적인 target data를 만들고, 이 데이터를 사용해서 target network를 학습시킨다. 그리고 진짜 target data를 network에 넣어서 결과를 확인해 본다.**
+    - (1) CoGAN - source와 연관성 있는 target data 생성
+      - <img src='https://user-images.githubusercontent.com/46951365/104799034-0feee400-580f-11eb-9e81-694aeb61a36a.png' alt='drawing' width='400'/>
+      - 일부 **weight sharing 하는 layer는 domain-invariant feature space extractor**로 변해간다.
+    - (2) source/target converter network - source와 연관성 있는 target data 생성
+      - Pixel-Level Domain Transfer (2016 - citation 232)
+      - <img src='https://user-images.githubusercontent.com/46951365/104799089-8b509580-580f-11eb-96c6-9f01c1aaabf7.png' alt='drawing' width='400'/>
+      - 2개의 discriminator를 사용한다.
+      - 1개의 discriminator는 source에 의해 생성된 target data가 그럴듯 한지 확인하고.
+      - 다른 1개의 discriminator는 생성된 target data와 source의 상관성이 있는지 확인한다.
+      - **for unlabeled data in the target domain**.
+    - (3) Get rid of generators - 어떤 domain에서도 invariable-feature를 추출하는 extractor 제작
+      - Unsupervised Domain Adaptation by Backpropagation (2015 - citation 2000)
+      - domain confusion loss in addition to the domain classification loss : classificator가 어떤 domain의 data인지 예측하지 못하게 한다. 
+      - <img src='https://user-images.githubusercontent.com/46951365/104799241-d919cd80-5810-11eb-945a-194672815009.png' alt='drawing' width='400'/>
+      - gradient reversal layer(?) to match the feature distributions(두 데이터 간의 특징 분포를 일치시키기 위해)
+        - 파랑색 부분은 class label를 잘 찾으려고 노력하고
+        - 초록색 부분은 domain classifier가 틀리도록 학습되면서(**input이미지에 대해서 어떤 domain에서도 invariable-feature를 추출하는 extractor를 만든다**), class label을 잘 맞추려고 학습된다. 
+        - 빨간색은 그대로 domain label을 옳게 classify하도록 학습된다. 
+        - Generator & discriminator 구조가 아닌듯, 맞는듯한 신기한 구조를 가지고 있다.
+3. Reconstruction-based Domain Adaptation
+    - (1) DRCN
+      - Deep Reconstruction-Classification Networks for Unsupervised Domain Adaptation (2016 - citation 435)
+      - <img src='https://user-images.githubusercontent.com/46951365/104799917-5a725f80-5813-11eb-9229-01abb018a8c6.png' alt='drawing' width='400'/>
+      - (i) classification of the source data (ii) reconstruction of the unlabeled target data
+      - (i) 나중에 input에 target을 넣어도 잘 classifying 하게 만듬. (ii) reconstruction된 data가 task data와 유사하도록 학습된다. 따라서 초반 layer도 task data에 대한 정보를 함축하도록 만들어 진다.
+      - 논문 저자는 위의 신경망의 input을 target, reconstruction Image는 source가 되도록 다시 학습 시켰다.
+      - <img src='https://user-images.githubusercontent.com/46951365/104808630-e04dd500-582a-11eb-867d-4707cfb2d5fd.png' alt='drawing' width='500'/>
+    - (2) cycle GANs
+    - (3) conditional GANs
+      - encoder-decoder GAN 
+      - conditional GANs are used to translate images from one domain to anothe
+      - Pix2Pix GAN이 대표적이다. 
+      - reference를 주면, 그것을 이용해 ouput을 만드는 GAN을 말한다. 
+      - <img src='https://user-images.githubusercontent.com/46951365/104805907-d0c49100-5816-11eb-9f29-26f5a7d12904.png' alt='drawing' width='400'/>
+    
+## 5. Conclusion
+- Deep domain adaptation/ enables us to get closer/ to human-level performance/ in terms of the amount of training data. (원하는 task data relative real-scene가 적을 때 유용하게 사용할 수 있는 방법이다.)
+- <img src='https://user-images.githubusercontent.com/46951365/104808662-11c6a080-582b-11eb-8c5e-44b1f0ee7a57.png' alt='drawing' width='350'/>
 
-
-
-
-
+--- 
 
 # 2. Domain adaptation - Boston Universiry
+- Domain Adaptation에 대한 설명을 그림으로 아주 재미있게 표현해놓은 좋은 자료.
+- Applications to different types of domain shift
+    1. From dataset to dataset
+    2. From simulated to real control
+    3. From RGB to depth
+    4. **From 3D-CAD models to real images**
+- models adapted without labels,(NO labels in target domain)
+    - adversarial alignment
+    - correlation alignment
+- D = distributions/ xi, zj = Image/ yi = Label :   
+    <img src='https://user-images.githubusercontent.com/46951365/104808053-0a9d9380-5827-11eb-95ed-70fbb22eafe0.png' alt='drawing' width='300'/>
+
+(1) From dataset to dataset, From RGB to depth
+- DRCN와 유사하지만 좀 더 복잡한 형태의 confusion-loss 사용하는 논문
+    - [Simultaneous Deep Transfer Across Domains and Tasks - citation 889](https://arxiv.org/pdf/1510.02192.pdf)
+    - <img src='https://user-images.githubusercontent.com/46951365/104808822-0fb11180-582c-11eb-9752-e57992a01b77.png' alt='drawing' width='500'/>  
+    - domain classifier loss : Domain이 source인지 target인지 판단한다. 잘못 판단하면 Loss가 커지므로, 잘 판단될 수 있도록 학습 된다.
+    - domain confusion loss : Domain이 source인지 target인지 잘못 판단하게 만든다. 
+    - **한번은 classifier loss로, 다른 한번은 confusion loss로 학습**시키므로써, Network가 Source에서만 잘 동작하게 만드는게 아니라, Target에서도 잘 동작하게 만든다. 
+    - **지금의 feature extractor는 너무 source중심으로 domain loss통해서 target에 대한 정보도 feature extractor가 학습하게 만드는 것이다.**
+    - Target으로 Test해봤을 때, 그냥 Source만으로 학습된 Network를 사용하는 것보다 이 과정을 통해서 학습된 Network에서 더 좋은 Accuracy 결과가 나왔다.
+- ADDA
+    - [**Adversarial Discriminative Domain Adaptation (2017 - citation 1871)**](https://arxiv.org/abs/1702.05464)
+    - 위의 Encoder 구조에서 Weight sharing을 하지 않음.
+    - RGB-Depth 추측에서도 좋은 성능 획득
+
+(2) From simulated to real control
+    - [Transfer from Simulation to Real World through Learning Deep Inverse Dynamics Model](https://arxiv.org/abs/1610.03518)
+
+(3) From 3D-CAD models to real images
+  - Domain Adaptation via **Correlation Alignment**  
+  - [Deep CORAL: Correlation Alignment for Deep Domain Adaptation](https://arxiv.org/pdf/1607.01719.pdf) 논문 참조.  
+
+<p align="center"><img src='https://user-images.githubusercontent.com/46951365/104809729-9cf76480-5832-11eb-8c55-7ccf0bc2dcc6.png' alt='drawing' width='400'/></p>
+
+
+
+
