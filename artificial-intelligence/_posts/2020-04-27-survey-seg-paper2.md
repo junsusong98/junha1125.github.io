@@ -205,6 +205,7 @@ description: >
 - [Attention 메카니즘 기본 이론](https://ratsgo.github.io/from%20frequency%20to%20semantics/2017/10/06/attention/)
 - 사실 Attention 알고리즘은 컴퓨터 비전에서 지속적으로 연구되어 왔었다.
 - attention에 대한 위의 사이트 내용정리 필기는 아래 참조하기.
+- 아래의 그림에서, ai : **attention vector** / ci : **context vetor**
 
 <p align="center"><img src='https://user-images.githubusercontent.com/46951365/104551720-c2417280-567a-11eb-9d90-53f6858d98f3.jpg' alt='drawing' width='500'/></p>
 
@@ -257,46 +258,6 @@ description: >
 - fig. 42는  semantic segmentation를 위한 아주 유명한 모델들을 시간 순으로 설명한다. 지난 몇 년간 개발 된 많은 작품을 고려했을때, 아래의 그림은 가장 대표적인 작품 중에서도 일부만을 보여준다.
 
 ![image](https://user-images.githubusercontent.com/46951365/80683802-b4a18800-8aff-11ea-949e-e480e153b16d.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
