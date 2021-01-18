@@ -69,7 +69,7 @@ Attention and Transformer is salient mechanism in deep learning nowadays. I rema
     - Attention model을 들여다 보면, 신기하게도 하나의 input당 하나의 output으로 matcing된다. 이것은 translation 과제에서 장점이자, 단점이 될 수 있다. 
 
 
-# 3. the development of the attention mechanism - 20.11.15
+# 3. the development of the attention mechanism
 <p align="center"><img src='https://user-images.githubusercontent.com/46951365/104834476-e1423d80-58e2-11eb-9eeb-885e32fb7f20.png' alt='drawing' width='400'/><</p>>
 
 - 핵심 paper
@@ -132,7 +132,17 @@ Attention and Transformer is salient mechanism in deep learning nowadays. I rema
         - character <- word <- sentence와 같이 distributed low-dimensional space로 표현하는 것.
         - 단어들은 각각의 의미만 가지고 있는게 아니라, 서로간의 상관관계를 가지기 때문에 3차원 공간상에 word set을 뿌려놓으면 비슷한 단어는 비슷한 위치에 존재하게 된다. [visualize word Embeddings using t-SNE](https://habr.com/en/company/mailru/blog/449984/)
         - [단어 임배딩이 무엇이고 어떻게 구현하는가 : 특정 단어를 4차원 백터로 표현하는 방법](https://www.tensorflow.org/tutorials/text/word_embeddings)
+        - <img src='https://user-images.githubusercontent.com/46951365/104839309-7e14d300-5903-11eb-9f66-9e24a32532b5.png' alt='drawing' width='200'/>
     - **Positional encodings**
         - <img src='https://user-images.githubusercontent.com/46951365/104838732-2de84180-5900-11eb-9c41-813a99d3b8e8.png' alt='drawing' width='250'/>
-        - 위에서는 단어의 order를 무시한다고 했다. 하지만 order in a set를 알려주는 것은 매우 중요하다.
-        - 
+        - 위에서는 단어의 order를 무시한다고 했다. 하지만 order in a set를 모델에게 알려주는 것은 매우 중요하다.
+        - positional encoding : word embedding vector에 추가해주는 set of small constants(작은 상수) 이다. 
+            - sinusoidal function (sin함수) 를 positional encoding 함수로 사용했다.
+            - sin함수에서 주파수(y=sin(fx), Cycle=2pi/f)와 the position in the sentence를 연관시킬 것이다. 
+            - 예를 들어보자. (위의 특정 단어를 4차원 백터로 표현한 그림 참고)
+            - 만약 32개의 단어가 있고, 각각 1개의 단어는 512개의 백터로 표현가능하다.
+            - 아래와 같이 1개 단어에 대한 512개의 sin(짝수번쨰단어),cos(홀수번째단어)함수 결과값을 512개의 백터 값으로 표현해주면 되는 것이다.
+            - <img src='https://user-images.githubusercontent.com/46951365/104839384-0b582780-5904-11eb-878b-79884b0f82f7.png' alt='drawing' width='500'/>
+            - 이런 식으로 단어를 나타내는 자체 백터에 에 순서에 대한 정보를 넣어줄 수 있다. 
+2. Fundamental concepts of the Transformer
+    - 
