@@ -42,6 +42,7 @@ Attention and Transformer is salient mechanism in deep learning nowadays. I rema
         - 아래의 그림에서 attention model이 무엇인지 아래에서 공부해 보자.
         - <img src='https://user-images.githubusercontent.com/46951365/104832883-fd8cad00-58d7-11eb-9cf1-50dd08a0d801.png' alt='drawing' width='300'/>
 3. What is an attention model?
+    - <img src='https://user-images.githubusercontent.com/46951365/104832942-991e1d80-58d8-11eb-8222-a10165e727e3.png' alt='drawing' width='600'/>
     - attention Model에는 n개의 input이 들어간다. 위의 예시에서 h가 y가 되겠다.
     - 출력되는 z는 모든 y의 summary 이자, 옆으로 들어가는 c와 linked된 information이다.
     - 각 변수의 의미
@@ -61,7 +62,6 @@ Attention and Transformer is salient mechanism in deep learning nowadays. I rema
             - 지금까지 본 것은 “Soft attention (differentiable deterministic mechanism)” 이다. hard attention은 a stochastic process이다. 확률값은 si값을 사용해서 랜덤으로 yi를 선택한다. (the gradient by Monte Carlo sampling)      
             - <img src='https://user-images.githubusercontent.com/46951365/104833686-d89b3880-58dd-11eb-8844-af1f4e19026b.png' alt='drawing' width='350'/>
             - 하지만 gradient 계산이 직관적인 Soft Attention를 대부분 사용한다.
-    - <img src='https://user-images.githubusercontent.com/46951365/104832942-991e1d80-58d8-11eb-8222-a10165e727e3.png' alt='drawing' width='400'/>
     - 결론적으로 위와 같은 그림으로 표현될 수 있다. **LSTM은 i번째 단어를 예측**하고 **다음에 집중해야하는 영역에 대한 정보를 담은 h_i+1**을 return한다. 
 4. Learning to Align in Machine Translation (언어 모델에서도 사용해보자)
     - Image와 다른 점은 attention model에 들어가는 y1,y2 ... yi 값은, 문자열이 LSTM을 거쳐나오는 연속적인 hidden layer의 값이라는 것이다.
@@ -144,5 +144,39 @@ Attention and Transformer is salient mechanism in deep learning nowadays. I rema
             - 아래와 같이 1개 단어에 대한 512개의 sin(짝수번쨰단어),cos(홀수번째단어)함수 결과값을 512개의 백터 값으로 표현해주면 되는 것이다.
             - <img src='https://user-images.githubusercontent.com/46951365/104839384-0b582780-5904-11eb-878b-79884b0f82f7.png' alt='drawing' width='500'/>
             - 이런 식으로 단어를 나타내는 자체 백터에 에 순서에 대한 정보를 넣어줄 수 있다. 
-2. Fundamental concepts of the Transformer
-    - 
+            - 예를 들어, 영어사전 안에 3000개의 단어가 있다면 3000개의 단어를 각각 2048개의 백터로 표현해 놓는다. 프랑스어사전 안에서 그에 상응하는 3000개의 단어를 추출하고, 단어 각각 2048개의 백터로 임배딩 해놓는다. 그리고 아래의 작업을 한다고 상상해라.
+2. Encoder of the Transformer
+    - Self-attention & key, value query
+        - <img src='https://user-images.githubusercontent.com/46951365/104886249-c0461f00-59ac-11eb-9274-0912fe7d3d76.png' alt='drawing' width='600'/> 
+        - [**매우 추천 동영상, Attention 2: Keys, Values, Queries**](https://www.youtube.com/watch?v=tIvKXrEDMhk) : 위의 [Attention Mechanism](https://junha1125.github.io/artificial-intelligence/2021-01-17-Attention/#2-attention-mechanism-awesome)을 다시 설명해 주면서, key values, Query를 추가적으로 설명해준다.
+        - 위의 'What is an attention model' 내용에 weight 개념을 추가해준다. C,yi,si 부분에 각각 Query, key, Value라는 이름의 weight를 추가해준다.
+        - [NER = Named Entity Recognition](https://wikidocs.net/30682) : 이름을 보고, 어떤 유형인지 예측하는 test. Ex.아름->사람, 2018년->시간, 파리->나라 
+        - 직관적으로 이해해보자. 'Hello I love you'라는 문장이 있다고 치자. Love는 hello보다는 I와 yout에 더 관련성이 깊을 것이다. 이러한 **관련성, 각 단어에 대한 집중 정도**를 표현해 주는 것이, 이게 바로 weight를 추가해주는 개념이 되겠다. 아래의 그림은 각 단어와 다른 단어와의 관련성 정도를 나타내주는 확률 표 이다.
+        - <img src='https://user-images.githubusercontent.com/46951365/104888020-8591b600-59af-11eb-816d-567fc49e6cd6.png' alt='drawing' width='250'/>
+    - Multi Head Attention
+        - [참고 동영상, Attention 3: Multi Head Attention](https://www.youtube.com/watch?v=23XUv0T9L5c)
+        - I gave my dog Charlie some food. 라는 문장이 있다고 치자. 여기서 gave는 I, dog Charlie, food 모두와 관련 깊은데, 이게 위에서 처럼 weight 개념을 추가해 준다고 바로 해결 될까?? No 아니다. 따라서 우리는 extra attention 개념을 반복해야 한다. 
+        - <img src='https://user-images.githubusercontent.com/46951365/104889635-d5717c80-59b1-11eb-9925-d94e2aee717e.png' alt='drawing' width='600'/>
+    - Short residual skip connections
+        - 블로그의 필자는, ResNet구조를 직관적으로 이렇게 설명한다. 
+        - 인간은 top-down influences (our expectations) 구조를 사용한다. 즉 과거의 기대와 생각이 미래에 본 사물에 대한 판단에 영향을 끼지는 것을 말한다. 
+    - Layer Normalization, The linear layer 을 추가적으로 배치해서 Encoder의 성능을 높힌다.
+    - <img src='https://user-images.githubusercontent.com/46951365/104891020-bb389e00-59b3-11eb-8b78-3d6e75d64d13.png' alt='drawing' width='250'/>
+
+3. Decoder of the Transformer
+    - Input : **Hellow I love you** -> Output : **bonjour je t'aime** (프랑스어로 사랑해)
+    - The output probabilities :  **bonjour je t'aime**를 위한 확률 값이 나와야 함. The output probabilities predict the next token in the output sentence.(?)
+    - test할때는 output을 넣어주지 않는다. (이 input, output, probabilities는 아직 잘 모르겠다.. 문장이 들어가는 건지, **~~단어~~**(3. What is an attention model?의 사진을 봐라. 단어 하나가 들어가선, 어떤 단어에 더 집중해야 하는가 하는 확률값을 나타낼수가 없다.)가 들어 가는 건지... ㅠㅠ 나중애 필요하면 공부하자)
+    - 그냥 Multi-Head Attentoin 을 사용하는게 아니라, Masked Multi-Head Attention 을 사용한다.
+    - 블로그는 더 이상 뭔소리 인지 모르겠다. 패스
+
+4. [Attention 4 - Transformers](https://www.youtube.com/watch?v=EXNBy8G43MM)
+    - **Multi-head attention is a mechanism to add context that's not based on RNN**
+    - <img src='https://user-images.githubusercontent.com/46951365/104905766-23907b00-59c6-11eb-974b-054fa5b4a5f2.png' alt='drawing' width='600'/>
+    - <img src='https://user-images.githubusercontent.com/46951365/104905809-31de9700-59c6-11eb-82f5-15e762bf993f.png' alt='drawing' width='600'/>
+    - Input에는 문장이 들어가고, Multi-head Attention에서 각 단어에 대한 중요성을 softmax(si)로 계산 후, 그것을 가중치wi로 두고, 원래 단어와 곱해놓는다. (What is an attention model?의 사진 참조)
+    - Multi-head Attention **doesn't care**.
+    - But Positional Enxoding push to **care more about position**.
+    - NLP에서 DIET architecture로 많이 사용중. 
+    - Why Multi-head Attention can be replaced RNN
+        - <img src='https://user-images.githubusercontent.com/46951365/104907331-47ed5700-59c8-11eb-8a6c-9f57a94b9e19.png' alt='drawing' width='500'/>
