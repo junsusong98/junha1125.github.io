@@ -1,8 +1,6 @@
 ---
 layout: post
 title: 【Paper】 Deep Learning for Generic Object Detection, A Survey - Summary
-description: >  
-    Deep Learning for Generic Object Detection, A Survey 논문 리뷰 및 정리
 ---
 Deep Learning for Generic Object Detection, A Survey 논문 리뷰 및 정리
 

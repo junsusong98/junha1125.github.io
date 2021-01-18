@@ -148,12 +148,12 @@ Deep Domain Adaptation Basics
     - 위의 Encoder 구조에서 Weight sharing을 하지 않음.
     - RGB-Depth 추측에서도 좋은 성능 획득
 
-(2) From simulated to real control
-    - [Transfer from Simulation to Real World through Learning Deep Inverse Dynamics Model](https://arxiv.org/abs/1610.03518)
+(2) From simulated to real control 
+- [Transfer from Simulation to Real World through Learning Deep Inverse Dynamics Model](https://arxiv.org/abs/1610.03518)
 
 (3) From 3D-CAD models to real images
-  - Domain Adaptation via **Correlation Alignment**  
-  - [Deep CORAL: Correlation Alignment for Deep Domain Adaptation](https://arxiv.org/pdf/1607.01719.pdf) 논문 참조.  
+- Domain Adaptation via **Correlation Alignment**  
+- [Deep CORAL: Correlation Alignment for Deep Domain Adaptation](https://arxiv.org/pdf/1607.01719.pdf) 논문 참조.  
 
 <p align="center"><img src='https://user-images.githubusercontent.com/46951365/104809729-9cf76480-5832-11eb-8c55-7ccf0bc2dcc6.png' alt='drawing' width='400'/></p>
 
