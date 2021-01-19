@@ -50,8 +50,8 @@ menu:
     url:               /artificial-intelligence/
   - title:             Ubuntu / Language / Algorithm
     url:               /ubuntu-python-algorithm/
-  - title:             Docker / Git / Pytorch
-    url:               /docker-git-pytorch/
+  - title:             Pytorch / Docker / Git
+    url:               /pytorch-docker-git/
   - title:             Self Study
     url:               /Self-Study/
   - title:             Projects

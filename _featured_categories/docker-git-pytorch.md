@@ -1,10 +1,10 @@
 ---
 # file: !my-blog.md
 layout: list
-title: Docker / Git / Pytorch
-slug: docker-git-pytorch
+title: Pytorch / Docker / Git
+slug: pytorch-docker-git
 menu: true
-permalink: /docker-git-pytorch/
+permalink: /pytorch-docker-git/
 order: 3
 sitemap: false
 description: >

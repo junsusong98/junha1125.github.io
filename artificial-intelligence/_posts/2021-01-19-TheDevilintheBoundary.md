@@ -13,7 +13,10 @@ title: 【Paper】The Devil is in the Boundary for Instance Segmentation
 
 
 
-**느낀점**
+
+
+
+**느낀점**  
 
 1. 논문 안에는 핵심 내용(global 사용, score 사용) 등이 있는데, 최근 논문들의 핵심 내용만 쏙쏙 캐치해서 그것들을 잘~융합해서 개발이 되었다. -> 이런 논문 작성 방식도 추구하자. 
 2. 논문 많이 읽어야 겠다... 완벽하게 이해는 안되고, 60% 정도만 이해가 간다. 필수적으로 읽어야 하는 논문 몇가지만 읽고 나면 다 이해할 수 도 있을 듯 하다. 지금은 전체다 이해가 안된다고 해도 좌절하지 말자.
@@ -27,6 +30,8 @@ title: 【Paper】The Devil is in the Boundary for Instance Segmentation
    - 아무래도 saturation된 Instance Segmentation에 대해서 계속 공부해나가시는거에 대한 두려움은 없으신지?
    - 석사기간에 이런 좋은 논문을 쓰는게 쉽지 않은데... 혹시 팁이 있으신지?
 
+
+
  
 
 **논문 읽는 도중, 추가로 공부해야할 것 기록**
@@ -39,7 +44,9 @@ title: 【Paper】The Devil is in the Boundary for Instance Segmentation
 
 
 
-<u>**다 읽은 후, 필수로 읽어야 겠다고 생각이 든 논문**</u>
+
+
+**<u>다 읽은 후, 필수로 읽어야 겠다고 생각이 든 논문</u>**
 
 1. YOLACT [4]-2019
 2. BlendMask [6] - 2020
