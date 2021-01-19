@@ -15,7 +15,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
 2. Otsu 방법
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210119095215096.png" alt="image-20210119095215096" style="zoom:67%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210119095215096.png?raw=tru" alt="image-20210119095215096" style="zoom:67%;" />
    - th, dst = cv2.threshold(src, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
 3. 균일하지 않은 조명 환경 - 픽셀 주변에 작은 윈도우를 설정하여 지역 이진화 수행
@@ -51,7 +51,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
    1. 열기 : 침식 -> 팽창
    2. 닫기 : 팽창 -> 침식
-   3. ![image-20210119100131147](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210119100131147.png)
+   3. ![image-20210119100131147](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210119100131147.png?raw=tru)
    4. 범용 모폴로지 연산 함수 : **cv2.morphologyEx**(src, op, kernel)
    5. 열기 연산을 이용한 잡음 제거 : **우선은 지역 이진화!! 필수 -> 그리고 열기 연산**
 
@@ -61,7 +61,7 @@ title: 【CV】Computer Vision at FastCampus 2
    - 4-neightbor connectivity / 8-neightbor connectivity
    - 레이블링 함수 : **cv2.connectedComponents**(image)
    - 객체 정보 함께 반환하는 레이블링 함수 : **cv2.connectedComponentsWithStats**(image)
-     - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210119100708533.png" alt="image-20210119100708533" style="zoom:67%;" />
+     - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210119100708533.png?raw=tru" alt="image-20210119100708533" style="zoom:67%;" />
      - 바운딩 박스 정보가 나오므로, 숫자 검출 같은 행위가 가능해 진다. 
 
 7. 외곽선 검출( Boundary tracking. Contour tracing)
@@ -82,7 +82,7 @@ title: 【CV】Computer Vision at FastCampus 2
          idx = hier[0, idx, 0]
      ```
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210119103238413.png" alt="image-20210119103238413" style="zoom: 67%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210119103238413.png?raw=tru" alt="image-20210119103238413" style="zoom: 67%;" />
 
    - **외각선 검출 및 도형의 크기나 특징 정보 반환**하는 함수
 
@@ -109,11 +109,11 @@ title: 【CV】Computer Vision at FastCampus 2
      3. 외각선 근사화  
      4. 너무 작은 객체, 컨벡스가 아닌 개체 제외 
      5. 꼭지점 개수 확인 (사각형, 삼각형, 원 검출)
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210119104254897.png" alt="image-20210119104254897" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210119104254897.png?raw=tru" alt="image-20210119104254897" style="zoom:80%;" />
 
 9. 실전 코딩 : 명함 인식 프로그램 만들기
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210119104456932.png" alt="image-20210119104456932"  />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210119104456932.png?raw=tru" alt="image-20210119104456932"  />
 
    - 코드 핵심 요약   
 
@@ -152,7 +152,7 @@ title: 【CV】Computer Vision at FastCampus 2
      - 설치 옵션 및 설정 (이해 안되면 동영상 참고 하기)
        - **설치** 시 "Additional script data" 항목에서 "Hangul Script", "Hangul vertical script" 항목 체크, "Additional language data" 항목에서 "Korean" 항목 체크 
        - 설치 후 시스템 환경변수 PATH에 Tesseract 설치 폴더 추가 (e.g.) **c:\Program Files\Tesseract-OCR**
-       -  <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210119110127435.png" alt="image-20210119110127435" style="zoom: 50%;" />
+       -  <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210119110127435.png?raw=tru" alt="image-20210119110127435" style="zoom: 50%;" />
        - (안해도 됨) 설치 후 시스템 환경변수에 TESSDATA_PREFIX를 추가하고, 변수 값을 \tessdata 로 설정 
        - \tessdata\script\ 폴더에 있는 **Hangul.traineddata, Hangul_vert.traineddata 파일**을 \tessdata\ 폴더로 복사
        - 그리고$ pip install pytesseract
