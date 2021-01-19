@@ -295,19 +295,20 @@ cv2.destroyAllWindows()
 
 2장
 - 이미지(=영상) 새로 생성하기
+  
   - numpy.empty / numpy.zeros / numpy.ones / numpy.full
 - 이미지 복사  
     - ```python
         img1 = cv2.imread('HappyFish.jpg')
         img2 = img1 -> 같은 메모리 공유
         img3 = img1.copy() 
-      ```  
+      ```
     - img3 = img1.copy() -> 새로운 메모리에 이미지 정보 다시 할당 array안의 array도 다시 할당한다. 여기서는 deepcopy랑 같다. [](추가 설명)](https://junha1125.github.io/docker-git-pytorch/2021-01-07-torch_module_research/#21-copydeepcopy)
     - **numpy에서는 deepcopy랑 copy가 같다.** 라고 외우자
 
 
 
-### 3강 - 마스크 연산과 ROI
+### 2-3강 - 마스크 연산과 ROI
 - 마스크 영상으로는 0 또는 255로 구성된 이진 영상(binary image), Gray Scale
 - cv2.copyTo(src, mask, dst=None) -> dst
     - ```python
@@ -316,10 +317,10 @@ cv2.destroyAllWindows()
         dst = cv2.imread('field.bmp', cv2.IMREAD_COLOR)
         cv2.copyTo(src, mask, dst1)
         dst2 = cv2.copyTo(src, mask)
-      
+        
         # 하지만 아래와 같은 슬라이딩 연산도 가능!!
         dst[mask > 0] = src[mask > 0] # -> dist = dst1
-      ```  
+      ```
     - src, mask, dst는 w,h 모두 크기가 같아야 함. src와 dst는 같은 타입. mask는 그레이스케일 타입의 이진 영상.
     - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210113090901294.png?raw=true" alt="image-20210113090901294" style="zoom:80%;" />
     - dst2 : <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210113090939395.png?raw=true" alt="image-20210113090939395" style="zoom: 33%;" />
@@ -334,7 +335,7 @@ cv2.destroyAllWindows()
     cv2.copyTo(src, mask, crop)
     ```
 
-### 4강 - OpenCV그리기 함수
+### 2-4강 - OpenCV그리기 함수
 - 주의할 점 : in-place 알고리즘 -> 원본 데이터 회손
 - 자세한 내용은 인강 참조, 혹은 OpenCV 공식 문서 참조 할 것.
 - 직선 그리기 : cv2.line
@@ -377,6 +378,7 @@ cv2.destroyAllWindows()
       cv2.destroyAllWindows()
     ```
 - 동영상 열기
+  
   - 위의 코드에서 cap = cv2.VideoCapture('Video File Path') 를 넣어주고 나머지는 위에랑 똑같이 사용하면 된다. 
 - 카메라 속성 열고 바꾸기
   - cv2.VideoCapture.get(propId) -> cap.get('propId')
@@ -384,13 +386,14 @@ cv2.destroyAllWindows()
 
 
 
-### 6장 - 카메라와 동영상 처리하기 2
+### 2-6장 - 카메라와 동영상 처리하기 2
 - 동영상 저장 : cv2.VideoWriter 클래스
   - 소리는 저장이 안된다!! 
   - cv2.VideoWriter / cv2.VideoWriter.open
   - cv2.VideoWriter.isOpened() / cv2.VideoWriter.write(image)
   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210113094959326.png?raw=true" alt="image-20210113094959326" style="zoom: 80%;" />
 - 코덱 종류와 다운로드 링크
+  
   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210113094922834.png?raw=true" alt="image-20210113094922834" style="zoom:80%;" />
 - 예시 코드
   - 이미지 반전 :  inversed = ~frame. RGB 중 Grean = 0, RB는 255에 가까워짐
@@ -433,7 +436,7 @@ cv2.destroyAllWindows()
     
     ```
 
-### 7장 - 키보드 이벤트 처리하기
+### 2-7장 - 키보드 이벤트 처리하기
 - cv2.waitKey(delay=None) -> retval
 - while True: 문을 계속 돌면서, 매 시간 마다 키보드 input이 없으면 필요없는 값을 return하고 while문에는 영향을 끼치지 않는다.
 - ```python
@@ -451,7 +454,7 @@ cv2.destroyAllWindows()
   cv2.destroyAllWindows()
   ```
 
-### 8장 - 마우스 이벤트 처리하기
+### 2-8장 - 마우스 이벤트 처리하기
 - 마우스 이벤트 콜백함수 등록 함수 : cv2.setMouseCallback(windowName, onMouse, param=None) -> None
 - 마우스 이벤트 처리 함수(콜백 함수) 형식 : onMouse(event, x, y, flags, param) -> None
 - 이벤트에 대한 event 목록들은 강의 자료 참조.
@@ -472,7 +475,7 @@ cv2.destroyAllWindows()
   cv2.waitKey()
   ```
 
-### 9강 - 트랙바 사용하기
+### 2-9강 - 트랙바 사용하기
 
 - cv2.createTrackbar(trackbarName, windowName, value, count, onChange) -> None
 - ```python
@@ -497,101 +500,102 @@ cv2.destroyAllWindows()
 - python time.time() 사용하자.
 - cv2의 시간측정함수를 소개한다.
 
-### 11장 - 동영상 전환 이펙트 코드 만들기
+### 2-11장 - 동영상 전환 이펙트 코드 만들기
 - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114084035017.png?raw=true" alt="image-20210114084035017" style="zoom:80%;" />
 -   
     ```python
         import sys
         import numpy as np
         import cv2
+    ```
 
 
         # 두 개의 동영상을 열어서 cap1, cap2로 지정
         cap1 = cv2.VideoCapture('video1.mp4')
         cap2 = cv2.VideoCapture('video2.mp4')
-
+    
         if not cap1.isOpened() or not cap2.isOpened():
             print('video open failed!')
             sys.exit()
-
+    
         # 두 동영상의 크기, FPS는 같다고 가정함
         frame_cnt1 = round(cap1.get(cv2.CAP_PROP_FRAME_COUNT))  # 15초 * 24 = Total 360 frame
         frame_cnt2 = round(cap2.get(cv2.CAP_PROP_FRAME_COUNT))
         fps = cap1.get(cv2.CAP_PROP_FPS) # 24
         effect_frames = int(fps * 2)  # 48 -> 1번 동영상의 맨 뒤 48프레임과, 2번 동영상의 맨 앞 48프레임이 겹친다
-
+    
         print('frame_cnt1:', frame_cnt1)
         print('frame_cnt2:', frame_cnt2)
         print('FPS:', fps)
-
+    
         delay = int(1000 / fps)
-
+    
         w = round(cap1.get(cv2.CAP_PROP_FRAME_WIDTH))
         h = round(cap1.get(cv2.CAP_PROP_FRAME_HEIGHT))
         fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-
+    
         # 출력 동영상 객체 생성
         out = cv2.VideoWriter('output.avi', fourcc, fps, (w, h))
-
+    
         # 1번 동영상 복사
         for i in range(frame_cnt1 - effect_frames):
             ret1, frame1 = cap1.read()
-
+    
             if not ret1:
                 print('frame read error!')
                 sys.exit()
-
+    
             out.write(frame1)
             print('.', end='')
-
+    
             cv2.imshow('output', frame1)
             cv2.waitKey(delay)
-
+    
         # 1번 동영상 뒷부분과 2번 동영상 앞부분을 합성
         for i in range(effect_frames):
             ret1, frame1 = cap1.read()
             ret2, frame2 = cap2.read()
-
+    
             if not ret1 or not ret2:
                 print('frame read error!')
                 sys.exit()
-
+    
             dx = int(w / effect_frames) * i
-
+    
             frame = np.zeros((h, w, 3), dtype=np.uint8)
             frame[:, 0:dx, :] = frame2[:, 0:dx, :]
             frame[:, dx:w, :] = frame1[:, dx:w, :]
-
+    
             #alpha = i / effect_frames
             #frame = cv2.addWeighted(frame1, 1 - alpha, frame2, alpha, 0)
-
+    
             out.write(frame)
             print('.', end='')
-
+    
             cv2.imshow('output', frame)
             cv2.waitKey(delay)
-
+    
         # 2번 동영상을 복사
         for i in range(effect_frames, frame_cnt2):
             ret2, frame2 = cap2.read()
-
+    
             if not ret2:
                 print('frame read error!')
                 sys.exit()
-
+    
             out.write(frame2)
             print('.', end='')
-
+    
             cv2.imshow('output', frame2)
             cv2.waitKey(delay)
-
+    
         print('\noutput.avi file is successfully generated!')
-
+    
         cap1.release()
         cap2.release()
         out.release()
         cv2.destroyAllWindows()
-
+    
     ```
 
 
@@ -650,6 +654,7 @@ Ch 03. 기본적인 영상 처리 기법 - 05. 영상의 명암비 조절
     dst = np.clip((1+alpha)*src - 128*alpha, 0, 255).astype(np.uint8)
   ```
 - 명암비 자동 조절
+  
   - dst = **cv2.normalize**(src, None, 0, 255, cv2.NORM_MINMAX)
 
 
@@ -684,18 +689,18 @@ Ch 03. 기본적인 영상 처리 기법 - 09. 실전 코딩 - 크로마키 합�
 
 
 
-# 4장 - 필터링
+# chap4 -  필터링
 
-- cv2.filter2D
+- **cv2.filter2D**
 
-- cv2.GaussianBlur
+- **cv2.GaussianBlur**
 
-- cv2.medianBlur(src, ksize, dst=None) -> dst
+- **cv2.medianBlur**(src, ksize, dst=None) -> dst
 
   - 주변 픽셀들의 값들을 정렬하여 그 중앙값(median)으로 픽셀 값을 대체 
   - 소금-후추 잡음 제거에 효과적
 
-- cv2.bilateralFilter(src, d, sigmaColor, sigmaSpace, dst=None, borderType=None) -> dst
+- **cv2.bilateralFilter**(src, d, sigmaColor, sigmaSpace, dst=None, borderType=None) -> dst
 
   - edge-preserving noise removal filter / Bilateral filter
   - 평균 값 필터 또는 가우시안 필터는 에지 부근에서도 픽셀 값을 평탄하게 만드는 단점
@@ -763,33 +768,33 @@ Ch 03. 기본적인 영상 처리 기법 - 09. 실전 코딩 - 크로마키 합�
 
 
 
-# 5장 - 기하학적 변환
+# chap5 -  기하학적 변환
 
-- cv2.warpAffine(src, M, dsize, dst=None, flags=None, borderMode=None, borderValue=None) -> dst
+- **cv2.warpAffine**(src, M, dsize, dst=None, flags=None, borderMode=None, borderValue=None) -> dst
 
-- cv2.resize(src, dsize, dst=None, fx=None, fy=None, interpolation=None) -> dst
+- **cv2.resize**(src, dsize, dst=None, fx=None, fy=None, interpolation=None) -> dst
 
-- cv2.flip(src, flipCode, dst=None) -> dst
+- **cv2.flip**(src, flipCode, dst=None) -> dst
 
-- cv2.pyrDown(src, dst=None, dstsize=None, borderType=None) -> dst : 다중 피라미드 이미지 자동 return
+- **cv2.pyrDown**(src, dst=None, dstsize=None, borderType=None) -> dst : 다중 피라미드 이미지 자동 return
 
-- cv2.pyrUp(src, dst=None, dstsize=None, borderType=None) -> dst
+- **cv2.pyrUp**(src, dst=None, dstsize=None, borderType=None) -> dst
 
-- rot = cv2.getRotationMatrix2D(cp, 20, 1)
+- **rot = cv2.getRotationMatrix2D**(cp, 20, 1)
 
-  - dst = cv2.warpAffine(src, rot, (0, 0))
+  - **dst = cv2.warpAffine**(src, rot, (0, 0))
 
 - 어파인 변환과 투시 변환
 
   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210114091721057.png?raw=true" alt="image-20210114091721057" style="zoom: 80%;" />
 
-  - cv2.getAffineTransform(src, dst) -> retval
+  - **cv2.getAffineTransform(src, dst)** -> retval
 
-  - cv2.getPerspectiveTransform(src, dst, solveMethod=None) -> retval
+  - **cv2.getPerspectiveTransform**(src, dst, solveMethod=None) -> retval
 
-  - cv2.warpAffine(src, M, dsize, dst=None, flags=None, borderMode=None, borderValue=None) -> dst
+  - **cv2.warpAffine**(src, M, dsize, dst=None, flags=None, borderMode=None, borderValue=None) -> dst
 
-  - cv2.warpPerspective(src, M, dsize, dst=None, flags=None, borderMode=None, borderValue=None) -> dst
+  - **cv2.warpPerspective**(src, M, dsize, dst=None, flags=None, borderMode=None, borderValue=None) -> dst
 
   - ```python
     src = cv2.imread('namecard.jpg')
@@ -805,7 +810,7 @@ Ch 03. 기본적인 영상 처리 기법 - 09. 실전 코딩 - 크로마키 합�
 
 - 리매핑 : 영상의 특정 위치 픽셀을 다른 위치에 재배치하는 일반적인 프로세스
 
-  - cv2.remap(src, map1, map2, interpolation, dst=None, borderMode=None, borderValue=None) -> dst
+  - **cv2.remap**(src, Pixel좌표1, Pixel좌표2, interpolation, dst=None, borderMode=None, borderValue=None) -> dst
 
 - [실전 코딩] 문서 스캐너
 
@@ -825,8 +830,6 @@ Ch 03. 기본적인 영상 처리 기법 - 09. 실전 코딩 - 크로마키 합�
 - cv2.HoughLines(image, rho, theta, threshold, lines=None, srn=None, stn=None, min_theta=None, max_theta=None) -> lines
 - **cv2.HoughLinesP**(image, rho, theta, threshold, lines=None, minLineLength=None, maxLineGap=None) -> lines
 - **cv2.HoughCircles**(image, method, dp, minDist, circles=None, param1=None, param2=None, minRadius=None, maxRadius=None) -> circles
-
-
 
 
 

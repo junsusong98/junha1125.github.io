@@ -6,7 +6,7 @@ description: >
 
 Python file to EXE file 파이썬 파일 실행 파일로 만들기 
 
-참고 동영상 : https://www.youtube.com/watch?v=UZX5kH72Yx4
+참고 동영상 : [https://www.youtube.com/watch?v=UZX5kH72Yx4](https://www.youtube.com/watch?v=UZX5kH72Yx4)
 
 ```sh
 $ pip install pyinstaller
