@@ -23,12 +23,26 @@ description: >
 
 I will use lufficc/SSC repo. I think that this is up-to-date repository and developers emphasize this repo is high quality, fast and **modular**.
 
-- installation  
+- installation    
     ```
     $ cd SSD
     $ pip install -r requirements.txt
     $ python setup.py install  # or $ pip install .
     ```
+
+- Colab installation    
+    ```python
+    !git clone https://github.com/lufficc/SSD.git
+    %cd SSD
+    !pip install -r requirements.txt
+    !python setup.py install
+
+    import ssd.config
+    print(ssd.config.cfg)
+    ```
+
+
+
 
 # Detectron2 & mmdetection **short** research
 - reference 
@@ -189,7 +203,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
     ┣ 📜setup.py
     ┣ 📜test.py
     ┣ 📜train.py
-    ```  
+    ```
 
 1. ssd/modeling/detector
     - **ssd/modeling**에는 아래와 같은 신경망 구성 요소를 nn.module로 구현해놓은 파일이 있다. 
@@ -266,8 +280,9 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
             return transform
             ```
     - \_\_init\_\_.py : 
-        - build_transforms, build_target_transform 와 같은 함수들이 정의되어 있고, 다른 파일에서 이 함수만 사용함으로써 쉽게 transform을 수행할 수 있다. 
         
+        - build_transforms, build_target_transform 와 같은 함수들이 정의되어 있고, 다른 파일에서 이 함수만 사용함으로써 쉽게 transform을 수행할 수 있다. 
+    
 4.  SSD/ssd/data
     - ssd/data/datasets/coco.py & SSD/dataset/voc.py 각 데이터 셋을 사용하기 위한 함수들이 잘 정의되어 있다. 
         - Readme.md에 있는 [data directory 구조](https://github.com/lufficc/SSD#setting-up-datasets)를 똑같이 사용한다면, 나중에도 사용 가능! 
@@ -282,8 +297,9 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
             num_gpus = int(os.environ["WORLD_SIZE"]) if "WORLD_SIZE" in os.environ else 1
             voc_root = os.environ['VOC_ROOT']
             coco_root = os.environ['COCO_ROOT']
-            ``` 
+            ```
     - ssd/data/datasets/build.py & SSD/dataset/\_\_init\_\_.py 
+        
         - build.py : make_data_loader라는 함수가 정의되어 있고, from torch.utils.data.dataloader import default_collate 를 사용해서, 거의 직접 dataloader를 구현해 놓았다. 
 
 
@@ -358,7 +374,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
                     classification_loss = F.cross_entropy(confidence.view(-1, num_classes), labels[mask], reduction='sum')
                     smooth_l1_loss = F.smooth_l1_loss(predicted_locations, gt_locations, reduction='sum')
                     return smooth_l1_loss / num_pos, classification_loss / num_pos
-                    ```  
+                    ```
                 - 이와 같이 우리가 흔히 아는, torch.nn.functional.**Fcross_entropy**, torch.nn.functional.**smooth_l1_loss** 함수를 사용한 것을 볼 수 있다.
             - 앞으로 코드는 이 loss를 줄이기 위해 노력할 것이다. 그렇다면 cls_logits, bbox_pred가 self.predictor(features)에 의해서 더욱 정확하게 나오기 위해 노력할 것이다. 
             - 코드 전체에서 forward만 잘 구현해 놓음으로써 이렇게 자동으로 backpropagation이 이뤄지고, 신경망 내부의 모든 weight, bias가 갱신되게 만들어 놓았다. 막상 backward까지 직접 구현하는 코드는 많이 없는듯 하다.
