@@ -161,3 +161,15 @@ description: >
 - 터미널 내부 환경 변수를 읽어오는 모듈이다.
 - $ export COCO_ROOT="/path/to/coco_root"  와 같이 환경변수를 설정해 두면, python내부 os.environ 함수가 이 환경변수를 읽오와 변수에 저장해둔다.
 - <img src='https://user-images.githubusercontent.com/46951365/104723082-0bc0b900-5772-11eb-99cd-655fd6631f2a.png' alt='drawing' width='300'/>
+
+# 8. package 다운 후 코드 수정하기
+- 궁금증 : 
+    - $python setup.py install / $ pip install .  
+    - 이 명령어를 이용해서, package의 setup을 마친 상태라고 치자. 
+    - setup을 하고 난 후, package의 코드를 바꾸면 다시 setup을 실행해줘야 하는가?
+    - 아니면 setup은 처음에만 하고, 코드 수정 후 그냥 사용하기만 하며 되는가?
+
+- 해답 : 
+    - 정답은 **'처음에만 setup 해주면 된다.'** 이다
+    - 아래와 같은 세팅의 실험에서, 내가 추가해준 코드가 아주 잘 실행되는 것을 확인할 수 있었다.
+    - <img src="https://user-images.githubusercontent.com/46951365/105042656-d4bb1200-5aa7-11eb-9dc0-bc8eb2cc1a83.png" alt="image" style="zoom:67%;" />
