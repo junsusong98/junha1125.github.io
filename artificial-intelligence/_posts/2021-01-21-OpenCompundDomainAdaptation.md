@@ -31,7 +31,11 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
 
 ## **<u>다 읽은 후, 필수로 읽어야 겠다고 생각이 든 논문</u>**
 
-1. 
+1. curriculum domain adaptation [56] - curriculum domain adaptation에서 m이 의미하는것
+2. the domain-confusion loss [48] - (1), (2)이 의미하는 수학적 의미
+3. [45, 36, 28], Memory is storing class centroids.
+4. [27, 10], Adopting cosine classifiers, L2 norm before softmax classification.
+5. t-SNE Visualization
 
 
 
@@ -101,44 +105,68 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
 
 # 3. Our Approach to OCDA
 
+- **3.1. Disentangling Domain Characteristics** with **class labels** in the **source domain**
+
+  - Separate specific characteristics(representation) between classes.
+
+    - ![image-20210121191720032](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121191720032.png) : classifier encoder up to the second-to-the-last layer
+    - ![image-20210121191749345](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121191749345.png) : the classifier
+
+  - 위의 Class_encoder로 발혀지지 않은 factors(features)들은 reflect domain characteristics.     
+    ![image-20210121192005408](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121192005408.png) : domain encoder. 아래의 성질은 만족하게 encoder를 만들어 낸다.
+
+    1. Completeness : class[classifier ] encoder와 domain encoder의 정보를 모두 합쳐, decode하면 거의 완벽한 reconstruction이 된다. 즉 x에 대한 모든 factor(feature)를 가진다.
+
+    2. Orthogonality : E_domain(x) E_class(x)는 서로 상관관계가 없다. 
+
+       - 이를 위해서 **class-confusion algorithm** 를 제안한다. 
+
+         1. <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121201205250.png" alt="image-20210121201205250" style="zoom:80%;" />
+
+         2. ```sh
+            (1) 값이 최소가 되도록 domain encoder가 학습된다
+            (2) 값이 최소가 되도록 Discriminator가 학습된다
+            ---
+            i : the instance index
+            D : discriminator. 
+            ```
+
+         3.  **The E_domain(·) is class-confusing due to z^i_random**
+
+         4. <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121201223970.png" alt="image-20210121201223970" style="zoom: 67%;" />
+
+  - ![image-20210121205438920](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121205438920.png)
+
+- **3.2. Curriculum Domain Adaptation**
+
+  - target domain instance들을 source domain과의 거리를 기준으로 rank(정렬)한다.
+  - 거리를 측정하는 방법 : ![image-20210121201751297](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121201751297.png)
+  - 가까운 domain instance들부터, Network 학습에 사용한다. 그때 Loss는 아래와 같다.
+    - Loss1 :  One is the cross-entropy loss defined over the labeled source
+    - Loss2 : the domain-confusion loss[48]
+
+- **3.3. Memory Module for Open Domains**
+
+  - 문제점 : target data를 기존의 <u>신경망(classifier??)</u>에 넣으면?? **v_direct** 나옴. 이것은 representation은 불충분! 충분한 feature 추출 불가능!!
+  - 해결책 : Memory Module은 **memory-transferred knowledge**를 가지고 있다. 이것이 input으로 들어온 new domain data를 balance하게 만들어 준다.
+    1. Class Memory (**M**)
+       - Store the class information from the source domain
+       - by [45, 36, 28], Store class centroids {c_k}(k = 1~K class number) 
+    2. Enhancer (**v_enhance**)
+       - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121204035066.png" alt="image-20210121204035066" style="zoom: 80%;" />
+       - 행렬곱 (1 x e) = (1 x d) \* (d x e)
+    3. Domain Indicator (**e_domain**)
+       - 약간 learning Late 처럼, 얼마나 source 쪽으로 vector를 옮길 것인가. 를 말한다. 아래 수식 참조. gap이 크면 input vector를 크게 옮겨 놓고, gap이 작으면 input vector를 작게 옮긴다.
+       - Domain indicator = <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121204712193.png" alt="image-20210121204712193" style="zoom: 67%;" />
+    4. Source-Enhanced Representation (**v_transfer**)
+       - v_direct에서 source를 중심으로 balance가 맞춰진 vector   
+         <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121204841026.png" alt="image-20210121204841026" style="zoom: 80%;" />
+       - ⊗ is element-wise multiplication
+       - Adopting cosine classifiers [27, 10], 이렇게 만들어지 **v_transfer를 l2-normalize**한다. 그리고 **softmax classification layer**에 보낸다.
+       - **domain mismatch 에 효과적**이다. 
+
+- ![image-20210121212155095](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121212155095.png)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# 4. Experiments
