@@ -31,10 +31,14 @@ title: 【Paper】Open Compound Domain Adaptation
 
 ## **<u>다 읽은 후, 필수로 읽어야 겠다고 생각이 든 논문</u>**
 
-1. curriculum domain adaptation [56] - curriculum domain adaptation에서 m이 의미하는것
-2. the domain-confusion loss [48] - (1), (2)이 의미하는 수학적 의미
+1. curriculum domain adaptation-y2018-c32 [56](https://arxiv.org/abs/1812.09953) - curriculum domain adaptation에서 m이 의미하는것
+2. the domain-confusion loss-y2017,c1875 [48](https://arxiv.org/abs/1702.05464) - (1), (2)이 의미하는 수학적 의미
 3. [45, 36, 28], Memory is storing class centroids.
+  - [45](https://arxiv.org/abs/1703.05175) -y2017-c1912 
+  - [36](https://arxiv.org/abs/1904.11227) - y2019-c69
+  - [28](https://arxiv.org/abs/1904.05160)- y2019-y103
 4. [27, 10], Adopting cosine classifiers, L2 norm before softmax classification.
+  - [10](https://arxiv.org/abs/1804.09458) - y2018y372
 5. t-SNE Visualization
 6. ```sh
     1. Digits: conventional unsupervised domain adaptation (ADDA [48], JAN [30], MCD [42])
