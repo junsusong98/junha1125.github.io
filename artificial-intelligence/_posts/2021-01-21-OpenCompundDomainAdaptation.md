@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
+title: 【Paper】Open Compound Domain Adaptation
 ---
 
 **논문** : [Open Compound Domain Adaptation](https://liuziwei7.github.io/projects/CompoundDomain.html)
@@ -17,13 +17,13 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
 
 ## **느낀점**  
 
-1. 
+1. 이해 40%. 필요 논문을 찾아읽고 다시 읽어야 겠다.
 
 
 
 # 질문&답변
 
-1. 
+1. ㅇㅇ
 
 
 
@@ -36,6 +36,11 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
 3. [45, 36, 28], Memory is storing class centroids.
 4. [27, 10], Adopting cosine classifiers, L2 norm before softmax classification.
 5. t-SNE Visualization
+6. ```sh
+    1. Digits: conventional unsupervised domain adaptation (ADDA [48], JAN [30], MCD [42])
+    2. Digits: the recent multi-target domain adaptation methods (MTDA [9], BTDA [5], DADA [39])
+    3. segmentation: three state-of-the-art methods, AdaptSeg [47], CBST [58], IBN-Net [35] and PyCDA [26]
+    ```
 
 
 
@@ -70,7 +75,7 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
     - 우리의 domain adaptation : rely on their **individual** gaps to the labeled source domain
   - <u>네트워크 학습 과정</u>
     1. classes in labeled source domain를 discriminate(classify) 하는 모델 학습
-    2. (source와 많이 다르지 않은) easy target를 넣어서 domain invariance를 capture하게 한다.
+    2. (source와 많이 다르지 않은) easy target를 넣어서 domain invariance(domain의 변화에도 강건한)를 capture하게 한다.
     3. source와 easy target 모두에서 잘 동작하기 시작하면, hard target을 feed한다.
     4. 이런 방식으로 classification도 잘하고, 모든 domain에서 robust한 모델을 만든다.
   - <u>Technical insight</u>
@@ -88,7 +93,7 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
    - cannot deal with more complicated scenarios 
    - 참고 논문들 : latent distribution alignment [12], backpropagation [7], gradient reversal [8], adversarial discrimination [48], joint maximum mean discrepancy [30], cycle consistency [17] and maximum classifier discrepancy [42].
 2. Latent & Multi-Target Domain Adaptation :
-   -  clear **domain distinction&labels**(domain끼리의 차이가 분명함) / not real-world scenario
+   -  clear **domain distinction&labels**(domain끼리의 차이가 분명함-하지만 현실은 continuous함) / not real-world scenario
    - 참고 논문들 : latent [16, 51, 32] or multiple [11, 9, 54] or continuous [2, 13, 31, 50] target domains
 3. Open/Partial Set Domain Adaptation :
    - target이 source에 없는 카테고리를 가지거나, subset of categories 를 가지거나. 
@@ -99,7 +104,7 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
    - 참고 논문들 : Domain generalization [52, 23, 22] and domain agnostic learning [39, 5]
 5. <u>바로 위의 논문들의 문제점과 our 해결</u>
    - 문제점 : they largely neglect the latent structures inside the target domains
-   - 해결책 : Modelling **the latent structures** inside the compound target domain by learning <u>**domain-focused factors(???)**</u>
+   - 해결책 : Modelling the latent structures (figure4의 구조 같음) inside the compound target domain by learning **<u>domain-focused factors(domain_encoder)</u>**
 
 
 
@@ -115,7 +120,7 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
   - 위의 Class_encoder로 발혀지지 않은 factors(features)들은 reflect domain characteristics.     
     ![image-20210121192005408](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121192005408.png) : domain encoder. 아래의 성질은 만족하게 encoder를 만들어 낸다.
 
-    1. Completeness : class[classifier ] encoder와 domain encoder의 정보를 모두 합쳐, decode하면 거의 완벽한 reconstruction이 된다. 즉 x에 대한 모든 factor(feature)를 가진다.
+    1. Completeness : class[classifier ] encoder와 domain encoder의 정보를 모두 합쳐, decode하면 거의 완벽한 reconstruction이 된다. 즉 x에 대한 모든 factor(feature)를 가진다. (아래의 Algorithm2를 읽어보면 이해가능)
 
     2. Orthogonality : E_domain(x) E_class(x)는 서로 상관관계가 없다. 
 
@@ -145,9 +150,9 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
     - Loss1 :  One is the cross-entropy loss defined over the labeled source
     - Loss2 : the domain-confusion loss[48]
 
-- **3.3. Memory Module for Open Domains**
+- **3.3. Memory Module for Open Domains** ​⭐⭐​
 
-  - 문제점 : target data를 기존의 <u>신경망(classifier??)</u>에 넣으면?? **v_direct** 나옴. 이것은 representation은 불충분! 충분한 feature 추출 불가능!!
+  - 문제점 : target data를 기존의 <u>신경망(classifier??)</u>에 넣으면?? **v_direct** 나옴. v_direct 자체는 representation로써 불충분한 정보를 가지고 있다! 즉 신경망이 충분한 feature 추출 불가능!!
   - 해결책 : Memory Module은 **memory-transferred knowledge**를 가지고 있다. 이것이 input으로 들어온 new domain data를 balance하게 만들어 준다.
     1. Class Memory (**M**)
        - Store the class information from the source domain
@@ -155,6 +160,7 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
     2. Enhancer (**v_enhance**)
        - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121204035066.png" alt="image-20210121204035066" style="zoom: 80%;" />
        - 행렬곱 (1 x e) = (1 x d) \* (d x e)
+       - **M(d x e) 덕분에**, target domain의 data가 source 쪽으로 이동한다.
     3. Domain Indicator (**e_domain**)
        - 약간 learning Late 처럼, 얼마나 source 쪽으로 vector를 옮길 것인가. 를 말한다. 아래 수식 참조. gap이 크면 input vector를 크게 옮겨 놓고, gap이 작으면 input vector를 작게 옮긴다.
        - Domain indicator = <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210121204712193.png" alt="image-20210121204712193" style="zoom: 67%;" />
@@ -170,3 +176,31 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
 
 
 # 4. Experiments
+
+- <u>Datasets</u>
+
+  - | type               | source        | target                   | open    |
+    | ------------------ | ------------- | ------------------------ | ------- |
+    | C-Digits           | SVHN          | MNIST, MNIST-M, and USPS | SWIT    |
+    | C-Faces(Multi-PIE) | C05           | C08-C14                  | C19     |
+    | C-Driving          | GTA-5         | BDD100K                  | BDD100K |
+    | C-Mazes            | the GridWorld |                          |         |
+
+- Network Architectures
+
+  - backbone : LeNet-5, ResNet-18, VGG-16
+  - Compare with :
+    1. Digits: conventional unsupervised domain adaptation (**ADDA [48], JAN [30], MCD [42**])
+    2. Digits: the recent multi-target domain adaptation methods (**MTDA [9], BTDA [5], DADA [39]**)
+    3. segmentation: three state-of-the-art methods, **AdaptSeg [47], CBST [58], IBN-Net [35] and PyCDA [26]**
+
+- Ablation Study
+
+  1. the Domain-Focused Factors Disentanglement - k-nearest neighbors
+  2. the Curriculum Domain Adaptation - USPS is the furthest target domain -> Good Classification
+  3. Memory-Enhanced Representations. - Figure 5
+
+
+
+
+

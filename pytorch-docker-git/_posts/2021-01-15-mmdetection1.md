@@ -15,7 +15,7 @@ title: 【mmdetection】mmdetection SSD 사용해보며 전체 분석하기
 
    - **mmdetection/configs** : '다양한 종류의 신경망' 모델 설계를 위한, model_config<u>.py</u> 파일이 존재한다.
 
-   - 각 '신경망 모델'이름의 폴더에 들어가면, readme.md가 따로 있고, 그곳에 backbone, **style(pytorch/caffe 두가지 framework 사용됨)**, lr-schd, memory, fps, boxAP, cong, Download(model/log) 가 적혀 있어서 참고하면 된다. 
+   - 각 '신경망 모델'이름의 폴더에 들어가면, readme.md가 따로 있고, 그곳에 <u>backbone, **style(pytorch/caffe 두가지 framework 사용됨)**, lr-schd, memory, fps, boxAP, cong, Download(model/log)</u> 가 적혀 있어서 참고하면 된다. 
 
 2. installation([mmdetection/docs/get_started.md](https://github.com/open-mmlab/mmdetection/blob/master/docs/get_started.md))
 
@@ -24,8 +24,8 @@ title: 【mmdetection】mmdetection SSD 사용해보며 전체 분석하기
      - [MMCV](https://mmcv.readthedocs.io/en/latest/#installation) 
    - installation
      - install mmcv : 이미 빌드가 된 버전 [다운로드](https://download.openmmlab.com/mmcv/dist/index.html) & Git을 다운받아 setup을 실행해 직접 빌드하거나.
-     - install mmdetection : Only Github download + setup & build
-     - note (1) 코드 수정은 reinstall이 필요없이, 바로 적용될 것 이다. 
+     - install mmdetection : Only Github download + 직접 setup & build
+     - note - 코드 수정은 reinstall이 필요없이, 바로 적용될 것 이다. 
      - 혹시 docker를 사용하고 싶다면, dockerfile도 사용해보기
 
 3.  Getting Started (**아래의 내용들 빠르게 공부하자**)
