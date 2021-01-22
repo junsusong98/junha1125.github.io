@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Paper】Open Compound Domain Adaptation
+title: 【Domain】Open Compound Domain Adaptation
 ---
 
 **논문** : [Open Compound Domain Adaptation](https://liuziwei7.github.io/projects/CompoundDomain.html)

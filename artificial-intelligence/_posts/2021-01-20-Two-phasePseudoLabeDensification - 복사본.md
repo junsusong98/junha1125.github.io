@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
+title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 ---
 
 **논문** : [Two-phase Pseudo Label Densification for Self-training based Domain Adaptation](https://arxiv.org/abs/2012.04828)
@@ -57,7 +57,7 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
 
 - <u>the present and problems</u> : The self-training generates target pseudo labels like **only the confident predictions**(Relative work의 self-training내용 참조). So that this approach produce sparse pseudo labels (희박한/흐릿흐릿한/빈약한 예측 결과) in practice.
 - <u>why problem</u> : suboptimal, error-prone model
-- <u>Solution</u> : :star::star::star2: **TPLD** (Two-phase Pseudo Label Densification) 
+- <u>Solution</u> : **TPLD** (Two-phase Pseudo Label Densification) ⭐⭐​
   - the first phase : **Sliding window voting** to propagate the **confident predictions**, Using Image's  intrinsic **spatial-correlations**.
   - the second phase : **image-level confidence score** -> **easy-hard classification**.
     - easy samples : easy's full pseudo label. ,while pushing hard to easy.
@@ -79,7 +79,7 @@ title: 【Paper】Two-phase Pseudo Label based Domain Adaptation
 - <u>문제점</u> : excessively cut-out the predictions.
   - 문제로 인한 결과 : **sparse pseudo labels**.
   - 멍청한 해결책 : lowering the selection threshold.
-- :star::star::star2: <u>​우리의 해결책</u> : 
+- <u>​우리의 해결책</u> : ⭐⭐​
   - Abstract의 Solution에 정리 잘해 둠. 그거 다시 읽기.
   - 경험적으로, Easy sample(label 예측을 confident자신있게 판단한 이미지)은 ground-true에 가까웠다. 따라서 easy sample's full pseudo labels(GT은 아니만 그래도 GT와 가까운 예측값=가짜 라벨값)을 사용하기로 했다. 반대로 hard sample에 대해서는 (hard-easy adaption의) adversarial loss를 사용했다. 
   - the bootstrapping mechanism 사용

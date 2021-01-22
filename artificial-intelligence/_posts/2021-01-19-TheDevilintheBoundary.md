@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Paper】The Devil Boundary for Instance Segmentation + 선배님 조언
+title: 【segmentation】The Devil Boundary for Instance Segmentation + 선배님 조언
 ---
 
 **논문** : [The Devil is in the Boundary: Exploiting Boundary Representation for Basis-based Instance Segmentation](https://arxiv.org/abs/2011.13241)
@@ -29,7 +29,7 @@ title: 【Paper】The Devil Boundary for Instance Segmentation + 선배님 조�
 
     
 
-# 질문&답변 :star::star::star2:
+# 질문&답변 ⭐⭐​
 
 - 질문
   1.	논문 내용에 대한 질문은 없다. 왜냐면 내가 찾아 읽는게 먼저이기 때문이다. 필수로 읽어야 겠다고 생각한 논문들을 먼저 읽고 모르는 걸 질문해야겠다. 
@@ -96,7 +96,7 @@ title: 【Paper】The Devil Boundary for Instance Segmentation + 선배님 조�
   - **holistic image-level** instance boundaries(global mask representations) be learned -> distinct advantages
   - Use **the boundary ground-truths** 
   - Learn/Use **a novel instance-wise boundary-aware mask score**
-- <u>**To sum up** (내용은 비슷하지만, 다른 단어, 다른 문장 사용)</u> :star: :star:
+- <u>**To sum up** (내용은 비슷하지만, 다른 단어, 다른 문장 사용)</u> ⭐⭐​
   - both on the **global** and the **local** view, the boundary representation 
   - the boundary-aware mask **score** : both the mask and boundary quality simultaneously
   - **single-stage** instance segmentation methods
@@ -146,7 +146,7 @@ title: 【Paper】The Devil Boundary for Instance Segmentation + 선배님 조�
   1. **YOLACT** :  32 global base, the according instance-specific scalar coefficients, a linear combination among the bases.  --->  cause [rich instance features **vs** effective assembly methods\]
   2. improved the assembly parameters : **BlendMask** [6], SipMask [5], and **CenterMask** [38] 
   3. instance-specific representation : **CondInst** [37] (Key word: dynamic filter weights, sliding window, the predicted convolution weight filters)
-- our step :star: :star:
+- our step ⭐⭐​
   1. **under-explored boundary information** 
   2. **holistic boundaries** (the global basis representation)
   3. **a boundary-aware mask score** (about the mask and boundary quality for inference)
