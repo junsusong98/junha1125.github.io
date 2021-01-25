@@ -63,7 +63,7 @@ title: 【segmentation】The Devil Boundary for Instance Segmentation + 선배�
 5. Zimmermann et al.[47] - auxiliary edge loss. Boundary Learning - 2019 
 6. Single shot instance segmentation with point representation - global-area-based methods - 2020
 7. a Dice metric [13] 
-8. **CondInst** [37](https://arxiv.org/pdf/2003.05664.pdf)
+8. CondInst [37](https://arxiv.org/pdf/2003.05664.pdf)
 9. basis 개념 [4, 5, 38, 6, 37] 중에 적당한거 하나
 
 

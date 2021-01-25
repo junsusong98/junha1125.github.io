@@ -4,8 +4,9 @@ title: 【CV】Computer Vision at FastCampus 2
 ---
 
 1.  FastCampus 사이트의 Computer vision 강의 내용 정리
-2. [FastCampus - Computer vision Lecture](https://fastcampus.co.kr/dev_online_cvodl)
-3. [이전 Post Link](https://junha1125.github.io/self-study/2021-01-13-fast_campus1/)
+2.  **<u>구글링을 해도 되지만은, 필요하면 강의를 찾아서 듣기</u>**
+3.  [FastCampus - Computer vision Lecture](https://fastcampus.co.kr/dev_online_cvodl)
+4.  [이전 Post Link](https://junha1125.github.io/self-study/2021-01-13-fast_campus1/)
 
 
 
@@ -161,9 +162,128 @@ title: 【CV】Computer Vision at FastCampus 2
 
      
 
+# chap8 - Segmentation & Detection
+
+1. 그랩컷 영상분할
+
+   - 그래프 알고리즘을 이용해서 영상 분할을 수행하는 알고리즘 (정확한 알고리즘은 [논문 참조](https://grabcut.weebly.com/background--algorithm.html))
+   - **cv2.grabCut(img, mask, rect)**  
+     **mask2 = np.where((mask == 0) | (mask == 2), 0, 1).astype('uint8')**  
+     **dst = src * mask2[:, :, np.newaxis]**
+   - 마우스를 활용한 그랩컷 영상 분할 예제 : grabcut2.py (강의에서도 보라고 조언만 함) 
+
+2. 모멘트 기반 (비슷한 모양 찾기 기법을 이용한) 객체 검출
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125090819511.png" alt="image-20210125090819511" style="zoom:80%;" />
+   - Hu's seven invariant moments : 크기, 회전, 이동, 대칭 변환에 불변
+   - 모양 비교 함수: **cv2.matchShapes(contour1, contour2, method, parameter)** -> 영상 사이의 거리(distance)
+
+3. 템플릿 매칭
+
+   - 입력영상에서 작은 크기의 템플릿과 일치하는 부분 찾는 기법
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125091301957.png" alt="image-20210125091301957" style="zoom:80%;" />
+
+   - **cv2.matchTemplate(image, templ, method, result=None, mask=None) -> result**   
+     image의 크기가 W x H 이고, templ의 크기가 w x h 이면 result 크기는 (W - w + 1) x (H - h +1)
+
+   - method 부분에 들어가야할, distance 구하는 수식은 강의 및 강의 자료 참조
+
+   - ```python
+     res = cv2.matchTemplate(src, templ, cv2.TM_CCOEFF_NORMED)
+     res_norm = cv2.normalize(res, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+     _, maxv, _, maxloc = cv2.minMaxLoc(res)
+     ```
+
+4. 템플릿 매칭 (2) - 인쇄체 숫자 인식
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125092302957.png" alt="image-20210125092302957" style="zoom:80%;" />
+   - 오른쪽의 0~9까지는 미리 파일로 저장해놓음
+   - 자세한 코드 사항은 강의 및 digitrec.py파일 참조
+
+5. 캐스케이드 분류기: 얼굴 검출
+
+   - Viola - Jones 얼굴 검출기 (이것도 머신러닝 기반)
+
+     - 유사 하르 특징(Haar-like features)
+
+   - [**Cascade Classifier OpenCV document**](https://docs.opencv.org/master/db/d28/tutorial_cascade_classifier.html), [얼굴 검출 시각화 Youtube](https://www.youtube.com/watch?v=hPCTwxF0qf4)
+
+   - **cv2.CascadeClassifier.detectMultiScale(image)**
+
+   - [미리 학습된 XML 파일 다운로드](https://github.com/opencv/opencv/tree/master/data/haarcascades)
+
+   - ```python
+     src = cv2.imread('lenna.bmp')
+     classifier = cv2.CascadeClassifier()
+     classifier.load('haarcascade_frontalface_alt2.xml')
+     faces = classifier.detectMultiScale(src)
+     for (x, y, w, h) in faces:
+         face_img = src[y:y+h, x:x+w]
+         cv2.rectangle(src, (x, y, w, y), (255, 0, 255), 2)
+     ```
+
+6. HOG 보행자 검출
+
+   - Histogram of Oriented Gradients, 지역적 그래디언트 방향 정보를 특징 벡터로 사용. SIFT에서의 방법을 최적화하여 아주 잘 사용한 방법
+
+   - 2005년부터 한동안 가장 좋은 방법으로, 다양한 객체 인식에서 활용되었다.
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125093630644.png" alt="image-20210125093630644" style="zoom: 80%;" />
+
+     - 9개 : 180도를 20도 단위로 나눠서 9개 단위로 gradient 분류
+     - 1개 셀 8x8, 1개 블록 16 x 16. 블록 1개 는 36개의 히스토그램 정보를 가짐
+
+   - **cv2.HOGDescriptor.detectMultiScale(img)**   
+     **hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())**
+
+   - ```python
+     cap = cv2.VideoCapture('vtest.avi')
+     hog = cv2.HOGDescriptor()
+     hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+     while True:
+         ret, frame = cap.read()
+         detected, _ = hog.detectMultiScale(frame)
+         for (x, y, w, h) in detected:
+         c = (random.randint(0, 255), random.randint(0, 255),
+         random.randint(0, 255))
+         cv2.rectangle(frame, (x, y), (x + w, y + h), c, 3)
+     ```
+
+7. 실전 코딩: 간단 스노우앱
+
+   - 구현 기능
+
+     - 카메라 입력 영상에서 얼굴&눈 검출하기 (캐스케이드 분류기 사용)
+     - 눈 위치와 맞게 투명한 PNG 파일 합성하기 
+     - 합성된 결과를 동영상으로 저장하기
+
+   - ch8/snowapp.py 파일 참조  
+
+     ```python
+     face_classifier = cv2.CascadeClassifier('haarcascade_frontalface_alt2.xml')
+     eye_classifier = cv2.CascadeClassifier('haarcascade_eye.xml')
+     
+     faces = face_classifier.detectMultiScale(frame, scaleFactor=1.2, minSize=(100, 100), maxSize=(400, 400))
+     for (x, y, w, h) in faces:
+         eyes = eye_classifier.detectMultiScale(faceROI)
+         overlay(frame, glasses2, pos)
+         
+     def overlay(img, glasses, pos):
+         # 부분 영상 참조. img1: 입력 영상의 부분 영상, img2: 안경 영상의 부분 영상
+         img1 = img[sy:ey, sx:ex]   # shape=(h, w, 3)
+         img2 = glasses[:, :, 0:3]  # shape=(h, w, 3)
+         alpha = 1. - (glasses[:, :, 3] / 255.)  # shape=(h, w)
+     
+         # BGR 채널별로 두 부분 영상의 가중합
+         img1[..., 0] = (img1[..., 0] * alpha + img2[..., 0] * (1. - alpha)).astype(np.uint8)
+         img1[..., 1] = (img1[..., 1] * alpha + img2[..., 1] * (1. - alpha)).astype(np.uint8)
+         img1[..., 2] = (img1[..., 2] * alpha + img2[..., 2] * (1. - alpha)).astype(np.uint8)
+     ```
 
 
 
+# 9. 특징점 검출과 매칭
 
 
 

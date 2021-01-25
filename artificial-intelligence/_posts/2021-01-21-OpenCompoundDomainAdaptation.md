@@ -3,7 +3,7 @@ layout: post
 title: 【Domain】Open Compound Domain Adaptation
 ---
 
-**논문** : [Open Compound Domain Adaptation](https://liuziwei7.github.io/projects/CompoundDomain.html)
+**논문** : [Open Compound Domain Adaptation - y2020.03,c5](https://liuziwei7.github.io/projects/CompoundDomain.html)
 
 **분류** : paperswithcode - Unsupervised Domain Adaptation
 
@@ -11,7 +11,7 @@ title: 【Domain】Open Compound Domain Adaptation
 
 **읽는 배경** : 판 페이 박사과정 선배가 추천해준 논문이자, 우상현 랩장과 박광영 박사과정 선배님이 최근에 발표하신 'Discover, Hallucinate, and Adapt'의 기본이 되는 논문이다. 
 
-읽으면서 생각할 포인트 : 굉장히 어려운 논문이니 모르는게 많이 나와도 일단 달려가자. 핵심 key word를 중심으로 정리하면서 기록해두자. the present and problems and issues, ours Solution 흐름으로 정리하고 기록해놓자.
+**읽으면서 생각할 포인트** : 굉장히 어려운 논문이니 모르는게 많이 나와도 일단 달려가자. 핵심 key word를 중심으로 정리하면서 기록해두자. the present and problems and issues, ours Solution 흐름으로 정리하고 기록해놓자.
 
 
 
@@ -20,31 +20,21 @@ title: 【Domain】Open Compound Domain Adaptation
 1. 이해 40%. 필요 논문을 찾아읽고 다시 읽어야 겠다.
 
 
-
-# 질문&답변
-
-1. ㅇㅇ
-
-
-
-
-
 ## **<u>다 읽은 후, 필수로 읽어야 겠다고 생각이 든 논문</u>**
 
-1. curriculum domain adaptation-y2018-c32 [56](https://arxiv.org/abs/1812.09953) - curriculum domain adaptation에서 m이 의미하는것
-2. the domain-confusion loss-y2017,c1875 [48](https://arxiv.org/abs/1702.05464) - (1), (2)이 의미하는 수학적 의미
-3. [45, 36, 28], Memory is storing class centroids.
-  - [45](https://arxiv.org/abs/1703.05175) -y2017-c1912 
-  - [36](https://arxiv.org/abs/1904.11227) - y2019-c69
-  - [28](https://arxiv.org/abs/1904.05160)- y2019-y103
+1. [45, 36, 28], Memory is storing class centroids.
+     - [45](https://arxiv.org/abs/1703.05175) -y2017-c1912 
+     - [36](https://arxiv.org/abs/1904.11227) -y2019-c69
+     - [28](https://arxiv.org/abs/1904.05160) -y2019-c103
+2. curriculum domain adaptation-y2018-c32 [56](https://arxiv.org/abs/1812.09953) - curriculum domain adaptation에서 m이 의미하는것
+3. the domain-confusion loss-y2017,c1875 [48](https://arxiv.org/abs/1702.05464) - Equ (1), (2)이 의미하는 수학적 의미 -> 이제 알았음.
 4. [27, 10], Adopting cosine classifiers, L2 norm before softmax classification.
-  - [10](https://arxiv.org/abs/1804.09458) - y2018y372
+   - [10](https://arxiv.org/abs/1804.09458) -y2018c372
 5. t-SNE Visualization
-6. ```sh
-    1. Digits: conventional unsupervised domain adaptation (ADDA [48], JAN [30], MCD [42])
-    2. Digits: the recent multi-target domain adaptation methods (MTDA [9], BTDA [5], DADA [39])
-    3. segmentation: three state-of-the-art methods, AdaptSeg [47], CBST [58], IBN-Net [35] and PyCDA [26]
-    ```
+6. compare    
+  1. Digits: conventional unsupervised domain adaptation (ADDA [48], JAN [30], MCD [42])
+  2. Digits: the recent multi-target domain adaptation methods (MTDA [9], BTDA [5], DADA [39])
+  3. segmentation: three state-of-the-art methods, AdaptSeg [47], CBST [58], IBN-Net [35] and PyCDA [26]
 
 
 
@@ -130,20 +120,22 @@ title: 【Domain】Open Compound Domain Adaptation
 
        - 이를 위해서 **class-confusion algorithm** 를 제안한다. 
 
-         1. <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210121201205250.png?raw=tru" alt="image-20210121201205250" style="zoom:80%;" />
+         1. ![image-20210122183736379](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210122183736379.png?raw=tru)
 
          2. ```sh
             (1) 값이 최소가 되도록 domain encoder가 학습된다
             (2) 값이 최소가 되도록 Discriminator가 학습된다
             ---
             i : the instance index
-            D : discriminator. 
+            D : discriminator. - 이름은 discriminator인데 아래의 알고리즘을 잘보면, 저렇게 학습시키면 그냥 classifier가 된다. 
             ```
 
          3.  **The E_domain(·) is class-confusing due to z^i_random**
 
          4. <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210121201223970.png?raw=tru" alt="image-20210121201223970" style="zoom: 67%;" />
-
+       
+         5. 위의 알고리즘 과정을 통해서, Eecoder_domain은 class정보를 최대한 무시하면서도, domain에 관련된 representation만을 최대한 추출하는 Encoder가 되도록 학습된다.
+    
   - ![image-20210121205438920](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210121205438920.png?raw=tru)
 
 - **3.2. Curriculum Domain Adaptation**

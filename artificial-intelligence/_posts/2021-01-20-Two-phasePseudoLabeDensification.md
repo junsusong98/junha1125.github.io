@@ -32,10 +32,17 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 4. 코드 제작은 어떻게 하셨는지? 어떤 코드 참고 및 어떤 방식으로 수정? 몇 퍼센트 수정 및 추가? 코드 제작 긱나?
 5. 석사기간에 이런 좋은 논문을 쓰는게 쉽지 않은데… 혹시 팁이 있으신지?
 
-**판페이 박사과정 선배 조언**
+**선배 조언**
 
 - 논문 읽는데 너무 많은 시간을 투자하지 말아라. 핵심만 읽어라
 - 최근 논문으로 흐름을 항상 따라라
+
+**선배님 조언**
+
+- AD에서 연결할 수 있는 관심있으신 분야 -> Video, Active learning, Semi-supervise, Labeling down + Performance increment
+- Awesome domain adaptation 을 참고해서 괜찮은거 공부해보고, 일부 분야는 발행 논문이 적은데 그 곳을 집중해서 파보는 것도 괜찮다.
+- 특히 DA분야는 가짜가 많으니 조심. 정말 모델에 대입 해봤을 때, 성능향상이 이뤄진다면 짜릿.
+- 과제!! 현재 과제가 어떤 과제가 있는지 알아보고, 그 과제를 하기 위해서 미리미리 공부해놓고 그 과제를 하고 싶다고 먼저 말해놓는게 좋다. 따라서 몇몇 대화를 해본 선배님들에게 직접 찾아가서 현재 하시는 과제가 무엇인지 무엇을 미리 공부해놓으면 좋은지 알아보기.
 
 
 
@@ -131,7 +138,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 # 4. Method
 
 - phase1을 충분히 학습시키고, phase2를 더 학습시켰다. 모든 phase에서 bootstrapping 방법을 사용하였다.
-
+- ![image](https://user-images.githubusercontent.com/46951365/105443859-161e0e00-5cb0-11eb-80e9-ad259ca5dfce.png)  
 - **4.1 : 1st phase : Voting based Densification**
 
   - 문제점 : (2)의 수식에서 보듯이, class에 따른 possibility값이 큰 class에 대해, λ_k이상의 값을 가져아 pseudo label값이 주어진다. 여기서 sparse pseudo labels 문제가 발생한다.
