@@ -1,4 +1,3 @@
----
 layout: resume
 title: Résumé*
 description: >
@@ -19,4 +18,3 @@ right_column:
 no_language_icons: false
 no_skill_icons: false
 no_buttons: false
----
