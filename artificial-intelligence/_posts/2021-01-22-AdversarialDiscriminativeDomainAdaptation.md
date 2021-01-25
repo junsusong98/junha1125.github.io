@@ -68,7 +68,7 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 - Ours
   - 우리는 위 방식들을 최적한 novel unified framework를 만들어 냈다. - 위 Ours의 (1)(2)(3)
   - generative modeling 은 필수적인게 아니라, discriminative representation를 학습하는게 우선이라고 판단했다. 
-  - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210122185525171.png" alt="image-20210122185525171" style="zoom:67%;" />
+  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210122185525171.png?raw=tru" alt="image-20210122185525171" style="zoom:67%;" />
   - ADDA는 (위 사진 참조) 
     1. Learn discriminative representation using the labels(????) in the source domain.
     2. Learn  a separate encoding through a domain-adversarial loss.
@@ -95,7 +95,7 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 - Ours (위 figure 참조))
   1. **image distribution(분포, 확률분포, generator)는 필수적인게 아니다**.
   2. 진짜 중요한 것은, **discriminative approach** 이다.
-- 정리표 : <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210123225939714.png" alt="image-20210123225939714" style="zoom:90%;" />
+- 정리표 : <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210123225939714.png?raw=tru" alt="image-20210123225939714" style="zoom:90%;" />
 
 
 
@@ -103,7 +103,7 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 
 ## 3. Generalized adversarial adaptation - related work
 
-- ![image-20210123225514370](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210123225514370.png)
+- ![image-20210123225514370](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210123225514370.png?raw=tru)
   1. Source CNN 학습시키기.
   2. Adversarial adaptation 수행. Target CNN을 학습.
   3. Discriminator는 cannot reliably predict their domain label 하게 만든다. 
@@ -111,26 +111,26 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
   5. 점선은 Fixed network parameters를 의미한다.
 
 - 일반적인 adversarial adaptation 의 formula ⭐⭐
-  - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125141320232.png" alt="image-20210125141320232" style="zoom:80%;" />
+  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125141320232.png?raw=tru" alt="image-20210125141320232" style="zoom:80%;" />
 - 3.1. Source and target mappings (Mapping - Ms,Mt는 어떻게 설정해야 하는가?)
   - 목적 : mapping 신경망이 source에서든 target에서든 잘 동작하게 만들기. 각각을 위한 mapping 신경망이 최대한 가깝게(비슷하게) 만들기. source에서든 target에서든 좋은 classification 성능을 내기
   - 과거의 방법 : mapping constrain = target과 source를 위한 mapping. Ms,Mt = feature extractor = network parameter sharing 
   -  Ours : partial alignment = partially shared weights 
 - 3.2. Adversarial losses (위의 Loss_adv_M은 무엇으로 해야하는가?)
-  - [16] ![image-20210125141617468](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125141617468.png) 을 사용하기도 했지만, 이 방법에서 Discriminator가 빨리 수렴하기 때문에, (같이 적절하게 학습된 후 동시에 수렴되야 하는데..) 문제가 있다.
-  - **GAN loss function** [17] ![image-20210125141823643](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125141823643.png) provides stronger gradients to the target mapping.(Mt는 Xt를 잘 classification 하도록 학습되면서도, D가 잘 못 판단하게 만들게끔 학습 된다. ) -> 문제점 : oscillation. 둘다 너무 수렴하지 않음. D가 괜찮아지려면 M이 망하고, M이 괜찮아 지려만 D가 망한다. 
-  - [12] : <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125142625114.png" alt="image-20210125142625114" style="zoom: 80%;" />  
+  - [16] ![image-20210125141617468](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125141617468.png?raw=tru) 을 사용하기도 했지만, 이 방법에서 Discriminator가 빨리 수렴하기 때문에, (같이 적절하게 학습된 후 동시에 수렴되야 하는데..) 문제가 있다.
+  - **GAN loss function** [17] ![image-20210125141823643](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125141823643.png?raw=tru) provides stronger gradients to the target mapping.(Mt는 Xt를 잘 classification 하도록 학습되면서도, D가 잘 못 판단하게 만들게끔 학습 된다. ) -> 문제점 : oscillation. 둘다 너무 수렴하지 않음. D가 괜찮아지려면 M이 망하고, M이 괜찮아 지려만 D가 망한다. 
+  - [12] : <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125142625114.png?raw=tru" alt="image-20210125142625114" style="zoom: 80%;" />  
     target이 들어오면, D가 잘못 판단하게끔 Mt가 학습되면서도, D가 잘 판단하게끔 Mt가 학습된다. 반대로 source가 들어오면, 또 D가 잘못 판단하게끔 Ms가 학습되면서도, D가 잘 판단하게끔 만드는 항도 있다. 
-- 이러한 고민들이 계속 있었다. Ours의 결론은 위의 정리표 참조.<img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125143353867.png" alt="image-20210125143353867" style="zoom:90%;" />
+- 이러한 고민들이 계속 있었다. Ours의 결론은 위의 정리표 참조.<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125143353867.png?raw=tru" alt="image-20210125143353867" style="zoom:90%;" />
 
 
 
 ## 4. Adversarial discriminative domain adaptation
 
 - 사용한 <u>objective function</u>  ⭐⭐⭐⭐
-  - ![image-20210125144836013](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125144836013.png)
+  - ![image-20210125144836013](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125144836013.png?raw=tru)
 - 최종 모델 학습 과정 - 헷갈리는 내용은 다시 <u>논문 5 page</u> ⭐⭐참조. 
-  - ![image-20210125145015365](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125145015365.png)
+  - ![image-20210125145015365](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125145015365.png?raw=tru)
 
 
 

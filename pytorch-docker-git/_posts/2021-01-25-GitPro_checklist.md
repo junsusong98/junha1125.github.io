@@ -27,19 +27,18 @@ Git-blog 프로버전으로 업그레이드 하고 파악 했던 내용들을 �
 
 3. 카테고리 폴더 정리
 
-   - 카테고리안에 들어갈 post를 담기 위해, 폴더 생성 
-
-     - ```sh
-       - _featured_categories
-       - category1
-       	- _post
-       		- md file1
-       		- md file2
-       - category2
-       	- _post
-       		- md file1
-       		- md file2
-       ```
+   - 카테고리안에 들어갈 post를 담기 위해, 폴더 생성   
+      ```sh
+         - _featured_categories
+         - category1
+            - _post
+               - md file1
+               - md file2
+         - category2
+            - _post
+               - md file1
+               - md file2
+      ```
 
    - md file은 .md 형식의 파일이며, markdown 형식으로 파일 기제
 
