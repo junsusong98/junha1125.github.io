@@ -3,64 +3,45 @@ layout: post
 title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 ---
 
-**논문** : [Two-phase Pseudo Label Densification for Self-training based Domain Adaptation](https://arxiv.org/abs/2012.04828)
+- **논문** : [Two-phase Pseudo Label Densification for Self-training based Domain Adaptation](https://arxiv.org/abs/2012.04828)
+- **분류** : paperswithcode - Unsupervised Domain Adaptation
 
-**분류** : paperswithcode - Unsupervised Domain Adaptation
+- **저자** : Inkyu Shin, Sanghyun Woo, Fei Pan, In So Kweon
 
-**저자** : Inkyu Shin, Sanghyun Woo, Fei Pan, In So Kweon
+- **읽는 배경** : 현재 Domain adapation, Self-supervise이 연구실의 중심 연구 주제로 많이 사용되고 있다. 판 페이 박사과정 선배가 추천해준 논문을 읽기 전에, 신인규 석사과정 선배님이 작성하신 논문을 먼저 읽는게 좋을 것 같다고 생각했다. 아래의 배울 포인트 때문이다.
 
-**읽는 배경** : 현재 Domain adapation, Self-supervise이 연구실의 중심 연구 주제로 많이 사용되고 있다. 판 페이 박사과정 선배가 추천해준 논문을 읽기 전에, 신인규 석사과정 선배님이 작성하신 논문을 먼저 읽는게 좋을 것 같다고 생각했다. 아래의 배울 포인트 때문이다.
-
-**읽으면서 생각할 포인트** : Reference를 어떻게 추가했나? domain adaptation과 Self-supervised에 대해서 내가 추가적으로 공부해야하는게 뭘까? Abstract가 가장 중요하다고 하는데 선배님은 어떻게 작성하셨나? relative work에 대해서 얼마나 상세하게 이해하셨고 그 흐름을 어떤 식으로 잡고 가셨나? (어떤 의문, 반박으로 다른 모델이 나왔고 등등... 그래서 핵심 모델은 뭐고 과거 흐름은 뭐였는지 등등...) 석사 1년동안 내가 이정도 논문을 쓰기위해서 가져아할 자세는 무엇일까?
-
-
-
-## **느낀점**  
-
-1. 현재 나와있는 모델에 대한 의문, 의심, 질문, 반박에서 논문이 시작했다.
-2. "Make your paper look similar to a typical ML paper." 을 지키기 위해 아래와 같이 논문의 흐름. **the present and problems and issues, ours Solution** 으로 나열해가는 흐름에 대해서 잘 기록해 두자. **지금부터 해야한다.** 
-3. 역시나 deeplab을 사용하고 그 위에 CRST를 올리고 그 위에 TPLD를 올린방식이다. 따라서 deeplab까지의 계보 즉, recognition의 계보를 최대한 확실히 알아놔야 겠다.
-
-
-
-# 질문&답변
-
-1. ^yk가 pseudo targer label이라면 이건 어떤 신경망으로 target data를 예측해놓은 결과이지?? w는 아닐테고... 
-   - w로 예측하는거 맞다. 그리고 대신 ^yk값은 Eq.(2)(4) 번 처럼 1 or 0의 값을 가진다. softmax 확률 값이 아니다.
-2. 이 분야를 항상 관심을 두고 계셨던 건지? 그래서 그 분야의 논문을 항상 읽어오신 건지?
-3. 논문을 준비하신 기간?
-4. 코드 제작은 어떻게 하셨는지? 어떤 코드 참고 및 어떤 방식으로 수정? 몇 퍼센트 수정 및 추가? 코드 제작 긱나?
-5. 석사기간에 이런 좋은 논문을 쓰는게 쉽지 않은데… 혹시 팁이 있으신지?
-
-**선배 조언**
-
-- 논문 읽는데 너무 많은 시간을 투자하지 말아라. 핵심만 읽어라
-- 최근 논문으로 흐름을 항상 따라라
-
-**선배님 조언**
-
-- AD에서 연결할 수 있는 관심있으신 분야 -> Video, Active learning, Semi-supervise, Labeling down + Performance increment
-- Awesome domain adaptation 을 참고해서 괜찮은거 공부해보고, 일부 분야는 발행 논문이 적은데 그 곳을 집중해서 파보는 것도 괜찮다.
-- 특히 DA분야는 가짜가 많으니 조심. 정말 모델에 대입 해봤을 때, 성능향상이 이뤄진다면 짜릿.
-- 과제!! 현재 과제가 어떤 과제가 있는지 알아보고, 그 과제를 하기 위해서 미리미리 공부해놓고 그 과제를 하고 싶다고 먼저 말해놓는게 좋다. 따라서 몇몇 대화를 해본 선배님들에게 직접 찾아가서 현재 하시는 과제가 무엇인지 무엇을 미리 공부해놓으면 좋은지 알아보기.
+- **읽으면서 생각할 포인트** : Reference를 어떻게 추가했나? domain adaptation과 Self-supervised에 대해서 내가 추가적으로 공부해야하는게 뭘까? Abstract가 가장 중요하다고 하는데 선배님은 어떻게 작성하셨나? relative work에 대해서 얼마나 상세하게 이해하셨고 그 흐름을 어떤 식으로 잡고 가셨나? (어떤 의문, 반박으로 다른 모델이 나왔고 등등... 그래서 핵심 모델은 뭐고 과거 흐름은 뭐였는지 등등...) 석사 1년동안 내가 이정도 논문을 쓰기위해서 가져아할 자세는 무엇일까?
+- **느낀점**  
+  1. 현재 나와있는 모델에 대한 의문, 의심, 질문, 반박에서 논문이 시작했다.
+  2. "Make your paper look similar to a typical ML paper." 을 지키기 위해 아래와 같이 논문의 흐름. **the present and problems and issues, ours Solution** 으로 나열해가는 흐름에 대해서 잘 기록해 두자. **지금부터 해야한다.** 
+  3. 역시나 deeplab을 사용하고 그 위에 CRST를 올리고 그 위에 TPLD를 올린방식이다. 따라서 deeplab까지의 계보 즉, recognition의 계보를 최대한 확실히 알아놔야 겠다.
+- **질문&답변**
+  1. ^yk가 pseudo targer label이라면 이건 어떤 신경망으로 target data를 예측해놓은 결과이지?? w는 아닐테고... 
+     - w로 예측하는거 맞다. 그리고 대신 ^yk값은 Eq.(2)(4) 번 처럼 1 or 0의 값을 가진다. softmax 확률 값이 아니다.
+  2. 이 분야를 항상 관심을 두고 계셨던 건지? 그래서 그 분야의 논문을 항상 읽어오신 건지?
+  3. 논문을 준비하신 기간?
+  4. 코드 제작은 어떻게 하셨는지? 어떤 코드 참고 및 어떤 방식으로 수정? 몇 퍼센트 수정 및 추가? 코드 제작 긱나?
+  5. 석사기간에 이런 좋은 논문을 쓰는게 쉽지 않은데… 혹시 팁이 있으신지?
+- **1선배님조언**
+  - 논문 읽는데 너무 많은 시간을 투자하지 말아라. 핵심만 읽어라
+  - 최근 논문으로 흐름을 항상 따라라
+- **2선배님조언**
+  - AD에서 연결할 수 있는 관심있으신 분야 -> Video, Active learning, Semi-supervise, Labeling down + Performance increment
+  - Awesome domain adaptation 을 참고해서 괜찮은거 공부해보고, 일부 분야는 발행 논문이 적은데 그 곳을 집중해서 파보는 것도 괜찮다.
+  - 특히 DA분야는 가짜가 많으니 조심. 정말 모델에 대입 해봤을 때, 성능향상이 이뤄진다면 짜릿.
+  - 과제!! 현재 과제가 어떤 과제가 있는지 알아보고, 그 과제를 하기 위해서 미리미리 공부해놓고 그 과제를 하고 싶다고 먼저 말해놓는게 좋다. 따라서 몇몇 대화를 해본 선배님들에게 직접 찾아가서 현재 하시는 과제가 무엇인지 무엇을 미리 공부해놓으면 좋은지 알아보기
+- 다 읽은 후, 필수로 읽어야 겠다고 생각이 든 논문
+  - CBST-class-balanced self-training-2018 (class-wise thresholding value λ 가 뭔지 알려줌 [39]) 
+  - CRST-Confidence Regularized Self-Training - 2019 [40]
+  - ADVENT: **Adversarial Entropy** Minimization for Domain Adaptation - easy vs hard 분별하는 discriminator 왜 사용하는지 적혀 있음 \[[37](https://arxiv.org/pdf/1811.12833.pdf)\]
+  - Training deep neural networks on noisy labels with bootstrapping (12. 2014) - bootstrapping
+  - map high-dimensional features  to 2D space feature Using  t-SNE [27]
+  - [1] domain adaptation - object detection
+  - [4] domain adaptation - semantic segmentation
 
 
 
-
-
-## **<u>다 읽은 후, 필수로 읽어야 겠다고 생각이 든 논문</u>**
-
-1. CBST-class-balanced self-training-2018 (class-wise thresholding value λ 가 뭔지 알려줌 [39]) 
-2. CRST-Confidence Regularized Self-Training - 2019 [40]
-3. ADVENT: **Adversarial Entropy** Minimization for Domain Adaptation - easy vs hard 분별하는 discriminator 왜 사용하는지 적혀 있음 \[[37](https://arxiv.org/pdf/1811.12833.pdf)\]
-4. Training deep neural networks on noisy labels with bootstrapping (12. 2014) - bootstrapping
-5. map high-dimensional features  to 2D space feature Using  t-SNE [27]
-6. [1] domain adaptation - object detection
-7. [4] domain adaptation - semantic segmentation
-
-
-
-# 0. Abstract
+## 0. Abstract
 
 - <u>the present and problems</u> : The self-training generates target pseudo labels like **only the confident predictions**(Relative work의 self-training내용 참조). So that this approach produce sparse pseudo labels (희박한/흐릿흐릿한/빈약한 예측 결과) in practice.
 - <u>why problem</u> : suboptimal, error-prone model
@@ -74,7 +55,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
 
 
-# 1. Introduction
+## 1. Introduction
 
 - <u>the present models</u>
   - Unsupervised domain adaptation (UDA) 는 labeled source 에서 unlabeled target를 학습하는데 도움이 된다. 이 논문에서는 Semantic segmentation 문제에 대해 UDA를 적용한다. 
@@ -95,7 +76,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
 
 
-# 2. Related works
+## 2. Related works
 
 - Domain Adaptation
   - 목적 : the performance drop by the distribution mismatch
@@ -114,7 +95,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
 
 
-# 3. Preliminaries
+## 3. Preliminaries
 
 - source domain : (xs, ys)
 - target domain : (xt) 
@@ -135,7 +116,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
 
 
-# 4. Method
+## 4. Method
 
 - phase1을 충분히 학습시키고, phase2를 더 학습시켰다. 모든 phase에서 bootstrapping 방법을 사용하였다.
 - ![image](https://user-images.githubusercontent.com/46951365/105443859-161e0e00-5cb0-11eb-80e9-ad259ca5dfce.png)  
@@ -178,7 +159,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
       
 
-# 5. Experiments
+## 5. Experiments
 
 - GTA5 [31] to Cityscapes [6]
 - SYNTHIA [32] to Cityscapes

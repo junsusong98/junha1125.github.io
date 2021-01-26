@@ -285,6 +285,161 @@ title: 【CV】Computer Vision at FastCampus 2
 
 # 9. 특징점 검출과 매칭
 
+1. 코너 검출
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126092522678.png" alt="image-20210126092522678" style="zoom: 67%;" />
+   - **cv2.cornerHarris**(src, blockSize, ksize, k)
+   - **cv2.goodFeaturesToTrack**(image, maxCorners, qualityLevel, minDistance)
+   - **cv2.FastFeatureDetector_create**(, threshold=None, nonmaxSuppression=None, type=None)  
+     **cv2.FastFeatureDetector.detect**(image) -> keypoints
+   - 예제 및 사용법은 강의 자료 참조
+
+2. 특징점 검출 (local 영역만의 특징(Discriptor )을 가지는 곳을 특징점 이라고 한다.)
+
+   - SIFT, KAZE, AKAZE, ORB 
+   - 아래의 방법들을 사용해서 <u>feature</u> 객체 생성
+   - **cv2.KAZE_create**(, ...) -> retval 
+   - **cv2.AKAZE_create**(, ...) -> retval 
+   - **cv2.ORB_create**(, ...) -> retval 
+   - **cv2.xfeatures2d.SIFT_create**(, ...) -> retval
+   - <u>feature</u>.**detect**(image, mask=None) -> keypoints
+   - **cv2.drawKeypoints(image, keypoints, outImage,** color=None, flags=None) -> outImage
+
+3. 기술자 (Descriptor, feature vector)
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126093448937.png" alt="image-20210126093448937" style="zoom:80%;" />
+   - 특징점 근방의 Local feature을 표현하는 실수 또는 이진 벡터. 위에서는 하나의 특징점이 64개 원소의 백터를 기술자로 가진다. 
+   - 실수 특징 백터. 주로 백터 내부에는 방향 히스토그램을 특징 백터로 저장하는 알고리즘 : SIFT, SURF, KAZE
+   - Binary descriptor. 주변 픽셀값 크기 테스트 값을 바이너리 값으로 저장하는 알고리즘 : AKAZE, ORB, BRIEF
+   - 위 2. 특징점 검출에서 만든 <u>feature 객체</u>를 사용
+     - **cv2.Feature2D.compute(image, keypoints)** -> keypoints, descriptors (이미 keypoint 있다면)
+     - **cv2.Feature2D.detectAndCompute(image)** -> keypoints, descriptors
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126094008801.png" alt="image-20210126094008801" style="zoom: 60%;" />
+   - KAZE, AKAZE이 속도 면에서 괜찮은 알고리즘. SIFT가 성능면에서 가장 좋은 알고리즘
+
+4. 특징점 매칭 (feature point matching)
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126094928068.png" alt="image-20210126094928068" style="zoom: 60%;" />
+   - <u>matcher</u> 객체 생성 : **cv2.BFMatcher_create(, normType=None, crossCheck=None)**  
+   - matching 함수1 : <u>matcher</u>.**match(queryDescriptors, trainDescriptors)**
+   - matching 함수2 : <u>matcher</u>.**knnmatch(queryDescriptors, trainDescriptors)**
+   - **cv2.drawMatches(img1, keypoints1, img2, keypoints2)**
+
+5. 좋은 매칭 선별
+
+   - 가장 좋은 매칭 결과에서 distance 값이 작은 것부터 사용하기 위해,
+
+   - **cv2.DMatch.distance** 값을 기준으로 정렬 후 상위 N개 선택
+
+   - ```python
+     # 특징점 매칭
+     matcher = cv2.BFMatcher_create()
+     matches = matcher.match(desc1, desc2)
+     
+     # 좋은 매칭 결과 선별 1번 (선발되는 mathcing 수는 내가 선택하기 나름)
+     matches = sorted(matches, key=lambda x: x.distance)
+     good_matches = matches[:80]
+     # 좋은 매칭 결과 선별 2번 (전체 매칭 3159개 중, 384개가 선발됨)
+     good_matches = []
+     for m in matches:
+     if m[0].distance / m[1].distance < 0.7:
+     good_matches.append(m[0])
+     
+     # 특징점 매칭 결과 영상 생성
+     dst = cv2.drawMatches(src1, kp1, src2, kp2, good_matches, None)
+     ```
+
+6. 호모그래피와 영상 매칭
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126100307371.png" alt="image-20210126100307371" style="zoom: 60%;" />
+
+   - cv2.findHomography(srcPoints, dstPoints) -> retval, mask
+
+   - good_matches에서 queryIdx, trainIdx 와 같이 2장의 이미지 각각에 대한 특징점 검출 됨.
+
+   - pts1 = np.array([kp1[m.queryIdx].pt **for** m in good_matches] ).reshape(-1, 1, 2).astype(np.float32) pts2 = np.array([kp2[m.trainIdx].pt **for** m in good_matches] ).reshape(-1, 1, 2).astype(np.float32)
+
+   - H, _ = **cv2.findHomography**(pts1, pts2, cv2.RANSAC)
+
+   - ```python
+     # 좋은 매칭 결과 선별
+     matches = sorted(matches, key=lambda x: x.distance)
+     good_matches = matches[:80]
+     # 호모그래피 계산
+     pts1 = np.array([kp1[m.queryIdx].pt for m in good_matches]
+     ).reshape(-1, 1, 2).astype(np.float32)
+     pts2 = np.array([kp2[m.trainIdx].pt for m in good_matches]
+     ).reshape(-1, 1, 2).astype(np.float32)
+     # Find Homography
+     H, _ = cv2.findHomography(pts1, pts2, cv2.RANSAC)
+     # 일단 matching된거 그리기
+     dst = cv2.drawMatches(src1, kp1, src2, kp2, good_matches, None,
+     flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+     # perspectiveTransform 하기 위한 다각형 꼭지점 설정
+     (h, w) = src1.shape[:2]
+     corners1 = np.array([[0, 0], [0, h-1], [w-1, h-1], [w-1, 0]]
+     ).reshape(-1, 1, 2).astype(np.float32)
+     # perspectiveTransform 적용
+     corners2 = cv2.perspectiveTransform(corners1, H)
+     corners2 = corners2 + np.float32([w, 0]) # drawMatches에서 오른쪽 영상이 왼쪽 영상 옆에 붙어서 나타나므로, 오른쪽 영상을 위한 coners2를 그쪽까지 밀어 줘야 함
+     # 다각형 그리기
+     cv2.polylines(dst, [np.int32(corners2)], True, (0, 255, 0), 2, cv2.LINE_AA)
+     ```
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126101521138.png" alt="image-20210126101521138" style="zoom:80%;" />
+
+7.  이미지 스티칭
+
+   - 동일 장면의 사진을 자연스럽게(seamless) 붙여서 한 장의 사진으로 만드는 기술
+
+   - 특징점과 matching 등등 매우 복잡한 작업이 필요하지만, OpenCV에서 하나의 함수로 구현되어 있다.
+
+   - **cv2.Stitcher_create(, mode=None) -> retval, pano**
+
+   - ```python
+     # 이미지 가져오기
+     img_names = ['img1.jpg', 'img2.jpg', 'img3.jpg']
+     imgs = []
+     for name in img_names:
+     img = cv2.imread(name)
+     imgs.append(img)
+     # 가져온 이미지, Stitcher에 때려넣기
+     stitcher = cv2.Stitcher_create()
+     _, dst = stitcher.stitch(imgs)
+     cv2.imwrite('output.jpg', dst)
+     ```
+
+8. : AR 비디오 플레이어
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126101754082.png" alt="image-20210126101754082" style="zoom: 80%;" />
+
+   - 아래의 코드는 핵심만 기술해 놓은 코드. 전체는 ARPlayer.py파일 참조
+
+   - ```python
+     # AKAZE 특징점 알고리즘 객체 생성
+     detector = cv2.AKAZE_create()
+     # 기준 영상에서 특징점 검출 및 기술자 생성
+     kp1, desc1 = detector.detectAndCompute(src, None)
+     # 해밍 거리를 사용하는 매칭 객체 생성
+     matcher = cv2.BFMatcher_create(cv2.NORM_HAMMING)
+     while True:
+         ret1, frame1 = cap1.read() # 카메라 영상(Reference Image 나옴)
+         # 호모그래피 계산
+         H, inliers = cv2.findHomography(pts1, pts2, cv2.RANSAC)
+         # 비디오 프레임을 투시 변환
+         video_warp = cv2.warpPerspective(frame2, H, (w, h))
+     
+         white = np.full(frame2.shape[:2], 255, np.uint8) # Video 파일
+         white = cv2.warpPerspective(white, H, (w, h))
+     
+         # 비디오 프레임을 카메라 프레임에 합성
+         cv2.copyTo(video_warp, white, frame1)
+     ```
+
+
+
+
+
 
 
 

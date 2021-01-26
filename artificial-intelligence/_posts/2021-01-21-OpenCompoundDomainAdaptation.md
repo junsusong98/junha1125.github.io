@@ -3,38 +3,33 @@ layout: post
 title: 【Domain】Open Compound Domain Adaptation
 ---
 
-**논문** : [Open Compound Domain Adaptation - y2020.03,c5](https://liuziwei7.github.io/projects/CompoundDomain.html)
+- **논문** : [Open Compound Domain Adaptation - y2020.03,c5](https://liuziwei7.github.io/projects/CompoundDomain.html)
 
-**분류** : paperswithcode - Unsupervised Domain Adaptation
+- **분류** : paperswithcode - Unsupervised Domain Adaptation
 
-**저자** : Ziwei Liu1∗, Zhongqi Miao2∗, Xingang Pan, Xiaohang Zhan
+- **저자** : Ziwei Liu1∗, Zhongqi Miao2∗, Xingang Pan, Xiaohang Zhan
 
-**읽는 배경** : 판 페이 박사과정 선배가 추천해준 논문이자, 우상현 랩장과 박광영 박사과정 선배님이 최근에 발표하신 'Discover, Hallucinate, and Adapt'의 기본이 되는 논문이다. 
+- **읽는 배경** : 판 페이 박사과정 선배가 추천해준 논문이자, 우상현 랩장과 박광영 박사과정 선배님이 최근에 발표하신 'Discover, Hallucinate, and Adapt'의 기본이 되는 논문이다. 
 
-**읽으면서 생각할 포인트** : 굉장히 어려운 논문이니 모르는게 많이 나와도 일단 달려가자. 핵심 key word를 중심으로 정리하면서 기록해두자. the present and problems and issues, ours Solution 흐름으로 정리하고 기록해놓자.
+- **읽으면서 생각할 포인트** :  <u>the present and problems and issues, ours Solution 흐름</u>으로 정리하고 기록해놓자.
 
+- **느낀점**  
+  - 이해 60%. 필요 논문을 찾아읽고 다시 읽어야 겠다.
 
-
-## **느낀점**  
-
-1. 이해 40%. 필요 논문을 찾아읽고 다시 읽어야 겠다.
-
-
-## **<u>다 읽은 후, 필수로 읽어야 겠다고 생각이 든 논문</u>**
-
-1. [45, 36, 28], Memory is storing class centroids.
+- **다 읽은 후, 읽어야 겠다고 생각이 든 논문**
+  1. [45, 36, 28], Memory is storing class centroids.
      - [45](https://arxiv.org/abs/1703.05175) -y2017-c1912 
      - [36](https://arxiv.org/abs/1904.11227) -y2019-c69
      - [28](https://arxiv.org/abs/1904.05160) -y2019-c103
-2. curriculum domain adaptation-y2018-c32 [56](https://arxiv.org/abs/1812.09953) - curriculum domain adaptation에서 m이 의미하는것
-3. the domain-confusion loss-y2017,c1875 [48](https://arxiv.org/abs/1702.05464) - Equ (1), (2)이 의미하는 수학적 의미 -> 이제 알았음.
-4. [27, 10], Adopting cosine classifiers, L2 norm before softmax classification.
-   - [10](https://arxiv.org/abs/1804.09458) -y2018c372
-5. t-SNE Visualization
-6. compare    
-  1. Digits: conventional unsupervised domain adaptation (ADDA [48], JAN [30], MCD [42])
-  2. Digits: the recent multi-target domain adaptation methods (MTDA [9], BTDA [5], DADA [39])
-  3. segmentation: three state-of-the-art methods, AdaptSeg [47], CBST [58], IBN-Net [35] and PyCDA [26]
+  2. curriculum domain adaptation-y2018-c32 [56](https://arxiv.org/abs/1812.09953) - curriculum domain adaptation에서 m이 의미하는것
+  3. the domain-confusion loss-y2017,c1875 [48](https://arxiv.org/abs/1702.05464) - Equ (1), (2)이 의미하는 수학적 의미 -> 이제 알았음.
+  4. [27, 10], Adopting cosine classifiers, L2 norm before softmax classification.
+     - [10](https://arxiv.org/abs/1804.09458) -y2018c372
+  5. t-SNE Visualization
+  6. 이 논문에서 experiment compare하기 위해 사용했던 참고한 논문 자료.
+       1. **Digits**: <u>conventional</u> unsupervised domain adaptation (ADDA [48], JAN [30], MCD [42])
+       2. **Digits**: the <u>recent</u> multi-target domain adaptation methods (MTDA [9], BTDA [5], DADA [39])
+       3. **segmentation**: three state-of-the-art methods, AdaptSeg [47], CBST [58], IBN-Net [35] and PyCDA [26]
 
 
 
@@ -162,7 +157,7 @@ title: 【Domain】Open Compound Domain Adaptation
        - Domain indicator = <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210121204712193.png?raw=tru" alt="image-20210121204712193" style="zoom: 67%;" />
     4. Source-Enhanced Representation (**v_transfer**)
        - v_direct에서 source를 중심으로 balance가 맞춰진 vector   
-         <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210121204841026.png?raw=tru" alt="image-20210121204841026" style="zoom: 80%;" />
+         <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210121204841026.png?raw=tru" alt="image-20210121204841026" style="zoom: 110%;" />
        - ⊗ is element-wise multiplication
        - Adopting cosine classifiers [27, 10], 이렇게 만들어지 **v_transfer를 l2-normalize**한다. 그리고 **softmax classification layer**에 보낸다.
        - **domain mismatch 에 효과적**이다. 
@@ -177,7 +172,7 @@ title: 【Domain】Open Compound Domain Adaptation
 
   - | type               | source        | target                   | open    |
     | ------------------ | ------------- | ------------------------ | ------- |
-    | C-Digits           | SVHN          | MNIST, MNIST-M, and USPS | SWIT    |
+    | Classify-Digits    | SVHN          | MNIST, MNIST-M, and USPS | SWIT    |
     | C-Faces(Multi-PIE) | C05           | C08-C14                  | C19     |
     | C-Driving          | GTA-5         | BDD100K                  | BDD100K |
     | C-Mazes            | the GridWorld |                          |         |
