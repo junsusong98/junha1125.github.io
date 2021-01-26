@@ -4,26 +4,27 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 ---
 
 - **논문** : [Adversarial Discriminative Domain Adaptation - y2017,c1875](https://arxiv.org/pdf/1702.05464.pdf)
-
 - **분류** : Unsupervised Domain Adaptation
 - **저자** : Eric Tzeng, Judy Hoffman, Kate Saenko (California, Stanford, Boston University)
-
 - **읽는 배경** : (citation step1) Open Componunt Domain Adaptation에서 Equ (1), (2) \[the domain-confusion loss\]가 이해가 안되서 읽는 논문.  근데 introduction읽다가 이해해 버렸다. 좀만 더 읽어보자.
-
 - **읽으면서 생각할 포인트** : 핵심만 읽자. 모든 것을 다 읽으려고 하지 말자. 영어계 저자는 어떻게 썼는지 한번 확인해 보자.
-- 느낀점
-  1. 이해 50프로 밖에 못한것 같다. 
-  2. ~~이 논문을 읽으면서, "**이해안되도 아가리 닥치고 일단 Experience까지 미친듯이 읽어보자.** 그리고 다시 과거에 이해는 안되지만 대충이라도 요약했던 내용을, 다시 읽어보면! 이해가 될 가능성이 높다."~~ 
-  3. 그래도 **이 논문을 통해서 Adversarial 접근이 GAN의 generator와 discriminator만을 두고 얘기하는게 아니라는 것을 깨달았다. 하나는 '이러한 목적'을 위해 학습한다면, 다른 한쪽에서 '반대의 목적'을 위한 Loss로 학습하게 만드는 것들, 전부가 Adversarial learning이라는 것을 깨달았다.** 
-  4. **하지만 나는 믿는다. 그냥 아가리 닥치고 계속 읽고 정리하고 많은 논문을 읽어가다 보면 언젠간. 언젠간. 많은 지식이 쌓여 있고, 누구에게 뒤쳐지지 않는 나를 발견할 수 있을거라는 사실을. 그니까 그냥 해보자. 좌절하지말고 재미있게 흥미롭게.** 않는 나를 발견할 수 있을거라는 사실을. 그니까 그냥 해보자. 좌절하지말고 재미있게 흥미롭게.**
-  5. **<u>(3)번까지 relative work다 읽느라 지쳐서 핵심적인 부분은 거의 이해도 안하고 대충대충 넘겼다. 진짜 중요한 부분이 어딘지 생각해봐라. 초반에 이해안되는거 가지고 붙잡고 늘어지기 보다는, 일단 이 논문이 제시하는 model이 구체적으로 뭔지부터 읽는 것도 좋았겠다.</u>**
-  6. <u>헛소리 이해하려고, 핵심적인 4번 내용은 이해하지도 않았다. 솔직히 여기 있는 relative work를 언제 다시 볼 줄 알고, 이렇게 깔끔하게 정리해 놨냐. 정말 필요하면 이 직접 논문으로 relative work를 다시 읽었겠지. 그러니 **핵심 먼저 파악하고!! 쓸대 없는 잡소리 이해는 나중에 하자.**</u>
-  7. **<u>별거도 아닌거 삐까번쩍하게도 적어놨다... 이래서 아래로 최대한 빨리 내려가서 구체적인 핵심먼저 파악해야한다.</u>**
+
+
+
+# 느낀점
+
+1. 이해 50프로 밖에 못한것 같다. 
+2. ~~이 논문을 읽으면서, "**이해안되도 아가리 닥치고 일단 Experience까지 미친듯이 읽어보자.** 그리고 다시 과거에 이해는 안되지만 대충이라도 요약했던 내용을, 다시 읽어보면! 이해가 될 가능성이 높다."~~ 
+3. 그래도 **이 논문을 통해서 Adversarial 접근이 GAN의 generator와 discriminator만을 두고 얘기하는게 아니라는 것을 깨달았다. 하나는 '이러한 목적'을 위해 학습한다면, 다른 한쪽에서 '반대의 목적'을 위한 Loss로 학습하게 만드는 것들, 전부가 Adversarial learning이라는 것을 깨달았다.** 
+4. **하지만 나는 믿는다. 그냥 아가리 닥치고 계속 읽고 정리하고 많은 논문을 읽어가다 보면 언젠간. 언젠간. 많은 지식이 쌓여 있고, 누구에게 뒤쳐지지 않는 나를 발견할 수 있을거라는 사실을. 그니까 그냥 해보자. 좌절하지말고 재미있게 흥미롭게.** 않는 나를 발견할 수 있을거라는 사실을. 그니까 그냥 해보자. 좌절하지말고 재미있게 흥미롭게.**
+5. **<u>(3)번까지 relative work다 읽느라 지쳐서 핵심적인 부분은 거의 이해도 안하고 대충대충 넘겼다. 진짜 중요한 부분이 어딘지 생각해봐라. 초반에 이해안되는거 가지고 붙잡고 늘어지기 보다는, 일단 이 논문이 제시하는 model이 구체적으로 뭔지부터 읽는 것도 좋았겠다.</u>**
+6. <u>헛소리 이해하려고, 핵심적인 4번 내용은 이해하지도 않았다. 솔직히 여기 있는 relative work를 언제 다시 볼 줄 알고, 이렇게 깔끔하게 정리해 놨냐. 정말 필요하면 이 직접 논문으로 relative work를 다시 읽었겠지. 그러니 **핵심 먼저 파악하고!! 쓸대 없는 잡소리 이해는 나중에 하자.**</u>
+7. **<u>별거도 아닌거 삐까번쩍하게도 적어놨다... 이래서 아래로 최대한 빨리 내려가서 구체적인 핵심먼저 파악해야한다.</u>**
 
 
 
 
-## 0. Abstract
+# 0. Abstract
 
 - the present & problem
   - Adversarial learning(approaches) 사용 및 효과 
@@ -42,7 +43,7 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 
 
 
-## 1. Introduction
+# 1. Introduction
 
 - the past problem & effort
   - dataset bias(source만 데이터 많음 target없음) + domain shift 문제해결은 일반적으로  fine-tune으로 했었다. But labeled-data is not enough.
@@ -61,7 +62,7 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 
 
 
-## 2. Related work
+# 2. Related work
 
 ### **<u>(이렇게 자세하게 적는게 무슨 의미지? 반성하자. 어차피 머리속에 남은것도 없고, 다시 읽어도 뭔소린지 모르고 머리에도 안남잖아. 시간버린거야.)</u>**
 
@@ -89,7 +90,7 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 
 
 
-## 3. Generalized adversarial adaptation - related work
+# 3. Generalized adversarial adaptation - related work
 
 - 우리의 학습 순서 요약(이미지 주석을 요약해 놓은 것. 구체적인 내용은 4에 있다.)
   
@@ -100,7 +101,7 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 3. Discriminator는 cannot reliably predict their domain label 하게 만든다. 
   4. test 할 때, target encoder to the shared feature space(?) 그리고 source classifier를 사용한다. 
   5. 점선은 Fixed network parameters를 의미한다.
-  
+
 - (related work) 일반적인 adversarial adaptation 의 formula ⭐⭐
   
   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125141320232.png?raw=tru" alt="image-20210125141320232" style="zoom:80%;" />
@@ -124,7 +125,7 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 
 
 
-## 4. Adversarial discriminative domain adaptation 
+# 4. Adversarial discriminative domain adaptation 
 
 - 사용한 <u>objective function</u>  ⭐⭐
   - ![image-20210125144836013](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125144836013.png?raw=tru)
@@ -134,6 +135,6 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 
 
 
-## 5. Experiments
+# 5. Experiments
 
 - 실험을 통해서 왜 논문에서 선택한 위의 objective function이 적절한 function이었는지를 말해준다.

@@ -11,7 +11,7 @@ Python file to EXE file 파이썬 파일 실행 파일로 만들기
 ```sh
 $ pip install pyinstaller
 
-$ pip --onefile -w <file_name.py>
+$ pyinstaller --onefile -w <file_name.py>
 ```
 
 1. 옵션
@@ -38,4 +38,4 @@ $ pip --onefile -w <file_name.py>
     - [Donwload link](https://nsis.sourceforge.io/Download)
     - 프로그램 사용방법은 맨 위 유투브 링크의, 6:30~8:30에 있음. 생각보다 매우 쉬우니 필요하면 해보기.
     - 
- 
+

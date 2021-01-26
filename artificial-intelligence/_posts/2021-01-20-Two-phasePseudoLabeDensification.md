@@ -41,7 +41,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
 
 
-## 0. Abstract
+# 0. Abstract
 
 - <u>the present and problems</u> : The self-training generates target pseudo labels like **only the confident predictions**(Relative work의 self-training내용 참조). So that this approach produce sparse pseudo labels (희박한/흐릿흐릿한/빈약한 예측 결과) in practice.
 - <u>why problem</u> : suboptimal, error-prone model
@@ -55,7 +55,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
 
 
-## 1. Introduction
+# 1. Introduction
 
 - <u>the present models</u>
   - Unsupervised domain adaptation (UDA) 는 labeled source 에서 unlabeled target를 학습하는데 도움이 된다. 이 논문에서는 Semantic segmentation 문제에 대해 UDA를 적용한다. 
@@ -76,7 +76,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
 
 
-## 2. Related works
+# 2. Related works
 
 - Domain Adaptation
   - 목적 : the performance drop by the distribution mismatch
@@ -95,7 +95,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
 
 
-## 3. Preliminaries
+# 3. Preliminaries
 
 - source domain : (xs, ys)
 - target domain : (xt) 
@@ -116,7 +116,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
 
 
-## 4. Method
+# 4. Method
 
 - phase1을 충분히 학습시키고, phase2를 더 학습시켰다. 모든 phase에서 bootstrapping 방법을 사용하였다.
 - ![image](https://user-images.githubusercontent.com/46951365/105443859-161e0e00-5cb0-11eb-80e9-ad259ca5dfce.png)  
@@ -159,7 +159,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
       
 
-## 5. Experiments
+# 5. Experiments
 
 - GTA5 [31] to Cityscapes [6]
 - SYNTHIA [32] to Cityscapes
@@ -176,7 +176,7 @@ title: 【Domain】Two-phase Pseudo Label based Domain Adaptation
 
 
 
-## 6. Conclusions
+# 6. Conclusions
 
 - Unsuperivsed Domain Adaptation에서 좋은 성능을 내었다. 
 

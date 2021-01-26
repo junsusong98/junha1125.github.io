@@ -174,7 +174,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
 2. 모멘트 기반 (비슷한 모양 찾기 기법을 이용한) 객체 검출
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125090819511.png" alt="image-20210125090819511" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125090819511.png?raw=tru" alt="image-20210125090819511" style="zoom:80%;" />
    - Hu's seven invariant moments : 크기, 회전, 이동, 대칭 변환에 불변
    - 모양 비교 함수: **cv2.matchShapes(contour1, contour2, method, parameter)** -> 영상 사이의 거리(distance)
 
@@ -182,7 +182,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
    - 입력영상에서 작은 크기의 템플릿과 일치하는 부분 찾는 기법
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125091301957.png" alt="image-20210125091301957" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125091301957.png?raw=tru" alt="image-20210125091301957" style="zoom:80%;" />
 
    - **cv2.matchTemplate(image, templ, method, result=None, mask=None) -> result**   
      image의 크기가 W x H 이고, templ의 크기가 w x h 이면 result 크기는 (W - w + 1) x (H - h +1)
@@ -197,7 +197,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
 4. 템플릿 매칭 (2) - 인쇄체 숫자 인식
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125092302957.png" alt="image-20210125092302957" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125092302957.png?raw=tru" alt="image-20210125092302957" style="zoom:80%;" />
    - 오른쪽의 0~9까지는 미리 파일로 저장해놓음
    - 자세한 코드 사항은 강의 및 digitrec.py파일 참조
 
@@ -229,7 +229,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
    - 2005년부터 한동안 가장 좋은 방법으로, 다양한 객체 인식에서 활용되었다.
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210125093630644.png" alt="image-20210125093630644" style="zoom: 80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125093630644.png?raw=tru" alt="image-20210125093630644" style="zoom: 80%;" />
 
      - 9개 : 180도를 20도 단위로 나눠서 9개 단위로 gradient 분류
      - 1개 셀 8x8, 1개 블록 16 x 16. 블록 1개 는 36개의 히스토그램 정보를 가짐
@@ -287,7 +287,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
 1. 코너 검출
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126092522678.png" alt="image-20210126092522678" style="zoom: 67%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210126092522678.png?raw=tru" alt="image-20210126092522678" style="zoom: 67%;" />
    - **cv2.cornerHarris**(src, blockSize, ksize, k)
    - **cv2.goodFeaturesToTrack**(image, maxCorners, qualityLevel, minDistance)
    - **cv2.FastFeatureDetector_create**(, threshold=None, nonmaxSuppression=None, type=None)  
@@ -307,19 +307,19 @@ title: 【CV】Computer Vision at FastCampus 2
 
 3. 기술자 (Descriptor, feature vector)
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126093448937.png" alt="image-20210126093448937" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210126093448937.png?raw=tru" alt="image-20210126093448937" style="zoom:80%;" />
    - 특징점 근방의 Local feature을 표현하는 실수 또는 이진 벡터. 위에서는 하나의 특징점이 64개 원소의 백터를 기술자로 가진다. 
    - 실수 특징 백터. 주로 백터 내부에는 방향 히스토그램을 특징 백터로 저장하는 알고리즘 : SIFT, SURF, KAZE
    - Binary descriptor. 주변 픽셀값 크기 테스트 값을 바이너리 값으로 저장하는 알고리즘 : AKAZE, ORB, BRIEF
    - 위 2. 특징점 검출에서 만든 <u>feature 객체</u>를 사용
      - **cv2.Feature2D.compute(image, keypoints)** -> keypoints, descriptors (이미 keypoint 있다면)
      - **cv2.Feature2D.detectAndCompute(image)** -> keypoints, descriptors
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126094008801.png" alt="image-20210126094008801" style="zoom: 60%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210126094008801.png?raw=tru" alt="image-20210126094008801" style="zoom: 60%;" />
    - KAZE, AKAZE이 속도 면에서 괜찮은 알고리즘. SIFT가 성능면에서 가장 좋은 알고리즘
 
 4. 특징점 매칭 (feature point matching)
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126094928068.png" alt="image-20210126094928068" style="zoom: 60%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210126094928068.png?raw=tru" alt="image-20210126094928068" style="zoom: 60%;" />
    - <u>matcher</u> 객체 생성 : **cv2.BFMatcher_create(, normType=None, crossCheck=None)**  
    - matching 함수1 : <u>matcher</u>.**match(queryDescriptors, trainDescriptors)**
    - matching 함수2 : <u>matcher</u>.**knnmatch(queryDescriptors, trainDescriptors)**
@@ -351,7 +351,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
 6. 호모그래피와 영상 매칭
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126100307371.png" alt="image-20210126100307371" style="zoom: 60%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210126100307371.png?raw=tru" alt="image-20210126100307371" style="zoom: 60%;" />
 
    - cv2.findHomography(srcPoints, dstPoints) -> retval, mask
 
@@ -386,7 +386,7 @@ title: 【CV】Computer Vision at FastCampus 2
      cv2.polylines(dst, [np.int32(corners2)], True, (0, 255, 0), 2, cv2.LINE_AA)
      ```
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126101521138.png" alt="image-20210126101521138" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210126101521138.png?raw=tru" alt="image-20210126101521138" style="zoom:80%;" />
 
 7.  이미지 스티칭
 
@@ -411,7 +411,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
 8. : AR 비디오 플레이어
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210126101754082.png" alt="image-20210126101754082" style="zoom: 80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210126101754082.png?raw=tru" alt="image-20210126101754082" style="zoom: 80%;" />
 
    - 아래의 코드는 핵심만 기술해 놓은 코드. 전체는 ARPlayer.py파일 참조
 
