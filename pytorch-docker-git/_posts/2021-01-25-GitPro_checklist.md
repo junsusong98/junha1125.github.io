@@ -6,7 +6,7 @@ title: 【Git】Git-blog PRO VERSION check list
 
 Git-blog 프로버전으로 업그레이드 하고 파악 했던 내용들을 정리해 놓는다. 
 
-# Git blog PRO VERSION check list
+# Blog PRO-v check list & google analystics
 
 1. 설치 및 구동
 
@@ -75,6 +75,62 @@ Git-blog 프로버전으로 업그레이드 하고 파악 했던 내용들을 �
    - junha1125.github.io\docs\for-future.pdf 파일 참조
 
 
+
+
+
+# Google Analytic를 활용한 접속자 조회 방법
+
+1. google analystic 가입하기
+
+2. 관리 -> 데이터 스트림 -> 웹 사이트 등록(스트림 추가)해두기    
+   <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210127175437258.png?raw=tru" alt="image-20210127175437258" style="zoom: 67%;" />
+
+3. 내가 만든 스트림 선택해서 아래의 창에서 몇가지 수정하기   
+   <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210127175535751.png?raw=tru" alt="image-20210127175535751" style="zoom:80%;" />
+
+4. 먼저 측정 ID를 복사해서 _config.yml 파일에 적어 넣어두기   
+
+   ```sh
+   google_analytics:      G-68888888JQ
+   ```
+
+   
+
+5. _includes\body\analytics.html 에 사이트 태그 복사해서 붙여 넣기   
+
+   ```sh
+   ....
+   	w.ga(function(tracker) {
+           w.ga("set", "an....eIp", undefined);
+           localStorage && localStorage.setItem("g.....id", tracker.get("clientId"));
+         });
+       });
+   
+       w.loadJSDeferred('https://www.google-analytics.com/analytics.js');
+     }(window, document);</script>
+     
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6....VJQ"></script>
+     <script>
+       window.dataLayer = window.dataLayer || [];
+       function gtag(){dataLayer.push(arguments);}
+       gtag('js', new Date());
+   
+       gtag('config', 'G-68...JQ');
+     </script>
+   
+   ```
+
+   
+
+6. 3번 사진 맨 아래 연결된 사이트 태그에, 내 측정 ID등록해 두기
+
+7. 그럼 접속자 조회가 가능하다.  
+   <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210127175906590.png?raw=tru" alt="image-20210127175906590" style="zoom:80%;" />
+
+   
+
+이 접속자 조회로, **하루하루 접속자가 몇명이고 접속자들이 가장 많이 보는 게시물**이 무엇이고 등등을 알 수 있다. 이것을 통해서 **블로그 작성의 새로운 동기 부여**가 될 수 있기를 바란다. 
 
 
 
