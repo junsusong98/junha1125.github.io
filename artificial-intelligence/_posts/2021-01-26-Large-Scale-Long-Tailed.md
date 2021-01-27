@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Domain】Large-Scale Long-Tailed Recognition in an Open World = OLTR
+title: 【ClassBlance】Large-Scale Long-Tailed Recognition in an Open World = OLTR
 ---
 
 - **논문** : [Large-Scale Long-Tailed Recognition in an Open World - y2019-c103](https://arxiv.org/pdf/1904.05160.pdf)
@@ -70,6 +70,8 @@ title: 【Domain】Large-Scale Long-Tailed Recognition in an Open World = OLTR
        3) A summary of **memory activations** from the direct feature   
        그리고 combine into a meta-embedding that is enriched particularly for the tail class.
        ```
+     
+   -  .
 
    
 
@@ -77,20 +79,25 @@ title: 【Domain】Large-Scale Long-Tailed Recognition in an Open World = OLTR
 
    ![image-20210126181200150](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210126181200150.png?raw=tru)
 
-- Imbalanced Classification
+- **Imbalanced Classification**
+  
   - Classical methods -  under-sampling head classes, over-sampling tail classes, and data instance re-weighting.
   -  Some recent methods - metric learning, hard negative mining, and meta learning.
   - Ours
     - combines the strengths of both metric learning[24, 37] and meta learning[17, 59]
-    - Our dynamic meta-embedding👋
-- Few-Shot Learning
+    - Our dynamic meta-embedding~~~ 👋
+  
+- **Few-Shot Learning**
+  
   -  초기의 방법들 they often suffer a moderate performance drop for head classes.
   - 새로운 시도 : The few-shot learning without forgetting,  incremental few-shot learning.
   - 하지만 : 위의 모든 방법들은, the training set are balanced.
-  - In comparison, urs : 👋
-- Open-Set(new data set) Recognition
+  - In comparison, ours~~~ 👋
+  
+- **Open-Set(new data set) Recognition**
+  
   -  OpenMax [3] : calibrating the output logits
-  - OLTR approach incorporates👋
+  - OLTR approach incorporates~~ 👋
 
 
 

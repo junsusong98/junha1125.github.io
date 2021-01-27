@@ -34,7 +34,7 @@ image: /assets/img/catagorys/justdoit.jpg
 
 # Official Grade  
 - University Major Credit  
-    4.43 / 4.5 (Total College Grade: 4.4/4.5)   
+    4.43 / 4.5 (Total College Grade: 4.39/4.5)   
 - TOEIC     
     2018.08 - 880 / 990   
     2020.08 - 825 / 990 
