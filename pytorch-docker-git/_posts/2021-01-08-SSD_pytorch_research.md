@@ -18,7 +18,7 @@ description: >
         - a.py
         - bb
             - b.py
-    ```  
+    ```
     b.py에서 from .. import a, from ... import a 이 잘 동작하지 않는다.
 - 해결책 (위의 레퍼런스 요약)
     1. (1번째 refer) terminal에서 path를 b가 아닌 a에 두고, "$ python -m b/b.py"를 실행한다.
@@ -34,7 +34,8 @@ description: >
 - 문제점 
     - **"아니 이게 왜 호출이 되지??? import한 적이 없는데???"** 라는 생각을 자주해서 해당경로에 \_\_init\_\_.py에 들어가보면 import를 대신 해준것을 확인할 수 있었다.
     - 그렇다면 이게 어떻게 동작하는 걸까?
-- 결론 
+    
+- 결론 ⭐ 
     - 내가 만약 **import package.dir1.dir2** 를 파일 맨 위에 한다면, **dir2에 있는 \_\_init\_\_.py** 이 자동으로 호출되며 안의 내용을 모두 읽고 실행한다. 
     - 만약 dir2의 \_\_init\_\_.py에 **from .dir3.dir4 import fun4** 가 있다면?
     - a.py에서 아래의 2가지 방법을 사용하면 된다. 
@@ -43,6 +44,38 @@ description: >
     - 원래는 a.py에서 fun4로만 생각해서, 직접 패키지를 만들고 실험을 해봤더니, 에러가 났다. 
     - debugging을 해보니까, 다음과 같은 실행이 이뤄짐을 알 수 있었다.   
         ![image](https://user-images.githubusercontent.com/46951365/104087589-39a28b00-52a4-11eb-83c7-ed0dfc47614d.png)
+    
+- 궁금증2
+
+    - ```python
+        from mmdet.apis import inference_detector, init_detector, show_result_pyplot
+        ```
+
+    - 이러고 inference_detector, init_detector 함수를 그냥 사용할 수 있다. /mmdet/apis.py 파일이 있고, 저 파일안에 저 함수들이 정의되어 있다면 내가 궁금해하지도 않는다. 아래와 같은 구조를 하고 있기 때문이다.
+
+    - ![image-20210128205145476](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128205145476.png)
+
+    - 물론 위의 문제점1에서 깨달았던 방법을 사용하면 아래와 같은 모듈사용이 가능했다.  
+
+        ```python
+        from mmdet import apis
+        
+        config = 'configs/mask_rcnn/mask_rcnn_r50_caffe_fpn_mstrain-poly_3x_coco.py'
+        checkpoint = 'checkpoints/mask_rcnn_r50_caffe_fpn_mstrain-poly_3x_coco_bbox_mAP-0.408__segm_mAP-0.37_20200504_163245-42aa3d00.pth'
+        
+        model = apis.init_detector(config, checkpoint, device='cuda:0')
+        ```
+
+    - 어떻게 위의 form과 import의 실행이 가능했던 것일까??
+
+- 결론
+
+    - ⭐ **from**이  가르키는 마지막 directory의 \_\_init\_\_.py 또한 일단 다 읽는다! 그리고 **import**다음으로 넘어간다. 
+    - 우리가 아는 아주 당연한 방법으로, **import** 다음 내용으로 **from** A.B.C **import** py_file_name/function_defined 과 같이 import를 수행해도 된다.
+    - 하지만 from 가장 마지막 directory의 (위의 예시에서 C)의 \_\_init\_\_.py 안에서 한번 import된 함수를 import해서 가져와도 된다.
+    - 이를 이용해서, 궁금증2의 첫 실행문을 다시 설명하자면, `from mmdet.apis` 을 통해서 apis의 \_\_init\_\_.py를 모두 읽는다. 여기서 `from .inference import (async_inference_detector, inference_detector,init_detector, show_result_pyplot)` 이 수행되므로, import에서 `import inference_detector, init_detector, show_result_pyplot`를 하는 것에 전혀 무리가 없는 것이다.
+
+
 
 # 3. os.path 모듈
 - reference : [https://devanix.tistory.com/298](https://devanix.tistory.com/298)
@@ -89,7 +122,7 @@ description: >
         layers += [pool5, conv6,
                 nn.ReLU(inplace=True), conv7, nn.ReLU(inplace=True)]
         return layers
-    ```  
+    ```
 - 코드 설명 
     - ModuleList()에는 input으로 python-list가 들어가고 list-component는 nn.layer 이다. 
     - conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1) 이 문장.
@@ -104,7 +137,7 @@ description: >
             >>> a = (1,2)
             >>> id(a)
             2289005092296
-            ```   
+            ```
         - 이처럼 같은 클래스 tuple이지만, 객체 (1,2)는 다시 만들어지고 그것을 a가 가리킨다.
 
 
@@ -126,7 +159,7 @@ description: >
     obj = a(4,3)
     print(obj.c) 
     >> 7
-    ```  
+    ```
 - ```python
     class VGG(nn.Module):
     def __init__(self, cfg):
@@ -155,6 +188,7 @@ description: >
     - [torch.Tensor.permute](https://pytorch.org/docs/stable/tensors.html?highlight=permute#torch.Tensor.permute) 를 사용해서 tenor 연산 이뤄지는 중
     - [torch.Tensor.contiguous](https://pytorch.org/docs/stable/tensors.html#torch.Tensor.contiguous)
 - torch document에 적혀 있는 view는 tensor의 shape, size를 의미한다. view라는 단어를 더 자주쓰지 하나의 명사로 알아두기
+    
     - [torch.tensor.view](https://pytorch.org/docs/stable/tensors.html?highlight=permute#torch.Tensor.permute)
 
 # 7. os.environ(\["variable"\])

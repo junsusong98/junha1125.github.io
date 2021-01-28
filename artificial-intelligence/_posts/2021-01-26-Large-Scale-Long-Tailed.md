@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【ClassBlance】Large-Scale Long-Tailed Recognition in an Open World = OLTR
+title: 【ClassBlance】Large-Scale Long-Tailed Recognition in an Open World = OLTR w/ advice
 ---
 
 - **논문** : [Large-Scale Long-Tailed Recognition in an Open World - y2019-c103](https://arxiv.org/pdf/1904.05160.pdf)
@@ -13,6 +13,10 @@ title: 【ClassBlance】Large-Scale Long-Tailed Recognition in an Open World = O
 - 질문
   - centroids메모리 M을 어떻게 학습시키는지는 아직 모르겠다. 이것은 코드를 통해서 공부하면 될듯.   
     [OLTR/models/MetaEmbeddingClassifier.py](OLTR/models/MetaEmbeddingClassifier.py ) 파일에 forward의 input으로 centroids가 들어가는 것을 확인할 수 있다. 
+- 선배님 조언 
+  - 외국에서 사는게 그리 좋은게 아니다. 우리나라 라는 것이 얼마나 큰 **축복**인지 모른다. 기회가 있다면 나가서 일하고 나중에 다시 돌아오면 된는거다. 우리나라에 대해서 감사함을 가지고 살아가도록 해야겠다. 
+  - 특히나 외국에서 오래 살고 오셨기 때문에, 저 진심으로 해주시는 조언이었다. 그냥 큰 환상을 가지고 거기서 살고 싶다 라는 생각을 해봤자 환상은 깨지기 마련이고, 우리나라 안에서, 우리나라가 주는 편안함과 포근함에 감사하며 살아가는게 얼마나 큰 축복인지 알면 좋겠다**. 모비스와 다른 외국 기업과의 비교를 생각하며 감사할 줄 몰랐다. 하지만 감사하자. 모비스에 가서도 정말 열심히 최선을 다해, 최고가 되기 위해 공부하자. 그렇게 해야 정말 네이버든 클로버든 갈 수 있다. 그게 내가 정말 가야할 길이다. 그러다가 기회가 되어 외국 기업이 나를 부른다면, 다녀오면 된다. 그리고 또 한국이 그리워지면 다시 돌아오면 되는거다. 나의 미래를 좀 더 구체적으로 만들어 주신 선배님께 감사합니다.** 
+  - 학교에서 너무 많은 것을 배우려고 하지 마라. 수업은 그냥 쉬운게 짱. 하고 싶은 연구하고 하고 싶은 공부하는게 최고다. 그리고 동기와 친구와 같이 수업 듣는 것을 더 추천한다.
 
 
 

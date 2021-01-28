@@ -438,43 +438,92 @@ title: 【CV】Computer Vision at FastCampus 2
 
 
 
+# 10. 객체 추적과 모션 백터
 
+1. 배경 차분 : 정적 배경 차분
 
+   - 배경 차분(Background Subtraction: BS) : 등록된 배경 이미지과 현재 입력 프레임 이미지와의 차이(img-src) 영상+Threshold을 이용하여 전경 객체를 검출
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128090501840.png" alt="image-20210128090501840" style="zoom: 80%;" />
+   - 위의 Foreground mask에다가, 가이시안 필터 -> 레이블링 수행 -> 픽셀 수 100개 이상은 객체만 바운딩 박스 표시
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128090747725.png" alt="image-20210128090747725" style="zoom:80%;" />
 
+2. 배경 차분 : 이동 평균 배경
 
+   - 위의 방법은, 조도변화에 약하고 주차된 차도 움직이지 않아야 할 민큼 배경 이미지가 불변해야 한다.
+   - 이와 같은 평균 영상을 찾자  
+     ![image-20210128091052381](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128091052381.png)
+   - 매 프레임이 들어올 때마다 평균 영상을 갱신   
+      <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128091120398.png" alt="image-20210128091120398" style="zoom: 67%;" />
+   - **cv2.accumulateWeighted**(src, dst, alpha, mask=None) -> dst  
+     즉, dst(x ,y ) = (1 - alpha) * dst(x ,y ) + alpha src(x ,y ) 
 
+3. 배경 차분 : MOG 배경 모델(Mixture of Gaussian = Gaussian Mixture Model))
 
+   - 배경 픽셀값 하나하나가, 어떤 가오시간 분표를 따른다고 정의하고 그 분포를 사용하겠다.
 
+   - **각 픽셀**에 대해 MOG 확률 모델을 설정하여 배경과 전경을 구분 (구체적인 내용은 직접 찾아서 공부해보기-paper : Improved adaptive Gaussian mixture model for background subtraction) 
 
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128100755318.png" alt="image-20210128100755318" style="zoom:80%;" />
 
+   - ```python
+     cap = cv2.VideoCapture('PETS2000.avi')
+     bs = cv2.createBackgroundSubtractorMOG2()
+     #bs = cv2.createBackgroundSubtractorKNN() # 직접 테스트 하고 사용 해야함. 뭐가 더 좋다고 말 못함.
+     #bs.setDetectShadows(False) # 125 그림자값 사용 안함
+     
+     while True:
+         ret, frame = cap.read()
+         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+         fgmask = bs.apply(gray)  # 0(검) 125(그림자) 255(백)
+         back = bs.getBackgroundImage()
+     ```
 
+   - 동영상을 보면, **생각보다 엄청 잘되고, 엄청 신기하다...**
 
+4. 평균 이동(Mean shift) 알고리즘 
 
+   - Tracking : **Mean Shift, CamShift, Optical Flow, Trackers in OpenCV 3.x**
 
+   - Mean shift=mode seeking : 데이터가 가장 밀집되어 있는 부분을 찾아내기 위한 방법, 예를 들어 가오시안 이면 평균 위치를 찾는 방법. 아래에 하늘색 원을 랜덤으로 생성한 후, 그 내부의 빨간색 원들의 x,y평균을 찾는다. 그리고 그 x,y평균점으로 하늘색 원을 옮겨 놓는다(이래서 Mean shift). 이 작업을 반복하다 보면, 결국 하늘색 원은 빨간색 원이 가장 밀집한 곳으로 옮겨 가게 된다.   
+     <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128101804262.png" alt="image-20210128101804262" style="zoom:80%;" />
 
+   - 사람의 얼굴 살색을, [히스토그램 역투영법](https://junha1125.github.io/blog/self-study/2021-01-13-fast_campus1/#chap3---%EA%B8%B0%EB%B3%B8-%EC%98%81%EC%83%81-%EC%B2%98%EB%A6%AC-%EA%B8%B0%EB%B2%95)으로 찾은 후 그 영역에 대한 평균점을 찾아가면서 Tracking을 한다. 
 
+   - **cv2.meanShift(probImage, window, criteria) -> retval, window**
 
+     - probImage : 히스토그램 역투영 영생
+     - window : 초기 검색 영역 윈도우 & 결과 영역 반환
 
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128102346633.png" alt="image-20210128102346633" style="zoom:80%;" />
 
+   - ```python
+     # 첫번째 프레임의 HS 히스토그램 구하기
+     hist = cv2.calcHist([roi_hsv], channels, None, [45, 64], ranges)
+     # 히스토그램 역투영 & 평균 이동 추적
+     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+     backproj = cv2.calcBackProject([hsv], channels, hist, ranges, 1)
+     _, rc = cv2.meanShift(backproj, rc, term_crit) 
+     ```
 
+   - 히스토그램 역투영법, HS 히스토그램에 대해 궁금하면, 동영상 직접 찾아서 보기
 
+   - 단점 : 객체가 항상 같은 크기이여야 함. 예를 들어, 위의 귤이 멀어져서 작아지면 검출 안된다.
 
+5. [Cam Sift(캠시프트)](https://fr.wikipedia.org/wiki/Camshift) 알고리즘 
 
+   - 위의 단점을 해결하기 위한 알고리즘, 위의 평균 이동 알고리즘을 이용. 
 
+   - 일단 평균 이동을 통해 박스를 이용한다. 그리고 히스토그램 역투영으로 나오는 영역에 대해서, 최적의 타원을 그린다. 만약 타원이 평균이동박스 보다 작으면, 이동박스를 작게 변경한다. 반대로 최적의 타원이 박스보다 크다면, 이동박스를 크게 변경한다. 이 과정을 반복한다. 
 
+   - **cv2.CamShift**(probImage, window, criteria) -> retval, window
 
+   - ```python
+     # HS 히스토그램에 대한 역투영 & CamShift
+     frame_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+     backproj = cv2.calcBackProject([frame_hsv], channels, hist, ranges, 1)
+     ret, rc = cv2.CamShift(backproj, rc, term_crit)
+     ```
 
-
-
-
-
-
-
-
-
-
-
-
-
+6. 루카스-카나데 옴티컬 플로우(OneDrive\20.2학기\컴퓨터비전\OpticalFlow.pdf참조)
 
 

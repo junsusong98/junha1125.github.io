@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【segmentation】The Devil Boundary for Instance Segmentation + 선배님 조언
+title: 【segmentation】The Devil Boundary for Instance Segmentation w/ advice
 ---
 
 - **논문** : [The Devil is in the Boundary: Exploiting Boundary Representation for Basis-based Instance Segmentation](https://arxiv.org/abs/2011.13241)
