@@ -210,30 +210,69 @@ print(result[1]) # 80개 객체에 대한 w * h * channel(80) 의 bool type의 m
 
 ## 1.2 Train a detector on customized dataset
 
-1. Modify the config
+1. Modify cfg
 
    - mmdetection에서는 config 파일을 .py 파일을 사용한다. 
 
-   - 이 파일은 꼭 `from mmcv.Config import fromfile`파일과 함께 사용된다. 
+     - 이 파일은 꼭 `from mmcv.Config import fromfile`파일과 함께 사용된다. 
 
-   - ```python
-     from mmcv import Config
-     cfg = Config.fromfile('./configs/faster_rcnn/faster_rcnn_r50_caffe_fpn_mstrain_1x_coco.py')
-     ```
+     - mmcv.Config.fromfile path  -> 그냥 쉽게 생각하며 `dictionary`이다!
 
-   - 이 다음에 cfg 파일을 수정하고 싶으면, **. (dot)** 을 이용해서 수정이 가능하다. 
+     - [fast_rcnn_r50_caffe_fpn_1x_coco.py](https://github.com/open-mmlab/mmdetection/blob/master/configs/fast_rcnn/fast_rcnn_r50_caffe_fpn_1x_coco.py) 기에 들어가봐도, dict이라는 dictionary생성자를 이용해서 config파일을 생성한다. 
 
-   - ```python
-     from mmdet.apis import set_random_seed
-     
-     # Modify dataset type and path
-     cfg.dataset_type = 'KittiTinyDataset'
-     cfg.data_root = 'kitti_tiny/'
-     ```
+     - ```python
+       from mmcv import Config
+         fg = Config.fromfile('./configs/faster_rcnn/faster_rcnn_r50_caffe_fpn_mstrain_1x_coco.py')
+       ```
 
-   - 
+     - 이 다음에 cfg 파일을 수정하고 싶으면, **. (dot)** 을 이용해서 수정이 가능하다. 
 
+     - ```python
+       from mmdet.apis import set_random_seed
+       
+       ```
 
+      Modify dataset type and path
+       cfg.dataset_type = 'KittiTinyDataset'
+       cfg.data_root = 'kitti_tiny/'
+       ```
+
+     - cfg.data 를 보면 아래와 같은 Key, Value가 있는 것을 확인할 수 있다. 
+
+     - ```python
+       type(cfg) # cv.utils.config.Config
+       type(cfg.data) # mmcv.utils.config.ConfigDict
+       cfg.data 
+       """
+       {'samples_per_gpu': 2,
+        'test': {'ann_file': 'data/coco/annotations/instances_val2017.json',
+         'img_prefix': 'data/coco/val2017/',
+         'pipeline': [{'type': 'LoadImageFromFile'},
+          {'flip': False,
+           'img_scale': (1333, 800),
+           'transforms': [{'keep_ratio': True, 'type': 'Resize'},
+            {'type': 'RandomFlip'},
+            {'mean': [103.53, 116.28, 123.675],
+             'std': [1.0, 1.0, 1.0],
+             'to_rgb': False,
+             'type': 'Normalize'},
+            {'size_divisor': 32, 'type': 'Pad'},
+            {'keys': ['img'], 'type': 'ImageToTensor'},
+            {'keys': ['img'], 'type': 'Collect'}],
+           'type': 'MultiScaleFlipAug'}],
+         'type': 'CocoDataset'},
+        ....
+        ....
+       """
+       ```
+
+     - 위에서 확인한 Key를 아래와 같이 수정할 수 있다.
+
+     - ```python
+       
+       ```
+
+     - 
 
 
 

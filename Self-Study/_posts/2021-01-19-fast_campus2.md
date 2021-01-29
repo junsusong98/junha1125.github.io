@@ -526,4 +526,122 @@ title: 【CV】Computer Vision at FastCampus 2
 
 6. 루카스-카나데 옴티컬 플로우(OneDrive\20.2학기\컴퓨터비전\OpticalFlow.pdf참조)
 
+   - Optical flow : 객체의 움직임에 의해 나타나는 객체의 이동 (백터) 정보 패턴. 아래 식에서 V는 객체의 x,y방향 움직임 속도이고, I에 대한 미분값은 엣지검출시 사용하는 픽셀 미분값이다. (컴퓨터비전-윤성의교수님 강의 자료에 예시 문제 참고)    	
+     <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129120210714.png" alt="image-20210129120210714" style="zoom:80%;" />
+
+   - 추가가정 : 이웃 픽셀은 같은 Flow를 가짐 → NxN Window를 사용하면 N2개 방정식 → Least squares method
+
+   - 루카스-카나데 알고리즘(Lucas-Kanade algorithm)  
+
+     - cv2.**calcOpticalFlowPyrLK**(…) : input parameter는 강의자료 + Official document 공부
+     - **Sparse points**에 대한 이동 벡터 계산 → **특정 픽셀**에서 옵티컬플로우 벡터 계산
+     - 몇몇 특정한 점들에 대해서만, Optical Flow를 계산하는 방법
+
+   -  파네백 알고리즘(Farneback's algorithm)
+
+     - cv2.**calcOpticalFlowFarneback**(…) : input parameter는 강의자료 + Official document 공부
+     - **Dense points**에 대한 이동 벡터 계산 → **모든 픽셀**에서 옵티컬플로우 벡터 계산
+     - 이미지 전체 점들에 대해서, Optical Flow를 계산하는 방법
+
+   - ```python
+     pt1 = cv2.goodFeaturesToTrack(gray1, 50, 0.01, 10)
+     pt2, status, err = cv2.calcOpticalFlowPyrLK(src1, src2, pt1, None)
+     # 2개 이미지 겹친 이미지 만들기
+     dst = cv2.addWeighted(src1, 0.5, src2, 0.5, 0)
+     # 화면에 백터 표현하기
+     for i in range(pt2.shape[0]):
+         if status[i, 0] == 0:
+             continue
+         cv2.circle(dst, tuple(pt1[i, 0]), 4, (0, 255, 255), 2, cv2.LINE_AA)
+         cv2.circle(dst, tuple(pt2[i, 0]), 4, (0, 0, 255), 2, cv2.LINE_AA)
+         cv2.arrowedLine(dst, tuple(pt1[i, 0]), tuple(pt2[i, 0]), (0, 255, 0), 2)
+     ```
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129120901079.png" alt="image-20210129120901079" style="zoom:80%;" />
+
+7. 밀집 옵티컬플로우(파네백 알고리즘)
+
+   - 만약 필요하다면, 아래의 코드를 그대로 가져와서 사용하기. 한줄한줄 이해는 (강의자료 보는것 보다는) 직접 찾아보고 ipynb에서 직접 쳐봐서 알아내기 
+
+   - ```python
+     # dense_op1.py 
+     flow = cv2.calcOpticalFlowFarneback(gray1, gray2, None,0.5, 3, 13, 3, 5, 1.1, 0)
+     
+     mag, ang = cv2.cartToPolar(flow[..., 0], flow[..., 1])
+     hsv[..., 0] = ang*180/np.pi/2
+     hsv[..., 2] = cv2.normalize(mag, None, 0, 255, cv2.NORM_MINMAX)
+     
+     bgr = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+     
+     cv2.imshow('frame', frame2)
+     cv2.imshow('flow', bgr)
+     
+     gray1 = gray2
+     ```
+
+   - ```python
+     # # dense_op2.py
+     def draw_flow(img, flow : calcOpticalFlowFarneback의 out값, step=16):
+         h, w = img.shape[:2]
+         y, x = np.mgrid[step/2:h:step, step/2:w:step].reshape(2, -1).astype(int)
+         fx, fy = flow[y, x].T
+         lines = np.vstack([x, y, x+fx, y+fy]).T.reshape(-1, 2, 2)
+         lines = np.int32(lines + 0.5)
+         vis = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+         cv2.polylines(vis, lines, 0, (0, 255, 255), lineType=cv2.LINE_AA)
+     
+         for (x1, y1), (_x2, _y2) in lines:
+             cv2.circle(vis, (x1, y1), 1, (0, 128, 255), -1, lineType=cv2.LINE_AA)
+     
+         return vis
+     ```
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129121417606.png" alt="image-20210129121417606" style="zoom:80%;" />
+
+   - Optical flow를 사용하기 위해서 추천하는 함수들 : 맨 위가 가장 parents,super class이고 아래로 갈 수록 상속을 받는 Derived class,child class,sub class 등이 있다.
+
+     - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129121815328.png" alt="image-20210129121815328" style="zoom:80%;" />
+
+8. OpenCV 트래커
+
+   - OpenCV 4.5 기준으로 4가지 트래킹 알고리즘 지원 (4.1 기준 8가지 지원. 사용안되는건 지원에서 빼 버린것 같다)
+
+   - TrackerCSRT, TrackerGOTURN, TrackerKCF, TrackerMIL
+
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129122329568.png" alt="image-20210129122329568" style="zoom: 67%;" />
+
+   - ```python
+     cap = cv2.VideoCapture('tracking1.mp4')
+     tracker = cv2.TrackerKCF_create()
+     ret, frame = cap.read()
+     rc = cv2.selectROI('frame', frame)
+     tracker.init(frame, rc)
+     while True:
+         ret, frame = cap.read()
+         ret, rc = tracker.update(frame)
+         rc = [int(_) for _ in rc]
+         cv2.rectangle(frame, tuple(rc), (0, 0, 255), 2)
+     ```
+
+   - ![image-20210129122403908](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129122403908.png)
+
+9. 실전 코딩: 핸드 모션 리모컨
+
+   - 움직임이 있는 영역 검출 / 움직임 벡터의 평균 방향 검출
+
+   - cv2.calcOpticalFlowFarneback() -> 움직임 벡터 크기가 특정 임계값(e.g. 2 pixels)보다 큰 영역 안의 움직임만 고려
+
+   -  움직임 벡터의 x방향 성분과 y방향 성분의 평균 계산
+
+     - ```python
+       mx = cv2.mean(vx, mask=motion_mask)[0]
+       my = cv2.mean(vy, mask=motion_mask)[0]
+       m_mag = math.sqrt(mx*mx + my*my)
+       
+       if m_mag > 4.0:
+           m_ang = math.atan2(my, mx) * 180 / math.pi
+           m_ang += 180
+       ```
+
+   - FastCampus_CV\opencv_python_ch06_ch10\ch10\hand_remocon.py
 
