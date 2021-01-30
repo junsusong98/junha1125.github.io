@@ -1,7 +1,7 @@
 ---
 
 layout: post
-title: 【mmdetection】mmdetection SSD 사용해보며 전체 분석하기
+title: 【mmdetection】mmdetection Tutorial and Overview
 ---
 
 - [mmdetection Github](https://github.com/open-mmlab/mmdetection) 
@@ -260,9 +260,9 @@ print(result[1]) # 80개 객체에 대한 w * h * channel(80) 의 bool type의 m
         ....
        """
        ```
-
+    
      - 위에서 확인한 Key를 아래와 같이 수정할 수 있다. **. (dot)** 을 이용해서 수정이 가능하다. 
-
+    
      - ```python
        cfg.dataset_type = 'KittiTinyDataset'
        cfg.data_root = 'kitti_tiny/'
@@ -290,7 +290,7 @@ print(result[1]) # 80개 객체에 대한 w * h * channel(80) 의 bool type의 m
        # print(cfg)를 이쁘게 보는 방법
        print(f'Config:\n{cfg.pretty_text}')
        ```
-
+    
      - 여기서 핵심은, <u>cfg.data.test/train/val.type = '내가 아래에 만들 새로운 dataset'</u> 을 집어 넣는 것이다.
 
 2. **Regist Out Dataset**
@@ -495,7 +495,7 @@ print(result[1]) # 80개 객체에 대한 w * h * channel(80) 의 bool type의 m
 
 - ```python
    model = init_detector(args.config, args.checkpoint, device=device)
-  
+    
   camera = cv2.VideoCapture(args.camera_id)
   
   print('Press "Esc", "q" or "Q" to exit.')
