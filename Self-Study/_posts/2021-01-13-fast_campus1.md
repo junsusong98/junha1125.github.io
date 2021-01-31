@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【CV】Computer Vision at FastCampus 1
+title: 【CV】Computer Vision at FastCampus1, 목차정리, chap1~6 
 description: >
     FastCampus 사이트의 Computer vision 강의 내용 정리
 ---

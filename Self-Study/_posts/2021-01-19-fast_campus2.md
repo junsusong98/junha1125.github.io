@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【CV】Computer Vision at FastCampus 2
+title: 【CV】Computer Vision at FastCampus2, chap7~10
 ---
 
 1.  FastCampus 사이트의 Computer vision 강의 내용 정리
@@ -443,17 +443,17 @@ title: 【CV】Computer Vision at FastCampus 2
 1. 배경 차분 : 정적 배경 차분
 
    - 배경 차분(Background Subtraction: BS) : 등록된 배경 이미지과 현재 입력 프레임 이미지와의 차이(img-src) 영상+Threshold을 이용하여 전경 객체를 검출
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128090501840.png" alt="image-20210128090501840" style="zoom: 80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210128090501840.png?raw=tru" alt="image-20210128090501840" style="zoom: 80%;" />
    - 위의 Foreground mask에다가, 가이시안 필터 -> 레이블링 수행 -> 픽셀 수 100개 이상은 객체만 바운딩 박스 표시
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128090747725.png" alt="image-20210128090747725" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210128090747725.png?raw=tru" alt="image-20210128090747725" style="zoom:80%;" />
 
 2. 배경 차분 : 이동 평균 배경
 
    - 위의 방법은, 조도변화에 약하고 주차된 차도 움직이지 않아야 할 민큼 배경 이미지가 불변해야 한다.
    - 이와 같은 평균 영상을 찾자  
-     ![image-20210128091052381](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128091052381.png)
+     ![image-20210128091052381](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210128091052381.png?raw=tru)
    - 매 프레임이 들어올 때마다 평균 영상을 갱신   
-      <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128091120398.png" alt="image-20210128091120398" style="zoom: 67%;" />
+      <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210128091120398.png?raw=tru" alt="image-20210128091120398" style="zoom: 67%;" />
    - **cv2.accumulateWeighted**(src, dst, alpha, mask=None) -> dst  
      즉, dst(x ,y ) = (1 - alpha) * dst(x ,y ) + alpha src(x ,y ) 
 
@@ -463,7 +463,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
    - **각 픽셀**에 대해 MOG 확률 모델을 설정하여 배경과 전경을 구분 (구체적인 내용은 직접 찾아서 공부해보기-paper : Improved adaptive Gaussian mixture model for background subtraction) 
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128100755318.png" alt="image-20210128100755318" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210128100755318.png?raw=tru" alt="image-20210128100755318" style="zoom:80%;" />
 
    - ```python
      cap = cv2.VideoCapture('PETS2000.avi')
@@ -485,7 +485,7 @@ title: 【CV】Computer Vision at FastCampus 2
    - Tracking : **Mean Shift, CamShift, Optical Flow, Trackers in OpenCV 3.x**
 
    - Mean shift=mode seeking : 데이터가 가장 밀집되어 있는 부분을 찾아내기 위한 방법, 예를 들어 가오시안 이면 평균 위치를 찾는 방법. 아래에 하늘색 원을 랜덤으로 생성한 후, 그 내부의 빨간색 원들의 x,y평균을 찾는다. 그리고 그 x,y평균점으로 하늘색 원을 옮겨 놓는다(이래서 Mean shift). 이 작업을 반복하다 보면, 결국 하늘색 원은 빨간색 원이 가장 밀집한 곳으로 옮겨 가게 된다.   
-     <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128101804262.png" alt="image-20210128101804262" style="zoom:80%;" />
+     <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210128101804262.png?raw=tru" alt="image-20210128101804262" style="zoom:80%;" />
 
    - 사람의 얼굴 살색을, [히스토그램 역투영법](https://junha1125.github.io/blog/self-study/2021-01-13-fast_campus1/#chap3---%EA%B8%B0%EB%B3%B8-%EC%98%81%EC%83%81-%EC%B2%98%EB%A6%AC-%EA%B8%B0%EB%B2%95)으로 찾은 후 그 영역에 대한 평균점을 찾아가면서 Tracking을 한다. 
 
@@ -494,7 +494,7 @@ title: 【CV】Computer Vision at FastCampus 2
      - probImage : 히스토그램 역투영 영생
      - window : 초기 검색 영역 윈도우 & 결과 영역 반환
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210128102346633.png" alt="image-20210128102346633" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210128102346633.png?raw=tru" alt="image-20210128102346633" style="zoom:80%;" />
 
    - ```python
      # 첫번째 프레임의 HS 히스토그램 구하기
@@ -527,7 +527,7 @@ title: 【CV】Computer Vision at FastCampus 2
 6. 루카스-카나데 옴티컬 플로우(OneDrive\20.2학기\컴퓨터비전\OpticalFlow.pdf참조)
 
    - Optical flow : 객체의 움직임에 의해 나타나는 객체의 이동 (백터) 정보 패턴. 아래 식에서 V는 객체의 x,y방향 움직임 속도이고, I에 대한 미분값은 엣지검출시 사용하는 픽셀 미분값이다. (컴퓨터비전-윤성의교수님 강의 자료에 예시 문제 참고)    	
-     <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129120210714.png" alt="image-20210129120210714" style="zoom:80%;" />
+     <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210129120210714.png?raw=tru" alt="image-20210129120210714" style="zoom:80%;" />
 
    - 추가가정 : 이웃 픽셀은 같은 Flow를 가짐 → NxN Window를 사용하면 N2개 방정식 → Least squares method
 
@@ -557,7 +557,7 @@ title: 【CV】Computer Vision at FastCampus 2
          cv2.arrowedLine(dst, tuple(pt1[i, 0]), tuple(pt2[i, 0]), (0, 255, 0), 2)
      ```
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129120901079.png" alt="image-20210129120901079" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210129120901079.png?raw=tru" alt="image-20210129120901079" style="zoom:80%;" />
 
 7. 밀집 옵티컬플로우(파네백 알고리즘)
 
@@ -596,11 +596,11 @@ title: 【CV】Computer Vision at FastCampus 2
          return vis
      ```
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129121417606.png" alt="image-20210129121417606" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210129121417606.png?raw=tru" alt="image-20210129121417606" style="zoom:80%;" />
 
    - Optical flow를 사용하기 위해서 추천하는 함수들 : 맨 위가 가장 parents,super class이고 아래로 갈 수록 상속을 받는 Derived class,child class,sub class 등이 있다.
 
-     - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129121815328.png" alt="image-20210129121815328" style="zoom:80%;" />
+     - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210129121815328.png?raw=tru" alt="image-20210129121815328" style="zoom:80%;" />
 
 8. OpenCV 트래커
 
@@ -608,7 +608,7 @@ title: 【CV】Computer Vision at FastCampus 2
 
    - TrackerCSRT, TrackerGOTURN, TrackerKCF, TrackerMIL
 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129122329568.png" alt="image-20210129122329568" style="zoom: 67%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210129122329568.png?raw=tru" alt="image-20210129122329568" style="zoom: 67%;" />
 
    - ```python
      cap = cv2.VideoCapture('tracking1.mp4')
@@ -623,7 +623,7 @@ title: 【CV】Computer Vision at FastCampus 2
          cv2.rectangle(frame, tuple(rc), (0, 0, 255), 2)
      ```
 
-   - ![image-20210129122403908](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210129122403908.png)
+   - ![image-20210129122403908](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210129122403908.png?raw=tru)
 
 9. 실전 코딩: 핸드 모션 리모컨
 

@@ -21,6 +21,8 @@ title: 【Detection】Understanding SSD paper with code w/ advice
 
 
 
+# 1. Single Shot Detector - SSD
+
 1. Abstract, Introduction 
 
 2. SSD
@@ -28,7 +30,7 @@ title: 【Detection】Understanding SSD paper with code w/ advice
    - each default box를 통해서 예측하는 2가지. **(1) the shape offsets relative** and **(2) the confidences** 
 
    - In Traning, Default Box와 GT Box를 matching값을 비교한다. 아래의 사진의 빨간색, 파란색 점선처럼 **Positive**인 것만을 다른다. 나머지는 Negative. 이다. 이때 사용하는 **Loss함수**는, localization loss (e.g. Smooth L1) and confidence loss (e.g. Softmax)  
-     <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210130171652887.png" alt="image-20210130171652887" style="zoom:90%;" />
+     <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210130171652887.png?raw=tru" alt="image-20210130171652887" style="zoom:90%;" />
 
    -  predictions of detections at multiple scale object.
 
@@ -40,7 +42,7 @@ title: 【Detection】Understanding SSD paper with code w/ advice
 
      2. **Loss 함수 이해하기**
 
-        - ![image-20210130192315918](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210130192315918.png)
+        - ![image-20210130192315918](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210130192315918.png?raw=tru)
 
         - ```sh
           N : positive dafault box 갯수 = the number of matched default boxes
@@ -60,7 +62,7 @@ title: 【Detection】Understanding SSD paper with code w/ advice
      - s와 m에 대한 내용은 논문 보다, [a-PyTorch-Tutorial-to-Object-Detection#priors](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Object-Detection#priors)에 더 잘 나와 있다. 
      - 핵심은 s (Prior Sclase) are precalculated. Feature Map Dimensions에 대해 한 1 x 1 cell이 이미지에서 몇 퍼센트 비율의 receptive field를 차지하는지를 대강 계산해서 표현해 놓은 값이다. 
      - 논문과 위 사이트에 있는 수식들을 정리하면 아래와 같다. 
-     - ![image-20210130223712924](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210130223712924.png)
+     - ![image-20210130223712924](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210130223712924.png?raw=tru)
 
    - Hard negative mining :  the negatives and positives is at most 3:1 비율 학습
 
@@ -72,7 +74,7 @@ title: 【Detection】Understanding SSD paper with code w/ advice
 
 
 
-# mmdetection for SSD
+# 2. mmdetection for SSD
 
 1. `init_detector`를 통해서 SSD inference 되는 과정
    1. def **init_detector**(config, checkpoint=None, device='cuda:0', cfg_options=None):
@@ -85,12 +87,12 @@ title: 【Detection】Understanding SSD paper with code w/ advice
    8. def **build_from_cfg**(cfg, registry, default_args=None):
    9. 후.. 여기까지. 일단 패스
 2. 아래의 과정을 통해 Config과정을 통해서 SSD가 이뤄지는지 보기 위한 작업들이다.    
-   <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210130153957160.png" alt="image-20210130153957160" style="zoom:80%;" />
+   <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210130153957160.png?raw=tru" alt="image-20210130153957160" style="zoom:80%;" />
 3. 위의 결과를 통해 나는 이런 결과를 낼 수 있었다. **<u>mmdetection을 가지고 모델 내부 구조 코드를 볼 생각을 하지 말자.</u>** 
 
 
 
-# lufficc/SSD
+# 3. lufficc/SSD
 
 1. 전체를 분석하는 것은 이전 Post [SSD Pytorch Research](https://junha1125.github.io/blog/pytorch-docker-git/2021-01-08-SSD_pytorch/) 에 잘 기록해 두었다. 
 2. 이번에 다시 보는 이유는, SSD paper를 읽고, SSD에서 이해가 안됐던 내용을 코드를 통해 공부하고, 혹은 이 논문 부분을 코드로 어떻게 구현했지? 를 알아보기 위해 공부한 내용을 정리하기 위함이다. 
