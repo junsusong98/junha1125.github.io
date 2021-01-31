@@ -233,64 +233,62 @@ print(result[1]) # 80개 객체에 대한 w * h * channel(80) 의 bool type의 m
 
      - cfg.data 를 보면 아래와 같은 Key, Value가 있는 것을 확인할 수 있다. 
 
+      - ```python
+        type(cfg) # cv.utils.config.Config
+        type(cfg.data) # mmcv.utils.config.ConfigDict
+        cfg.data 
+        """
+        {'samples_per_gpu': 2,
+         'test': {'ann_file': 'data/coco/annotations/instances_val2017.json',
+          'img_prefix': 'data/coco/val2017/',
+          'pipeline': [{'type': 'LoadImageFromFile'},
+           {'flip': False,
+            'img_scale': (1333, 800),
+            'transforms': [{'keep_ratio': True, 'type': 'Resize'},
+             {'type': 'RandomFlip'},
+             {'mean': [103.53, 116.28, 123.675],
+              'std': [1.0, 1.0, 1.0],
+              'to_rgb': False,
+              'type': 'Normalize'},
+             {'size_divisor': 32, 'type': 'Pad'},
+             {'keys': ['img'], 'type': 'ImageToTensor'},
+             {'keys': ['img'], 'type': 'Collect'}],
+            'type': 'MultiScaleFlipAug'}],
+          'type': 'CocoDataset'},
+         ....
+         ....
+        ```
+        
+     - 위에서 확인한 Key를 아래와 같이 수정할 수 있다. **. (dot)** 을 이용해서 수정이 가능하다. 
 
      - ```python
-       type(cfg) # cv.utils.config.Config
-       type(cfg.data) # mmcv.utils.config.ConfigDict
-       cfg.data 
-       """
-       {'samples_per_gpu': 2,
-        'test': {'ann_file': 'data/coco/annotations/instances_val2017.json',
-         'img_prefix': 'data/coco/val2017/',
-         'pipeline': [{'type': 'LoadImageFromFile'},
-          {'flip': False,
-           'img_scale': (1333, 800),
-           'transforms': [{'keep_ratio': True, 'type': 'Resize'},
-            {'type': 'RandomFlip'},
-            {'mean': [103.53, 116.28, 123.675],
-             'std': [1.0, 1.0, 1.0],
-             'to_rgb': False,
-             'type': 'Normalize'},
-            {'size_divisor': 32, 'type': 'Pad'},
-            {'keys': ['img'], 'type': 'ImageToTensor'},
-            {'keys': ['img'], 'type': 'Collect'}],
-           'type': 'MultiScaleFlipAug'}],
-         'type': 'CocoDataset'},
-        ....
-        ....
-       """
+          cfg.dataset_type = 'KittiTinyDataset'
+          cfg.data_root = 'kitti_tiny/'
+          
+          cfg.data.test.type = 'KittiTinyDataset'
+          cfg.data.test.data_root = 'kitti_tiny/'
+          cfg.data.test.ann_file = 'train.txt'
+          cfg.data.test.img_prefix = 'training/image_2'
+          
+          ... (mmdetection/demo/MMDet_Tutorial.ipynb 파일 참조)
+          
+          # The original learning rate (LR) is set for 8-GPU training.
+          # We divide it by 8 since we only use one GPU.
+          cfg.optimizer.lr = 0.02 / 8
+          cfg.lr_config.warmup = None
+          cfg.log_config.interval = 10
+          
+          # Change the evaluation metric since we use customized dataset.
+          cfg.evaluation.metric = 'mAP'
+          # We can set the evaluation interval to reduce the evaluation times
+          cfg.evaluation.interval = 12
+          # We can set the checkpoint saving interval to reduce the storage cost
+          cfg.checkpoint_config.interval = 12
+          
+          # print(cfg)를 이쁘게 보는 방법
+          print(f'Config:\n{cfg.pretty_text}')
        ```
-    
-     - 위에서 확인한 Key를 아래와 같이 수정할 수 있다. **. (dot)** 을 이용해서 수정이 가능하다. 
-    
-     - ```python
-       cfg.dataset_type = 'KittiTinyDataset'
-       cfg.data_root = 'kitti_tiny/'
-       
-       cfg.data.test.type = 'KittiTinyDataset'
-       cfg.data.test.data_root = 'kitti_tiny/'
-       cfg.data.test.ann_file = 'train.txt'
-       cfg.data.test.img_prefix = 'training/image_2'
-       
-       ... (mmdetection/demo/MMDet_Tutorial.ipynb 파일 참조)
-       
-       # The original learning rate (LR) is set for 8-GPU training.
-       # We divide it by 8 since we only use one GPU.
-       cfg.optimizer.lr = 0.02 / 8
-       cfg.lr_config.warmup = None
-       cfg.log_config.interval = 10
-       
-       # Change the evaluation metric since we use customized dataset.
-       cfg.evaluation.metric = 'mAP'
-       # We can set the evaluation interval to reduce the evaluation times
-       cfg.evaluation.interval = 12
-       # We can set the checkpoint saving interval to reduce the storage cost
-       cfg.checkpoint_config.interval = 12
-       
-       # print(cfg)를 이쁘게 보는 방법
-       print(f'Config:\n{cfg.pretty_text}')
-       ```
-    
+
      - 여기서 핵심은, <u>cfg.data.test/train/val.type = '내가 아래에 만들 새로운 dataset'</u> 을 집어 넣는 것이다.
 
 2. **Regist Out Dataset**
@@ -514,7 +512,9 @@ print(result[1]) # 80개 객체에 대한 w * h * channel(80) 의 bool type의 m
 
 
 
+# 5. mmdetection for SSD
 
+- [2021-01-29-SSDwithCode](https://junha1125.github.io/blog/artificial-intelligence/2021-01-29-SSDwithCode/#2-mmdetection-for-ssd)
 
 
 

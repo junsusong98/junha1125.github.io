@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Detection】Understanding Mask-RCNN paper with code 
+title: 【In-Segmen】Understanding Mask-RCNN(+RPN) paper with code 
 ---
 
 - **논문** : [Mask R-CNN](https://arxiv.org/pdf/1703.06870.pdf)
@@ -9,6 +9,8 @@ title: 【Detection】Understanding Mask-RCNN paper with code
 - **읽는 배경** : Recognition Basic. Understand confusing and ambiguous things.
 - **읽으면서 생각할 포인트** : 코드와 함께 최대한 완벽히 이해하기. 이해한 것 정확히 기록해두기.
 - **느낀점**  : 
+  1. RoIAlign 논문 보면 이해할 수 있게 만들어 놓은 줄 알았는데, 그렇지도 않다. 차라리 아래의 Post글을 보는게 훨씬 좋다. 이런걸 보면, **논문을 읽고, 나의 생각을 조금 추가해서 이해하는게 정말 필요한듯 하다.** 논문에는 정확한 설명을 적어놓은게 아니므로. 
+  2. 논문 요약본 보다는, 직관적(intuitive) 이해를 적어놓은 유투브나, 아래의 Bilinear interpolation과 같은 블로그를 공부하는게 자세한 이해, 완벽한 이해를 가능케 하는 것 같다.
 - **내 블로그 관련 Post** : 
   - (1) [Mask R-CNN by DVCR](https://junha1125.github.io/blog/artificial-intelligence/2020-09-01-1mask-rcnn/) 
     1. FCN : Pixel wise Classification 
@@ -24,4 +26,25 @@ title: 【Detection】Understanding Mask-RCNN paper with code
 
 # 1. Mask-RCNN
 
-- 
+1. Abstract, Introduction, Related Work
+2. Mask R-CNN
+   - Mask Representation :
+     1. mask-branch output : \[m^2 x K channel\] binary(sigmoid) mask (K-classes, mxm masks of resolution)
+     2. fc layer를 사용하는 것보다, FCN 개념의 convolutions을 사용함으로써 더 좋은 결과. spatial dimensions information을 읽지 않을 수 있었다. 
+   - but Loss_mask is only defined on the k-th mask(K channel 중 k번째 채널)
+   - RoIAlign :  bilinear interpolation, ROI를 n x n으로 자른 후의 한 cell을 논문에서는 bin이라고 표현함. ROIAlign은 논문에서 이해할 수 없게 적어놓았다. 
+   - Network Architecture :  straightforward structure bask-branch
+   - RPN 개념은 faster-rcnn을 그대로 이용했으므로, mask-rcnn 코드를 보고 RPN의 활용을 좀 더 구체적으로 공부해 보자. faster-rcnn 논문 보지말고 이전 나의 블로그 포스트 참조([20-08-15-FastRCNN](https://junha1125.github.io/blog/artificial-intelligence/2020-08-15-1FastRCNN/))
+
+
+
+# 2. Detectron2 - MaskRCNN
+
+1. Detectron2 전반적인 지식은 다음 게시물 참조 (210131-Detectron2 Tutorial and Overview)
+
+
+
+# 3. multimodallearning/pytorch-mask-rcnn
+
+1. Github Link : [multimodallearning/pytorch-mask-rcnn](multimodallearning/pytorch-mask-rcnn)
+2. 원래 이해가 안됐다가, 이해가 된 **[RPN] [ROI-Align] [Mask-Branch] [Loss_mask]** 에 대해서 코드로 공부해보자. 
