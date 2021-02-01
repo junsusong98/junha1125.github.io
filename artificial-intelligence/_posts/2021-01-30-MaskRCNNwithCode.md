@@ -40,9 +40,26 @@ title: 【In-Segmen】Understanding Mask-RCNN(+RPN) paper with code
 
 # 2. Detectron2 - MaskRCNN
 
-1. Detectron2 전반적인 지식은 다음 게시물 참조 (210131-Detectron2 Tutorial and Overview)
-
-
+1. Detectron2 전반적인 지식은 다음 게시물 참조 ([Detectron2 Tutorial and Overview](https://junha1125.github.io/blog/pytorch-docker-git/2021-01-31-Detectron2/))
+2. config 파일 분석하기 - mmdetection에서는 py 파일의 dict 형식을 이용한 것과 다르게, yaml 형식 이용
+   - ![image](https://user-images.githubusercontent.com/46951365/106410797-09a36d80-6487-11eb-805d-ead089ce5951.png)
+3. `from detectron2.config import get_cfg` 분석하기
+   - detectron2/config/config.py : `def get_cfg() -> CfgNode:`
+   - detectron2/config/config.py : `class CfgNode(_CfgNode):`
+   - `from fvcore.common.config import CfgNode as _CfgNode` 
+   - facebookresearch/fvcorefvcore : [github](https://github.com/facebookresearch/fvcore/blob/master/fvcore/common/config.py) -> `from yacs.config import CfgNode as _CfgNode`
+   - 즉 yacs 모듈을 이용한 config 파일 생성
+   - 어렵게 생각할거 없이(중간과정 공부할 필요 없이), 나는 아래의 작업만 하면 된다. 
+     1. cfg = get_cfg() 로 생성한 변수 cfg에 들어가는 모든 변수 확인 ([config/defaults.py](https://github.com/facebookresearch/detectron2/blob/master/detectron2/config/defaults.py))
+     2. 여기서 필요한 cfg 자료만 수정하기
+     3. 그 이후 detectron2의 모든 파일들은 `cfg.DATALOADER.NUM_WORKERS` 이와 같이 cfg파일 내부에 저장된 변수만 그대로 불러 사용한다. (그래서 더더욱 fvcore, yacs 몰라도 됨)
+     4. self.model = build_model(self.cfg) (`class DefaultPredictor: IN engine/defaults.py`)
+4. class `DefaultPredictor` in engine/defaults.py
+   - class DfaultPredictor에 대한 """ 주석 설명 ([defaults.py#L161](https://github.com/facebookresearch/detectron2/blob/master/detectron2/engine/defaults.py#L161)- 별거없음)
+   - def \_\_init\_\_(self, cfg) : self.model = **build_model**(self.cfg)
+   - detectron2/modeling/meta_arch/build.py : `def build_model(cfg): model = META_ARCH_REGISTRY.get(meta_arch)(cfg) `
+     - cfg.MODEL.META_ARCHITECTURE 에 적혀있는 model architecture 를 build한다. weight는 load하지 않은 상태이다. DfaultPredictor에서 model weight load 해준다. `checkpointer.load(cfg.MODEL.WEIGHTS)`
+     - 
 
 # 3. multimodallearning/pytorch-mask-rcnn
 
