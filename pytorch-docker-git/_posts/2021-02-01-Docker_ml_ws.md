@@ -69,6 +69,47 @@ title: 【docker】container setting using ML-workspace
    - 굳이 IP설정을 해주지 않더라도 잘 연결된다. ([GCP에서의 SSH 설정하기](https://junha1125.github.io/blog/ubuntu-python-algorithm/2020-09-19-SSHvscode/) 이것과는 달리..)
    - 만약 문제가 생기면 config 파일 여는 방법
    - ctrl+shift+p -> Remote-Containers: Open Attached Container Configuration File
+   
+## 5. detectron2 using ml-workspce 
+
+1. ```sh
+   import torch, torchvision
+    print(torch.__version__, torch.cuda.is_available())
+
+    import detectron2
+    from detectron2.utils.logger import setup_logger
+    setup_logger()
+
+    # import some common libraries
+    import numpy as np
+    import os, json, cv2, random
+
+    # import some common detectron2 utilities
+    from detectron2 import model_zoo
+    from detectron2.engine import DefaultPredictor
+    from detectron2.config import get_cfg
+    from detectron2.utils.visualizer import Visualizer
+    from detectron2.data import MetadataCatalog, DatasetCatalog
+
+    im = cv2.imread("./input.jpg")
+
+    cfg = get_cfg()
+    cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5  # set threshold for this model
+    cfg.MODEL.DEVICE = "cpu" # 필수!!!!
+    cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
+    predictor = DefaultPredictor(cfg)
+    outputs = predictor(im)
+
+    print(outputs["instances"].pred_classes)
+    print(outputs["instances"].pred_boxes)
+   ```
+2. ```sh
+   $ python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.7/index.html
+   $ pip install torch==1.7.1+cpu torchvision==0.8.2+cpu torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+   ```
+3. 1번을 그대로 실행하니 에러발생. 2번의 과정을 통해서 에러 해결.
+
 
 
 
