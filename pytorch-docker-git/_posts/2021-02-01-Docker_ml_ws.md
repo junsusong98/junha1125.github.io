@@ -112,6 +112,68 @@ title: 【docker】container setting using ML-workspace
    $ pip install torch==1.7.1+cpu torchvision==0.8.2+cpu torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
    ```
 3. 1번을 그대로 실행하니 에러발생. 2번의 과정을 통해서 에러 해결.
+4. 에러내용 - DefaultPredictor가 어떤 흐름으로 실행되는지 대충 훔처 볼 수 있다.    
+    ```sh
+    AssertionError:
+    Torch not compiled with CUDA enabled
+    # /opt/conda/bin/python /workspace/test.py
+    1.7.1 False
+    ** fvcore version of PathManager will be deprecated soon. **
+    ** Please migrate to the version in iopath repo. **
+    https://github.com/facebookresearch/iopath 
+
+    ** fvcore version of PathManager will be deprecated soon. **
+    ** Please migrate to the version in iopath repo. **
+    https://github.com/facebookresearch/iopath 
+
+    model_final_f10217.pkl: 178MB [01:03, 2.79MB/s]                                                                                                                                                        
+    # MODEL.DEVICE = 'cpu' 
+    -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    test.py 29 <module>
+    outputs = predictor(im)
+
+    defaults.py 223 __call__
+    predictions = self.model([inputs])[0]
+
+    module.py 727 _call_impl
+    result = self.forward(*input, **kwargs)
+
+    rcnn.py 149 forward
+    return self.inference(batched_inputs)
+
+    rcnn.py 202 inference
+    proposals, _ = self.proposal_generator(images, features, None)
+
+    module.py 727 _call_impl
+    result = self.forward(*input, **kwargs)
+
+    rpn.py 448 forward
+    proposals = self.predict_proposals(
+
+    rpn.py 474 predict_proposals
+    return find_top_rpn_proposals(
+
+    proposal_utils.py 104 find_top_rpn_proposals
+    keep = batched_nms(boxes.tensor, scores_per_img, lvl, nms_thresh)
+
+    nms.py 21 batched_nms
+    return box_ops.batched_nms(boxes.float(), scores, idxs, iou_threshold)
+
+    _trace.py 1100 wrapper
+    return fn(*args, **kwargs)
+
+    boxes.py 88 batched_nms
+    keep = nms(boxes_for_nms, scores, iou_threshold)
+
+    boxes.py 41 nms
+    _assert_has_ops()
+
+    extension.py 62 _assert_has_ops
+    raise RuntimeError(
+
+    RuntimeError:
+    Couldn't load custom C++ ops. This can happen if your PyTorch and torchvision versions are incompatible, or if you had errors while compiling torchvision from source. For further information on the compatible versions, check https://github.com/pytorch/vision#installation for the compatibility matrix. Please check your PyTorch version with torch.__version__ and your torchvision version with torchvision.__version__ and verify if they are compatible, and if not please reinstall torchvision so that it matches your PyTorch install.
+    ```
 
 
 
