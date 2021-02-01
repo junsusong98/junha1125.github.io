@@ -59,7 +59,7 @@ title: 【In-Segmen】Understanding Mask-RCNN(+RPN) paper with code
    - def \_\_init\_\_(self, cfg) : self.model = **build_model**(self.cfg)
    - detectron2/modeling/meta_arch/build.py : `def build_model(cfg): model = META_ARCH_REGISTRY.get(meta_arch)(cfg) `
      - cfg.MODEL.META_ARCHITECTURE 에 적혀있는 model architecture 를 build한다. weight는 load하지 않은 상태이다. DfaultPredictor에서 model weight load 해준다. `checkpointer.load(cfg.MODEL.WEIGHTS)`
-     - 
+     - 드디어 디버깅 가능. 밥먹고 와서 디버깅 해보자. 안되면 모르겠다 시발 존나 어렵네.
 
 # 3. multimodallearning/pytorch-mask-rcnn
 

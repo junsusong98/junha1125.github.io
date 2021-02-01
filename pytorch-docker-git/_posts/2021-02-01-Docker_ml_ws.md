@@ -70,6 +70,9 @@ title: 【docker】container setting using ML-workspace
    - 만약 문제가 생기면 config 파일 여는 방법
    - ctrl+shift+p -> Remote-Containers: Open Attached Container Configuration File
    
+
+
+
 ## 5. detectron2 using ml-workspce 
 
 1. ```sh
