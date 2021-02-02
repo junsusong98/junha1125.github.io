@@ -28,21 +28,21 @@ title: 【Detection】Understanding YOLOv3 paper without code
    - not use a **softmax** for multilabel classification. Yes  **logistic classifiers**
    - binary cross-entropy loss
 4. **Predictions Across Scales**
-   - ![image-20210202212841671](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210202212841671.png)
+   - ![image-20210202212841671](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210202212841671.png?raw=tru)
    - 주황색 단이 우리가 SSD나 RetinaNet에서 보는 detect-head classification, regression 단이다.
    - 위와 같이 3개의 p를 사용한다. 그리고 하나의 cell에 대해서, 3개의 Anchor box만 사용한다. 
    - COCO dataset에 대해서, K-mean clustering을 사용해서 가장 적절한 bounding box(Anchor box 크기)값을 찾는다. 결론적으로 (10×13),(16×30),(33×23) // (30×61),(62×45),(59× 119) // (116 × 90),(156 × 198),(373 × 326) 를 사용한다. (동영상 : 내가 찾고자 하는 객체의 특징을 반영해서 bounding box크기를 적절히 설정하는 것도 아주 중요하다. 예를 들어 사람을 detect하고 싶다면 가로로 긴 박스는 필요없다)
    - 당연히 작은 bounding box는 가장 마지막 단의 cell에서 사용되는 box, 큰 bounding box는 가장 첫번째 단의 cell에서 사용되는 box이다.
 5. **Things We Tried That Didn’t Work**
    - Offset predictions : linear 함수를 사용해봤지만 성능 저하.   
-     ![image-20210202222512434](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210202222512434.png)
+     ![image-20210202222512434](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210202222512434.png?raw=tru)
    - Focal Loss : objectness score라는 개념이 들어가서, 이것으로 easy, hard Image에 따른 성능 저하는 없었다. 차라리 Focal Loss를 사용해서 성능 저하가 일어났다. 또한 objectness score 덕분에 hard negative mining과 같은 작업을 하지 않았다. 즉 objectness score를 통해 class imbalance 문제를 다소 해결했다.
    - Dual IOU thresholds and truth assignment : Faster RCNN 에서는 2개의 IOU thresholds를 사용했다. (0.7과 0.3) 0.7을 넘으면 Positive example, 0.7과 0.3 사이는 학습에 사용하지 않고, 0.3 이하는 Negative example로 background 예측에 사용했다. 비슷한 전력을 사용했지만 결과는 좋지 않았다. 
 6. COCO의 AP 계산에 대한 비판
    - YOLOv3는 좋은 detector이다. 하지만 COCO AP는 IOU를 [0.5부터 : 0.95까지 : 0.05단위로] 바꾸며 mAP를 계산한다. 이건 의미가 없다! 인간이 IOU 0.3~0.5를 눈으로 계산해보라고 하면 못하더라! 
    - COCO에서는 Pascal voc보다 labelling 이 정확한건 알겠다.(Bounding Box를 정확하게 친다는 등) 하지만 IOU가 0.5보다 정확하게 Detect해야한다는 사실은 의미가 없다. 0.5보다 높게 Threshold를 가져가면... classification은 정확하게 됐는데, regression 좀 부정확하게 쳤다고 그걸 틀린 판단이라고 확정해버리는 것은 억울하다. 
    - mAP는 옳지 않은 지표이다.
-     - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210202223526436.png" alt="image-20210202223526436" style="zoom: 50%;" />
+     - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210202223526436.png?raw=tru" alt="image-20210202223526436" style="zoom: 50%;" />
      - 이 그림에서 위의 Detector 1 이 훨씬 잘했다고 우리는 생각한다. 하지만 둘다 mAP를 계산하면 놀랍게도 1이 나온다. 2개를 이용해 recall, precise 그래프를 그려보면 오른쪽 위와 같은 그래프가 된다. 초록색 라인이 Detector1이고 주황색 라인이 Detector2이다!  
      - [mAP 이론 설명 이전 Post ](https://junha1125.github.io/blog/artificial-intelligence/2020-08-10-detect,segmenta/#5-%ED%95%84%EC%88%98-%EC%84%B1%EB%8A%A5%EC%A7%80%ED%91%9C-map-mean-average-precision) 
 

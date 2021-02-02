@@ -34,12 +34,12 @@ title: 【Detection】Understanding RetinaNet paper with code
      - Class Imbalance문제를 focal loss를 사용해서 naturally, handle 하고 자 한다.
      -  robust loss 라는 방식은 hard example의 loss를 더욱 키우는 방식이지만, focal loss에서는 반대이다. easy example의 loss를 아주 작게 만든다.
 2. **Focal Loss**
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210202134254020.png" alt="image-20210202134254020" style="zoom:67%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210202134254020.png?raw=tru" alt="image-20210202134254020" style="zoom:67%;" />
    - γ는 2~5값을 사용했고, α는 balanced variable 이다. Focal loss의 정확한 형태(정확한 하이퍼파라메터값)은 중요하지 않다. 적당한 어떤 값이하도 효율적으로 작동한다. 
    - for γ = 2, α = 0.25 works best
 3. **RetinaNet Detector**
    - 이 논문의 핵심은 Forcal Loss. **to t eliminates** the accuracy gap **between** easy and hard examples. 따라서 Architecture는 아주 simple.
-   - ![image-20210202145424687](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210202145424687.png)
+   - ![image-20210202145424687](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210202145424687.png?raw=tru)
    - (c) subnet에 들어갈 Channels = 256 and \# Anchor = 9. 그리고 Ryramid간의 parameter share는 안한다.
 4. **Anchors**
    - On pyramid levels P3 to P7, areas of 32^2 to 512^2 개의 cell에 각각 Anchor가 적용된다. 
