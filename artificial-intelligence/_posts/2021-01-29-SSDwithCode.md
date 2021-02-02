@@ -96,5 +96,6 @@ title: 【Detection】Understanding SSD paper with code w/ advice
 
 1. 전체를 분석하는 것은 이전 Post [SSD Pytorch Research](https://junha1125.github.io/blog/pytorch-docker-git/2021-01-08-SSD_pytorch/) 에 잘 기록해 두었다. 
 2. 이번에 다시 보는 이유는, SSD paper를 읽고, SSD에서 이해가 안됐던 내용을 코드를 통해 공부하고, 혹은 이 논문 부분을 코드로 어떻게 구현했지? 를 알아보기 위해 공부한 내용을 정리하기 위함이다. 
-3. 원래 이해가 안됐다가, 이해가 된 **\[Loss 함수 이해하기\]  \[default boxes about scales and aspect ratios\] 는 코드에서 정확히 어떻게 구현되어 있는지 공부해 보자**. 
+3. 원래 이해가 안됐다가, 이해가 된 **\[Localization Loss function 이해하기\]  \[default boxes about scales and aspect ratios\] 는 코드에서 정확히 어떻게 구현되어 있는지 공부해 보자**. 
+4. 원래는 공부하려고 했으나... "차오닝 박사과정 선배의 조언에 의하면, 이거 하는거 의미없다. 어차피 너의 아이디어를 코드에 넣고 실험하고 연구하고 논문을 쓰는 것은 이것과는 완전히 다른 이야기다. 원래 있는 패키지의 몇 줄만 추가하면 된다." 라고 하셔서 일단.. keep 해놓으려고 한다. 나중에 필요하면 다시 와서 공부하도록 하자.
 

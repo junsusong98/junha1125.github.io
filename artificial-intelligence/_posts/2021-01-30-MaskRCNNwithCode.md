@@ -35,6 +35,7 @@ title: 【In-Segmen】Understanding Mask-RCNN(+RPN) paper with code
    - RoIAlign :  bilinear interpolation, ROI를 n x n으로 자른 후의 한 cell을 논문에서는 bin이라고 표현함. ROIAlign은 논문에서 이해할 수 없게 적어놓았다. 
    - Network Architecture :  straightforward structure bask-branch
    - RPN 개념은 faster-rcnn을 그대로 이용했으므로, mask-rcnn 코드를 보고 RPN의 활용을 좀 더 구체적으로 공부해 보자. faster-rcnn 논문 보지말고 이전 나의 블로그 포스트 참조([20-08-15-FastRCNN](https://junha1125.github.io/blog/artificial-intelligence/2020-08-15-1FastRCNN/))
+3. 특히 Localization Loss function & default(Anchor) boxes about scales and aspect ratios 에 대한 내용은 [SSD w/ code Post](https://junha1125.github.io/blog/artificial-intelligence/2021-01-29-SSDwithCode/) 를 참고 하면 좋은 이해가 가능하다. 
 
 
 
@@ -58,10 +59,26 @@ title: 【In-Segmen】Understanding Mask-RCNN(+RPN) paper with code
    - class DfaultPredictor에 대한 """ 주석 설명 ([defaults.py#L161](https://github.com/facebookresearch/detectron2/blob/master/detectron2/engine/defaults.py#L161)- 별거없음)
    - def \_\_init\_\_(self, cfg) : self.model = **build_model**(self.cfg)
    - detectron2/modeling/meta_arch/build.py : `def build_model(cfg): model = META_ARCH_REGISTRY.get(meta_arch)(cfg) `
-     - cfg.MODEL.META_ARCHITECTURE 에 적혀있는 model architecture 를 build한다. weight는 load하지 않은 상태이다. DfaultPredictor에서 model weight load 해준다. `checkpointer.load(cfg.MODEL.WEIGHTS)`
-     - 드디어 디버깅 가능. 밥먹고 와서 디버깅 해보자. 안되면 모르겠다 시발 존나 어렵네.
+     - cfg.MODEL.**META_ARCHITECTURE** 에 적혀있는 model architecture 를 build한다. ( weight는 load하지 않은 상태이다. DfaultPredictor에서 model weight load 해준다. `checkpointer.load(cfg.MODEL.WEIGHTS)` )
+     - `from detectron2.utils.registry import Registry`  -> `META_ARCH_REGISTRY = Registry("META_ARCH")`
+     - detectron2/utils/registry.py : `from fvcore.common.registry import Registry`
+     - fvcore로 넘어가는거 보니... 이렇게 타고 가는게 의미가 없는 듯 하다.
+   - 따라서 다음과 같은 디버깅을 수행해 보았다.   
+     ![image](https://user-images.githubusercontent.com/46951365/106547980-8a2ea080-6551-11eb-8862-c9de1bc5cd1b.png)
+   - model의 핵심은 `GeneralizedRCNN` 인듯하다. 따라서 다음의 파일을 분석해보기로 하였다. 
+     - detectron2/modeling/meta_arch/rcnn.py : `class GeneralizedRCNN(nn.Module):`
+     - 이 과정은 다음을 수행한다
+       1. Per-image feature extraction (aka backbone)
+       2. Region proposal generation
+       3. Per-region feature extraction and prediction
+   - 여기까지 결론 : 
+     - 내가 원하는 것은, 원래 이해가 안됐다가 이해가 된 부분의 코드를 확인해 보는 것 이었다.(3.2 참조) 하지만 이 같은 코드 구조로 공부를 하는 것은 큰 의미가 없을 듯 하다. 
+     - 어쨋든 핵심은 [detectron2/detectron2/modeling](https://github.com/facebookresearch/detectron2/tree/master/detectron2/modeling) 내부에 있는 코드들이다.  코드 제목을 보고 정말 필요한 내용의 코드만 조금씩 읽고 이해해보는게 좋겠다. 여기있는 클래스와 함수를, 다른 사용자가 '모듈로써' 가져와서 사용하기 쉽게 만들어 놓았을 것이다. 따라서 필요하면 그때 가져와서 사용해보자.
+
+
 
 # 3. multimodallearning/pytorch-mask-rcnn
 
 1. Github Link : [multimodallearning/pytorch-mask-rcnn](multimodallearning/pytorch-mask-rcnn)
-2. 원래 이해가 안됐다가, 이해가 된 **[RPN] [ROI-Align] [Mask-Branch] [Loss_mask]** 에 대해서 코드로 공부해보자. 
+2. 원래 이해가 안됐다가, 이해가 된 **[RPN-Anchor사용법] [ROI-Align] [Mask-Branch] [Loss_mask]** 에 대해서 코드로 공부해보자. 
+3. 원래는 공부하려고 했으나... "차오닝 박사과정 선배의 조언에 의하면, 이거 하는거 의미없다. 어차피 너의 아이디어를 코드에 넣고 실험하고 연구하고 논문을 쓰는 것은 이것과는 완전히 다른 이야기다. 원래 있는 패키지의 몇 줄만 추가하면 된다." 라고 하셔서 일단.. keep 해놓으려고 한다. 나중에 필요하면 다시 와서 공부하도록 하자.
