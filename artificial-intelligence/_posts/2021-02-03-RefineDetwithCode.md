@@ -10,7 +10,8 @@ title: 【Detection】Understanding RefineDet paper with code
 - **읽으면서 생각할 포인트** : 코드와 함께 최대한 완벽히 이해하기. 이해한 것 정확히 기록해두기.
 - **참고 블로그** : [Method Review](https://hoya012.github.io/blog/Tutorials-of-Object-Detection-Using-Deep-Learning-performance-two/)
 - **느낀점**  : 
-  - 
+
+  
 
 
 
@@ -85,7 +86,7 @@ title: 【Detection】Understanding RefineDet paper with code
    - ARM과 ODM에 대한 똑같은 설명
    - TCB (transfer connection block) : ARM에서 ODM에게 Feature를 보내주는 모듈
    - SSD -> DSSD (SSD+Deconvolution) ->  DSOD(learn object detectors from 'scratch') -> Focal Loss,  classification strategies(for class imbalance problem) 
-   - ![image-20210203173932901](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210203173932901.png)
+   - ![image-20210203173932901](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210203173932901.png?raw=tru)
 3. **Network Architecture**
    - 핵심은 이와 같다,
      1. TCB, ARM, ODM
@@ -99,16 +100,61 @@ title: 【Detection】Understanding RefineDet paper with code
      2. ARM에서 Anchors의 size와 location을 조정한다!
         - 하나의 cell에 n개의 anchor box를 할당한다. 각 cell에 대해 4개의 offset값, 2개의 confidence score(background=negative, foreground=positive) 값을 예측한다. (총 6개 값이 ARM에서 예측됨 = the refined anchor boxes feature)
         - ODM에서는 각 cell에 대해서 c+4의 channel이 output으로 나오게 설정한다.
-        - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210203193841008.png" alt="image-20210203193841008" style="zoom: 50%;" />
+        - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210203193841008.png?raw=tru" alt="image-20210203193841008" style="zoom: 50%;" />
         - **빨간색 X의 의미는 틀렸다는 의미다!!** celadon parallelogram(청자색 평행사변형) 의 feature가 6 channel로 concat되는게 아니다. 코드를 확인해 보면 다음과 같이 설명할 수 있다. 
         - "ARM에서 만들어지는 변수 arm_loc, arm_conf는 loss를 계산하는데 사용된다. 이 Loss값을 줄이기 위해 arm_loc, arm_conf는 최대한 정답값에 가까워지기 위해 노력한다. 그 말은 ARM의 Feature map(코드에서 Source변수)들이, arm_loc, arm_conf이 정확하게 나오도록, 값이 유도된다는 뜻이다. 이 과정을 통해 ARM의 Feature map은 ODM에서 Localization, Detection을 하기 위해 필요한, 충분한 정보를 담게 된다는 것을 의미한다."
    - <u>Negative Anchor Filtering</u>
      1. 2개의 confidence score 중 negative 값이 일정 threshold(=0.99) 이상 보다 크면, *ODM training* 중에 사용하지 않는다. 이 과정에서 너무 많은 negative anchor가 제외되고, negative anchor box에 대한 loss값은 줄어든다. (Focal Loss 때의 [Post 참조](https://junha1125.github.io/blog/artificial-intelligence/2020-08-23-RetinaNet/))  
      2. *inferene* 동안에 negative값이 너무 커도, ODM에서의 detection값은 무시된다.
 4. **Training and Inference**
-   - dd
+   
+   - <u>Anchors Design and Matching</u>
+   
+     1. stride : sizes 8, 16, 32, and 64 pixels
+     2. scale : stride x 4
+     3. ratios : three aspect ratios (i.e., 0.5, 1.0, and 2.0)
+     4. GT와 the best overlap score를 가지는 Anchor box를 matching 시킨 후, 그리고 0.5이상의 IOU를 가진 Anchor box를 매칭 시켰다. (?) (그렇다면 Positive, Negative 값의 GT값이 무엇인지 궁금하다. 코드를 봤지만 나중에 필요하면 다시 찾아보는게 좋겠다.)
+   
+   - <u>Hard Negative Mining</u>
+   
+     1. 대부분의 ARM_confidence값이 큰 Negative를 가진다. 너무큰 Negative를 가지는 값은 ODM에서 나오는 c+4값은 무시된다. (즉 Negative값이 Focal loss나 objectness score로 사용된다.)
+     2. *training* 에서 top loss를 만들어내는 Negative anchor에 대해서만 ODM 학습을 한다.(위의 설명처럼, 예측 negative값이 1에 가깝지 않을수록 negative anchor에 대한 loss가 커진다.) 거기다가 한술 더떠서 SSD의 hard Negative Mining기법을 사용해서, Negative : Positive의 비율을 3:1정도로 유지 되도록 anchor를 준비해 loss값을 계산한다. 
+   
+   - <u>Loss Function</u>
+   
+     1. ARM을 위한 Loss, ODM을 위한 Loss로 나뉜다.
+   
+     2. <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210203230521468.png?raw=tru" alt="image-20210203230521468" style="zoom:80%;" />
+   
+     3. 여기서 궁금한것은 (1)번 항에서 Negative(=background)와 Positive(=foreround)에 대한 모든 학습이 이뤄질텐데, 왜 Positive anchor갯수만 사용하는 N_arm으로 나누지? 코드를 봐도 그렇다. 이유는 모르겠다. 하지만 큰 의미는 없는 듯 하다.
+   
+     4. ```python
+        num_pos = pos.long().sum(1, keepdim=True)
+        num_neg = torch.clamp(self.negpos_ratio*num_pos, max=pos.size(1)-1)
+        
+        N = num_pos.data.sum().float()
+        #N = max(num_pos.data.sum().float(), 1)
+        loss_l /= N
+        loss_c /= N
+        ```
+   
+   - <u>Optimization</u>
+   
+     1. the “xavier” method to randomly initialize
+     2. batch size = 32
+     3. SGD with 0.9 momentum and 0.0005 weight decay
+     4. initial learning rate to 10−e
+     5. use slightly different learning rate decay policy
+   
+   - <u>Inference</u>
+   
+     1. theta=0.99보다 큰 Negative를 가지는 conf는 ARM에 부터 제거 된다. 
+     2. ARM에서 anchor를 refine하고 그거를 다시 ODM에서 anchor refine한 값이 예측 Bounding Box 좌표
+     3. Out으로 나오는 모~든 예측 Bounding box 중에서, confidence가 놓은 순서로 400개의 예측 box를 찾고, 그 400개에 대해서 NMS를 수행한다. 
+     4. 좀 더 정확한 사항은 'detection_refinedet.py-NMS수행' 파일 참조. (논문에 이상하게 쓰여 있다)
 5. **Experiment**
-   - dd
+   
+   - 모든 데이터에 대해서,  multi-scale testing 기법을 사용해서 더 좋은 결과를 얻었다. (블로그와 달리 이 논문에서는  multi-scale testing에 대한 설명은 하나도 없다. "그냥 썼다."가 끝이다. 몇배를 어떻게 하고~ 에 대한 이야기는 없다. )
 
 
 
@@ -181,11 +227,15 @@ title: 【Detection】Understanding RefineDet paper with code
        	
        	(A)3 그러면서 Detect_RefineDet함수가 돌아갈때는 '기본 Anchor위치에 arm_loc를 먼저 적용하고, 그 다음에 odm_loc를 적용해서 나오는 예측 bounding box 값'을 정답값으로 사용한다. 
            """
-           
+           for i in range(num):
+               default = decode(arm_loc_data[i], prior_data, self.variance)
+            default = center_size(default)
+               decoded_boxes = decode(loc_data[i], default, self.variance)
+        
        ```
-
+   
    - RefineDet.PyTorch/train_refinedet.py
-
+   
      - ```python
        def train():
            """
@@ -205,21 +255,47 @@ title: 【Detection】Understanding RefineDet paper with code
            odm_loss_l, odm_loss_c = odm_criterion(out, targets)
            
            arm_loss = arm_loss_l + arm_loss_c
-           odm_loss = odm_loss_l + odm_loss_c
+        odm_loss = odm_loss_l + odm_loss_c
            loss = arm_loss + odm_loss
-           loss.backward()
+        loss.backward()
        ```
-
+   
    - RefineDet.PyTorch/eval_refinedet.py
-
+   
      - ```python
        if __name__ == '__main__':
            net = build_refinedet('test', int(args.input_size), num_classes)  
            test_net(args.save_folder, net, args.cuda ...)
        
        def test_net(save_folder, net, cuda, dataset, transform, top_k, ...)
-           detections = net(x).data         	
+           detections = net(x).data     
        ```
+     
+   - RefineDet.PyTorch/layers/modules/refinedet_multibox_loss.py
+   
+     - ```python
+       # 구체적으로 설명할 수 없지만, 궁금한게 Loss함수에 많이 구현되어 있다. 자주 볼거다.
+       defaults = priors.data # Anchor들이 '이미지 위'에 위치하는 위치()를 정확하게 적어놓은 값.
+       if self.use_ARM:
+           refine_match(self.threshold, truths, defaults, self.variance, labels,
+                        loc_t, conf_t, idx, arm_loc_data[idx].data)
+       else:
+           refine_match(self.threshold, truths, defaults, self.variance, labels,
+                            loc_t, conf_t, idx)
+       ```
+   
+   - RefineDet.PyTorch/layers/box_utils.py
+   
+     - ```python
+       def refine_match(threshold, truths, priors, variances, ...):
+           """
+           (A)4 내가 (A)2에서 했던 말이 맞았다!!
+           loss를 계산할 때, refine_match라는 함수를 통해서 만약 ODM에 대한 odm_loc_data를 계산하고 싶다면, priors 위치를 한번 arm_loc_data로 offset refine한 후, 다시 odm_loc_data로 offset refine하고 나서 원래 GT-bounding box 위치랑 비교를 한다. 
+           이 함수에서 그러한 작업을 수행한다. 
+           """
+       ```
+   
+     - 
 
 
 
