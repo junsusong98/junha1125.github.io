@@ -79,6 +79,89 @@ title: 【In-Segmen】Understanding Mask-RCNN(+RPN) paper with code
 
 # 3. multimodallearning/pytorch-mask-rcnn
 
-1. Github Link : [multimodallearning/pytorch-mask-rcnn](multimodallearning/pytorch-mask-rcnn)
-2. 원래 이해가 안됐다가, 이해가 된 **[RPN-Anchor사용법] [ROI-Align] [Mask-Branch] [Loss_mask]** 에 대해서 코드로 공부해보자. 
-3. 원래는 공부하려고 했으나... "차오닝 박사과정 선배의 조언에 의하면, 이거 하는거 의미없다. 어차피 너의 아이디어를 코드에 넣고 실험하고 연구하고 논문을 쓰는 것은 이것과는 완전히 다른 이야기다. 원래 있는 패키지의 몇 줄만 추가하면 된다." 라고 하셔서 일단.. keep 해놓으려고 한다. 나중에 필요하면 다시 와서 공부하도록 하자.
+1. Github Link : [multimodallearning/pytorch-mask-rcnn](https://github.com/multimodallearning/pytorch-mask-rcnn)
+
+2. 코드가 모듈화가 거의 안되어 있다. [model.py](https://github.com/multimodallearning/pytorch-mask-rcnn/blob/master/model.py)에 거의 모든 구현이 다 되어 있다. 그래서 더 이해하기 쉽다.
+
+3. 아래의 내용들이 코드로 어떻게 구현되었는지 궁금하다.
+
+   - (1) RPN-Anchor사용법
+   - (2) ROI-Align
+   - (3) Mask-Branch
+   - (4) Loss_mask
+   - **(5) RPN의 output값이 Head부분의 classification/localization에서 어떻게 쓰이는지**
+
+4. 원래는 공부하려고 했으나... 나중에 필요하면 다시 와서 공부하도록 하자.
+
+5. 2020.02.04 - RefineDet까지 공부하면서 코드를 통해서 헷갈리는 것을 분명히 파악하는 것이 얼마나 중요한 것인지 깨달았다. 따라서 그나마 가장 궁금했던 것 하나만 빠르게 분석하려고 한다. 
+
+6. **(5) RPN의 output값이 Head부분의 classification/localization에서 어떻게 쓰이는가?** 
+
+   - RPN에서 나오는 2(positive, negative objectness score)+4(offset relative) = 6개의 정보.
+
+   - 위에서 나온 ROI 중에서, 정말 객체가 있을 법한 정제된 ROI 즉 rpn_rois를 추출
+
+   - rpn_rois에서 4(offset relative) 값만 이용한다. Backbone에서 나온 Feature Map에서 저 4(offset relative)에 대한 영역만 ROI Pooing (ROI Align)을 수행한다. 
+
+   - **pytorch-mask-rcnn/model.py ** 코드로 확인
+
+   - ```python
+     # pytorch-mask-rcnn/model.py
+     
+     def proposal_layer(inputs, proposal_count, nms_threshold, anchors, config=None):
+         """
+         RPN에서 나온 결과들 중 정말 필요한 ROI만을 걸러주는 Layer
+         아래의 (bg prob, fg prob) = (negative=easy confidence, pasitive=hard confidence)를 이용해서 적당한 
+         Inputs:
+             rpn_probs: [batch, anchors, (bg prob, fg prob)]
+             rpn_bbox: [batch, anchors, (dy, dx, log(dh), log(dw))]
+         Returns:
+             Proposals in normalized coordinates [batch, rois, (y1, x1, y2, x2)]
+         """
+         
+     outputs = list(zip(*layer_outputs)) # BackBone + RPN을 통과하고 나온느 결과들
+     outputs = [torch.cat(list(o), dim=1) for o in outputs] 
+     rpn_class_logits, rpn_class, rpn_bbox = outputs
+     
+     # rpn_rois 위의 함수에 의해 나온 정제된 rpn_rois 
+     rpn_rois = proposal_layer([rpn_class, rpn_bbox],
+                               proposal_count=proposal_count,
+                               nms_threshold=self.config.RPN_NMS_THRESHOLD,
+                               anchors=self.anchors,
+                               config=self.config)
+     
+     # rpn_rois가 self.classifier에 들어가는 것에 집중
+     if mode == 'inference':
+         mrcnn_class_logits, mrcnn_class, mrcnn_bbox = self.classifier(mrcnn_feature_maps, rpn_rois)
+         
+     # rpn_rois가 detection_target_layer함수에 의해 rois가 되고, self.classifier에 들어가는 것에 집중
+     elif mode == 'training':
+         rois, target_class_ids, target_deltas, target_mask = detection_target_layer(rpn_rois, gt_class_ids, gt_boxes, gt_masks, self.config)
+         mrcnn_class_logits, mrcnn_class, mrcnn_bbox = self.classifier(mrcnn_feature_maps, rois)    
+     ```
+
+   - ```python
+     # self.Classifier가 무엇인가? 
+     self.classifier = Classifier(256, config.POOL_SIZE, config.IMAGE_SHAPE, config.NUM_CLASSES)
+     # Line 908
+     class Classifier(nn.Module):
+         def forward(self, x, rois): # x : backbone 통과하고 나온 feature map
+             x = pyramid_roi_align([rois]+x, self.pool_size, self.image_shape
+             # ** [rois]+x 에 집중!! list에 append 되는 거다! **
+     		# 그 이후 conv2 계속 통과...    
+     
+     def pyramid_roi_align(inputs, pool_size, image_shape):
+     	"""
+     	feature map을 받고 거기서 ROI Pooing => ROP Align 을 수행해 reture해주는 함수
+     	
+     	Inputs = [rois]+x 
+                 Input[0] : refined boxes by 'proposal_layer' func - [batch, num_boxes, (y1, x1, y2, x2)
+                 Input[1] : Feature maps - List of feature maps from different levels 
+     	
+     	Input[0] 가 가리키는 영역에 대해서 Input[1]에서 부터 ROI Aling(Pooing)을 수행한다. 
+     	
+     	return [pooled feature map : RPN이 알려준, Feature Map 중에서 '객체가 있을법한 영역'만 뽑아낸 조각난 Feature map]
+     	"""
+     ```
+
+   
