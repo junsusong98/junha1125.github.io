@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【선형대수】선형대수 정리 1 (한글강의)
+title: 【LinearAlgebra】선형대수 정리 1 (한글강의)
 description: >
     쑤튜브 선형대수 강의내용 정리 1강~22강
 ---

@@ -23,15 +23,15 @@ title: 【Detection】Understanding RefineDet paper with code
 
 1. 논문의 핵심은 "**Multi-Scale Testing기법**" : test 시에도 multi scale을 적용하는 방식
 
-2.  하나의 이미지를 여러 scale에서 **학습**을 하는 논문 
+2. 하나의 이미지를 여러 scale에서 **학습**을 하는 논문 
 
-   - SSD에서는 여러 scale의 feature map에 대해서 적용을 하였고 학습
-   - YOLO는 학습 데이터의 해상도를 320x320 부터 608x608까지 다양한 scale로 resize를 하여 학습
+   1. SSD에서는 여러 scale의 feature map에 대해서 적용을 하였고 학습
+   2. YOLO는 학습 데이터의 해상도를 320x320 부터 608x608까지 다양한 scale로 resize를 하여 학습
 
 3. RefineDet은 SSD 계열의 모델이다. (아래 model Architecture 사진 참조)
 
-   - 1) Anchor Refinement Module(ARM) : Anchor에 대한 binary classification수행. negative anchor들을 걸러내면서, 동시에 anchor들의 위치를 조절(RetinaNet에서 Focal Loss, YOLOv3에서 Objectness score 역할 for class imbalance)
-   - 2) Object Detection Module 
+   1. 1) Anchor Refinement Module(ARM) : Anchor에 대한 binary classification수행. negative anchor들을 걸러내면서, 동시에 anchor들의 위치를 조절(RetinaNet에서 Focal Loss, YOLOv3에서 Objectness score 역할 for class imbalance)
+   2. 2) Object Detection Module 
 
 4. RefineDet의 종류는 (input size) 320, 512, (with Multi-Scale Testing) + 가 있다. 
 
