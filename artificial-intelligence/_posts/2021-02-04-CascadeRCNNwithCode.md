@@ -30,8 +30,8 @@ title: 【Detection】Understanding Cascade R-CNN paper with code
 
 2. 참고 자료 소감 : 
 
-   - 블로그 : 너무 result 해석에 많은 초점을 둔다. 물론 단순한 방법이라지만.. 그리 아름답게 정리해놓은 글인지는 모르겠다. 내용도 약간 두리뭉술해서 나에게는 이해가 어렵다. 논문이나 읽자.
-   - 동영상 : 핵심이 Casecade-Mask RCNN이다. 디테일이 거의 없다. 
+   - 블로그 : 너무 result 해석에 많은 초점을 둔다. 방법론에 대해서는 구체적이지는 않아, 나에게는 이해가 어려웠다. 논문이나 읽자.
+   - 동영상 : 핵심이 Casecade-Mask RCNN이다. 디테일이 거의 없다. 안봄.
 
 3. 참고자료 내용 정리 : 
 
@@ -97,7 +97,7 @@ title: 【Detection】Understanding Cascade R-CNN paper with code
 5. **Cascade R-CNN**
    1. <u>Cascaded Bounding Box Regression</u>
       - 4-3에서 blue dot에 대한 설명과 다르게 distribution이 1-stage와 비슷하게 유지되도록 노력했다. (그래서 나온 결과가 u=0.5, 0.6, 0.7)
-      - ![image-20210204232921641](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210204232921641.png?raw=tru) 는 normalized 된다.   [Faster R-CNN] 널리 사용되는 방법이란다. 코드에서는 구체적인 normalization을 이루진 않았다. (필요하면! 아래의 6-2 stat  부분 참조. + <u>Faster RCNN 논문 참조</u>)
+      - ![image-20210204232921641](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210204232921641.png?raw=tru) 는 normalized 된다.   [Faster R-CNN] 널리 사용되는 방법이란다. 코드에서는 구체적인 normalization을 이루진 않았다. (필요하면! 아래의 아래 6-2 stat  부분 참조.)
    2. <u>Cascaded Detection</u>
       - ![image-20210204234748605](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210204234748605.png?raw=tru)
 6. **Experimental Results**
@@ -107,7 +107,7 @@ title: 【Detection】Understanding Cascade R-CNN paper with code
    2. <u>Generalization Capacity</u>
       - 지금까지는 예측 BB의 GT와의 IOU를 증가시키려고 노력했다. 그럼 Figure(3)-d에서 C1,C2,C3는 어떻게 이용할까? 실험을 통해서 그냥 C3를 이용해서 Class 예측을 하는 것보다는, C1,C2,C3을 **앙상블**함으로써 더 좋은 AP를 얻어내었다고 한다. 
       - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210205123349693.png?raw=tru" alt="image-20210205123349693" style="zoom:80%;" />
-      - (블로그 내용 참조 그리고 FasterRCNN논문도 나중에 참고해보기. 아직 100퍼 이해는 안됨) Regression Statistics = stat : 위의 offset relative 델타 값들은, Faster-RCNN에서 이 파라메터가 잘 나오게 학습시킬 때 L1 loss를 사용한다. 이때 델타값을 normalization하지 않으면 자칫 학습이 잘 이뤄지지 않는 문제가 있었다고 한다. 그래서 각 좌표값을 normalize하는 작업을 수행했다. (4-1의 수식처럼) 각 Stage에서 각자의 기준으로, regressing offset relative값에 대한 normalization을 수행했다는 의미인듯 하다.
+      - (블로그 내용 참조 그리고 ~~FasterRCNN논문도 나중에 참고해보기.~~ 참고해봤는데 이런 내용 없다. 그래서 일단 블로그 작성자에게 "구체적으로 어디서 나온 내용이냐고" 질문 해봄. 질문이 잘 갔는지 모르겠다...) Regression Statistics = stat : 위의 offset relative 델타 값들은, Faster-RCNN에서 이 파라메터가 잘 나오게 학습시킬 때 L1 loss를 사용한다. 이때 델타값을 normalization하지 않으면 자칫 학습이 잘 이뤄지지 않는 문제가 있었다고 한다. 그래서 각 좌표값을 normalize하는 작업을 수행했다. (4-1의 수식처럼) 각 Stage에서 각자의 기준으로, regressing offset relative값에 대한 normalization을 수행했다는 의미인듯 하다.
       - Cascade 모듈은 다른 곳에서 쉽게 적용될 수 있다. 다른 기본 모델에 cacade모듈을 적용하여 효과적인 AP 상승을 이뤄낼 수 있었다고 한다. 
 
 
