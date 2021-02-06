@@ -217,5 +217,8 @@ title: 【CV】Computer Vision at FastCampus3, chap11~13
 
 
 
-# 12. 딥러닝 이해와 영상 인식
+# chap - 12, 13 딥러닝
+
+- cv2.dnn 모듈을 사용해서 합습 및 추론
+- 필요하면 그때 공부하자.
 
