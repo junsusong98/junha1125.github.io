@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【LightWeight】Understanding Xception, MobileNet V1,V2 from youtube w/ advice
+title: 【LightWeight】Understanding Xception, MobileNet V1,V2 from youtube w/ advice 
 ---
 
 - **논문1** : [MobileNet V1 paper link](https://arxiv.org/abs/1704.04861)  / [Youtube Link1](https://www.youtube.com/watch?v=7UoOFKcyIvM)
@@ -14,13 +14,15 @@ title: 【LightWeight】Understanding Xception, MobileNet V1,V2 from youtube w/ 
   3. 여러 선배들과 소통하고, **완벽하게 만들어가지 않더라도** 나의 아이디어로 무언가를 간단하게 만들어 보고 제안해 보는것도 매우 중요하다. **예를 들어서**, "나에게 이런 아이디어가 있으니, 이 분야 논문을 더 읽어보고 코드도 만들어보고 연구도 해보고 비교도 해보고 실험도 많이 해보고, **다~~ 해보고 나서 당당하게! ㅇㅇ선배님께 조언을 구해봐야겠다!**" 라는 태도 보다는 "나에게 이런 아이디어가 있고... 논문 4개만 더 읽고 **대충 나의 아이디어를 PPT로 만들어서 ㅇㅇ선배님께 보여드려보자! 그럼 뭐 좋은건 좋다고 고칠건 고치라고 해주시겠지...! 완벽하진 않더라도 조금 실망하실지라도 조금 철면피 깔고 부딪혀 보자!!"** 라는 마인드.
   4. 논문. **미리미리 써보고 도전하자. 어차피 안하면 후회한다. 부족한 실력이라고 생각하지 말아라. 어려운 거라고 생각하지 말아라. 일단 대가리 박치기 해봐라. 할 수 있다. 목표를 잡고 도전해보자.**
   5. 강의 필기 PDF는 "OneDrive\21.겨울방학\RCV_lab\논문읽기"
-  
+
 - **느낀점** : 말만 삐까번쩍, 번지르르 하게 해놓은 글이 너무 많다. 사**실 몇개 대충 실험해보고 성능 잘나오니까.. 이거를 말로 포장을 해야해서 뭔가 있어보이게 수학적으로 마치 증명한것 마냥 이야기하는 내용이 머신러닝 논문에 너무 많다. 정말 유용한 지식만 걸러서 듣자. Experiment, Result, Ablation 를 통해서 증거를 꼭 찾아보자.** 
 - **목자**
   1. Inception Xception GoogleNet ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-06-MobileNet_youtube/#1-inception-xception-googlenet))
   2. MobileNet v1 ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-06-MobileNet_youtube/#2-mobilenetv1))
   3. MobileNet v2 ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-06-MobileNet_youtube/#3-mobilenetv2))
-  4. MobileNet V2 - Manifold of Interest , Linear Bottlenecks Code ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-06-MobileNet_youtube/#4-Linear-Bottlenecks-Code))
+  4. (다음 Post) MobileNet V2 - Manifold of Interest , Linear Bottlenecks Code (바로가기)
+  5. (다음 Post) MobileNet V3 (바로가기)
+  6. (다음 Post) DenseNet (바로가기)
 
 
 
