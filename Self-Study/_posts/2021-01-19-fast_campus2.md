@@ -166,13 +166,13 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
 
 1. 그랩컷 영상분할
 
-   - 그래프 알고리즘을 이용해서 영상 분할을 수행하는 알고리즘 (정확한 알고리즘은 [논문 참조](https://grabcut.weebly.com/background--algorithm.html))
+   - 그래프 알고리즘을 이용해서 Segmentation을 수행하는 알고리즘 (정확한 알고리즘은 [논문 참조](https://grabcut.weebly.com/background--algorithm.html))
    - **cv2.grabCut(img, mask, rect)**  
      **mask2 = np.where((mask == 0) | (mask == 2), 0, 1).astype('uint8')**  
      **dst = src * mask2[:, :, np.newaxis]**
-   - 마우스를 활용한 그랩컷 영상 분할 예제 : grabcut2.py (강의에서도 보라고 조언만 함) 
+   - 마우스를 활용한 그랩컷 영상 분할 예제 : grabcut2.py  크게 어렵지 않음
 
-2. 모멘트 기반 (비슷한 모양 찾기 기법을 이용한) 객체 검출
+2. 모멘트 기반 (비슷한 모양 찾기 기법을 이용한) 내가 찾고자 하는 객체 검출
 
    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125090819511.png?raw=tru" alt="image-20210125090819511" style="zoom:80%;" />
    - Hu's seven invariant moments : 크기, 회전, 이동, 대칭 변환에 불변
@@ -232,7 +232,7 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125093630644.png?raw=tru" alt="image-20210125093630644" style="zoom: 80%;" />
 
      - 9개 : 180도를 20도 단위로 나눠서 9개 단위로 gradient 분류
-     - 1개 셀 8x8, 1개 블록 16 x 16. 블록 1개 는 36개의 히스토그램 정보를 가짐
+     - 1개 셀 8x8, 1개 블록 16 x 16. 블록 1개 는 36개(4블록 x 9개 Gradient)의 히스토그램 정보를 가짐
 
    - **cv2.HOGDescriptor.detectMultiScale(img)**   
      **hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())**
@@ -353,7 +353,7 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
 
    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210126100307371.png?raw=tru" alt="image-20210126100307371" style="zoom: 60%;" />
 
-   - cv2.findHomography(srcPoints, dstPoints) -> retval, mask
+   - **cv2.findHomography(srcPoints, dstPoints) -> retval, mask**
 
    - good_matches에서 queryIdx, trainIdx 와 같이 2장의 이미지 각각에 대한 특징점 검출 됨.
 
@@ -392,7 +392,7 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
 
    - 동일 장면의 사진을 자연스럽게(seamless) 붙여서 한 장의 사진으로 만드는 기술
 
-   - 특징점과 matching 등등 매우 복잡한 작업이 필요하지만, OpenCV에서 하나의 함수로 구현되어 있다.
+   - **특징점과 matching** 등등 매우 복잡한 작업이 필요하지만, OpenCV에서 **하나의 함수**로 구현되어 있다.
 
    - **cv2.Stitcher_create(, mode=None) -> retval, pano**
 
@@ -440,14 +440,14 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
 
 # 10. 객체 추적과 모션 백터
 
-1. 배경 차분 : 정적 배경 차분
+1. <u>배경 차분 : 정적 배경 차분</u>
 
    - 배경 차분(Background Subtraction: BS) : 등록된 배경 이미지과 현재 입력 프레임 이미지와의 차이(img-src) 영상+Threshold을 이용하여 전경 객체를 검출
    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210128090501840.png?raw=tru" alt="image-20210128090501840" style="zoom: 80%;" />
    - 위의 Foreground mask에다가, 가이시안 필터 -> 레이블링 수행 -> 픽셀 수 100개 이상은 객체만 바운딩 박스 표시
    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210128090747725.png?raw=tru" alt="image-20210128090747725" style="zoom:80%;" />
 
-2. 배경 차분 : 이동 평균 배경
+2. <u>배경 차분 : 이동 평균 배경</u>
 
    - 위의 방법은, 조도변화에 약하고 주차된 차도 움직이지 않아야 할 민큼 배경 이미지가 불변해야 한다.
    - 이와 같은 평균 영상을 찾자  
@@ -457,7 +457,7 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
    - **cv2.accumulateWeighted**(src, dst, alpha, mask=None) -> dst  
      즉, dst(x ,y ) = (1 - alpha) * dst(x ,y ) + alpha src(x ,y ) 
 
-3. 배경 차분 : MOG 배경 모델(Mixture of Gaussian = Gaussian Mixture Model))
+3. <u>배경 차분 : MOG 배경 모델(Mixture of Gaussian = Gaussian Mixture Model))</u>
 
    - 배경 픽셀값 하나하나가, 어떤 가오시간 분표를 따른다고 정의하고 그 분포를 사용하겠다.
 
@@ -480,7 +480,7 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
 
    - 동영상을 보면, **생각보다 엄청 잘되고, 엄청 신기하다...**
 
-4. 평균 이동(Mean shift) 알고리즘 
+4. <u>평균 이동(Mean shift) 알고리즘</u> 
 
    - Tracking : **Mean Shift, CamShift, Optical Flow, Trackers in OpenCV 3.x**
 
@@ -509,7 +509,7 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
 
    - 단점 : 객체가 항상 같은 크기이여야 함. 예를 들어, 위의 귤이 멀어져서 작아지면 검출 안된다.
 
-5. [Cam Sift(캠시프트)](https://fr.wikipedia.org/wiki/Camshift) 알고리즘 
+5. <u>[Cam Sift(캠시프트)](https://fr.wikipedia.org/wiki/Camshift) 알고리즘</u> 
 
    - 위의 단점을 해결하기 위한 알고리즘, 위의 평균 이동 알고리즘을 이용. 
 
@@ -524,12 +524,12 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
      ret, rc = cv2.CamShift(backproj, rc, term_crit)
      ```
 
-6. 루카스-카나데 옴티컬 플로우(OneDrive\20.2학기\컴퓨터비전\OpticalFlow.pdf참조)
+6. <u>루카스-카나데 옴티컬 플로우(OneDrive\20.2학기\컴퓨터비전\OpticalFlow.pdf참조)</u>
 
    - Optical flow : 객체의 움직임에 의해 나타나는 객체의 이동 (백터) 정보 패턴. 아래 식에서 V는 객체의 x,y방향 움직임 속도이고, I에 대한 미분값은 엣지검출시 사용하는 픽셀 미분값이다. (컴퓨터비전-윤성의교수님 강의 자료에 예시 문제 참고)    	
      <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210129120210714.png?raw=tru" alt="image-20210129120210714" style="zoom:80%;" />
 
-   - 추가가정 : 이웃 픽셀은 같은 Flow를 가짐 → NxN Window를 사용하면 N2개 방정식 → Least squares method
+   - 추가 가정 : 이웃 픽셀은 같은 Flow를 가짐 → NxN Window를 사용하면 N^2개 방정식 → Least squares method
 
    - 루카스-카나데 알고리즘(Lucas-Kanade algorithm)  
 
@@ -544,6 +544,7 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
      - 이미지 전체 점들에 대해서, Optical Flow를 계산하는 방법
 
    - ```python
+     # 루카스-카나데 알고리즘(Lucas-Kanade algorithm)  
      pt1 = cv2.goodFeaturesToTrack(gray1, 50, 0.01, 10)
      pt2, status, err = cv2.calcOpticalFlowPyrLK(src1, src2, pt1, None)
      # 2개 이미지 겹친 이미지 만들기
@@ -555,13 +556,13 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
          cv2.circle(dst, tuple(pt1[i, 0]), 4, (0, 255, 255), 2, cv2.LINE_AA)
          cv2.circle(dst, tuple(pt2[i, 0]), 4, (0, 0, 255), 2, cv2.LINE_AA)
          cv2.arrowedLine(dst, tuple(pt1[i, 0]), tuple(pt2[i, 0]), (0, 255, 0), 2)
-     ```
-
+   ```
+     
    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210129120901079.png?raw=tru" alt="image-20210129120901079" style="zoom:80%;" />
 
-7. 밀집 옵티컬플로우(파네백 알고리즘)
+7. <u>밀집 옵티컬플로우 (파네백 알고리즘 예제)</u>
 
-   - 만약 필요하다면, 아래의 코드를 그대로 가져와서 사용하기. 한줄한줄 이해는 (강의자료 보는것 보다는) 직접 찾아보고 ipynb에서 직접 쳐봐서 알아내기 
+   - 만약 필요하다면, 아래의 코드를 그대로 가져와서 사용하기. 한줄한줄 이해는 (강의자료 보는것 보다는) 직접 찾아보고 ipynb에서 직접 쳐봐서 알아내기, 어렵지 않음
 
    - ```python
      # dense_op1.py 
@@ -602,11 +603,11 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
 
      - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210129121815328.png?raw=tru" alt="image-20210129121815328" style="zoom:80%;" />
 
-8. OpenCV 트래커
+8. <u>OpenCV 트래커</u>
 
    - OpenCV 4.5 기준으로 4가지 트래킹 알고리즘 지원 (4.1 기준 8가지 지원. 사용안되는건 지원에서 빼 버린것 같다)
 
-   - TrackerCSRT, TrackerGOTURN, TrackerKCF, TrackerMIL
+   - **TrackerCSRT, TrackerGOTURN, TrackerKCF, TrackerMIL**
 
    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210129122329568.png?raw=tru" alt="image-20210129122329568" style="zoom: 67%;" />
 
@@ -629,7 +630,7 @@ title: 【CV】Computer Vision at FastCampus2, chap7~10
 
    - 움직임이 있는 영역 검출 / 움직임 벡터의 평균 방향 검출
 
-   - cv2.calcOpticalFlowFarneback() -> 움직임 벡터 크기가 특정 임계값(e.g. 2 pixels)보다 큰 영역 안의 움직임만 고려
+   - **cv2.calcOpticalFlowFarneback()** -> 움직임 벡터 크기가 특정 임계값(e.g. 2 pixels)보다 큰 영역 안의 움직임만 고려
 
    -  움직임 벡터의 x방향 성분과 y방향 성분의 평균 계산
 

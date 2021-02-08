@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【CV】Computer Vision at FastCampus1, 목차정리, chap1~6 
+title: 【CV】Computer Vision at FastCampus1, chap1~6 
 description: >
     FastCampus 사이트의 Computer vision 강의 내용 정리
 ---
@@ -201,7 +201,7 @@ cv2.destroyAllWindows()
 5강 OpenCV 기본 명령어
 
 - OpenCV 도움말: [http://docs.opencv.org/](http://docs.opencv.org/) -> 버전 선택
-- cv2.imread(filename, flags = 'cv2.IMREAD_COLOR ')  -> RGB 순서
+- cv2.imread(filename, flags = 'cv2.IMREAD_COLOR ')  -> BGR 순서
 - 이미지 저장 : cv2.imwrite(filename, img : numpy.ndarray, params=None) 
 - 새 창 띄우기(imshow위해 꼭 안해도 됨) : cv2.namedWindow(winname :  str, flags=None) -> None
 - 새 창 모두 닫기 : cv2.destroyWindow(winname : str) 
@@ -282,6 +282,7 @@ cv2.destroyAllWindows()
   
 
 # chap2 - Basic image processing technique
+
 1장
 - cv2.imread('cat.bmp', cv2.IMREAD_COLOR) -> numpy.ndarray **[행, 열, depth, 몇장]**
 - ```python
@@ -510,93 +511,95 @@ cv2.destroyAllWindows()
     ```
 
 
-        # 두 개의 동영상을 열어서 cap1, cap2로 지정
-        cap1 = cv2.VideoCapture('video1.mp4')
-        cap2 = cv2.VideoCapture('video2.mp4')
-    
-        if not cap1.isOpened() or not cap2.isOpened():
-            print('video open failed!')
+~~~python
+    # 두 개의 동영상을 열어서 cap1, cap2로 지정
+    cap1 = cv2.VideoCapture('video1.mp4')
+    cap2 = cv2.VideoCapture('video2.mp4')
+
+    if not cap1.isOpened() or not cap2.isOpened():
+        print('video open failed!')
+        sys.exit()
+
+    # 두 동영상의 크기, FPS는 같다고 가정함
+    frame_cnt1 = round(cap1.get(cv2.CAP_PROP_FRAME_COUNT))  # 15초 * 24 = Total 360 frame
+    frame_cnt2 = round(cap2.get(cv2.CAP_PROP_FRAME_COUNT))
+    fps = cap1.get(cv2.CAP_PROP_FPS) # 24
+    effect_frames = int(fps * 2)  # 48 -> 1번 동영상의 맨 뒤 48프레임과, 2번 동영상의 맨 앞 48프레임이 겹친다
+
+    print('frame_cnt1:', frame_cnt1)
+    print('frame_cnt2:', frame_cnt2)
+    print('FPS:', fps)
+
+    delay = int(1000 / fps)
+
+    w = round(cap1.get(cv2.CAP_PROP_FRAME_WIDTH))
+    h = round(cap1.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+
+    # 출력 동영상 객체 생성
+    out = cv2.VideoWriter('output.avi', fourcc, fps, (w, h))
+
+    # 1번 동영상 복사
+    for i in range(frame_cnt1 - effect_frames):
+        ret1, frame1 = cap1.read()
+
+        if not ret1:
+            print('frame read error!')
             sys.exit()
-    
-        # 두 동영상의 크기, FPS는 같다고 가정함
-        frame_cnt1 = round(cap1.get(cv2.CAP_PROP_FRAME_COUNT))  # 15초 * 24 = Total 360 frame
-        frame_cnt2 = round(cap2.get(cv2.CAP_PROP_FRAME_COUNT))
-        fps = cap1.get(cv2.CAP_PROP_FPS) # 24
-        effect_frames = int(fps * 2)  # 48 -> 1번 동영상의 맨 뒤 48프레임과, 2번 동영상의 맨 앞 48프레임이 겹친다
-    
-        print('frame_cnt1:', frame_cnt1)
-        print('frame_cnt2:', frame_cnt2)
-        print('FPS:', fps)
-    
-        delay = int(1000 / fps)
-    
-        w = round(cap1.get(cv2.CAP_PROP_FRAME_WIDTH))
-        h = round(cap1.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-    
-        # 출력 동영상 객체 생성
-        out = cv2.VideoWriter('output.avi', fourcc, fps, (w, h))
-    
-        # 1번 동영상 복사
-        for i in range(frame_cnt1 - effect_frames):
-            ret1, frame1 = cap1.read()
-    
-            if not ret1:
-                print('frame read error!')
-                sys.exit()
-    
-            out.write(frame1)
-            print('.', end='')
-    
-            cv2.imshow('output', frame1)
-            cv2.waitKey(delay)
-    
-        # 1번 동영상 뒷부분과 2번 동영상 앞부분을 합성
-        for i in range(effect_frames):
-            ret1, frame1 = cap1.read()
-            ret2, frame2 = cap2.read()
-    
-            if not ret1 or not ret2:
-                print('frame read error!')
-                sys.exit()
-    
-            dx = int(w / effect_frames) * i
-    
-            frame = np.zeros((h, w, 3), dtype=np.uint8)
-            frame[:, 0:dx, :] = frame2[:, 0:dx, :]
-            frame[:, dx:w, :] = frame1[:, dx:w, :]
-    
-            #alpha = i / effect_frames
-            #frame = cv2.addWeighted(frame1, 1 - alpha, frame2, alpha, 0)
-    
-            out.write(frame)
-            print('.', end='')
-    
-            cv2.imshow('output', frame)
-            cv2.waitKey(delay)
-    
-        # 2번 동영상을 복사
-        for i in range(effect_frames, frame_cnt2):
-            ret2, frame2 = cap2.read()
-    
-            if not ret2:
-                print('frame read error!')
-                sys.exit()
-    
-            out.write(frame2)
-            print('.', end='')
-    
-            cv2.imshow('output', frame2)
-            cv2.waitKey(delay)
-    
-        print('\noutput.avi file is successfully generated!')
-    
-        cap1.release()
-        cap2.release()
-        out.release()
-        cv2.destroyAllWindows()
-    
-    ```
+
+        out.write(frame1)
+        print('.', end='')
+
+        cv2.imshow('output', frame1)
+        cv2.waitKey(delay)
+
+    # 1번 동영상 뒷부분과 2번 동영상 앞부분을 합성
+    for i in range(effect_frames):
+        ret1, frame1 = cap1.read()
+        ret2, frame2 = cap2.read()
+
+        if not ret1 or not ret2:
+            print('frame read error!')
+            sys.exit()
+
+        dx = int(w / effect_frames) * i
+
+        frame = np.zeros((h, w, 3), dtype=np.uint8)
+        frame[:, 0:dx, :] = frame2[:, 0:dx, :]
+        frame[:, dx:w, :] = frame1[:, dx:w, :]
+
+        #alpha = i / effect_frames
+        #frame = cv2.addWeighted(frame1, 1 - alpha, frame2, alpha, 0)
+
+        out.write(frame)
+        print('.', end='')
+
+        cv2.imshow('output', frame)
+        cv2.waitKey(delay)
+
+    # 2번 동영상을 복사
+    for i in range(effect_frames, frame_cnt2):
+        ret2, frame2 = cap2.read()
+
+        if not ret2:
+            print('frame read error!')
+            sys.exit()
+
+        out.write(frame2)
+        print('.', end='')
+
+        cv2.imshow('output', frame2)
+        cv2.waitKey(delay)
+
+    print('\noutput.avi file is successfully generated!')
+
+    cap1.release()
+    cap2.release()
+    out.release()
+    cv2.destroyAllWindows()
+
+```
+~~~
 
 
 
@@ -704,7 +707,7 @@ Ch 03. 기본적인 영상 처리 기법 - 09. 실전 코딩 - 크로마키 합�
 
   - edge-preserving noise removal filter / Bilateral filter
   - 평균 값 필터 또는 가우시안 필터는 에지 부근에서도 픽셀 값을 평탄하게 만드는 단점
-  - : 에지가 아닌 부분에서만 blurring
+  - 에지가 아닌 부분에서만 blurring(잡음제거)
 
 - 카툰 필터 만들기
 
@@ -769,6 +772,8 @@ Ch 03. 기본적인 영상 처리 기법 - 09. 실전 코딩 - 크로마키 합�
 
 
 # chap5 -  기하학적 변환
+
+- 수학적 공식은 '20년2학기/윤성민 교수님 컴퓨터 비전 수업 자료 참조'
 
 - **cv2.warpAffine**(src, M, dsize, dst=None, flags=None, borderMode=None, borderValue=None) -> dst
 
