@@ -53,7 +53,7 @@ title: 【Detection】Understanding RetinaNet paper with code
    - [SSD에서 공부한 것 처럼](https://junha1125.github.io/blog/artificial-intelligence/2021-01-29-SSDwithCode/), anchor에 대해서 GT box로 가기 위해서 어떻게 늘리고 이동해야하는지에 대한 localization 값을 구하기 위해서 Anchor를 사용한다. 
 5. **Box Regression Subnet**
    - 각 Anchor에 대해서 4개의 값을 예측해야 한다. (box가 얼마나 이동해야 하는 regression offset값)
-   - the purpose of **regressing the offset(=the relative offset)** <u>from</u> (1) each anchor box <u>to</u> a nearby (2) ground-truth object
+   - the purpose of **regressing the offset(=the relative offset)** <u>from</u> (1) each anchor box <u>to</u> (2)  a nearby ground-truth object
    - classification subnet과 regression subnet은 구조를 완전히 같이 사용하지만, 파라미터 공유 안함
 
 

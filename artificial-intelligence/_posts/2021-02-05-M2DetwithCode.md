@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Detection】Understanding M2Det paper with code w/ my advice
+title: 【Detection】Understanding M2Det paper w/ code, my advice
 ---
 
 - **논문** : [M2Det: A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network](https://arxiv.org/abs/1811.04533)
