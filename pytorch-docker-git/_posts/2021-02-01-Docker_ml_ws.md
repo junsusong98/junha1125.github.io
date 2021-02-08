@@ -236,7 +236,40 @@ title: 【docker】container setting using ML-workspace
           $ docker cp <docker-container-name or ID>:/absolut/path/filename ./my_ubuntu/terminal/relative/path
           ```
 
-4. 55
+4. 직접 문제 해결
+  
+   - 나의 문제는 docker remote container가 실행되고 있는 상태(아래 이미지)에서 step-into dugging이 안되는 것이다. 
+   - ![image](https://user-images.githubusercontent.com/46951365/107231156-4bbe4780-6a63-11eb-8cc2-2b1d330d7f83.png)
+   - Google 검색 : "vscode python debug step into not working"
+   - 참고한 사이트 : [stack overflow - Python debugging - Step into](https://stackoverflow.com/questions/53594900/visual-studio-code-python-debugging-step-into-the-code-of-external-functions)
+   - ```json
+     # ctrl + shift + p -> setting -> `> debug : launch json` 검색-> Python file 선택
+     # launch.json
+     {
+          // Use IntelliSense to learn about possible attributes.
+          // Hover to view descriptions of existing attributes.
+          // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+          "version": "0.2.0",
+          "configurations": [
+              {
+                  "name": "Python: Current File",
+                  "type": "python",
+                  "request": "launch",
+                  "program": "${file}",
+                  "console": "integratedTerminal",
+                  "debugOptions" : ["DebugStdLib"],
+                  "justMyCode": false        
+                }
+          ]
+      }
+     ```
+   - step into 된다!! 
+   - ![image](https://user-images.githubusercontent.com/46951365/107231731-fafb1e80-6a63-11eb-8e70-e37fa466302e.png)
+   - ![image](https://user-images.githubusercontent.com/46951365/107231859-241baf00-6a64-11eb-8bf8-b412e1652b57.png)
+   - 2번째 에러 : Module cv2 has no member
+   - 해결 방법 : [https://12340zszs.tistory.com/67](https://12340zszs.tistory.com/67)
+   - ![image](https://user-images.githubusercontent.com/46951365/107232227-84125580-6a64-11eb-9d18-165c6edfae3f.png)
+
 
 
 
