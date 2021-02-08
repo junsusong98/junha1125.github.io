@@ -222,7 +222,7 @@ title: 【Detection】Understanding YOLOv4 paper w/ code, my advice
 
 # 3. Tianxiaomo/pytorch-YOLOv4
 
-1. Github Link : Tianxiaomo/[pytorch-YOLOv4](https://github.com/Tianxiaomo/pytorch-YOLOv4)
+1. Github Link : Tianxiaomo/[pytorch-YOLOv4](https://github.com/Tianxiaomo/pytorch-YOLOv4) (중국어 Issue가 많아서 아쉬웠지만, 이거말고 1.1k star를 가지고 있는 YoloV4-pytorch repo도 대만사람이여서 그냥 둘다 비슷하다고 판단. 2.6k star인 이 repo보는게 낫다)
 2. ONNX : [Open Neural Network Exchange](https://en.wikipedia.org/wiki/Open_Neural_Network_Exchange)
    - machine learning frameworks(Pytorch, Caffe, TF)들 사이의 Switching을 돕기 위해 만들어진 툴 by Facebook, Microsoft
    - onnx라는 파일 형식이 있다. [Convert Pytorch into ONNX Tutorial](https://pytorch.org/tutorials/advanced/super_resolution_with_onnxruntime.html) 
@@ -231,7 +231,7 @@ title: 【Detection】Understanding YOLOv4 paper w/ code, my advice
      - `demo_darknet2onnx.py` : tool to convert into onnx
 3. 이렇게 정리 되어 있어서 너무 좋다. 우리가 여기서 집중해야 할 파일은 `models.py` 
    <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210208143148246.png?raw=tru" alt="image-20210208143148246" style="zoom: 67%;" />
-4. 
+4. 2021.02.08 : **ONNX와 YoloV4에 대한 코드 공부는 지금 당장 필요 없다.** 위에서 사용된 Method들 중 모르는 것은 일단 논문을 읽어야 한다. 그리고 각 Method에 따른 코드를 Github에서 다시 찾던지, 혹은 이 YoloV4 repo에서 찾아서 공부하면 된다.
 
 
 

@@ -42,7 +42,7 @@ title: 【docker】container setting using ML-workspace
 
 - -p : [port 설정 설명](https://www.youtube.com/watch?v=pMY_wPih7R0&list=PLEOnZ6GeucBVj0V5JFQx_6XBbZrrynzMh&index=3)
 
-- -v : "$pwd"/docker_ws:/workspace
+- -v : 나같은 경우 `"$pwd"/docker_ws:/workspace`
 
   - [bind mount](https://docs.docker.com/storage/bind-mounts/)
   - 나의 컴퓨터 terminal의 현재 **"$pwd"**/docker_ws  (나같은 경우 **/home/junha**/docker_ws)
@@ -107,12 +107,18 @@ title: 【docker】container setting using ML-workspace
     print(outputs["instances"].pred_classes)
     print(outputs["instances"].pred_boxes)
    ```
+   
 2. ```sh
    $ python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.7/index.html
    $ pip install torch==1.7.1+cpu torchvision==0.8.2+cpu torchaudio==0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
    ```
+   
 3. 1번을 그대로 실행하니 에러발생. 2번의 과정을 통해서 에러 해결.
-4. 에러내용 - DefaultPredictor가 어떤 흐름으로 실행되는지 대충 훔처 볼 수 있다.    
+
+4. 디버깅이 안된다. Step into로 들어가면, 내가 보고 있는 py파일 뿐만 아니라, Import하는 함수 내부로 들어가서 어떤 파일과 함수가 실행되는지 보고 싶은데 안된다. docker container 내부, ubuntu의 env 속, python 모듈은 디버깅으로 들어갈 수 없는 건가??
+    
+5. 에러내용 - DefaultPredictor가 어떤 흐름으로 실행되는지 대충 훔처 볼 수 있다.    
+
     ```sh
     AssertionError:
     Torch not compiled with CUDA enabled
@@ -121,63 +127,116 @@ title: 【docker】container setting using ML-workspace
     ** fvcore version of PathManager will be deprecated soon. **
     ** Please migrate to the version in iopath repo. **
     https://github.com/facebookresearch/iopath 
-
+    
     ** fvcore version of PathManager will be deprecated soon. **
     ** Please migrate to the version in iopath repo. **
     https://github.com/facebookresearch/iopath 
-
+    
     model_final_f10217.pkl: 178MB [01:03, 2.79MB/s]                                                                                                                                                        
     # MODEL.DEVICE = 'cpu' 
     -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     test.py 29 <module>
     outputs = predictor(im)
-
+    
     defaults.py 223 __call__
     predictions = self.model([inputs])[0]
-
+    
     module.py 727 _call_impl
     result = self.forward(*input, **kwargs)
-
+    
     rcnn.py 149 forward
     return self.inference(batched_inputs)
-
+    
     rcnn.py 202 inference
     proposals, _ = self.proposal_generator(images, features, None)
-
+    
     module.py 727 _call_impl
     result = self.forward(*input, **kwargs)
-
+    
     rpn.py 448 forward
     proposals = self.predict_proposals(
-
+    
     rpn.py 474 predict_proposals
     return find_top_rpn_proposals(
-
+    
     proposal_utils.py 104 find_top_rpn_proposals
     keep = batched_nms(boxes.tensor, scores_per_img, lvl, nms_thresh)
-
+    
     nms.py 21 batched_nms
     return box_ops.batched_nms(boxes.float(), scores, idxs, iou_threshold)
-
+    
     _trace.py 1100 wrapper
     return fn(*args, **kwargs)
-
+    
     boxes.py 88 batched_nms
     keep = nms(boxes_for_nms, scores, iou_threshold)
-
+    
     boxes.py 41 nms
     _assert_has_ops()
-
+    
     extension.py 62 _assert_has_ops
     raise RuntimeError(
-
+    
     RuntimeError:
     Couldn't load custom C++ ops. This can happen if your PyTorch and torchvision versions are incompatible, or if you had errors while compiling torchvision from source. For further information on the compatible versions, check https://github.com/pytorch/vision#installation for the compatibility matrix. Please check your PyTorch version with torch.__version__ and your torchvision version with torchvision.__version__ and verify if they are compatible, and if not please reinstall torchvision so that it matches your PyTorch install.
     ```
 
+    
 
 
 
+## 6. Debug Docker Containers 
+
+1. 명학이의 도움으로 다음의 과정을 진행해 보았다.
+
+   1. ctrl + shift + p -> setting -> `> debug : launch json` 검색-> Python file 선택
+   2. 명학이가 보내준 사진대로 설정. 안됨.
+
+2. VS code Docker debuging : 지금 당장 나에게 맞는 방법은 아니다.
+
+   1. [https://code.visualstudio.com/docs/containers/debug-common](https://code.visualstudio.com/docs/containers/debug-common)
+   2. [https://code.visualstudio.com/docs/containers/debug-python](https://code.visualstudio.com/docs/containers/debug-python)
+
+3. Youtube로 공부해보기 -> 나에게 맞는 정보 없음
+
+   - Link : [How to debug Docker containers! (Python + VSCode)](https://www.youtube.com/watch?v=qCCj7qy72Bg) 
+
+     1. Use **docker exec**
+        - ```sh
+          $ docker run -d \
+              -p 8080:8080 \  # port 설정 
+              --name "ml-workspace" \
+              -v "${PWD}:/workspace" \
+              --env AUTHENTICATE_VIA_JUPYTER="mytoken" \
+              --shm-size 512m \
+              --restart always \
+              --entrypoint=bash
+              mltooling/ml-workspace:0.12.1
+          ```
+
+        - ```sh
+          $ docker exec -it <docker-container-name or ID> bash
+          # new shell start 
+          $ python
+          >> 여기서 module 디버깅
+          ```
+
+     2. Use **Docker cp** 
+
+        - print해서 나올 파일을 text.txt파일에 저장되도록 만든다.
+
+        - ```python
+          with open("time.txt",'w+') as f:
+          	f.write(str(<출력하고 싶은 변수>))
+          ```
+
+        - **docker cp command** 사용하기
+
+        - ```sh
+          $ docker cp <docker-container-name or ID>:/absolut/path/filename ./my_ubuntu/terminal/relative/path
+          ```
+
+4. 55
 
 
 
