@@ -116,7 +116,7 @@ title: 【docker】container setting using ML-workspace
 3. 1번을 그대로 실행하니 에러발생. 2번의 과정을 통해서 에러 해결.
 
 4. 디버깅이 안된다. Step into로 들어가면, 내가 보고 있는 py파일 뿐만 아니라, Import하는 함수 내부로 들어가서 어떤 파일과 함수가 실행되는지 보고 싶은데 안된다. docker container 내부, ubuntu의 env 속, python 모듈은 디버깅으로 들어갈 수 없는 건가??
-    
+   
 5. 에러내용 - DefaultPredictor가 어떤 흐름으로 실행되는지 대충 훔처 볼 수 있다.    
 
     ```sh
@@ -187,7 +187,7 @@ title: 【docker】container setting using ML-workspace
 
 ## 6. Debug Docker Containers 
 
-1. 명학이의 도움으로 다음의 과정을 진행해 보았다.
+1. 명학이의 도움으로 다음의 과정을 진행해 보았다. -> 안됨
 
    1. ctrl + shift + p -> setting -> `> debug : launch json` 검색-> Python file 선택
    2. 명학이가 보내준 사진대로 설정. 안됨.

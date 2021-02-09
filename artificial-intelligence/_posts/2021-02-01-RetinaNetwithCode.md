@@ -38,7 +38,7 @@ title: 【Detection】Understanding RetinaNet paper with code
    - γ는 2~5값을 사용했고, α는 balanced variable 이다. Focal loss의 정확한 형태(정확한 하이퍼파라메터값)은 중요하지 않다. 적당한 어떤 값이하도 효율적으로 작동한다. 
    - for γ = 2, α = 0.25 works best
 3. **RetinaNet Detector**
-   - 이 논문의 핵심은 Forcal Loss. **to t eliminates** the accuracy gap **between** easy and hard examples. 따라서 Architecture는 아주 simple.
+   - 이 논문의 핵심은 Forcal Loss. **to eliminates** the accuracy gap **between** easy and hard examples. 따라서 Architecture는 아주 simple.
    - ![image-20210202145424687](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210202145424687.png?raw=tru)
    - (c) subnet에 들어갈 Channels = 256 and \# Anchor = 9. 그리고 Ryramid간의 parameter share는 안한다.
 4. **Anchors**

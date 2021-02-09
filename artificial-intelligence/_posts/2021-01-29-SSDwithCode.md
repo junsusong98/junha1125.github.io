@@ -32,13 +32,15 @@ title: 【Detection】Understanding SSD paper with code w/ advice
    - In Traning, Default Box와 GT Box를 matching값을 비교한다. 아래의 사진의 빨간색, 파란색 점선처럼 **Positive**인 것만을 다른다. 나머지는 Negative. 이다. 이때 사용하는 **Loss함수**는, localization loss (e.g. Smooth L1) and confidence loss (e.g. Softmax)  
      <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210130171652887.png?raw=tru" alt="image-20210130171652887" style="zoom:90%;" />
 
-   -  predictions of detections at multiple scale object.
+   - Positive에 대해서는 Confidence & regressing Loss를 모두 학습시키고, Negative에 대해서는 Confidence에 대해서만 학습 시킨다.
+     
+   -  Predictions of detections at multiple scale object.
 
    - m × n with p channels의 feature map -> 3 × 3 × p small kernel -> m × n x (class confidence score + shape offset relative(GT에 대한 Default box의 상대적 offset값)) = \[(c + 4)\*k\] channels
 
    - Training
 
-     1. Matching strategy : 자세한 내용 없음. IOU가 0.5 이상인 것만을 Positive로 사용했다.
+     1. Matching strategy : IOU가 0.5 이상인 것만을 Positive로 사용했다. (그 이외 자세한 내용 없음)
 
      2. **Loss 함수 이해하기**
 
@@ -59,7 +61,8 @@ title: 【Detection】Understanding SSD paper with code w/ advice
 
    - **default boxes about scales and aspect ratios** 
 
-     - s와 m에 대한 내용은 논문 보다, [a-PyTorch-Tutorial-to-Object-Detection#priors](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Object-Detection#priors)에 더 잘 나와 있다. 
+     - 논문에 나오는 's와 m'에 대한 개념은 논문 보다, [a-PyTorch-Tutorial-to-Object-Detection#priors](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Object-Detection#priors)에 더 잘 나와 있다.    
+       ![image](https://user-images.githubusercontent.com/46951365/107312877-c8d5d500-6ad4-11eb-8d95-ac0a15ae1e4f.png)
      - 핵심은 s (Prior Sclase) are precalculated. Feature Map Dimensions에 대해 한 1 x 1 cell이 이미지에서 몇 퍼센트 비율의 receptive field를 차지하는지를 대강 계산해서 표현해 놓은 값이다. 
      - 논문과 위 사이트에 있는 수식들을 정리하면 아래와 같다. 
      - ![image-20210130223712924](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210130223712924.png?raw=tru)

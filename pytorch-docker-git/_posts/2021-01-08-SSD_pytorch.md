@@ -280,7 +280,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
             return transform
             ```
     - \_\_init\_\_.py : 
-        
+      
         - build_transforms, build_target_transform 와 같은 함수들이 정의되어 있고, 다른 파일에서 이 함수만 사용함으로써 쉽게 transform을 수행할 수 있다. 
     
 4.  SSD/ssd/data
@@ -299,7 +299,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
             coco_root = os.environ['COCO_ROOT']
             ```
     - ssd/data/datasets/build.py & SSD/dataset/\_\_init\_\_.py 
-        
+      
         - build.py : make_data_loader라는 함수가 정의되어 있고, from torch.utils.data.dataloader import default_collate 를 사용해서, 거의 직접 dataloader를 구현해 놓았다. 
 
 
@@ -467,9 +467,8 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
 - 이 과정을 통해서, **패키지를 보고 탐구하는 것에 대한 두려움이 사라졌다.** 
 - **패키지 내부의 코드를 부셔버려야지, 내가 맨붕와서 부셔지면 안된다.** 라는 것을 깨달았다.
 - 이와 같은 방식으로 탐구해 나간다면, 어떤 패키지와 코드를 만나든, 잘 분석할 수 있겠다. 
-- 추가로!! 다음에 정말 정확히 분성해야할 패키지가 생긴다면, 아래와 같은 작업을 꼭 하자.
+- 추가로!! 다음에 정말 정확히 분석해야할 패키지가 생긴다면, 아래와 같은 작업을 꼭 하자.
     - 원하는 모듈만 import해서, 직접 함수나 클래스를 사용해보거나
     - 디버깅을 해서, 데이터 흐름이 어떻게 되는지 정확하게 뜯어보거나
     - 직접 코드 전체를 가지고 학습이나, inference를 해보거나
     - 즉. **눈으로만 코드 보지말고, 직접 코드를 실행해보고 확인해보자!!**
-와

@@ -21,7 +21,7 @@ title: 【Detection】Understanding YOLOv3 paper without code
 1. **TECH REPORT** not Paper
 2. **Bounding Box Prediction**
    - Anchor(=bounding box != GT_object)를 이용한 the relative offset 개념을 그대로 사용한다.
-   - 이전 모델들과 다르게, 각 bounding-box가 an objectness score 개념을 사용한다. 한 객체에 대해서 가장 많이 겹친 box만 objectness score target = 1을 준다. 
+   - 이전 모델들과 다르게, 각 bounding-box가 an objectness score 개념을 사용한다. 한 객체에 대해서 가장 많이 겹친 box만 objectness score target = 1을 준다. (지금까지 IOU (+confidence)를 이용해서 일정 이상의 값이면 Positive라고 판별하고 objectness score = confidence = 1 을 주었다.)
    - only assigns one bounding box prior for each ground truth object
    - 한 객체 GT에 대한 하나의 bounding box 이외에, 다른 박스들은 class predictions와 coordinate(offset)으로 어떤 loss도 발생시키지 않는다. 단지 objectness sore에 의한 loss만 적용된다. 
 3. **Class Prediction**
@@ -30,7 +30,7 @@ title: 【Detection】Understanding YOLOv3 paper without code
 4. **Predictions Across Scales**
    - ![image-20210202212841671](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210202212841671.png?raw=tru)
    - 주황색 단이 우리가 SSD나 RetinaNet에서 보는 detect-head classification, regression 단이다.
-   - 위와 같이 3개의 p를 사용한다. 그리고 하나의 cell에 대해서, 3개의 Anchor box만 사용한다. 
+   - 위와 같이 3개의 P(pyramid feature)를 사용한다. 그리고 하나의 cell에 대해서, 3개의 Anchor box만 사용한다. 
    - COCO dataset에 대해서, K-mean clustering을 사용해서 가장 적절한 bounding box(Anchor box 크기)값을 찾는다. 결론적으로 (10×13),(16×30),(33×23) // (30×61),(62×45),(59× 119) // (116 × 90),(156 × 198),(373 × 326) 를 사용한다. (동영상 : 내가 찾고자 하는 객체의 특징을 반영해서 bounding box크기를 적절히 설정하는 것도 아주 중요하다. 예를 들어 사람을 detect하고 싶다면 가로로 긴 박스는 필요없다)
    - 당연히 작은 bounding box는 가장 마지막 단의 cell에서 사용되는 box, 큰 bounding box는 가장 첫번째 단의 cell에서 사용되는 box이다.
 5. **Things We Tried That Didn’t Work**
