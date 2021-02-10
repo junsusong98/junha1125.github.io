@@ -58,7 +58,7 @@ title: 【Detection】Understanding EfficentNet+EfficentDet paper w/ code
 - EfficientNet-B0가 Mobile-size의 Baseline Network이고, 그 후 scale up을 한 EfficientNet-B1 to B7 을 만들어 낸다.
 
 - 아래의 그래프를 통해서, ResNet50, ResNet152, DensNet, NASnet등 과의 속도 및 성능 비교를 해보자 : 내 생각에는 Time efficiency면서, ResNet50보다 Parameter수가 많은 것은 아무리 정확도가 높아도 큰 의미 없는 것 같다. 따라서 B4까지만 고려를 한다면, DenseNet과 비교해서도 훨씬 좋은 정확도를 가지고 있다.    
-  ![image-20210209181603689](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210209181603689.png)
+  ![image-20210209181603689](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210209181603689.png?raw=tru)
 
 - MobileNetV3 VS EfficientNet을 비교하는 글에서, EfficientNet이 Transfer laerning에서 그리 안 좋다고 한다. (왜지?) 뭐가 더 좋다고 말 할 수는 없는 것 같다.
 
