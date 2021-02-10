@@ -56,7 +56,7 @@ title: 【Detection】Understanding YOLOv4 paper w/ code, my advice
 - **목차**
   
   1. YoloV4 from youtube ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-08-YoloV4withCode/#1-yolov4-from-youtube))
-  2. YoloV4 Paper ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-08-YoloV4withCode/#2-yolov4-paper))
+  2. YoloV4 Paper ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-08-YoloV4withCode/#2-yolov4-paper-review))
   3. Code - Tianxiaomo/pytorch-YOLOv4 ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-08-YoloV4withCode/#3-tianxiaomopytorch-yolov4))
   4. About YoloV5 ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-08-YoloV4withCode/#4-about-yolov5))
   

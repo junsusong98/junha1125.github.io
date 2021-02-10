@@ -40,6 +40,8 @@ image: /assets/img/catagorys/justdoit.jpg
     2020.08 - 825 / 990 
 - OPIC  
     2020.07 - IH (Intermediate High)
+- TOEIC SPEAKING   
+    2021.02 - Lv6 (130)
 
  
 
@@ -56,7 +58,7 @@ SO...
 - 2D Image Segmentation with Stere, Lidar sensor
 - Reinforcement Learning (hobby)
 
-but not limited to.
+But not limited to.
 
  
 
@@ -84,23 +86,13 @@ but not limited to.
 - Detection of Surrounding Vehicles using Deep Neural Network and Fusion of Panoramic Camera and Lidar Sensor, KOFAC(한국과학창의재단), Korea (2019)
 - Satellite image precision object detection, DACON(국방과학연구소주최), Korea (2020)
 
+
+
 # Skills
 
 - Python
 - C++
 - Pytorch, Tensorflow
+- Expertise about Deep Learning
 - ROS (Robot Operating System)
-- Sensor Utilization (Camera, Stereo-Camera, GPS/IMU, LIDAR)
-
-# Deep Learning Study
-
-- Stanford CS231n - Vision
-- Berkeley CS285 - Deep Reinforcement Learning
-- 오일석, 기계 학습
-- Object Detection Papers 
-    - RCNN, Fast-RCNN, Faster-RCNN, SSD, YOLO, RetinaNet ... 
-- Image Segmentation Papers 
-    - FCN, SegNet, ParseNet, DeepLab, Mask-RCNN, H-Net, PSP-Net .. 
-- GAN 
-    - Pix2Pix GAN, Cycle GAN
-- 블로그를 통한 연구노트 작성. https://junha1125.github.io/
+- Sensor Utilization (Camera, RGB-D Camera, LIDAR, GPS/IMU)
