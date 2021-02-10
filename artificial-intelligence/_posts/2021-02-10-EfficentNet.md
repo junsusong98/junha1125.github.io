@@ -3,21 +3,19 @@ layout: post
 title: 【LightWeight】Understanding EfficentNet+EfficentDet paper w/ code
 ---
 
-- **논문**1 : [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/pdf/1905.11946.pdf)
-- **논문2** : [EfficientDet: Scalable and Efficient Object Detection](https://arxiv.org/abs/1911.09070)
+- **논문1** : [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/pdf/1905.11946.pdf) / [Youtube Link](https://www.youtube.com/watch?v=Vhz0quyvR7I)
+- **논문2** : [EfficientDet: Scalable and Efficient Object Detection](https://arxiv.org/abs/1911.09070) / [Youtube Link](https://www.youtube.com/watch?v=11jDC8uZL0E)
 - **분류** : LightWeight
 - 저자 : Mingxing Tan, Ruoming Pang, Quoc V. Le
 - **읽는 배경** : Recognition Basic. Understand confusing and ambiguous things.
 - **읽으면서 생각할 포인트** : 코드와 함께 최대한 완벽히 이해하기. 이해한 것 정확히 기록해두기.
 - **느낀점**  : 
-
-  - ㅇ
 - **목차**
   
   1. EfficientNet from youtube ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-10-EfficentNet/#1-efficientnet-from-youtube))
-  3. Code - lukemelas/EfficientNet-PyTorch (바로가기)
-  4. EfficientDet from youtube ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-10-EfficentNet/#3-efficientDet-from-youtube))
-  6. Code - zylo117/Yet-Another-EfficientDet-Pytorch (바로가기)
+  3. Code - lukemelas/EfficientNet-PyTorch ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-10-EfficentNet/#2-lukemelasefficientnet-pytorch))
+  4. EfficientDet from youtube ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-10-EfficentNet/#3-efficientdet-from-youtube))
+  6. Code - zylo117/Yet-Another-EfficientDet-Pytorch (https://junha1125.github.io/blog/artificial-intelligence/2021-02-10-EfficentNet/#4-zylo117yet-another-efficientdet-pytorch)
   
 
 
@@ -25,8 +23,6 @@ title: 【LightWeight】Understanding EfficentNet+EfficentDet paper w/ code
 
 
 # 1. EfficientNet from youtube
-
-- [youtube 논문 발표 링크](https://www.youtube.com/watch?v=11jDC8uZL0E&t=104s) 
 
 ![img01](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/efficientnet_youtube/efficientnet_youtube-01.png?raw=true)
 ![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/efficientnet_youtube/efficientnet_youtube-02.png?raw=true)
@@ -64,9 +60,11 @@ title: 【LightWeight】Understanding EfficentNet+EfficentDet paper w/ code
 
 
 
-# 2. lukemelas/[EfficientNet-PyTorch](https://github.com/lukemelas/EfficientNet-PyTorch)
+# 2. lukemelas/EfficientNet-PyTorch
 
 ## 2-1 Readme
+
+- Github-Link : [EfficientNet-PyTorch](https://github.com/lukemelas/EfficientNet-PyTorch)
 
 - EfficientNet은 a family of image **classification** models 이다. 
 
@@ -111,6 +109,14 @@ title: 【LightWeight】Understanding EfficentNet+EfficentDet paper w/ code
 
 
 
+
+
+---
+
+---
+
+
+
 # 3. EfficientDet from youtube
 
 ![img01](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/efficientdet_youtube/efficientdet_youtube-01.png?raw=true)
@@ -146,4 +152,7 @@ title: 【LightWeight】Understanding EfficentNet+EfficentDet paper w/ code
 ![img31](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/efficientdet_youtube/efficientdet_youtube-31.png?raw=true)
 ![img32](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/efficientdet_youtube/efficientdet_youtube-32.png?raw=true)
 
-# 4. zylo117/**[Yet-Another-EfficientDet-Pytorch](https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch)**
+# 4. zylo117/Yet-Another-EfficientDet-Pytorch
+
+- Github Link : [Yet-Another-EfficientDet-Pytorch](https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch)
+- 
