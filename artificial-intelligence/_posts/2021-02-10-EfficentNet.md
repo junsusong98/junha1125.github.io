@@ -15,7 +15,7 @@ title: 【LightWeight】Understanding EfficentNet+EfficentDet paper w/ code
   1. EfficientNet from youtube ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-10-EfficentNet/#1-efficientnet-from-youtube))
   3. Code - lukemelas/EfficientNet-PyTorch ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-10-EfficentNet/#2-lukemelasefficientnet-pytorch))
   4. EfficientDet from youtube ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-10-EfficentNet/#3-efficientdet-from-youtube))
-  6. Code - zylo117/Yet-Another-EfficientDet-Pytorch (https://junha1125.github.io/blog/artificial-intelligence/2021-02-10-EfficentNet/#4-zylo117yet-another-efficientdet-pytorch)
+  6. Code - zylo117/Yet-Another-EfficientDet-Pytorch ([바로가기](https://junha1125.github.io/blog/artificial-intelligence/2021-02-10-EfficentNet/#4-zylo117yet-another-efficientdet-pytorch))
   
 
 
