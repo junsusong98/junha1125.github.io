@@ -72,7 +72,7 @@ title: 【Detection】Understanding YOLOv4 paper w/ code, my advice
   1. PAN - path aggregation network
   2. ATSS : Bridging the Gap Between Anchor-based and **Anchor-free Detection** via Adaptive Training Sample Selection  (citation : 74)
   3. RFB : Receptive Field Block Net for Accurate and Fast Object Detection (ASPP의 발전된 형태)
-  4. Cross stage partial connections (CSP)
+  4. Cross stage partial connections  (DenseNet의 경량화 버전)
   5. Batch Normalization 블로그 & 동영상, CBN (Cross Batch Normalization)
   6. Soft-NMS -> DIoU-NMS
   7. CIoU-loss
@@ -202,7 +202,7 @@ title: 【Detection】Understanding YOLOv4 paper w/ code, my advice
 ## 3. Methodology
 
 1. Backbone 선택 
-   - 아래의 조건을 만족하는 Cross-Stage-Partial-connections (CSP) (DensNet의 경량화 버전) 과 DarkNet을 접목시켜서 사용. or CSPResNext50 
+   - 아래의 조건을 만족하는 Cross-Stage-Partial-connections (CSP) (DenseNet의 경량화 버전) 과 DarkNet을 접목시켜서 사용. or CSPResNext50 
    - Higher input Resolution For Small-objects
    - More Layers For Higher receptive field
    - More parameters For more accurate

@@ -62,19 +62,11 @@ title: 【LightWeight】Understanding EfficentNet+EfficentDet paper w/ code
 
 # 2. lukemelas/EfficientNet-PyTorch
 
-## 2-1 Readme
-
 - Github-Link : [EfficientNet-PyTorch](https://github.com/lukemelas/EfficientNet-PyTorch)
 
-- EfficientNet은 a family of image **classification** models 이다. 
+- EfficientNet은 a family of image **classification** models 이다. Based on **MnasNet** in term of **AutoML**, **Compound Scaling**.
 
-- Based on **MnasNet** in term of **AutoML**, **Compound Scaling**, 
-
-- EfficientNet-B0가 Mobile-size의 Baseline Network이고, 그 후 Compound Scaling을 한 EfficientNet-B1 to B7 을 만들어 낸다.
-
-- EfficientNet이 Google에서 만들어졌기 때문에, Tensorflow기반이고, 이 코드는 Pytorch로 re-implementation된 코드라고 한다. [Original code](https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet)는 여기 있다. weight를 reload해서 Pytorch에 넣기 위해 노력했고 Pytorch 모델 또한 simple, flexible(유연,유동성), and extensible(확장가능성)에서 좋은 결과 얻기 위해 노력했다.
-
-- 내가 이 코드을 이용하기 위한 과정은 아래와 같이 심플하다.
+- Simply, Model 불러와 Classification 수행하기
 
   - ```python
     import json
@@ -104,8 +96,10 @@ title: 【LightWeight】Understanding EfficentNet+EfficentDet paper w/ code
     features = model.extract_features(img)
     print(features.shape) # torch.Size([1, 1280, 7, 7])
     ```
+  
+- Pytorch Efficient-Net model Code 
 
-
+  - [efficientnet_pytorch/model.py](https://github.com/lukemelas/EfficientNet-PyTorch/blob/master/efficientnet_pytorch/model.py) 코드 참조
 
 
 
@@ -155,4 +149,4 @@ title: 【LightWeight】Understanding EfficentNet+EfficentDet paper w/ code
 # 4. zylo117/Yet-Another-EfficientDet-Pytorch
 
 - Github Link : [Yet-Another-EfficientDet-Pytorch](https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch)
-- 
+- 핵심 EfficientDet model 구현 부분 : [Yet-Another-EfficientDet-Pytorch/efficientdet/model.py](https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch/blob/master/efficientdet/model.py) 
