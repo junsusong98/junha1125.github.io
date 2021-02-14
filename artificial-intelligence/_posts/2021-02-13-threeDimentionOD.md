@@ -1,5 +1,7 @@
+---
 layout: post
 title: 【3D-Detect】A Survey on 3D object-detection for self-driving
+---
 
 - **논문** : [A Survey on 3D Object Detection Methods for Autonomous Driving Applications](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8621614)
 - **분류** : 3D Object Detection for self-driving
@@ -74,7 +76,24 @@ title: 【3D-Detect】A Survey on 3D object-detection for self-driving
 
 - 우선 아래 테이블 참조
 - Projection 방법은 Bird-eye view를 사용하거나, 이전에 공부했던 SqueezeSeg와 같은 방법으로 3D는 2D로 투영하여 Point Clouds를 사용한다. 이러한 변환 과정에서 정보의 손실이 일어난다. 그리고 trade-off between time complexity and detection performance를 맞추는 것이 중요하다.
-- Volumetric methods는 sparse representation(빈곳들이 대부분이다)이므로 비효율적이고 3D-convolutions를 사용해야한다.
-- PointNet과 같은 방법은 using a whole scene point cloud as input 이므로, 정보 손실을 줄인다.
+- Volumetric methods는 sparse representation(빈곳들이 대부분이다)이므로 비효율적이고 3D-convolutions를 사용해야한다. 그래서 computational cost가 매우 크다. 3D grid representation. shape information를 정확하게 encode하는게 장점이다. 
+- PointNet과 같은 방법은 using a whole scene point cloud as input 이므로, 정보 손실을 줄인다. 아주 많은 3D points를 다뤄야 하고 그 수가 가변적이다. 정해진 이미지 크기가 들어가는 2D-conv와는 다르다. 즉 points irregularities를 뤄야 한다. 최대한 Input information loss를 줄이면서. 
 
 ![image-20210214202515874](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210214202515874.png)
+
+1. Projection via plane  [47, 2017]
+2. Projection via cylindrical [48, 2016] : bird-eye view 이미지를 FCN하여 3D detection을 수행한다. 자동차만 탐지한다. channel은 Point의 hight(높이)에 맞춰서 encoding된다. (예를 들어 3개의 채널을 만들고, 높은 points, 중간 높이 points, 낮은 높이 points) FCN을 통해서 나오는 결과는 BB estimates이고 NMS를 거쳐서 objectness and bounding box를 추론한다.
+3. Projection via spherical [49, 2017]
+4. 3D-Yolo [30, 2018] : Encoding minimum, median and maximum height as channels. 그리고 추가로 2개의 channels은 intensity and density(해당 bird-eye view구역에 겹쳐지는 point의 객수 인듯). yolo에서 the extra dimension and yaw angle를 추가적으로 더 예측하는 inference 속도를 중요시하는 모델.
+5. BirdNet [51, 2018] : [50-project이미지를 Faster RCNN처리]을 base로 해서, Normalizes the density channel를 해서 성능 향상을 얻음.
+6. TowardsSafe [53, 2018] : Noise와 같은 불확실성을 보완할 수 있는 dropout을 적극적으로 사용하는 Bayesian Neural Network을 사용. 이러한 '확률적 랜덤 불확실성 모델'을 사용함으로써 noisy sample에 대해서 성능 향상을 얻을 수 있었다. **[여기까지가 Projection Methods]**
+7.  3DFCN [54, 2017] : 이미 가공된  a binary volumetric input를 사용한다. 해당 voxel에 vehicle이 '있고 없고'를 판단하는 binary 값을 사용해서, vehicle 밖에 검출하지 못한다. objectness and BB vertices predictions
+8.  Vote3Deep [55, 2017] : one-stage FCN. class는 차, 보행자, 자전거 끝. 각각의 Class에 대해서 고정된 크기의 BB만을 사용한다. 그리고 하나의 class만을 감지하는 모델을 각각 학습시킨다. 복잡성을 감소시키고 효율성을 증가시키기 위해 sparse convolution algorithm라는 것을 사용한다. Inference할때는 위의 각각의 모델을 parallel networks로써 추론을 한다. data augmentation, hard negative mining을 사용한다. **[여기까지가 Volumetric Methods]**
+9. PointNet, PointNet++ [56,59 2017,2017]. 더 발전된 것 [60, 2018] convolutional neural networks for irregular domains [61, 2017] : Segmented 3D PCL(전통적인 기법의 Point cloud library를 사용한) 기법을 사하여  classification(not detection) and part-segmentation을 수행한다. 그리고 Fully-Connnected layer를 통과시키고, max-pooling layer를 통과시킨다.
+10. VoxelNet [62, 2017] : classification이 아니라, detection을 수행. raw point subsets사용한다. each voxel에서 랜덤으로 하나의 point를 설정한다. 그리고 3D convolutional layer를 통과시킨다. cars and pedestrians/cyclists 탐지를 위해서  Different voxel size를 가지는 3개의 model을 각각 학습시킨다. 그리고 Inference에서는 3개의 model을 simultaneously 사용한다.
+11. Frustum PointNet [63, 2018] : imaged에서 추론한 결과를 기준으로 sets of 3D points를 선별해 사용하기 때문에 Fusion method로 나중에 다룰 예정이다. **[여기까지가 PointNet Methods]**
+
+
+
+## 3-C. Fusion Based Methods
+
