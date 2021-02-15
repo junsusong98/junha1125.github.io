@@ -31,18 +31,20 @@ title: 【27살】나만의 연구분야 일기
    - 연구실 선배님들 연구주제 알아두기
 
    - ```sh
+
      $ 메모 
      - depth 라는 표현은 좋지 않다. 우리 연구실에서 거의 아무도 하지 않는다. 
      - 3D로 접급해보자.3D도 indoor area(3D reconstruction)가 있고 outdoor area(self-driving)이 있다. 
-     - 3D를 하시는 분도 너무 제한적이다.(reconstruction하시는 분들이 대부분이다.) 같은 주제로 가져가려고 하기 보다는, 비슷하면서도 내가 정말 하고 싶은 분야로 선택해서, 원하는 분야의 다른 논문들을 찾아보는것도 좋겠다. 
-     - 라고 생각하면서도, 석사 과정 동안은 꼭 내가 원하는 분야를 해야하나?? 라는 생각이 든다. 현명한 선택은 최대한 선배님들과 유사한 연구방향으로 선택하는 것 같다. 하고 싶은건 나중에 하면 되는 거다.
+     - 3D를 하시는 분도 너무 제한적이다.(reconstruction하시는 분들이 대부분이다.) 같은 주제로 가져가려고 하기보다는, 비슷하면서도 내가 정말 하고 싶은 분야로 선택해서, 원하는 분야의 다른 논문들을 찾아보는것도 좋겠다. 
+     - 라고 생각하면서도, 석사 과정 동안은 꼭 내가 원하는 분야를 해야하나?? 라는 생각이 든다. 현명한 선택은 최대한선배님들과 유사한 연구방향으로 선택하는 것 같다. 하고 싶은건 나중에 하면 되는 거다.
      - 어차피 과제가 정해진다 하더라도, 꼭 과제랑 내 분야가 일치할 수는 없다. 꼭 원하는 과제만 할 수 있는 것도 아니다.
      - RGB-Depth camera가 쓸모가 없다. 최대 거리가 겨우 4~9m ...
-     
+
      - 그렇담.. 내가 정말 하고 싶은게 뭐냐?
      - Google Scholar -> 3d object detection survey driving
      - paper : A Survey on 3D Object Detection Methods for Autonomous Driving Applications
      - https://paperswithcode.com/task/3d-object-detection-from-stereo-images
+
      ```
 
 3. 3D-Object Detection 논문 읽기 찾아 읽기
