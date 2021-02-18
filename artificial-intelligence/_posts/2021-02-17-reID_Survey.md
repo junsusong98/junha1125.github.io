@@ -54,7 +54,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 \<Introduction 본론\>
 
-![image-20210217132329680](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217132329680.png)
+![image-20210217132329680](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217132329680.png?raw=tru)
 
 **일반적인 Re-ID 시스템은 아래의 5 절차를 거친다.**
 
@@ -66,7 +66,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 ---
 
-![image-20210217132347553](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217132347553.png)
+![image-20210217132347553](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217132347553.png?raw=tru)
 
 **Closed-world 에서 Open-world Person Re-ID 으로의 필요한 핵심 포인트**(또는 closed-world 연구에서의 핵심 가정 - 미리 위와 같은 5개의 과정을 해놓고 연구를 진행했던 것이다. 하지만 Open World에서의 저 가정은 옳지 않을 것이다.)
 
@@ -101,7 +101,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 ## 2-1 Feature Representation Learning
 
 - 이미 Detected 된 사람의 Bounding box에 대해, 이 Feature Representation(이하, Feature)을 어떻게 추출할 것인가? 사람의 포즈가 변해도, 바라보는 방향이 변해도, 카메라의 조도 등이 변해도 같은 Feature(descriptor)가 나오도록 하는 방법이 무엇일까? 크게 아래와 같이 4가지 방법이 있다.
-- ![image-20210217171528393](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217171528393.png)
+- ![image-20210217171528393](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217171528393.png?raw=tru)
 
 1.  Global Feature Representation Learning
    - Box 전체를 이용해서 Feature를 뽑아 낸다. 
@@ -135,21 +135,21 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 ## 2.2 Deep Metric Learning
 
-<img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217203628110.png" alt="image-20210217203628110"  />
+<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217203628110.png?raw=tru" alt="image-20210217203628110"  />
 
 **(a) Identity Loss.** 
 
 - an image classification problem 사용함. 이 Loss를 바꿔서 만든 다른 Loss 수식 또한 이와 같이 있다. (1) the softmax variants (2) the sphere loss (3) AM softmax (4)  label smoothing(overfitting을 피하는데 효과적인 Loss) 과 같은 방법이 있다.
-- ![image-20210217203922526](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217203922526.png)
+- ![image-20210217203922526](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217203922526.png?raw=tru)
 
 
 
 **(b) Verification Loss :** 
 
 1. The contrastive loss : 
-   - ![image-20210217204205277](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217204205277.png)	
+   - ![image-20210217204205277](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217204205277.png?raw=tru)	
 2. The verification loss with cross-entropy
-   - ![image-20210217204439714](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217204439714.png)
+   - ![image-20210217204439714](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217204439714.png?raw=tru)
    - 사실 이 수식의 p 가 무슨 함수를 사용한 건지 모르겠다. 논문을 몇번이나 다시 읽고, reference paper도 확인해 봤는데, 어떤 곳에서도 p는 그냥 probability of an input pair (xi and xj) being recognized as δij (0 or 1) 이라고만 적혀 있다. 나중에 코드를 통해서 확인해 봐야겠다.
 
 
@@ -158,7 +158,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 - unlabelled identities들이 존재할 때 =  unsupervised domain adaptive Re-ID에서 사용하는 방법
 - 아래의 memory bank가 unlabeled classes에 대해서, 각각의 class를 표현하는 feature(representation)의 정보를 저장하고 있는 memery가 되겠다. labeled class라면, 저 memory bank의 v값들이 one-hot-encoding으로 되어있을 텐데... 
-- <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217204706380.png" alt="image-20210217204706380" style="zoom:70%;" />
+- <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217204706380.png?raw=tru" alt="image-20210217204706380" style="zoom:70%;" />
 
 
 
@@ -181,7 +181,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 - testing stage에서 검색 성능(retrieval performance)를 증가시키기 위해서(=ranking list의 순서를 다시 정렬하는 방법들) 필요한 작업을 아래에 소개한다. 그냥 저런 방법과 이미지가 있다 정도로만 알아두자. 정확하게 이해는 안된다.
 
-![image-20210217212027970](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217212027970.png)
+![image-20210217212027970](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217212027970.png?raw=tru)
 
 1. optimizes the ranking order [58], [157]
    1. by automatic gallery-to-gallery similarity mining : 위의 이미지 (b) 처럼 초기의 주어진 ranking list를 기준으로 Gallery안에서 계속 기준 Query를 바꿔가며 Search를 진행해 나간다. 그렇게 list를 다시 획득하는 방법. (?? 정확히 모르겠다.)
@@ -196,7 +196,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 - closed-world setting으로 많이 사용하는 dataset 11개에 대해서 소개한다. ([NEU-Gou/awesome-reid-dataset](https://github.com/NEU-Gou/awesome-reid-dataset))
 
-<img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217213136301.png" alt="image-20210217213136301" style="zoom:80%;" />
+<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217213136301.png?raw=tru" alt="image-20210217213136301" style="zoom:80%;" />
 
 - Evaluation Metrics : (1)  Cumulative Matching Characteristics (CMC) (2) mean Average Precision (mAP)
   - CMC-k (a.k.a, Rank-k matching accuracy) : ranked된 retrieved results에서 top-k안에 정확한 match가 몇퍼센트로 일지하는가? 예를 들어서 ranked된 retrieved results에 100장의 BB가 있고, 그 중 query를 정확하게 맞춘 BB가 80장이라면 0.8 이다.
@@ -208,7 +208,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 ## 2.4.2 In-depth Analysis on State-of-The-Arts
 
-![image-20210217214213113](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210217214213113.png)
+![image-20210217214213113](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210217214213113.png?raw=tru)
 
 - 빨간색 줄은 데이터셋 종류, 보라색 줄은 데이터셋 이름. 
 -  image-based(위 사진) and video-based(아래 사진) 이렇게 2개의 관점에서 SOTA 모델이 무엇인지 확인해 본다. 
