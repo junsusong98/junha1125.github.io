@@ -42,7 +42,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 \<Introduction 서론\>
 
-1. 초기에는 **a** specific person를 찾기 위함이었다. 시대의 발전과 공공 안전 중요도의 증가, 지능형 감시 시스템 need에 의한 기술 발전이 이뤄지고 있다.
+1. 초기에는 **a!** specific person를 찾기 위함이었다. 시대의 발전과 공공 안전 중요도의 증가, 지능형 감시 시스템 need에 의한 기술 발전이 이뤄지고 있다.
 2. Person Re-ID의 Challenging task (방해요소들) : [the presence of different viewpoints [11], [12], varying low-image resolutions [13], [14], illumination changes [15], unconstrained poses [16], [17], [18], occlusions [19], [20], heterogeneous modalities [10], [21], complex camera environments, background clutter [22], unreliable bounding box generations, etc. the dynamic updated camera network [23], [24], large scale gallery with efficient retrieval [25], group uncertainty [26], significant domain shift [27], unseen testing scenarios [28], incremental model updating [29] and changing cloths [30] also greatly increase the difficulties.] 이런 요소들이 있기 때문에 연구들은 더욱 더 이뤄져야 한다.
 3. 딥러닝 이전에는 이런 기술들을 사용했다. the handcrafted feature construction with body structures [31], [32], [33], [34], [35] or distance metric learning [36], [37], [38] 
 4. **딥러니 이후에는 [5], [42], [43], [44] 이 논문이 놀라운 성능을 내었다**
@@ -238,7 +238,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
    -  the shared features (between the text description and the person images)를 학습한다.
 3. [3.1.3] Visible-Infrared Re-ID (적외선)
    - the cross-modality matching(= modality sharable features) between the daytime visible and night-time infrared images 를 다루는 방법이다. 
-   - GAN을 사용해서 crossmodality person images 를 생성해서, the cross-modality discrepancy 를 제거하는 방법도 있다. 
+   - GAN을 사용해서 cross-modality person images 를 생성해서, the cross-modality discrepancy 를 제거하는 방법도 있다. 
    - 2019 ~ 2020 논문들이 많다. 이 쪽 연구가 활발히 이뤄지는 것 같다. 필요하면 참고할 것.
 4. [3.1.4] Cross-Resolution Re-ID
    - 높고 낮은 해상도 이미지 사이의, the large resolution variations 를 해결하기 위한 목적의 논문들 소개
@@ -265,5 +265,15 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 ## 3.3 Semi-supervised and Unsupervised Re-ID
 
-
+1. [3.3.1] Unsupervised Re-ID
+   - invariant components(각 Label에 대해서 변함없는 feature 저장 구성) (i.e., dictionary [203], metric [204] or saliency [66]) 를 학습하는데 목적이 있다. 
+   - (1)  deeply unsupervised methods 들에 대해서, 1문단으로 논문들 소개
+   - (2)  end-to-end unsupervised Re-ID 들에 대해서, 1문단으로 논문들 소개 
+   - 이런 많은 논문들과 연구들에도 불구하고, newly arriving unlabelled data를 model updating하는데 아직도 어려움이 많다.
+   - (3) 일부 end-to-end unsupervised Re-ID 방법들 중에서, 특히 learn a part level representation ( local parts than that of a whole imag ) 를 학습하려고 하는 모델들이 있다. [153, 212]
+   - Semi-/Weakly supervised Re-ID : (1) With limited label information, a one-shot metric learning [213] (2)  A stepwise one-shot learning method [144] (3) A multiple instance attention learning framework  uses the video-level labels [214]
+2. [3.3.2] Unsupervised Domain Adaptation
+   - a labeled source dataset의 지식(Feature Extractor)을 the unlabeled target dataset에게 넘겨주는데 목적을 가지고 있는 모델들이다. = unsupervised Re-ID without target dataset labels
+   - Target Image Generation : GAN을 사용해서, source-domain 이미지를 target-domain style이미지로 transfer generation한다. 이러한 방식을 사용하는 9가지 논문 소개
+   - 
 
