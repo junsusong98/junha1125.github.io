@@ -275,5 +275,15 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 2. [3.3.2] Unsupervised Domain Adaptation
    - a labeled source dataset의 지식(Feature Extractor)을 the unlabeled target dataset에게 넘겨주는데 목적을 가지고 있는 모델들이다. = unsupervised Re-ID without target dataset labels
    - Target Image Generation : GAN을 사용해서, source-domain 이미지를 target-domain style이미지로 transfer generation한다. 이러한 방식을 사용하는 9가지 논문 소개
-   - 
+   - Target Domain Supervision Mining : source dataset을 이용해서 아주 잘 학습된 model을 사용해서 target dataset의 supervision(annotation정보)룰 직접적으로 mining(추출하는) 하는 방법이다. 이러한 방식을 사용하는 7가지 논문 소개
+3. [3.3.3] State-of-The-Arts for Unsupervised Re-ID
+   - 우선 아래의 전체 모델 성능 비교 참조. 
+   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210219152053230.png" alt="image-20210219152053230" style="zoom:80%;" />
+   - 최근,  He et al. [229, 2020] 논문을 보면 large-scale unlabeled training data를 사용하여 unsupervied learning을 적용하면, 다수의 tasks에서 supervised learning을 이용한 것보다 훨씬 더 좋은 성능이 나올 수 있다고 증명한다. 따라서 앞으로도 미래의 breakthroughs가 될 것으로 기대된다.
+
+
+
+---
+
+## 3.4 Noise-Robust Re-ID
 
