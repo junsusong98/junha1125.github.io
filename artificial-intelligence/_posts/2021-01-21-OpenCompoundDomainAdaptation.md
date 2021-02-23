@@ -41,7 +41,7 @@ title: 【Domain】Open Compound Domain Adaptation
 - Ours
   - open compound domain adaptation (OCDA) 의 2가지 핵심기술
     1. **instance-specific curriculum domain adaptation strategy** : generalization across domains / in a data-driven <u>self-organizing fashion(???)</u> 
-    2. **a memory module** : the model’s agility(예민함, 민첩한 적응?) towards novel domains / memory augmented features for handling open domains. (메모리가 더 다양한 feature 추출에 도움을 준다.)
+    2. **a memory module** : the model’s agility(예민함, 민첩한 적응?) towards novel domains / memory augmented features for handling open domains. (메모리가, 우리가 가진 Feature Extractor 와 classifier 에 더 정확하게 작동하는, feature map이 생성되도록 도움을 준다.)
   - 실험을 적용해본 challenges
     1. digit classification
     2. facial expression recognition
@@ -120,6 +120,7 @@ title: 【Domain】Open Compound Domain Adaptation
          2. ```sh
             (1) 값이 최소가 되도록 domain encoder가 학습된다
             (2) 값이 최소가 되도록 Discriminator가 학습된다
+            이 과정을 통해서, "Class_encoder라는 큰 수박에서, Domain_encoder의 능력을 가진 맛있는 부분을 살살살 긁어 뽑아내는 작업이다" 라고 생각하면 편하다.
             ---
             i : the instance index
             D : discriminator. - 이름은 discriminator인데 아래의 알고리즘을 잘보면, 저렇게 학습시키면 그냥 classifier가 된다. 
