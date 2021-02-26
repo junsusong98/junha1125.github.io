@@ -75,8 +75,8 @@ But not limited to.
  
 
 # Awards and Honors
-- Honorable Judge Award (Future Transport Design Award), Cloud Programming World Cup, Japan (2019)  
-- Capstone Awards, The Korean Society of Automotive Engineers (한국자동차공학회)(2019)  
+- Vehicle monitoring over internet toward digital twins,Honorable Judge Award (Future Transport Design Award), Cloud Programming World Cup, Japan (2019)  
+- Capstone Awards, The Korean Society of Automotive Engineers, Korea (2019)  
 - National Science and Engineering Scholarship (Full Tuition, 국가이공계장학생), Korea Scholarship Foundation(국가이공계장학생) (2019 ~ 2020)  
 
  
