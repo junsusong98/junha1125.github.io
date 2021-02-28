@@ -225,7 +225,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 # 3. Open World Person Re-ID
 
-- 윗 내용 중 Open World 핵심 포인트 내용 다시 참조
+- 윗 내용 중 `Closed-world 에서 Open-world Person Re-ID 으로의 필요한 핵심 포인트` 꼭꼭 다시 읽고 아래 내용 공부하기
 
 ## 3.1 Heterogeneous Re-ID
 
@@ -278,7 +278,7 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
    - Target Domain Supervision Mining : source dataset을 이용해서 아주 잘 학습된 model을 사용해서 target dataset의 supervision(annotation정보)룰 직접적으로 mining(추출하는) 하는 방법이다. 이러한 방식을 사용하는 7가지 논문 소개
 3. [3.3.3] State-of-The-Arts for Unsupervised Re-ID
    - 우선 아래의 전체 모델 성능 비교 참조. 
-   - <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210219152053230.png" alt="image-20210219152053230" style="zoom:80%;" />
+   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210219152053230.png?raw=tru" alt="image-20210219152053230" style="zoom:80%;" />
    - 최근,  He et al. [229, 2020] 논문을 보면 large-scale unlabeled training data를 사용하여 unsupervied learning을 적용하면, 다수의 tasks에서 supervised learning을 이용한 것보다 훨씬 더 좋은 성능이 나올 수 있다고 증명한다. 따라서 앞으로도 미래의 breakthroughs가 될 것으로 기대된다.
 
 
@@ -287,3 +287,87 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 ## 3.4 Noise-Robust Re-ID
 
+- 여기서는 3가지 관점으로 noise-robust Re-ID 논문들에 대해서 소개한다. 
+- 논문에서는, 여러 다른 기술이 들어간 논문들을 아주 짧게 소개한다. 그러니 내가 이해못하는게 너무 당연하다. 정독을 하던, 스키밍을 하던 이해 안되는 것은 똑같았고, 그래서 큰 그림만을 아래에 적어 놓았다. 
+
+1. **the Re-ID problem with heavy occlusions** (Partial Re-ID) : Deep Spatial feature Reconstruction (DSR) [232],  Visibility-aware Part Model (VPM) [67], A foreground-aware pyramid reconstruction scheme [233]
+2. **the problem caused by poor detection/inaccurate tracking results** : Detected BB에서 noisy regions이 기여하는 정도를 suppress 하는것이 Basic Idea 이다. 특히 [20]에서는 multiple video frames to auto-complete occluded regions(비디오 이미지를 사용해서, 한 프레임에서는 보이지 않는 occulded 부분을, 여러 프레임을 사용해서 자동 복원하는 방법이다.)
+3. **the problem due to annotation error** : [42], [235], [236] 위에 처럼 각 논문에 따른 이름을 적어 놓는게 무슨 의미가 있나... 안 적었다. 필요하면 알아서 참고.
+
+
+
+---
+
+## 3.5 Open-set Re-ID and Beyond
+
+- Open-set Re-ID를 처리하는 가장 기본적인 방법은, a learned condition τ를 사용해서, similarity(query, gallery) > τ (τ보다 크면, matching시키고, τ보다 작으면 gallery에 query가 없다고 판단.)를 이용하는 것이다. 
+- 위와 같은 방법을  handcrafted systems이라고 하며 [26], [69], [70] 이런 논문들이 있다. 
+- handcrafted 가 아닌, deep learning methods를 사용한 Adversarial PersonNet (APN) [237] 이라는 방법도 있다.  GAN module and the Re-ID feature extractor를 사용해서, similarity를 판별하고, gallery에 query가 있는지 없는지 판단한다. 
+- **Group Re-ID** : associating the persons in groups rather than individuals. Group을 associationg(?) 하는 방법으로는, (1) sparse dictionary learning 기반, (2) the group as a graph 기반. 2개이다. 각 기반 방법에 해당하는 논문들이 소개 되어 있다. 
+- **Dynamic Multi-Camera Network** : new cameras or probes(데이터 분포&유사도)에 대한 adaptation challenging를 고려하는 몇가지 논문들 소개되어 있음.
+
+
+
+---
+
+---
+
+# 4. An Outlook Re-ID (new metric, baseline)
+
+## 4.1 - mINP: A New Evaluation Metric for Re-ID
+
+- computationally efficient metric 를 표현하는 metric
+- <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228162554605.png?raw=tru" alt="image-20210228162554605" style="zoom:80%;" />
+- 여기서 R은 Rank position of the hardest match, G는 correct matches for query의 총 갯수이다. 아래의 예시를 참고하자.    
+  <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228162701915.png?raw=tru" alt="image-20210228162701915" style="zoom:80%;" />
+- 이런 성능 지표가 필요한 이유는 다음과 같다. 위 그림의 Rank List 1은 Rank List 2에 비해서 AP가 높다. (AP수식은 논문의 초반부분에서 참고) 하지만 NP를 계산해보면, Rank List 1이 더 높다. (NP는 낮아야 좋은것)이 말은 즉, "hardest true matching를 찾기 이전까지, too many false matchings 이 포함되었다."를 의미한다. 따라서 Rank List 1의 computing 효울은 낮다고 판단할 수 있다. 
+
+
+
+## 4.2 - A New Baseline(AGW) - Single-/Cross-Modality Re-ID
+
+- three major improved components 를 포함하는 새로운 Baseline 모델이다. [github code - pytorch](https://github.com/mangye16/ReID-Survey)
+
+  1. **Non-local Attention (Att) Block** :  nonlocal attention block [246, 2019] 사용
+
+  2. **Generalized-mean (GeM) Pooling**
+
+     -  a learnable pooling layer이다. 
+     - generalized-mean (GeM) pooling [247, 2018] 를 참고했다. 
+     -  ![image-20210228163156640](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228163156640.png?raw=tru)
+     - 여기서 Xk는 feature map의 각 channel들이다. pk는 training 중에 학습되는 pooling hyper-parameter이다. 만약 Pk가 무한하게 크면, Max pooling이 이뤄지는 것이고, Pk가 1이면, average pooing이 이뤄지는 것이다. 
+
+  3. **Weighted Regularization Triplet (WRT) loss** 
+
+     - weighted regularized triplet loss. 
+     - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228163422167.png?raw=tru" alt="image-20210228163422167" style="zoom:80%;" />
+     - 위의 수식을 사용한다. (i, j, k)가 의미하는 것은 a hard triplet within each training batch 이다. 
+     - 설명이 적혀있기는 한데, 이해가 안된다.
+
+     
+
+<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228154131446.png?raw=tru" alt="image-20210228154131446" style="zoom:85%;" />
+
+![image-20210228154018475](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228154018475.png?raw=tru)
+
+
+
+## 4.2.a - Results
+
+<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228163541917.png?raw=tru" alt="image-20210228163541917"  />
+
+
+
+---
+
+---
+
+# 4.3 Under-Investigated Open Issues (challenge)
+
+- 4.3.1 Uncontrollable Data Collection
+- 4.3.2 Human Annotation Minimization
+- 4.3.3 Domain-Specific/Generalizable Architecture Design
+- 4.3.4 Dynamic Model Updating
+- 4.3.5 Efficient Model Deployment
+
+자세한 내용은 논문 참조

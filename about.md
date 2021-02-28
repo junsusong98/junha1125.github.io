@@ -13,7 +13,8 @@ image: /assets/img/catagorys/justdoit.jpg
 - Email : sb020518@gmail.com
 - Email : sb020518@kaist.ac.kr
 - Git Blog : [https://junha1125.github.io](https://junha1125.github.io/)  
-- Researcher of [HYUNDAI MOBIS](https://www.mobis.co.kr/main/index.do)      
+- M.S Candidate of KAIST [RCV Lab](http://rcv.kaist.ac.kr/) under [Prof. In So Kweon](http://rcv.kaist.ac.kr/index.php?mid=rcv_faculty) 
+- Research Engineer of [HYUNDAI MOBIS](https://www.mobis.co.kr/main/index.do)      
     <img src='https://blog.kakaocdn.net/dn/cLyq53/btqyWVrhfsx/UDMKYI8tkKXLobR2bl6QK1/img.jpg' alt='drawing' width='200'/>
 
  
@@ -32,7 +33,10 @@ image: /assets/img/catagorys/justdoit.jpg
     **M.S. Candidate**  
     <img src='https://user-images.githubusercontent.com/46951365/94216164-aeca9a00-ff19-11ea-905e-067b3a8dc327.png' alt='drawing' width='300'/>
 
+
+
 # Official Grade  
+
 - University Major Credit  
     4.43 / 4.5 (Total College Grade: 4.39/4.5)   
 - TOEIC     
