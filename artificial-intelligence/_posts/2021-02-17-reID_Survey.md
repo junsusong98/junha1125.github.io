@@ -3,7 +3,8 @@ layout: post
 title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 ---
 
-- **논문** : [Deep Learning for Person Re-identification: A Survey and Outlook](https://arxiv.org/pdf/2001.04193.pdf)
+- **논문** : [Deep Learning for Person Re-identification: A Survey and Outlook](https://arxiv.org/pdf/2001.04193.pdf)    
+  필기 완료된 파일은 `OneDrive\21.겨울방학\RCV_lab\논문읽기 `에 있다.
 - **분류** :  Re-identification
 - **저자** : Mang Ye, Jianbing Shen
 - **읽는 배경** : 연구실 과제 참여를 위한 선행 학습
@@ -328,6 +329,10 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 - three major improved components 를 포함하는 새로운 Baseline 모델이다. [github code - pytorch](https://github.com/mangye16/ReID-Survey)
 
+- 여기 있는 아이디어를 나중에 착안해 사용해도 좋을 것 같다.
+
+- <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228154131446.png?raw=tru" alt="image-20210228154131446" style="zoom:90%;" />
+
   1. **Non-local Attention (Att) Block** :  nonlocal attention block [246, 2019] 사용
 
   2. **Generalized-mean (GeM) Pooling**
@@ -342,11 +347,10 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
      - weighted regularized triplet loss. 
      - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228163422167.png?raw=tru" alt="image-20210228163422167" style="zoom:80%;" />
      - 위의 수식을 사용한다. (i, j, k)가 의미하는 것은 a hard triplet within each training batch 이다. 
-     - 설명이 적혀있기는 한데, 이해가 안된다.
-
+     - 3개의 이미지 중, 서로 2개가 같은 ID의 이미지이면 positive, 다르면 Negative이다. 위의 수식을 사용해서 positive인 weight 끼리는 거리가 가깝도록, negative인 weight 끼리는 거리가 멀더록 만든다. 
+- 좀 더 확실한 이해는, 논문을 통해서도 힘들다. 나중에 코드도 함께 봐야겠다. 
+  
      
-
-<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228154131446.png?raw=tru" alt="image-20210228154131446" style="zoom:85%;" />
 
 ![image-20210228154018475](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210228154018475.png?raw=tru)
 
@@ -364,10 +368,10 @@ title: 【Re-ID】Person Re-identification A Survey and Outlook w/ my advice
 
 # 4.3 Under-Investigated Open Issues (challenge)
 
-- 4.3.1 Uncontrollable Data Collection
-- 4.3.2 Human Annotation Minimization
-- 4.3.3 Domain-Specific/Generalizable Architecture Design
-- 4.3.4 Dynamic Model Updating
-- 4.3.5 Efficient Model Deployment
+- 4.3.1 Uncontrollable Data Collection - 자동 데이터 수집기 필요
+- 4.3.2 Human Annotation Minimization - 비용 절감을 위해 사람의 라벨링 작업 최소화 필요
+- 4.3.3 Domain-Specific/Generalizable Architecture Design - Domain 변화에도 일정한 성능을 가지는 NN
+- 4.3.4 Dynamic Model Updating - online learning 필요
+- 4.3.5 Efficient Model Deployment - fast and efficient 한 모델. 작고 강한 모델.
 
 자세한 내용은 논문 참조
