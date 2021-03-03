@@ -187,3 +187,13 @@ Attention and Transformer is salient mechanism in deep learning nowadays. I rema
     - Multi-head Attention **doesn't care** about position. But Positional Enxoding push to **care more about position**.
 5. Why Multi-head Attention can be replaced RNN
     - <img src='https://user-images.githubusercontent.com/46951365/104907331-47ed5700-59c8-11eb-8a6c-9f57a94b9e19.png' alt='drawing' width='500' style="zoom: 200%;" />
+
+
+
+
+
+# Transformer 최종 정리
+
+![Transformer_note1.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note1.png?raw=true)
+
+![Transformer_note1.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note2.png?raw=true)
