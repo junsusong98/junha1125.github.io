@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Transformer+OD】DETR-End-to-End Object Detection with Transformers w/ advice
+title: 【Transformer】Attention Is All You Need 공부 필기
 ---
 
 - **논문** : [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
