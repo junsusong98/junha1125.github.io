@@ -173,10 +173,7 @@ Attention and Transformer is salient mechanism in deep learning nowadays. I rema
     - <img src='https://user-images.githubusercontent.com/46951365/104891020-bb389e00-59b3-11eb-8b78-3d6e75d64d13.png' alt='drawing' width='250' style="zoom:120%;" />
 
 3. Decoder of the Transformer
-    - Input : **Hellow I love you** -> Output : **bonjour je t'aime** (프랑스어로 사랑해)
-    - The output probabilities :  **bonjour je t'aime**를 위한 확률 값이 나와야 함. The output probabilities predict the next token in the output sentence.(?)
-    - test할때는 output을 넣어주지 않는다. (이 input, output, probabilities는 아직 잘 모르겠다..)
-    - 그냥 Multi-Head Attentoin 을 사용하는게 아니라, Masked Multi-Head Attention 을 사용한다. 블로그는 더 이상 뭔소리 인지 모르겠다. 패스
+    - DETR 와 Vit 논문안에 있는 내용 참조
     
 4. [Attention 4 - Transformers](https://www.youtube.com/watch?v=EXNBy8G43MM)
     - **Multi-head attention is a mechanism to add context that's not based on RNN**
