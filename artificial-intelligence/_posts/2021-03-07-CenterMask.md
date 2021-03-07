@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【In-Segmen】CenterMask : Real-Time Anchor-Free Instance Segmentation
+title: 【In-Segmen】CenterMask - Real-Time Anchor-Free Instance Segmentation
 ---
 
 - **논문** : [CenterMask : Real-Time Anchor-Free Instance Segmentation](https://arxiv.org/abs/1911.06667)
