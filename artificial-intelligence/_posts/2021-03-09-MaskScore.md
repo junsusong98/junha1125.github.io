@@ -9,6 +9,7 @@ title: 【In-Segmen】Mask Scoring R-CNN & YOLACT++
 - **저자** : Zhaojin Huang, Lichao Huang / Daniel Bolya, Chong Zhou
 - **느낀점 :** 
   - 핵심만 캐치하고 넘어가자.  필요하면 그때, 다시 보자. 
+  - (PS) 논문 필기 본은 `C:\Users\sb020\OneDrive\21.1학기\논문읽기_21.1` 참조하기. 그리고 논문 필기 본을 보면 X 친 부분이 많듯이, 논문을 거의 안 읽었다. 핵심만 파악했다. 
 - **목차**
   1. [Mask Scoring R-CNN Paper Review](https://junha1125.github.io/blog/artificial-intelligence/2021-03-09-MaskScore/#a-mask-scoring-r-cnn)
   2. [YOLACT++ Paper Review](https://junha1125.github.io/blog/artificial-intelligence/2021-03-09-MaskScore/#b-yolact)
@@ -18,7 +19,6 @@ title: 【In-Segmen】Mask Scoring R-CNN & YOLACT++
 
 # A. Mask Scoring R-CNN
 
-- (PS) 논문 필기 본은 `C:\Users\sb020\OneDrive\21.1학기\논문읽기_21.1` 참조하기. 그리고 논문 필기 본을 보면 X 친 부분이 많듯이, 이 논문을 거의 안 읽었다. 핵심만 파악했다. 
 - 그리고 논문의 영어문장 난이도도 높은 편이다. 모든 세세한 내용들이 다 적혀있는 게 아니므로, 코드를 찾아보고 확실히 알아보는 시간도 나중에 필요할 듯하다. 
 
 # 1. Conclusion, Abstract, Introduction
@@ -40,8 +40,8 @@ title: 【In-Segmen】Mask Scoring R-CNN & YOLACT++
   ![image-20210309134918464](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210309134918464.png?raw=tru)
 - **3.2. Mask scoring in Mask R-CNN**
   - **Mask scoring** = S_mask
-    1. S_mask는 Mask head에서 binary segmenation을 얼마나 잘했는지 평가하는 수치이다. (내 생각으로, 이 값이 Final cls+mask Confidence 인 듯하다.  이 S_mask를 구체적으로 어떻게 사용했는지는 코드를 통해서 확인해야 할 듯 하다. 논문 자체에서도 매우 애매하게 나와있다.)
-    2. classification과 mask segmentation 모두에 도움이 될 수 있도록, S_mask = S_cls x S_iou 으로 정의해 사용했다. 여기서 S_cls는 Classification head에서 나온 classification score를 사용하고 S_iou는 MaskIoU head에서 예측된다. 
+    1. S_mask는 Mask head에서 binary segmenation을 얼마나 잘했는지 평가하는 수치이다. (내 생각으로, 이 값이 Final (class&mask) Confidence 인 듯하다.  이 S_mask를 구체적으로 어떻게 사용했는지는 코드를 통해서 확인해야 할 듯 하다. 논문 자체에서도 매우 애매하게 나와있다.)
+    2. classification과 mask segmentation 모두에 도움이 될 수 있도록, S_mask = S_cls x S_iou 으로 정의해 사용했다. 여기서 S_cls는 Classification head에서 나온 classification score를 사용하고, S_iou는 MaskIoU head에서 나온 값을 사용한다. 
     3. 이상적으로는 GT와 같은 Class의 Mask에 대해서 만 Positive value S_mask가 나와야 하고, 나머지 Mask의 S_mask는 0이 나와야 한다.
   - **MaskIoU head**     
     ![image-20210309140843950](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210309140843950.png?raw=tru)
@@ -51,13 +51,13 @@ title: 【In-Segmen】Mask Scoring R-CNN & YOLACT++
   - **Training**     
     1. (Mask R-CNN 과정과 같이) GT BB와 Predicted BB의 IOU가 0.5이상을 가지는 것만 Training에 사용한다. 
     2. (위 그림의 숫자 2번과정) target class 에 대해서만 channel을 뽑아오고, 0.5 thresholding을 통해서 binary predicted mask 결과를 찾아낸다.
-    3. binary predicted mask 과 GT mask결과를 비교해서 MaskIoU를 계산한다. 이것을 GT MaskIoU로써 Mask Head의 최종값이 나와야 한다. 이때 Mask head의 최종결과 값 predicted MaskIOU값이 잘 나오도록 학습시키기 위해서, L_2 loss를 사용했다.
+    3. binary predicted mask 과 GT mask결과를 비교해서 MaskIoU를 계산한다. 이것을 GT MaskIoU로써 Mask Head의 최종값이 나와야 한다. 이때 Mask head의 최종결과 값 predicted MaskIOU값이 잘 나오도록 학습시키기 위해서, L_2 loss를 사용했다. (구체적 수식 없음)
   - **Inference**
     1. 지금까지 학습된 모델을 가지고, 이미지를 foward하여, Class confidence, box 좌표, binary mask, Predicted MaskIOU를 얻는다. 
     2. Class confidence, box 좌표만을 가지고, SoftNMS를 사용해서 top-k (100)개의 BB를 추출한다. 
     3. 이 100개의 BB를 MaskIOU head에 넣어준다. 그러면 100개에 대한 predicted MaskIOU를 얻을 수 있다. 
     4. predicted MaskIOU x Class confidence 를 해서 Final Confidence를 획득한다. 
-    5. Final Confidence에서 다시 Thresholding을 거치면 정말 적절한 Box, Mask 결과 몇개만 추출 될 것이다.
+    5. Final Confidence에서 다시 Thresholding을 거치면 정말 적절한 Box, Mask 결과 몇개만 추출 된다.
 
 
 
@@ -88,7 +88,7 @@ title: 【In-Segmen】Mask Scoring R-CNN & YOLACT++
   3. anchors 종류를 새롭게 하였다. 
 - **Fast Mask Re-Scoring Network**
   1. Mask Scoring RCNN의 방법을 채용했다. 
-  2. (Bounding box 영역 이외는 zero) crop이 된 이후를 input으로 받은 FCN 을 통과해서, 마지막에 MaskIOU를 추론하는 모듈을 추가했다. 
+  2. (Bounding box 영역 이외는 zero) crop이 된 이후를 input (YOLACT’s cropped mask prediction (before thresholding))으로 받은 FCN 을 통과해서, 마지막에 MaskIOU를 추론하는 모듈을 추가했다. 
   3. 전체 모듈의 Architecture는 위와 같다. a 6-layer FCN with ReLU + final global pooling layer.
   4. 이 과정을 통해서 our ResNet-101 model에서,  fps from 34.4 to 33 이 된다. 
   5. 만약에 그냥 Mask Scoring RCNN의 방법을 그대로 사용하면, fps from 34.4 to 17.5이 된다. 
