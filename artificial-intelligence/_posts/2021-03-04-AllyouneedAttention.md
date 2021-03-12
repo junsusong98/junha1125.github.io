@@ -16,6 +16,8 @@ title: 【Transformer】Attention Is All You Need 공부 필기
 
 ![T3.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note3.png?raw=true)
 
+![T3.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note7.png?raw=true)
+
 ![T5.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note5.png?raw=true)
 
 ![T4.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note4.png?raw=true)

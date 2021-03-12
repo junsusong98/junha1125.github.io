@@ -20,3 +20,18 @@ title: 【Transformer+OD】Deformable DETR w/ advice
 
 # Deformable DETR
 
+# 1. Conclusion, Abstract
+
+- 핵심은 "the (multi-scale) deformable attention modules" 이다. 이것은 image feature maps를 처리하는데 효율적은 Attention Mechanism 이다.
+- 아래의 Transformer attention modules 의 단점 : a small set of key sampling 를 사용함으로써 해결!
+  1. slow convergence
+  2. limited feature spatial resolution
+- 장점으로 fast convergence, and computational and memory efficiency 를 가지고 있다.
+- two-stage Deformable DETR 를 만들기도 하였다. region proposal이 먼저 생성되고, 그것들을 Decoder에 넣는 방식으로 만들었다.
+
+
+
+# 2. Revisiting Transformers and DETR
+
+- **특히 이 부분의 수학적 수식을 통해서, 지금까지 직관적으로만 이해했던 내용을 정확하게 이해할 수 있었다. 왜 NIPS에서 수학 수식을 그렇게 좋아하는지 알겠다. 정확하고 논리적이다.**
+- (연산이 좀 더 구체적으로 어떻게 이뤄지는 건지 궁금하면, Deformable DETR 부분의 내용정리를 참고하면 좋다)
