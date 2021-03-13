@@ -16,8 +16,8 @@ title: 【Transformer+OD】Deformable DETR w/ advice
   1. 이해가 안되는 부분이 몇몇 있다. 논문 자체에서 구체적이지 않은것 이므로 어쩔 수 없는 것 같다. 코드를 확인하자.
   2. 공부 순서는 먼저 아래의 PPT를 보고, 그리고 Review를 보자.
 - **목차**
-  1. Deformable DETR Paper Review
-  2. Deformable DETR PPT Presentation
+  1. [Deformable DETR Paper Review](https://junha1125.github.io/blog/artificial-intelligence/2021-03-12-DeformableDETR/#deformable-detr)
+  2. [Deformable DETR PPT Presentation](https://junha1125.github.io/blog/artificial-intelligence/2021-03-12-DeformableDETR/#deformable-detr-ppt)
   3. Code 
 
 
@@ -130,3 +130,25 @@ title: 【Transformer+OD】Deformable DETR w/ advice
 ---
 
 # Deformable DETR PPT
+
+![img01](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P1.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P2.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P3.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P4.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P5.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P6.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P7.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P8.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P9.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P10.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P11.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P12.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P13.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P14.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P15.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P16.png?raw=true)
+![img02](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/9_Deformable_DETR/9_Deformable_DETR_%EB%8F%99%EC%98%81%EC%83%81%EC%9E%90%EB%A3%8C%20P17.png?raw=true)
+
+
+
+
