@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【In-Segmen】BlendMask - Top-Down Meets Bottom-Up w/ my advise
+title: 【In-Segmen】BlendMask - Top-Down Meets Bottom-Up w/ my advice
 ---
 
 - **논문** : [BlendMask: Top-Down Meets Bottom-Up for Instance Segmentation](https://arxiv.org/abs/2001.00309)

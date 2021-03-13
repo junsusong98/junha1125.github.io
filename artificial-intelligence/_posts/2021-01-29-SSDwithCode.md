@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Detection】Understanding SSD paper with code w/ advice
+title: 【Detection】Understanding SSD paper with code w/ my advice
 ---
 
 - **논문** : [SSD: Single Shot MultiBox Detector](https://arxiv.org/pdf/1512.02325.pdf)
