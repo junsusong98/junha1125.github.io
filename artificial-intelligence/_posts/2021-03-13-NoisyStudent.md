@@ -50,17 +50,16 @@ title: 【Detection】Self-training with Noisy Student improves ImageNet classif
    - self-training 의 향상된 버전이라고 할 수 있다.
    - (noise를 사용하지 않고, Smaller student를 만드는) Knowledge Distillation 과는 다르다. 우리의 방법은 Knowledge Expansion이라고 할 수 있다.
    - Pseudo code의 Algorithm 위의 이미지에서 참고
-2. **Noising Student (명석한 분석)**
-   - teacher가 noise를 받지 않으며, pseudo label를 생성할 때 , student는 의도적으로 nosie를 받기 때문에 student는 teacher보다 더 큰 consistent (일관성, 견고함)을 학습할 수 있게 된다.
+6. **Noising Student (명석한 분석)**
    - input noise로써 RandAugment를 사용했고, model noise로써 dropout [76] and stochastic depth [37] 을 사용했다. 이런 noise를 통해서, stduent가 Invariances, robustness, consistency 를 획득하게 된다. (특히 Adversarial Attack에 대해서도)
    - (First) data augmentation : teacher은 clean image를 보고 high-quality pseudo label을 생성할 때, Student는 augmented image를 봐야한다. 이를 통해서 student 모델은 비교적 정확한 label을 기준으로,  consistency를 가질 수 있게 된다. 
    - (Second) dropout & stochastic depth : teacher은 ensemble 처럼 행동한다. student는 single model 처럼 행동한다. student는 powerful ensemble model을 모방하는 꼴이라고 할 수 있다.
 3. **Other Techniques**
-   1. data filtering : 초반에 out-of-domain image (지금까지 봐온 (labeled) 이미지와는 조금 많이 다른) 때문에 teacher모델에서도 low confidence를 가지는 image를 필터링 한다. (나중에 차차 학습한다.)
-   2. balancing : labeled images에서 class에 따른 이미지 수와, unlabeled images에서 class에 따른 이미지 수를 맞춘다. (내 생각, labeled image에 별로 업는 class가 unlabeld image에 많으면 teacher의 pseudo label 자체가 불안정 할 수 있다.)
-   3. soft or hard pseudo labels : out-of-domain unlabeled data 에 대해서 soft pseudo label이 좀 더 student 모델에게 도움이 되는 것을 확인하고, confident가 충분히 높지 않으면 soft pseudo labels를 사용하여 student 모델을 학습시켰다. 
+   1. data filtering : 초반에 (지금까지 봐온 (labeled) 이미지와는 조금 많이 다른) out-of-domain image 때문에 teacher모델에서도 low confidence를 가지는 image를 필터링 한다. (나중에 차차 학습한다.)
+   2. balancing : labeled images에서 class에 따른 이미지 수와, unlabeled images에서 class에 따른 이미지 수를 맞춘다. (내 생각으로, labeled image에 별로 업는 class가 unlabeld image에 많으면 teacher의 pseudo label 자체가 불안정하기 때문에. 이러한 작업을 수행해준다.)
+   3. soft or hard pseudo labels : out-of-domain unlabeled data 에 대해서 soft pseudo label이 좀 더 student 모델에게 도움이 되는 것을 경험적으로 확인했다. (예를들어, confident가 충분히 높지 않으면 soft pseudo labels를 사용하여 student 모델을 학습시키는 방식. ) 
 4. **Comparisons with Existing SSL(self-supervised learning) Methods**
-   - SSL은 특정한 teacher 모델이 없다. 그냥 자기 자신이 teacher이자 student일 뿐이다. 이전의 모델(teacher)이  low accuracy and high entropy를 가졌다면, 새로운 모델(student) 또한 high entropy predictions 을 하게 만들 뿐이다.
+   - SSL은 특정한 teacher 모델이 없다. 그냥 자기 자신이 teacher이자 student일 뿐이다. 이전의 모델(teacher)이  low accuracy and high entropy를 가졌다면, 새로운 모델(student) 또한 (Noise 까지 받으며) high entropy predictions 을 하게 만들 뿐이다.
 
 
 

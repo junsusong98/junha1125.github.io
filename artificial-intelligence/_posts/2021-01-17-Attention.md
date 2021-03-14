@@ -188,9 +188,3 @@ Attention and Transformer is salient mechanism in deep learning nowadays. I rema
 
 
 
-
-# Transformer 최종 정리
-
-![Transformer_note1.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note1.png?raw=true)
-
-![Transformer_note1.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note2.png?raw=true)

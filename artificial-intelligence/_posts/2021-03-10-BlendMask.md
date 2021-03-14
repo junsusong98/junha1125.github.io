@@ -22,7 +22,7 @@ title: 【In-Segmen】BlendMask - Top-Down Meets Bottom-Up w/ my advice
 
 # 1. Conclusion, Abstract, Introduction
 
-- 성능 : Mask R-CNN 보다 20% faster. BlendMask-RT achieves 34.2% mAP at 25 FPS evaluated on a single 1080Ti GPU
+- 성능 : Mask R-CNN 보다 20% faster. BlendMask-RealTime achieves 34.2% mAP at 25 FPS evaluated on a single 1080Ti GPU
 - (뭔소리지?) effectively  instancelevel information 와  semantic information 를 결합해서 사용했다. top-down과 bottom-up 방법을 아주 적절히 혼합해 사용했다. (hybridizing top-down and bottom-up approaches, FCIS [18] and YOLACT [3] ) 
 - BlendMask는 1번의 conv로 attention map을 학습하고, 이를 이용해 K=4개의 channel만으로 Instance segmentation 예측을 수행한다.  
 - top-down approach 의 단점 (sementic -> instance) (일단 그래도 복붙. 논문 안 읽어서 뭔소린지 모름)
@@ -47,15 +47,15 @@ title: 【In-Segmen】BlendMask - Top-Down Meets Bottom-Up w/ my advice
 # 3. Our BlendMask
 
 - the decoder(Backbone) of DeepLabV3+ 을 사용했다. 
+- 아래 그림과 필기 먼저 보기
 - M은 Mask prediction (R) 보다 작다. 왜냐면 attention에 대한 rough estimate 만을 모델에게 물어보는것 이기 떄문이다.
-- 아래의 그림은 지금의 관점에서 생각한 그림이다. 따라서 나의 관점이 틀릴 수 있다. "3차원 그림에서 Channel을 저 관점으로 봐서는 안되고.." 등의 틀린 관점이 나올 수 있으니, 비판의 관점을 가지고 아래의 그림과 논문 4 page를 바라보자.  
 - 저 과정을 통해, 어떤 Attention이 이뤄졌다는지 모르겠다. 아! **"H_l x W_l 내부의 하나하나의 픽셀들이, R x R에 대해 어떻게 attention 할 필요가 있는가?"** 라고 생각하면 되겠다!
 
 ![SmartSelect_20210311-125649_Noteshelf.jpg](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/blendMask/SmartSelect_20210311-125649_Noteshelf.jpg?raw=true)
 
 ![SmartSelect_20210311-125616_Noteshelf.jpg](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/blendMask/SmartSelect_20210311-125616_Noteshelf.jpg?raw=true)
 
-- **<수정본>** 
+- **수정본** 
 
 ![SmartSelect_20210311-143514_Noteshelf.jpg](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/blendMask/SmartSelect_20210311-143514_Noteshelf.jpg?raw=true)
 

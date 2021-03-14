@@ -4,13 +4,13 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
 # description: >
 ---
 
-- Pytorch Tutorial 내용을 핵심만 정리한다. 
-- 중요한 파일과 중요한 내용만 다뤘으므로, 필요하면 다른 파일이나 파일 내의 다른 내용 꼭 참조.
+- Pytorch Tutorial 내용을 핵심만 요약 정리 하였습니다.
+- 저 코드와, 한줄한줄 공부한 내용은 `/sb_kookmin_googledrive/GCPcode/pytorch` 에 있습니다.
 
 # 1. pytorch document 순서 정리
-1. torch - create, indexing, Ops 
-1. torch.Tensor - details
-1. torch.autograd
+1. torch - create, indexing, Math Operation 
+1. torch.Tensor - details on the above
+1. torch.autograd - backword, grad
 1. torch.nn - layer, loss
 1. torchvision - dataset
 1. torch.utils.data - Dataloader
@@ -19,7 +19,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
 1. torchvision.transforms - data augm
 1. torchvision.models
 
-# 3NeuralNetworks.ipynb
+# 3NeuralNetworks in 60min learn
 1. Numpy를 이용한 가중치 갱신해보기
     - Numpy 함수들을 이용해서 2층 affine Layer 구성하기
 2. torch.tensor를 사용해서 2층 layer 구성하기
@@ -29,7 +29,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
     - loss.backward() 해버리면 끝!
     - 갱신은 w2 -= learning_rate * w2.grad
     - [torch.tensor.autograd](https://pytorch.org/docs/stable/autograd.html#tensor-autograd-functions) : grad, required_grad 맴버변수 있음
-    - [nn.Module 클래스의 parameters에 대한 고찰](https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.parameters) : 
+    - [nn.Module 클래스의 parameters에 대한 고찰](https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.parameters) 
 4. 새로운 Layer, Function 정의하기
     - torch.clamp라는 함수를 사용하면, relu 처럼 동작 가능 + loss.backward할 때 backward알아서 처리 됨.
     - 하지만 직접 relu를 정의하면?? backward가 안된다. 
@@ -43,7 +43,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
 7. 같은 원리로, resnet을 만드는 건 쉽다.
     - model.foward 만 잘 손보면 된다. 
 
-# 4Classiffier.ipynb
+# 4Classiffier.ipynb in 60min learn
 1. Data Load 하기
 	- torchvision.transform
 	- trainset = torchvision.datasets
@@ -56,7 +56,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
 	- optimizer = torch.optim.OPTIM_FUNC
 4. 신경망 학습 시키기
 	- for epoch
-	  - for i, data(label, img) in enumerate(trainloader)
+	  - for i, data in enumerate(trainloader) # data = \[label, img\]
 	    - optimizer.zero_grad()
 	    - outputs = net(inputs)
 	    - loss = criterion(outputs, labels)
@@ -71,7 +71,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
 	    - correct += (predicted == labels).sum().item()
 	- class별 accuracy 분석은 코드 참조
 6. 신경망 저장, load하기
-	- torch.save
+	- [torch.save](https://pytorch.org/docs/stable/generated/torch.save.html#torch.save) # 신경망 저장, 변수 저장 모두 가능, .pt 파일
 	- nn.module.state_dirt()
 7. GPU 사용하기
 	- net.to(device)
@@ -105,7 +105,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
 8. Refactor using DataLoader
     - train_ds = TensorDataset(x_train, y_train)
     - train_dl = DataLoader(train_ds, batch_size=bs)
-    - for xb, y in train_dl:
+    - for (xb, y) in train_dl:
 9. Add validation
     - model.eval()
     - with torch.no_grad(): valid_loss 출력해보기 
@@ -127,12 +127,12 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
     - train_dl = WrappedDataLoader(train_dl, preprocess)
     - class WrappedDataLoader 구현
     - def \_\_iter\_\_(self): batches = iter(self.dl); for b in batches: yield (self.func(*b))
-14. GPU사용해서 가속하기
+14. Using GPU
     - model.to(dev)
     - Input data.to(dev)
     - 항상 이 2개!
 
-# 4.tensorbord.ipynb
+# 4.tensorbord.ipynb ⭐
 - 참고 사이트 : [tensorboard documentary](https://pytorch.org/docs/stable/tensorboard.html#torch-utils-tensorboard) 
 - torch_module_research.ipynb 파일도 꼭 같이 공부하기
 
@@ -165,13 +165,13 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
                     writer.add_figure
         ```
 6. Test
-    - torch.cat - concatenation
-    - torch.stack - list to tensor
+    - torch.cat : concatenation
+    - torch.stack : list to tensor
     - 각 class에 대한 precision-recall curve 그리기
         - writer.add_pr_curve(class이름, TrueOrFalse, PositiveOrNagative)
 
 # 5.torchvision_finetuning_instance_segmentation.ipynb
-- 6.Tuto.ipynb를 먼저 공부하고, 여기 보는게 낫다.
+- 6.transfer_learning_tutorial.ipynb를 먼저 공부하고, 여기 보는게 낫다.
 
 1. 새로운 Dataset 정의하는 방법
     - torch.utils.data.Dataset을 상속하는 클래스. 
@@ -179,7 +179,7 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
     - \_\_getitem\_\_ (self, idx) 은 \[image, target\]을 return해야한다.
     - 자세한 내용은 파일 참조
 2. Dataset을 새로 정의하는 Class 만들기
-    - o.path.join, os.listdir
+    - os.path.join, os.listdir
     - target["masks"]를 정의하기 위한 변수 만들기
         - broadcastion 적용 : masks = (mask == obj_ids[:, None, None]) 
 3. torchvision.models를 사용한 model 정의하기
@@ -190,37 +190,44 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
     1. 2번 방법으로 get_model_instance_segmentation함수 정의하기.
 4. train과 evaluation 하기
     1. dataset = PennFudanDataset(위에서 내가 만든 클래스)
+    
     1. 하나의 데이터를, train set, validation set으로 나누는 방법     
         ```python
-            indices = torch.randperm(len(dataset)).tolist()
-            dataset = torch.utils.data.Subset(dataset, indices[:-50])
-            dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
-        ```     
+        indices = torch.randperm(len(dataset)).tolist()
+        dataset = torch.utils.data.Subset(dataset, indices[:-50])
+        dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
+        ```
+        
     1. data_loader = torch.utils.data.DataLoader(dataset, batch_size=2 ... )
+    
     1. model.to(device)
-    1. optimizer정의 후 lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer ...) 그리고 optimizer.step,() 후 lr_scheduler.step() 또한 해줘야 함.
+    
+    1. optimizer정의 후 lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer ...) 
+    
+        - optimizer.step,() 후 lr_scheduler.step() 또한 해줘야 함.
+    
     1. epoch 돌면서 Git의 vision.reference.detection.engine의 train_one_epoch, evalate 사용해서 log 출력
 
-# 6.transfer_learning_tutorial.ipynb
-- 4Classiffier.ipynb에 이어서, 실용성이 매우 좋은 파일.
-
+# 6.transfer_learning_tutorial.ipynb ⭐
 1. Import Modules, Dataloader Define
     - datasets.ImageFolder(root, transforms)
     - dictionary구조를 이용한, datasets, dataloaders 정의 -Ex) dataloaders['train'], dataloaders['test']
 2. dataloader가 잘 정의 되었나 확인
+    
     - torchvision.utils.make_grid 를 완벽하게 사용하는 방법 - imshow 함수 정의(np.transpose, 정규화, np.clip, show)
 3. **Train과 Validation 전체를 하는 함수 정의**
+    
     - def train_model(model, criterion, optimizer, scheduler, num_epochs=25):  
         - return model.load_state_dict(best_model_wts)
     - best_model_wts = copy.deepcopy(model.state_dict())
     - time_elapsed = time.time() - since
     - 전체 순서 정리(원본은 ipynb 파일 참조)  
         ![image](https://user-images.githubusercontent.com/46951365/103886436-d76f4c00-5124-11eb-80c6-6b8bc801ee7d.png)
-4. Define Function visualizing the model predictions
+4. Define Function (visualizing the model predictions)
     - def visualize_model(model, num_images=6):
         - ax = plt.subplot(num_images//2 , 2, images_so_far )
 5. model 정의하고, Train 및 validation 해보기
-    1. Finetuning the convnet
+    1. Finetuning the conv_Net
         - 직접 torch git 에서 전체 코드를 꼭 봐야 함.
         - 요약  
             ```Python
@@ -228,8 +235,8 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
             model_ft.fc = nn.Linear(num_in_features, 2)  
             model_ft = train_model(model_ft, criterion, optimizer_ft, ...)
             visualize_model(model_ft)
-            ```  
-    2. ConvNet as fixed feature extractor
+            ```
+    2. Conv_Net as fixed feature extractor
         - 요약  
             ```Python
             model_conv = torchvision.models.resnet18(pretrained=True)
@@ -239,5 +246,5 @@ title: 【Pytorch】Pytorch Tutorial 내용 핵심 정리
             model_conv.fc = nn.Linear(num_ftrs, 2)
             model_conv = train_model(model_conv, criterion, optimizer_ft, ...)
             visualize_model(model_conv)
-            ```  
+            ```
 

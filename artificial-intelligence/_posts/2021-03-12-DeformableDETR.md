@@ -49,7 +49,7 @@ title: 【Transformer+OD】Deformable DETR w/ advice
 4. `multi-head attention module` : query-key pairs 에 대한 Attention(= compatibility, Softmax) 정도 를 파악해 그것을 attention weights 라고 하자. 이 attention weights와 각각의  the key와 융합하는 작업을 한다. 
 5. `multi-head` : 단어와 단어끼리의 compatibility(상관성 그래프)를 한번만 그리기엔, 애매한 문장이 많다. 그래서 그 그래프를 여러개 그려서 단어와 단어사이의 관계를 다양하게 살펴봐야한다. 이것을 가능하게 해주는 것이 multi-head 이다.  Different representation subspaces and different positions을 고려함으로써, 이 서로서로를 다양하게 집중하도록 만든다. 
 6. multi-head에서 나온 값들도 learnable weights (W_m)를 통해서 linearly하게 결햅해주면 최종 결과가 나온다. 아래의 필기와 차원 정리를 통해서, 한방에 쉽게 Attention module과 MHA(multi head attention)에 대해서 명확히 알 수 있었다.   
-   ![image-20210312172106021](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210312172106021.png?raw=tru)
+   ![image-20210312172106021](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note2.png?raw=true)
 7. 위의 보라색 필기는, Softmax 까지의 Attention weight를 구하는 과정을 설명한다. 파랑색 필기는 MHA의 전체과정을 설명한다. 특히 두꺼운 보라색 파랑색의 N과 HW는 각각 N_q, N_k (query의 갯수=100개), (key의 갯수=13x13=169개) 이다.
 8. 하지만 이 방법에는 2가지 문제점이 존재한다. 
    1. `long training schedules` : 학습 초기에 attention weight는 아래와 같은 식을 따른다. 만약 Key가 169개 있다면, 1/169 너무 작은 값에서 시작한다. 이렇게 작은 값은  ambiguous gradients (Gradient가 너무 작아서, 일단 가긴 가는데 이게 도움이 되는지 애매모호한 상황) 이 발생한다. 이로 인해서 오랜 학습을 거쳐야 해서, long training schedule and slow convergence가 발생한다.
