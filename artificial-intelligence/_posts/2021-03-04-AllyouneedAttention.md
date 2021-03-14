@@ -11,11 +11,42 @@ title: 【Transformer】Attention Is All You Need 공부 필기
 - 참고 자료
   1. 과거의 Post([Attention Mechanism Overveiw](https://junha1125.github.io/blog/artificial-intelligence/2021-01-17-Attention/))에 적혀있는 Reference
   2. Youtube1 : [https://www.youtube.com/watch?v=mxGCEWOxfe8](https://www.youtube.com/watch?v=mxGCEWOxfe8)
-  3. **연산이 좀 더 구체적으로 어떻게 이뤄지는 건지 궁금하면, [Deformable DETR 부분의 내용정리](https://junha1125.github.io/blog/artificial-intelligence/2021-03-12-DeformableDETR/#2-revisiting-transformers-and-detr)를 참고하면 좋다**
+
+
+
+
 
 
 
 ![T3.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note3.png?raw=true)
+
+
+
+---
+
+---
+
+- **아래 필기 공부 순서 : 맨 아래 그림 -> 보라색 -> 파랑색 -> 대문자 알파벳 매칭 하기**
+
+![T3.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note8.png?raw=true)
+
+![T3.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note9.png?raw=true)
+
+![T3.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note10.png?raw=true)
+
+
+
+
+
+
+
+
+
+---
+
+---
+
+
 
 ![T3.png](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-1/Transformer_note2.png?raw=true)
 
