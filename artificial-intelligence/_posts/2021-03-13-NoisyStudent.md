@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Detection】[Self-training with Noisy Student improves ImageNet classification
+title: 【Detection】Self-training with Noisy Student improves ImageNet classification
 ---
 
 - **논문** : [Self-training with Noisy Student improves ImageNet classification](https://arxiv.org/abs/1911.04252)

@@ -85,7 +85,7 @@ title: 【Transformer+OD】Deformable DETR w/ advice
 
 # 4. Method
 
-1. DETR에서 Key를 all possible spatial locations 로 모두 가져간다. 하지만 deformable DETR에서는  only attends to a small set of key 로 Keys를 사용한다. 이를 통해서 우리는 원래 DETR의 가장 큰 문제점이었던, `the issues of convergence` 그리고 ` feature spatial resolution 을 기울 수 없는 상황`을 해결할 수 있게 되었다.
+1. DETR에서 Key를 all possible spatial locations 로 모두 가져간다. 하지만 deformable DETR에서는  only attends to a small set of key 로 Keys를 사용한다. 이를 통해서 우리는 원래 DETR의 가장 큰 문제점이었던, `the issues of convergence` 그리고 `feature spatial resolution 을 키울 수 없는 상황`을 해결할 수 있게 되었다.
 
 2. Deformable Attention Module 그리고 Multi-scale Deformable Attention Module 의 수식은 아래와 같다. 수식을 이해하는 것은 그리 어렵지 않지만, 실제로 어떻게 정확하게 사용하는지는 코드를 통해서 이해할 필요가 있다. 코드를 확인하자. 
 
@@ -101,7 +101,7 @@ title: 【Transformer+OD】Deformable DETR w/ advice
 
 5. **Deformable Transformer *Decoder***
 
-   - 2가지 모듈이 있다. ` cross attention modules` : object-query와 Encoder의 출력값이 들어간다., ` self-attention modules` : object-query 끼리 소통하여 N=100개의 output을 만들어내는 모듈이다. 
+   - 2가지 모듈이 있다. `cross attention modules` : object-query와 Encoder의 출력값이 들어간다., `self-attention modules` : object-query 끼리 소통하여 N=100개의 output을 만들어내는 모듈이다. 
    - we only replace each `cross-attention module` to be the `multi-scale deformable attention module`
    - 어차피 self-attention module은 HW개의 query가 들어가는게 아니라 key, value, query가 모두 100개 일 뿐이다.
    - `multi-scale deformable attention module` 은 reference point 주변에 image features를 추출하는 모듈이다. 따라서 decoder 마지막 FFN의 `detection head`가 그냥 BB의 좌표를 출력하는 것이 아니라, `the bounding box as relative offsets`을 출력하도록 만들었다. 이를 통해서 `optimization difficulty`를 줄이는 효과를 얻을 수 있었다. (slow converage) (**reference point 를  BB center로써 사용했다고 하는데, BB center는 어디서 가져오는거지?**)
