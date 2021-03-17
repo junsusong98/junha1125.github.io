@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Pa-Segmen】Axial-DeepLab
+title: 【Pa-Segmen】Axial-DeepLab - Stand-Alone Axial-Attention 
 ---
 
 - **논문** : [Axial-DeepLab: Stand-Alone Axial-Attention for Panoptic Segmentation](https://arxiv.org/abs/2003.07853)

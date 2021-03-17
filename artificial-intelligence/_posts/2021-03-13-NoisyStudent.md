@@ -67,15 +67,57 @@ title: 【Detection】Self-training with Noisy Student improves ImageNet classif
 
 # 3. Experiments
 
-## 3.1 Experiment Details
+## 3.1Experiment Details
+
+- Labeled dataset : ImageNet, 2012 ILSVRC 
+- Unlabeled dataset : JFT dataset (300M images) public dataset YFCC100M
+- data filtering and balancing 
+  - confidence of the label higher than 0.3. 각 클래스에 대해서, 그 중에서 높은 confidence를 가지는 130K 이미지를 선택. 만약 130K 개가 안되면 이미지 복제를 해서라도 130K 맞추기
+  - 최종적으로 each class can have 130K images 를 가지도록 만든다. (ImageNet 또한 class마다 비슷한 수의 이미지를 가지고 있다고 함)
+- Architecture 
+  - EfficientNet-B7에서 wider, deeper, lower resolution을 가지는 Network를 만들어서 최종적으로  EfficientNet-B7를 만들었다고 함. 
+  - 아래는 EfficientNet-B0 인데, 여기서 Block을 더 넣는 방식으로 더 깊게 만들고, channel을 인위적으로 늘린다. 
+  - 특히, lower resolution을 사용하는 이유는 2가지인데, (1) 파라메터 수를 너무 과다하지 않게 만들기 위해서 (2) 아래의 ` fix train-test resolution discrepancy` 기법을 사용하기 때문에   
+    ![image-20210317132704150](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210317132704150.png)
+- **Training details** 
+  - epochs : EfficientNet-B4보다 작은 모델은 350. EfficientNet-B4 보다 큰 모델은 700.
+  -  learning rate : labeled batch size 2048 를 학습시킬때, 0.128 로 시작하고, 위의 모델에 대해서 각각 2.4 epochs, 4.8 epochs마다 0.97씩 감소시켰다.
+  - large batch size for unlabeled images :  make full use of large quantities of unlabeled images.
+  - 6 days on a Cloud TPU v3 Pod, which has 2048 cores, if the unlabeled batch size is 14x the labeled batch size
+  -  `fix train-test resolution discrepancy` 기법 [86] : 작은 해상도로 350 epochs 학습시키고, 마지막에 1.5 epochs만 larger resolution unaugmented labeled images 이미지로 학습시킴
+- **Noise**
+  - the survival probability in stochastic depth : 가장 마지막 residual layer에 대해서 0.8 를 가지고, 초반 layer로 갈수록 점점 증가시킨다.
+  - dropout rate : 가장 마지막 layer에 대해서 0.5 를 적용하고, 초반 layer로 갈수록 점점 증가시킨다.
+  -  RandAugment :  27 magnitiude
 
 
+
+---
+
+# 4. Details of Robustness Benchmarks
+
+1. **ImageNet-A** 
+   - 200 classes를 가지는 데이터셋
+   - the original ImageNet classes are available online. (자연 그대로 상태의 이미지)
+2. **ImageNet-C**
+   - mCE (mean corruption error) : the weighted average of error rate on different corruptions
+   - Corruptions in ImageNet-C: Gaussian Noise, Shot Noise, Impulse Noise, Defocus Blur, Frosted Glass Blur, Motion Blur, Zoom Blur, Snow, Frost, Fog, Brightness, Contrast, Elastic, Pixelate, JPEG.
+3. **ImageNet-P**
+   - mFR (mean flip rate) : the weighted average of flip probability on different perturbations
+   - Gaussian Noise, Shot Noise, Motion Blur, Zoom Blur, Snow, Brightness, Translate, Rotate, Tilt, Scale
+4. **RandAugment transformations**
+   - AutoContrast, Equalize, Invert, Rotate, Posterize, Solarize, Color, Contrast, Brightness, Sharpness, ShearX, ShearY, TranslateX and TranslateY.
+
+
+
+---
 
 ## 3.2 ImageNet Results
 
 ![image-20210313183547601](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210313183547601.png?raw=tru)
 
 - ImageNet-C의 평가에 사용된 mCE 지표와 ImageNet-P의 평가에 사용된 mFR 지표는 낮을수록 좋은 값이다. 
+- 성능지표 표는 첨부하지 않겠다. 쨋든 다 성능이 향상한다.
 
 
 
