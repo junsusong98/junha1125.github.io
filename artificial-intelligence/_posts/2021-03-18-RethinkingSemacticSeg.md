@@ -30,7 +30,14 @@ title: 【Se-Segmen】Rethinking Semantic Segmentation with Transformers
 
 # 3. Method
 
-![image-20210319132539937](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210319132539937.png)
+![image-20210319132539937](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210319132539937.png?raw=tru)
+
+- 위의 이미지는 아래의 것에 대한 이미지 이다.
+  - (맨왼쪽) Transformer layer 
+  - Image (transformer) Encoder 
+  - (오른쪽 위) 두번째 Decoder : SETR-PUP
+  - (오른쪽 아래) 세번째 Decoder : SETR-MLA
+  - 첫번쨰 Decoder인 Naive에 대한 이미지는 없다.
 
 
 
@@ -63,7 +70,7 @@ title: 【Se-Segmen】Rethinking Semantic Segmentation with Transformers
   6. `positional embeding` : specific embedding p_i를 학습한다. i는 1~L개가 존재하고 차원은 C이다. 따라서 Transformer layer에 들어가기 전 `final sequence input E` = {e1 + p1, e2 + p2, · · · , eL + pL} 가 된다. 여기서 e는 `patch embeding 결과` 그리고 p는 `positional emdeing` 값이다.
 - **Transformer**
   - a pure transformer based encoder     
-    ![image-20210319140800325](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210319140800325.png)
+    ![image-20210319140800325](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210319140800325.png?raw=tru)
   - 여기서 말하는 transformer layer는 위 이미지 가장 왼쪽의 Block 하나를 의미한다. 이것을 24개 쓴다.
   - 즉 Transformer layer를 통과하고 나온 output 하나하나가 Z_m 이다.
 
@@ -118,7 +125,7 @@ title: 【Se-Segmen】Rethinking Semantic Segmentation with Transformers
   4. 그리고 test를 위해서 `Sliding window`를 사용했다고 하는데, 이게 뭔소리인지 모르겠다. (?)
 - **SETR variants**
   1. encoder “T-Small” and “T-Large” with 12 and 24 layers respectively.   
-     <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210319150947438.png" alt="image-20210319150947438" style="zoom:90%;" />
+     <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210319150947438.png?raw=tru" alt="image-20210319150947438" style="zoom:90%;" />
   2. SETR-Hybrid 는 ResNet-50 based FCN encoder 를 사용해서 뽑은 Feature map을 Transformer input으로 사용하는 모델이다. 이후에 언급하는 SETR-Hybrid는 ResNet50 and SETR-Naive-S 를 의미하는 것이다.
 - **Pre-training**
   1.  the pre-trained weights provided by [17, ViT]
@@ -133,12 +140,12 @@ title: 【Se-Segmen】Rethinking Semantic Segmentation with Transformers
 # 5. Results
 
 - **Ablation Studies**      
-  ![image-20210319152013916](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210319152013916.png)
+  ![image-20210319152013916](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210319152013916.png?raw=tru)
 
 
 
 - **SOTA comparision**    
-  ![image-20210319151946197](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210319151946197.png)
+  ![image-20210319151946197](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210319151946197.png?raw=tru)
 
 
 
