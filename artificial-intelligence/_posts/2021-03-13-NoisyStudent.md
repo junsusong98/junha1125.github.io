@@ -78,7 +78,7 @@ title: 【Detection】Self-training with Noisy Student improves ImageNet classif
   - EfficientNet-B7에서 wider, deeper, lower resolution을 가지는 Network를 만들어서 최종적으로  EfficientNet-B7를 만들었다고 함. 
   - 아래는 EfficientNet-B0 인데, 여기서 Block을 더 넣는 방식으로 더 깊게 만들고, channel을 인위적으로 늘린다. 
   - 특히, lower resolution을 사용하는 이유는 2가지인데, (1) 파라메터 수를 너무 과다하지 않게 만들기 위해서 (2) 아래의 ` fix train-test resolution discrepancy` 기법을 사용하기 때문에   
-    ![image-20210317132704150](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210317132704150.png)
+    ![image-20210317132704150](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210317132704150.png?raw=tru)
 - **Training details** 
   - epochs : EfficientNet-B4보다 작은 모델은 350. EfficientNet-B4 보다 큰 모델은 700.
   -  learning rate : labeled batch size 2048 를 학습시킬때, 0.128 로 시작하고, 위의 모델에 대해서 각각 2.4 epochs, 4.8 epochs마다 0.97씩 감소시켰다.
