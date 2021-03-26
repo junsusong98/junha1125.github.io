@@ -84,7 +84,7 @@ title: 【Detection】Feature Pyramid Transformer
 
 - a top-down non-local interactio을 수행하는 방법이 위와 같다. 
 - 어렵게 생각할거 없고 위에 그림과 같이 q, k, v를 설정하여 self-attention을 적용한 모듈이다. 
-- 예를 들어서 `q = H W d`,  `K = h w d`  차원을 가진다고 하면, `q_i = 1 d`, `k_j = 1 d` 가 된다고 할 수 있다. d를 맞추는 것은 channel 크기를 맞춰주면 되는 것이기 때문에 그리 어려운 문제는 아니다.
+- 예를 들어서 변수 = 변수.shape로 표현해 정리한다면, `q = H * W * d`,  `K = h * w * d`  차원을 가진다고 하면, `q_i = 1 * d`, `k_j = 1 * d` 가 된다고 할 수 있다. d를 맞추는 것은 channel 크기를 맞춰주면 되는 것이기 때문에 그리 어려운 문제는 아니다.
 - **Locality-constrained Grounding Transformer** : 그냥 Grounding Transformer를 적용하는 방법도 있고, Locality 적용하는 방법이 지들이 제안했다고 한다. stand-alone에 있는 내용아닌가...
 
 

@@ -71,8 +71,7 @@ title: 【Detection】Bottleneck Transformers for Visual Recognition
    ![image-20210325124422713](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210325124422713.png?raw=tru)
 5. BoTNet improves backbones in ResNet Family
 6.  BoTNet scales well with larger images (1024보다 1280 크기에 이미지에 multi-scale-jitter 심하게 주고 학습시키면 더 좋은 성능이 나온다.)
-7.  Non-Local Neural Networks 보다 훨씬 좋은 성능이 나온다.
-   - 아래를 보면 BoTNet와 Transformer, DETR, Non-Local layer(2018년도 Transformer랑 비슷하게 나온 Architecture모델) 들을 비교해놓았다.
+7. Non-Local Neural Networks 보다 훨씬 좋은 성능이 나온다.
    - 이것을 보면, 버클리와 구글에서 이미지 처리에 가장 좋은 **MHSA 구조를 사용하는 방법에 대해서 많은 실험을 해서 나온 결과가 BoTNet이라는 것을 짐작할 수 있다. MHSA를 그냥 사용하는 게 아니라, BottleNet구조로 바꿔고, BottleNet Transformer라는 새로운 Block을 만들고 이름까지 명명해버렸다. (이미지 처리를 위해서 가장 완벽하게 Transformer를 사용하는 구조를 많은 실험을 통해 최종적으로 찾아낸 BottleNet Transformer 이라고 말할 수도 있을 것 같다.)**
 8. Image Classification on ImageNet      
    <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210325125140525.png?raw=tru" alt="image-20210325125140525" style="zoom:85%;" />
@@ -102,7 +101,7 @@ title: 【Detection】Bottleneck Transformers for Visual Recognition
   |      | DETR                             | BoTNet                                                       |
   | ---- | -------------------------------- | ------------------------------------------------------------ |
   |      | outside(after) the backbone      | backbone내부에 Transformer같은 block 삽입/대체               |
-  |      | RPN그리고 NMS 제거를 목적으로 함 | recognition만은 task에서 적용가능                            |
+  |      | RPN그리고 NMS 제거를 목적으로 함 | recognition의 많은 task에서 적용가능                         |
   |      |                                  | **visibly good gains on small objects (상대적 작은객체 탐지 더 좋음)** |
 
 - NL(Non-Local)Net과 BoTNet의 차이점      
@@ -162,7 +161,7 @@ title: 【Detection】Bottleneck Transformers for Visual Recognition
 
    
 
-2. **relative positional embeding** (stand-alone attention 논문에서 나오는 것이라 한다. 아직은 아래 코드가 무슨 행동을 하는지 이해 안 함 = 코드도 복잡하고 논문도 복잡하니 필요하면 그냥 가져와서 사용해야겠다. Axial deeplab에서 추천하는 논문들 (stand-alone, Position-Sensitivity 논문이 이에 관한 좋은 코드 정보로 제공해줄 것 같다.)      
+2. **relative positional embeding** (stand-alone attention 논문에서 나오는 것이라 한다. 아직은 아래 코드가 무슨 행동을 하는지 이해 안 함 = 코드도 복잡하고 논문도 복잡하니 필요하면 그냥 가져와서 사용해야겠다. Axial deeplab에서 추천하는 논문들 (stand-alone, Position-Sensitivity 논문이 이에 관한 좋은 코드 정보로 제공해줄 것 같다.)      ㄷ
 
    ```python
    class RelPosEmb(nn.Module):
