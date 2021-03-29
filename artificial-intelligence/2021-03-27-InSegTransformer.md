@@ -1,14 +1,14 @@
 ---
 layout: post
-title: 【Self】Pre-Trained Image Processing Transformer
+title: 【In-Segmen】End-to-End Video Instance Segmentation with Transformers
 ---
 
-- **논문** : [Pre-Trained Image Processing Transformer](https://arxiv.org/abs/2012.00364)
-- **분류** : self-supervised learning
+- **논문** : [End-to-End Video Instance Segmentation with Transformers](https://arxiv.org/abs/2011.14503)
+- **분류** : Instance Segmentation
 - **느낀점** : 
 - **참고 사이트** : 
 - **목차**
-  1. 
+  - 
 
 
 

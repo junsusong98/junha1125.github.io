@@ -1,10 +1,10 @@
 ---
 layout: post
-title: 【In-Segmen】End-to-End Video Instance Segmentation with Transformers
+title: 【Self】Pre-Trained Image Processing Transformer
 ---
 
-- **논문** : [End-to-End Video Instance Segmentation with Transformers](https://arxiv.org/abs/2011.14503)
-- **분류** : Instance Segmentation
+- **논문** : [Pre-Trained Image Processing Transformer](https://arxiv.org/abs/2012.00364)
+- **분류** : self-supervised learning
 - **느낀점** : 
   - 이제 슬슬 아이디어 생각해야한다. 일단 기반은 열심히 닦고 있긴하다...
 
@@ -14,7 +14,7 @@ title: 【In-Segmen】End-to-End Video Instance Segmentation with Transformers
 
 ---
 
-# End-to-End Video Instance Segmentation with Transformers
+# Pre-Trained Image Processing Transformer
 
 # 1. Conclusion, Abstract
 
@@ -68,7 +68,7 @@ title: 【In-Segmen】End-to-End Video Instance Segmentation with Transformers
 ## 3.2 Pre-training on ImageNet
 
 - the key factors for successfully training은 바로, the well use of large-scale datasets 이다! 
-- 하지만 image processing task에 특화된 Dataset 별로 없다. 예를 들어 DIV2K (only 2000 Images). (이 Dataset은 manually degrading과는 다르다고 한다. 이러한 다름을 고려하여 추후에 generalization ability에 대해 분석해본다.)
+- 하지만 image processing task에 특화된 Dataset 별로 없다. 예를 들어 DIV2K (only 2000 Images). (이 Dataset은 ImageNet을 manually degrading한 것과는 다르다고 한다. 이러한 다름을 고려하여 추후에 generalization ability에 대해 분석해본다.)
 - 따라서 ImageNet을 사용해서 we generate the entire dataset for several tasks. 이것을 이용해서 Pre-training model을 만든다!
 - ImageNet에서 Label에 대한 정보는 버려버리고,, 인위적으로 여러 Task에 맞는  a variety of corrupted images를 만들었다.    
   ![image-20210328133446178](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210328133446178.png?raw=tru)
