@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Self】Pre-Trained Image Processing Transformer
+title: 【Transformer】Pre-Trained Image Processing Transformer
 ---
 
 - **논문** : [Pre-Trained Image Processing Transformer](https://arxiv.org/abs/2012.00364)
