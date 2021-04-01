@@ -198,3 +198,13 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
 
 ![image-20210329213208677](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210329213208677.png?raw=tru)
 
+
+
+
+
+## 7. VS code 환경설정
+
+1. 아래와 같이 Python Interpreter 설정을 해야한다. 
+2. ML-workspace자체에 conda가 설치되어 있고, base env는 `opt/conda/bin/python` 에 존재한다. interpreter에 마우스 길게 갖다 대고 있으면 path가 나온다. 나의 window conda path와 겹칠일은 없겠지만 그래도 조심하자.   
+   ![image-20210329223237549](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210329223237549.png)
+
