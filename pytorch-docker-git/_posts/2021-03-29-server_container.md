@@ -141,7 +141,7 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
      - ```sh
        ### 설명 추가
        $ sudo docker run -d \ # background 실행
-           -p 8080:8080 \ # 앞 포트는 내 우분투 포트, 뒤 포트는 컨테이너 내부 우분투 포트
+           -p 8080:8080 \ # 앞 포트는 내 우분투 포트, 뒤 포트는 컨테이너 내부 우분투 포트, 실험에 의하면 host-port/container-port이며, host-port만 바꿔주고 container-port는 8080으로 고정해서 사용하자
            --name "8080ML" \ # 맘대로 해라
            --runtime nvidia \ # 이거 꼭! 
            --env NVIDIA_VISIBLE_DEVICES="all" \ # 이것도 꼭 

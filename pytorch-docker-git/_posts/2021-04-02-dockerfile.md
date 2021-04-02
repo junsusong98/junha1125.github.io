@@ -1,23 +1,24 @@
 ---
 layout: post
-title: 【docker】How to use dockerfile
+title: 【docker】How to use dockerfile & docker run in detail
 ---
 
 -  공개된 Github 코드들 중에 Facebook, Microsoft, Google과 같은 대형 기업이 만든 패키지는 모두 Docker Installation을 제공한다. 즉 dockerfile이 제공되는데, 이것을 이용하는 방법에 대해서 간략히 공부해본다.
 -  ([이전 Post 링크](https://junha1125.github.io/blog/pytorch-docker-git/2020-02-18-tstory_7/)) docker hub에서 Image를 가져올 때는 `pull` 명령어! 내가 Image를 배포하고 싶으면 `push` 명령어! 
+-  미리 알아두어야할 핵심은, **dockerfile로 Image를 만드는 것이다. container 만드는 것은 docker run**
 
 
 
-# How to use dockerfile
+# 1. How to use dockerfile in order to make docker Image
 
-## 0. Reference
+## (0) Reference
 
 1. [https://tech.osci.kr/2020/03/23/91695884/](https://tech.osci.kr/2020/03/23/91695884/)
 2. [https://javacan.tistory.com/entry/docker-start-7-create-image-using-dockerfile](https://javacan.tistory.com/entry/docker-start-7-create-image-using-dockerfile)
 
 
 
-## 1. reference summary
+## (1) reference summary
 
 - Docker File이란 Docker Image를 만들기 위한 여러가지 명렁어의 집합이다. 
 
@@ -63,7 +64,7 @@ title: 【docker】How to use dockerfile
 - 만든 dockerfile을 build 하기 `$ docker build --force-rm --tag mynginx:0.1 .` 
 
   - docker build가 실행되는 터미널 pwd에 있는 dockerfile을 자동으로 build해준다.
-  - --force-rm : 기존에 존재하는 image를 삭제합니다.
+  - --force-rm : 중간중간에 생성되는 임시 container를 항상 remove 한다. (`--force-rm: Always remove intermediate containers`) 
   - --tag : 태그를 설정해줍니다. (docker-image-name : tag-name)
 
 
@@ -76,21 +77,105 @@ title: 【docker】How to use dockerfile
   $ cd ~/git-package/
   $ git clone https://github.com/facebookresearch/detr.git
   $ cd ./detr
-  $ sudo docker build ./
-  # 처음에 ./ 를 안해줬더니 아래 같은 에가 떴다.
+  $ sudo docker build ./ # 이렇게 하면 아래처럼 대참사 발생
+  $ sudo docker build --tag ImageName:tag ./  #이렇게 사용하라. 
+  # 처음에 ./ 를 안해줬더니 아래 같은 에러가 떴다.
   # "docker build" requires exactly 1 argument. Usage : docker build [Options] Pash 
   ```
 
 - detr의 dockerfile을 보면 다음과 같다.    
+
+  ```sh
+  ROM pytorch/pytorch:1.5-cuda10.1-cudnn7-runtime
+  ENV DEBIAN_FRONTEND=noninteractive
+  RUN apt-get update -qq && \
+      apt-get install -y git vim libgtk2.0-dev && \
+      rm -rf /var/cache/apk/*
+  RUN pip --no-cache-dir install Cython
+  COPY requirements.txt /workspace
+  RUN pip --no-cache-dir install -r /workspace/requirements.txt
   ```
 
+- 생각해보니까, 내가 굳이 Physical server (내 데스크탑)에 detr package 전체를 git clone할 필요가 없었다. 
+
+- 어차피 dockerfile에 의해서 만들어지는 이미지안에 detr package가 들어갈 거다. 그리고 그 package내부의 requirement.txt가 pip install 될 것이다. 
+
+- --tag 옵션으로 Image 이름 꼭 설정해주자... 안그러면 아래와 같은 대참사가 발생한다.    
+  ![image](https://user-images.githubusercontent.com/46951365/113404779-af218180-93e3-11eb-8124-c9fb93615169.png)
+
+- 나는 하나의 Image만 build하고 싶은데, 왜 많은 Image가 생성된걸까?   
+  ![image-20210402185216777](https://user-images.githubusercontent.com/46951365/113405511-eb091680-93e4-11eb-9fa9-1a8215dfc359.png)
+
+  - 우선 위의 대참사를 해결하기 위해서 --force-rm --tag 옵션을 넣어서 다시 수행했을때, 왠지는 모르겠지만 빠르게 Image가 build 되었다. 기존에 90f7 ca40 6296 4789 와 같은 Image가 존재하기 때문이다. 
+  - dockerfile을 build하는 과정은 다음과 같다. 
+    1. 맨 위에 명령어부터 차근차근 실행한다. 
+    2. docker-hub에서 이미지를 다운받는다.
+    3. 그 이미지로 container를 생성한다.
+    4. 그 container에서 우분투 명령어를 RUN한다. 
+    5. 그렇게 만들어진 container를 Image로 저장한다.  (--force-rm옵션에 의해서 위의 임시 container를 삭제한다.)
+    6. 이 과정을 반복해서 많은 Image가 생성된다. 
+    7. 최종적으로 만들어지는 Image는 `Successfully built 7f745326ad49` 에서 명시된 이미지이다. 
 
 
 
 
 
+**지금까지 dockerfile을 build함으로써 docker Image는 만들었다!** 
+
+**이 다음부터는 $ sudo docker run 의 문제이다.** 
 
 
 
-## 2. reference summary
+# 2. docker run
 
+- Reference: [docker run 커맨드 사용법](https://www.daleseo.com/docker-run/)
+- [이전 Post 링크](https://junha1125.github.io/blog/pytorch-docker-git/2020-02-18-tstory_7/) : docker 기본 명령어 
+
+
+
+## 나의 사용 예시
+
+- 일단 아래처럼, ML-workspace 명령어 그대로 가져오면 안된다. 여기서 -it를 사용하지 않는 이유는 -it를 사용하지 않더라도 jupyter가 실행되며 terminal이 살아있기 때문이다. 
+
+```sh
+$ sudo docker run -d \
+    -p 8888:8080 \
+    --name "detr" \
+    --gpus all\
+    -v "${PWD}/docker_ws:/workspace" \
+    --shm-size 512m \
+    --restart always \ # exit상태가 되면 무조건 다시 start한다.
+    7f745326ad49
+```
+
+- gpu사용하려면 이제 앞으로 --gpus 옵션만 넣으면 된다. 근데 이렇게 실행하면 이상하게 자동으로 exit가 되고 start를 수행하도 다시 exit가 된다. **이유** : -d 옵션을 사용하기만 하면 shell이 생성이 안되므로 자동으로 container가 죽어버린다
+
+```sh
+$ sudo docker run -d 7f74
+```
+
+- 이렇게 하니가 start하면 계속 살아있네? 
+
+```sh
+$ sudo docker run -it --gpus all  7f745326ad49
+```
+
+- 결론 -d -it 꼭 같이 사용하자...
+
+```sh
+$ sudo docker run -d -it --gpus all  7f745326ad49
+```
+
+- 다른 필요한 옵션도 추가
+
+```sh
+$ sudo docker run -d -it \
+         --gpus all\
+         --restart always\
+         -p 8888:8080\	
+         --name "detr" \
+         -v "${PWD}/docker_ws:/workspace" \
+         7f745326ad49
+```
+
+![image](https://user-images.githubusercontent.com/46951365/113412210-a4221d80-93f2-11eb-8bf5-846382e9ff1b.png)

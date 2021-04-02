@@ -40,7 +40,7 @@ title: 【docker】container setting using ML-workspace
       mltooling/ml-workspace:0.12.1
   ```
 
-- -p : [port 설정 설명](https://www.youtube.com/watch?v=pMY_wPih7R0&list=PLEOnZ6GeucBVj0V5JFQx_6XBbZrrynzMh&index=3)
+- -p : [port 설정 설명](https://www.youtube.com/watch?v=pMY_wPih7R0&list=PLEOnZ6GeucBVj0V5JFQx_6XBbZrrynzMh&index=3), -p : port설정
 
 - -v : 나같은 경우 `"$pwd"/docker_ws:/workspace`
 
