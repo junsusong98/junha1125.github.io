@@ -77,3 +77,7 @@ title: 【27살】나만의 연구분야 일기 + private
    3. Transformer 공부하기
    4. Detection, Segmentation 시간날 때마다 발전 흐름 따라가기 
 
+
+
+
+
