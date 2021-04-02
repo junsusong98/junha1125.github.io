@@ -21,7 +21,7 @@ title: 【DA】Domain Adaptive Semantic Segmentation Using Weak Labels
 
 # 1. Conclusion, Abstract
 
-![image-20210401225204575](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210401225204575.png)
+![image-20210401225204575](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210401225204575.png?raw=tru)
 
 - 논문의 내용 다른거 특별할거 없고, 그냥 이 그림이 이 논문의 전부이다.
 - 하지만 `Weak label for category-wise Alignment`, `Weak label classification Module`은 그림으로 보고 이해하려고 하지말고, 아래 Detail과 Loss함수를 보고 이해하도록 해라.
@@ -35,7 +35,7 @@ title: 【DA】Domain Adaptive Semantic Segmentation Using Weak Labels
 
 ## 3.1 Problem Definition
 
-![image-20210401230116281](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210401230116281.png)
+![image-20210401230116281](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210401230116281.png?raw=tru)
 
 
 
@@ -44,10 +44,10 @@ title: 【DA】Domain Adaptive Semantic Segmentation Using Weak Labels
 ## 3.2 Algorithm Overview
 
 - Model Architecture    
-  ![image-20210401230133034](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210401230133034.png)
+  ![image-20210401230133034](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210401230133034.png?raw=tru)
 - 이 이미지에서 **Domain Adaptation에서 많이 사용되는 `Adversarial Discriminative Domain Adaptation`가 핵심적으로 무엇인지 오른쪽 필기에 적어 놓았다. 진정한 핵심**이고 많이 사용되고 있는 기술이니 알아두도록 하자.
 - [Conference Presentation](https://www.youtube.com/watch?v=1ZKbZj8it-A) 자료 정리    
-  ![image-20210401235541159](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210401235541159.png)
+  ![image-20210401235541159](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210401235541159.png?raw=tru)
 
 
 
@@ -57,7 +57,7 @@ title: 【DA】Domain Adaptive Semantic Segmentation Using Weak Labels
 
 - 이 과정의 목적은 `segmentation network G can discover those categories` **즉 segmentation network인 G가 domain이 변하더라고 항상 존재하는 `Object/Stuff`에 pay attention 하도록 만드는 것을 목표로 한다. G가 이미지 전체의 environment, atmosphere, background에 집중하지 않도록 하는데에 큰 의의가 있는 방법이다.** 
 - (Eq1) Global Pooling이 적용되는 방법과, (Eq2) Loss 수식에 대한 그림이다.   
-  ![image-20210401231357314](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210401231357314.png)
+  ![image-20210401231357314](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210401231357314.png?raw=tru)
 - 이미지에 특정 class가 있는지 없는지에 대해서 집중하기(판단하기) 위해서 Global Pooling이 사용되었다.
 - 위에 (1)식에 사용되는 수식은 `smooth approximation of the max function`이다. k가 무한대로 크면 max pooing이 적용된 것이라고 할 수 있다. 하지만 하나의 값으로 pooling 값이 정해지는 max pooling을 사용하는 것은 Noise에 대한 위험을 안고 가는것이기 때문에 k=1로 사용했다고 한다.
 - Pooling에 의해서 적절한 값이 추출되게 만들기 위해서는 Loss함수가 필요한데, 그 함수를 (2)번과 같이 정의하였다. `category-wise binary cross-entropy loss`를 사용했다고 말할 수있다. 
@@ -74,10 +74,10 @@ title: 【DA】Domain Adaptive Semantic Segmentation Using Weak Labels
   - 과거에 `performing category-wise alignment`을 수행한 논문[14]이 있기는 하다. 하지만 이 방법은 `pixel-wise pseudo labels`을 사용했다고 한다.(?) 
   - 우리는 `pixel-wise`가 아니라 `image-level weak labels`를 사용했다. 그냥 단순하게 사용한 것이 아니라. `an attention map guided by our classification module(global pooling) using weak label`을 사용한 것이므로 매우 합리적이고 make sense한 방법이라고 할 수 있다. 
 - **Category-wise Feature Pooling**   
-  ![image-20210401233013356](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210401233013356.png)
+  ![image-20210401233013356](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210401233013356.png?raw=tru)
 
 - **Category-wise Feature Alignment**    
-  ![image-20210401233336307](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210401233336307.png)
+  ![image-20210401233336307](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210401233336307.png?raw=tru)
   - 핵심은 Discriminator를 하나만 정의하지 않고, `each category-specific discriminators independently`를 사용했다는 점이다. 
   - 이렇게 하면 the feature distribution for each category가 독립적으로 align되는 것이 보장될 수 있다. (맨위의 이미지를 보면 이해가 될 거다.)
   - a mixture of categories를 사용하면  the noisy distribution 문제점이 존재한다. 
@@ -89,7 +89,7 @@ title: 【DA】Domain Adaptive Semantic Segmentation Using Weak Labels
 
 ## 3.5 Network Optimization
 
-![image-20210401234406864](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210401234406864.png)
+![image-20210401234406864](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210401234406864.png?raw=tru)
 
 
 
@@ -99,7 +99,7 @@ title: 【DA】Domain Adaptive Semantic Segmentation Using Weak Labels
 
 1. Pseudo-Weak Labels (UDA)
    - the unsupervised domain adaptation (UDA)   
-     ![image-20210401234539237](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210401234539237.png)
+     ![image-20210401234539237](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210401234539237.png?raw=tru)
    - T는 threshold이다. 실험적으로 0.2로 세팅해서 좋은 결과를 얻었다. 
    - 학습하는 동안에 the weak labels은 online 으로 생성해서 사용했다. 
 2. Oracle-Weak Labels (WDA)
@@ -108,7 +108,7 @@ title: 【DA】Domain Adaptive Semantic Segmentation Using Weak Labels
    - pixel-wise annotations 보다는 훨씬 쉽고 효율적이다. 
    - 위의 방법 말고도 이 논문에서 `Fei-Fei, L.: What’s the point: Semantic segmentation with point supervision. In: ECCV (2016)` 논문에 나오는 기법도 이용했다. (더 좋은 성능 얻음) 
    - 이 기법은 사람이 이미지 일정 부분만 segmentation annotation한 정보만을 이용하는 기법이다.    
-     ![image-20210401235242988](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210401235242988.png)
+     ![image-20210401235242988](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210401235242988.png?raw=tru)
 
 
 
