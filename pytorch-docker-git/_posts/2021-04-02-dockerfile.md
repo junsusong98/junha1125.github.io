@@ -78,7 +78,7 @@ title: 【docker】How to use dockerfile & docker run in detail
   $ git clone https://github.com/facebookresearch/detr.git
   $ cd ./detr
   $ sudo docker build ./ # 이렇게 하면 아래처럼 대참사 발생
-  $ sudo docker build --tag ImageName:tag ./  #이렇게 사용하라. 
+  $ sudo docker build --force-rm --tag ImageName:tag ./  #이렇게 사용하라. 
   # 처음에 ./ 를 안해줬더니 아래 같은 에러가 떴다.
   # "docker build" requires exactly 1 argument. Usage : docker build [Options] Pash 
   ```
@@ -101,10 +101,10 @@ title: 【docker】How to use dockerfile & docker run in detail
 - 어차피 dockerfile에 의해서 만들어지는 이미지안에 detr package가 들어갈 거다. 그리고 그 package내부의 requirement.txt가 pip install 될 것이다. 
 
 - --tag 옵션으로 Image 이름 꼭 설정해주자... 안그러면 아래와 같은 대참사가 발생한다.    
-  ![image](https://user-images.githubusercontent.com/46951365/113404779-af218180-93e3-11eb-8124-c9fb93615169.png)
+  ![image](https://user-images.githubusercontent.com/46951365/113404779-af218180-93e3-11eb-8124-c9fb93615169.png?raw=tru)
 
 - 나는 하나의 Image만 build하고 싶은데, 왜 많은 Image가 생성된걸까?   
-  ![image-20210402185216777](https://user-images.githubusercontent.com/46951365/113405511-eb091680-93e4-11eb-9fa9-1a8215dfc359.png)
+  ![image-20210402185216777](https://user-images.githubusercontent.com/46951365/113405511-eb091680-93e4-11eb-9fa9-1a8215dfc359.png?raw=tru)
 
   - 우선 위의 대참사를 해결하기 위해서 --force-rm --tag 옵션을 넣어서 다시 수행했을때, 왠지는 모르겠지만 빠르게 Image가 build 되었다. 기존에 90f7 ca40 6296 4789 와 같은 Image가 존재하기 때문이다. 
   - dockerfile을 build하는 과정은 다음과 같다. 
@@ -166,7 +166,7 @@ $ sudo docker run -it --gpus all  7f745326ad49
 $ sudo docker run -d -it --gpus all  7f745326ad49
 ```
 
-- 다른 필요한 옵션도 추가
+- 다른 필요한 옵션도 추가 (**이거 쓰지말고 맨 아래에 새로 만들었으니 그거 써라**) 문제점 : -v에서 PWD가 들어가 있으니까, terminal PWD 생각안하고 container만들면 무조건 에러가 생기더라.
 
 ```sh
 $ sudo docker run -d -it \
@@ -178,4 +178,57 @@ $ sudo docker run -d -it \
          7f745326ad49
 ```
 
-![image](https://user-images.githubusercontent.com/46951365/113412210-a4221d80-93f2-11eb-8bf5-846382e9ff1b.png)
+![image](https://user-images.githubusercontent.com/46951365/113412210-a4221d80-93f2-11eb-8bf5-846382e9ff1b.png?raw=tru)
+
+
+
+## 3. Error 
+
+1. 어제까지만 잘 실행되던 container가 VScode에서 오늘 안열린다. 
+
+   - Error 내용 : /root/detr 이 존재하지 않는다.
+   - 분석 : 내가 어제 git clone한 detr 폴더를 제거해버렸는데 그거 때문인가..?
+   - 일단 아래 처럼 문제 해결
+
+2. Dockerfile 이 실행되면서 마지막에 에러가 발생하고 이미지가 안 만들어진다. (어제까지는 잘만 되더만)
+
+   - 무식하게 분석하지 말고 에러를 일고 확실히 분석해보자.       
+     ![image-20210403180959468](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210403180959468.png?raw=tru)
+
+   - 가장 마지막 step 이후에 만들어진 Image를 이용해서 test를 해본다. 이럴때 `$ docker run --rm` 옵션을 사용하는 거구나   
+     ![image-20210403181225402](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210403181225402.png?raw=tru)
+
+   - 그렇다면 submitit package는 나중에 따로 직접 설치하다 requirement.txt에서 submitit 일단 지워 놓자.
+
+   - 오케이 일단! sumitit 패키지가 안들어간 이미지 생성 완성    
+     ![image-20210403181805986](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210403181805986.png?raw=tru)
+
+   - 첫번째 에러가 해결되었다!!     
+     ![image-20210403182238913](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210403182238913.png?raw=tru)
+
+     - 근데 처음에 /root/detr이 없다고 첫번쨰 에러가 발생했는데... 새로 생긴 container에서도 detr은 존재하지 않는데.... 어떻게 된것일까 모르겠다.
+
+     - 가장 안정된 `docker run command`   
+
+       - -v 옵션에서 조금이라도 문제가 있으면, 아에 -v 옵션이 적용이 안된다. 매우매우 주의할것
+
+         ```sh
+         sudo docker run -d -it      \
+         --gpus all         \
+         --restart always     \
+         -p 8888:8080         \
+         --name "detr"          \
+         -v ~/docker/detr:/workspace   \
+         detr:1
+         ```
+
+       - 앞으로 꼭!!! 이 과정으로 docekr 만들기
+
+         1. `$ cd ~/docker ` 하고 거기서 원하는 package `$ git clone <packageA link>` 
+         2. docker run의 -v옵션은 무조건  `~/docker/packageA:/workspace` 으로 설정
+         3. 이렇게 하면 container의 `/workspace`에는 자동으로 packageA도 들어가 있고 아주 개꿀이다. 
+         4. 참고로!! 혹시 모르니까 `packageA` 전체 내용은 삭제하지 말기.(첫번째 에러와 같은 문제가 다시 생길 수 있다.) 폴더를 만들고 싶다면 `packageA` 안에다가 폴더를 만들어서 거기서 작업하기
+     
+   - 아까 sumitit는 설치 못했으므로, 컨테이너에 직접 들어가서 패키지 설지    
+     ![image-20210403183947407](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210403183947407.png?raw=tru)
+
