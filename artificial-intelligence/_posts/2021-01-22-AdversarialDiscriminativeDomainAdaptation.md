@@ -26,39 +26,40 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 
 # 0. Abstract
 
-- the present & problem
+- **현재 기술들과 문재점** 
   - Adversarial learning(approaches) 사용 및 효과 
-    - generate diverse domain data + improve recognition despite target domain.
-    - reduce the difference, Improve generalization performance.
-  - generative approaches 문제점 - smaller shifts만 가능.
-  - discriminative approaches 문제점 -   larger domain shifts, But  **tied(=sharing) weights, GAN-based loss 사용안함.**
-- Ours ⭐⭐
+    - generate diverse domain data를 한 후에 improve recognition despite target domain을 수행한다.
+    - 그렇게 해서 reduce the difference하고 Improve generalization performance한다.
+  - 하지만 이런 generative approaches의 문제점은 - smaller shifts만 가능하다는 것이다.
+  - discriminative approaches 문제점 -   larger domain shifts가 가증하지만,  **tied(=sharing) weights, GAN-based loss를 사용하지 않는다.**
+- **Ours **
   - 지금까지의 접근방법들을 잘 융합하고, 적절히 변형한다. 
   - Use (별거도 아닌거 삐까번쩍하게도 적어놨다... 이래서 아래로 최대한 빨리 내려가서 구체적인 핵심먼저 파악해야한다.)
     - **(1) discriminative modeling(base models) **
     - **(2) untied weight sharing, **
     - **(3) GAN loss(adversarial loss)**
   - 즉 우리 것은 이것이다. general(=generalized, optimized) framework of discriminative modeling(=adversarial adaptation) = ADDA
-  - SOTA -  digit classification,  object classification
+  - SOTA 달성했다. -  digit classification,  object classification
+  - **논문 핵심** : (Related work) Adversarial 을 사용하는 방법론들은 항상 같은 고충을 격는다. "Discriminator가 잘 학습이 되지 않는다든지, Discriminator를 사용해서 Adversarial 관점을 적용해도 원한는데로 Model이 target data까지 섭렵하는 모델로 변하지 않는다던지 등등 **원하는데로 학습이 잘 이뤄지지 않는 문제점**" 을 격는다. 이 논문은 많은 문제점을 고려해서 가장 최적의 Discriminator 공식과 Adversarial 공식을 완성했다고 주장한다.
 
 
 
 # 1. Introduction
 
-- the past problem & effort
+- **과거의 방법론들**
   - dataset bias(source만 데이터 많음 target없음) + domain shift 문제해결은 일반적으로  fine-tune으로 했었다. But labeled-data is not enough.
   - 서로 다른  feature space를 mapping 시켜주는 deep neural transformations 방법도 존재한다. 그때 이런 방법을 사용했다. maximum mean discrepancy [5, 6] or correlation distances [7, 8]  또는 
   - the source representation(source를 encoding한 후 나오는 feature)를 decoder에 집어넣어서, target domain을 reconstruct하는 방법도 있다.[9] (encoding + decoding의 결과가 target data모양이 되도록. 그렇게 만든 data로 classifier 재 학습??)
-- the present
+- **현재의 기술들**
   - Adversarial adaptation : domain discriminator에서 adversarial objective(Loss)를 사용하여, domain discrepancy를 최소화 했다. 
   - generative adversarial learning [10] : generator(이미지 생성) discriminator(generated image, real image 구별) 를 사용해서 network가 어떤 domain인지 판단하지 못하게 만든다. [10,11,12,13]  이것들의 방식은 조금씩 다르다. 예를 들어, 어디에 generator를 위치시키고, loss는 무엇이고, weight share for source&target을 하는지 안하는지 등등
-- Ours
-  - 우리는 위 방식들을 최적한 novel unified framework를 만들어 냈다. - 위 Ours의 (1)(2)(3)
-  - generative modeling 은 필수적인게 아니라, discriminative representation를 학습하는게 우선이라고 판단했다. 
+- **Ours**
+  - 위 Ours의 (1)(2)(3)
+  -  discriminative representation를 학습하는게 우선이다. 
   - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210122185525171.png?raw=tru" alt="image-20210122185525171" style="zoom:67%;" />
-  - ADDA 간략히 정리하자면...
-    1. Learn discriminative representation using the labels in the source domain. -> 그냥 Source classifier 학습시키기. 
-    2. Learn  a separate encoding through a domain-adversarial loss. (domain discriminator 학습 및 target CNN 학습시키기)
+  - ~~ADDA 간략히 정리하자면...~~
+    1. ~~Learn discriminative representation (using the labels in the source domain). -> 그냥 Source classifier 학습시키기.~~ 
+    2. ~~Learn  a separate encoding through a domain-adversarial loss. (domain discriminator 학습 및 target CNN 학습시키기)~~
 
 
 
@@ -92,43 +93,46 @@ title: 【Domain】Adversarial Discriminative Domain Adaptation = ADDA
 
 # 3. Generalized adversarial adaptation - related work
 
-- 우리의 학습 순서 요약(이미지 주석을 요약해 놓은 것. 구체적인 내용은 4에 있다.)
+- 우리의 학습 순서 요약
   
   - ![image-20210123225514370](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210123225514370.png?raw=tru)
   
   1. Source CNN 학습시키기.
-  2. Adversarial adaptation 수행. Target CNN을 학습.
-3. Discriminator는 cannot reliably predict their domain label 하게 만든다. 
-  4. test 할 때, target encoder to the shared feature space(?) 그리고 source classifier를 사용한다. 
-  5. 점선은 Fixed network parameters를 의미한다.
+  2. Adversarial adaptation 수행. 
+  3. Target CNN을 학습.
+- 먼저 학습시켰던 Discriminator를 사용해서,  cannot reliably predict their domain label 하게 만듬으로써 Target CNN을 학습시킨다.
+- test 할 때, target encoder to the shared feature space(?) 그리고 source classifier(targetCNN도 원래는 Source CNN을 기반으로 하는 모델이므로)를 사용한다.
+- 점선은 Fixed network parameters를 의미한다.
+- (Related work) Adversarial 을 사용하는 방법론들은 항상 같은 고충을 격는다. "Discriminator가 잘 학습이 되지 않는다든지, Discriminator를 사용해서 Adversarial 관점을 적용해도 원한는데로 Model이 target data까지 섭렵하는 모델로 변하지 않는다던지 등등 **원하는데로 학습이 잘 이뤄지지 않는 문제점**" 을 격는다. 이 논문은 많은 문제점을 고려해서 가장 최적의 Discriminator 공식과 Adversarial 공식을 완성했다고 주장한다.
+  1. 일반적인 adversarial adaptation 의 formula 
 
-- (related work) 일반적인 adversarial adaptation 의 formula ⭐⭐
-  
-  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125141320232.png?raw=tru" alt="image-20210125141320232" style="zoom:80%;" />
-  
-- **3.1. Source and target mappings (Mapping - Ms,Mt는 어떻게 설정해야 하는가?)**
-  
-  - 목적 : mapping 신경망이 source에서든 target에서든 잘 동작하게 만들기. 각각을 위한 mapping 신경망이 최대한 가깝게(비슷하게) 만들기. source에서든 target에서든 좋은 classification 성능을 내기
-  - 과거의 방법 : mapping constrain = target과 source를 위한 mapping. Ms,Mt = feature extractor = network parameter sharing 
-  -  Ours : partial alignment = partially shared weights 
-  
-- **3.2. Adversarial losses (위의 Loss_adv_M은 무엇으로 해야하는가?)**
-  
-  - [16] ![image-20210125141617468](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125141617468.png?raw=tru) 을 사용하기도 했지만, 이 방법에서 Discriminator가 빨리 수렴하기 때문에, (같이 적절하게 학습된 후 동시에 수렴되야 하는데..) 문제가 있다.
-  - **GAN loss function** [17] ![image-20210125141823643](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125141823643.png?raw=tru) provides stronger gradients to the target mapping.(Mt는 Xt를 잘 classification 하도록 학습되면서도, D가 잘 못 판단하게 만들게끔 학습 된다. ) -> 문제점 : oscillation. 둘다 너무 수렴하지 않음. D가 괜찮아지려면 M이 망하고, M이 괜찮아 지려만 D가 망한다. 
-  - [12] : <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125142625114.png?raw=tru" alt="image-20210125142625114" style="zoom: 80%;" />  
-    target이 들어오면, D가 잘못 판단하게끔 Mt가 학습되면서도, D가 잘 판단하게끔 Mt가 학습된다. 반대로 source가 들어오면, 또 D가 잘못 판단하게끔 Ms가 학습되면서도, D가 잘 판단하게끔 만드는 항도 있다. 
-  
-- 이러한 고민들이 계속 있었다. Ours의 결론은 위의 정리표 참조.
+    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125141320232.png?raw=tru" alt="image-20210125141320232" style="zoom:100%;" />
 
-  - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125143353867.png?raw=tru" alt="image-20210125143353867" style="zoom:90%;" />
+  2. **3.1. Source and target mappings (Mapping - Ms,Mt는 어떻게 설정해야 하는가?)**
+    - 목적 : mapping 신경망이 source에서든 target에서든 잘 동작하게 만들기. 각각을 위한 mapping 신경망이 최대한 가깝게(비슷하게) 만들기. source에서든 target에서든 좋은 classification 성능을 내기
+    - 과거의 방법 : mapping constrain = target과 source를 위한 mapping. Ms,Mt = feature extractor = network parameter sharing 
+    -  Ours : partial alignment = partially shared weights 
+
+  3. **3.2. Adversarial losses (위의 Loss_adv_M은 무엇으로 해야하는가?)**
+
+    - [16] ![image-20210125141617468](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125141617468.png?raw=tru) 을 사용하기도 했지만, 이 방법에서 Discriminator가 빨리 수렴하기 때문에, (같이 적절하게 학습된 후 동시에 수렴되야 하는데..) 문제가 있다.
+    - **GAN loss function** [17] ![image-20210125141823643](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125141823643.png?raw=tru) provides stronger gradients to the target mapping.(Mt는 Xt를 잘 classification 하도록 학습되면서도, D가 잘 못 판단하게 만들게끔 학습 된다. ) -> 문제점 : oscillation. 둘다 너무 수렴하지 않음. D가 괜찮아지려면 M이 망하고, M이 괜찮아 지려만 D가 망한다. 
+    - [12] : <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125142625114.png?raw=tru" alt="image-20210125142625114" style="zoom: 80%;" />  
+      target이 들어오면, D가 잘못 판단하게끔 Mt가 학습되면서도, D가 잘 판단하게끔 Mt가 학습된다. 반대로 source가 들어오면, 또 D가 잘못 판단하게끔 Ms가 학습되면서도, D가 잘 판단하게끔 만드는 항도 있다. 
+
+  4. 이러한 고민들이 계속 있었다. Ours의 결론은 위의 정리표 참조.
+
+    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125143353867.png?raw=tru" alt="image-20210125143353867" style="zoom:90%;" />
 
 
 
 # 4. Adversarial discriminative domain adaptation 
 
-- 사용한 <u>objective function</u>  ⭐⭐
-  - ![image-20210125144836013](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125144836013.png?raw=tru)
+- 사용한 <u>objective function</u>  ⭐⭐   
+  ![image-20210125144836013](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125144836013.png?raw=tru)
+  1. 맨위 수식 : Source Dataset의 Classification을 잘하는 모델 탄생시킨다. 
+  2. 최적의 Discriminator 공식 : Target이 들어오면 0을 out하고, Source가 들어오면 1을 out하도록 하는 Discriminator를 만들기 위한 Loss 함수이다. 
+  3. 심플하게 Source 신경망은 고정시킨다. Target이미지를 넣어서 나오는 Out이 Discriminator가 1이라고 잘못 예측하게 만드는 M_t만 학습시킨다. Ms는 건들지도 않고 source가 들어갔을때, discriminator가 0이라고 잘못 예측하게 만든는 작업 또한 하지 않는다.
 - 최종 모델 학습 과정
   - ![image-20210125145015365](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora/image-20210125145015365.png?raw=tru)
   - 헷갈리는 내용은 다시 <u>논문 5 page</u> ⭐⭐참조. 
