@@ -8,10 +8,10 @@ title: 【Transformer+Video】VisTR & TrackFormer & 3D conv
 - **분류** : Video & Tracking + Transformer
 - **느낀점** : 
 - **목차**
-  1. [VisTR 한글 핵심 정리 및 보충설명](https://junha1125.github.io/blog/artificial-intelligence/2021-04-10-InSegTransformer/#1-vistr-%EC%A0%95%EB%A6%AC-%EB%B0%8F-%EB%B3%B4%EC%B6%A9%EC%84%A4%EB%AA%85)
-  2. [VisTR PPT 공부 자료](https://junha1125.github.io/blog/artificial-intelligence/2021-04-10-InSegTransformer/#2-vistr-ppt-%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C)
-  3. [TrackFormer 한글 핵심 정리 및 보충설명](https://junha1125.github.io/blog/artificial-intelligence/2021-04-10-InSegTransformer/#3-trackformer-%EC%A0%95%EB%A6%AC-%EB%B0%8F-%EB%B3%B4%EC%B6%A9%EC%84%A4%EB%AA%85)
-  4. [TrackFormer PPT 공부자료](https://junha1125.github.io/blog/artificial-intelligence/2021-04-10-InSegTransformer/#4-transformer-ppt-%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C)
+  1. [VisTR 한글 핵심 정리 및 보충설명](https://junha1125.github.io/blog/artificial-intelligence/2021-04-10-VideoTransformer/#1-vistr-%ED%95%B5%EC%8B%AC-%EB%B0%8F-%EB%B3%B4%EC%B6%A9%EC%84%A4%EB%AA%85)
+  2. [VisTR PPT 공부 자료](https://junha1125.github.io/blog/artificial-intelligence/2021-04-10-VideoTransformer/#2-vistr-ppt-%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C)
+  3. [TrackFormer 한글 핵심 정리 및 보충설명](https://junha1125.github.io/blog/artificial-intelligence/2021-04-10-VideoTransformer/#3-trackformer-%ED%95%B5%EC%8B%AC-%EB%B0%8F-%EB%B3%B4%EC%B6%A9%EC%84%A4%EB%AA%85)
+  4. [TrackFormer PPT 공부자료](https://junha1125.github.io/blog/artificial-intelligence/2021-04-10-VideoTransformer/#4-trackformer-ppt-%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C)
 
 
 

@@ -91,29 +91,33 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
      - ```sh
      Host server1
        	HostName 143.283.153.11 # 꼭! ifconfig해서 ip확인
+       ```
+     
      	User junha
-       	IdentityFile ~/.ssh/id_rsa
+
+	IdentityFile ~/.ssh/id_rsa
+	   ```
+	
+	 - 위와 같이 config 파일저장해두기
+	 
+	 - 그리고 SSH VScode로 연결해보면 아주 잘된다.     
+   ![image-20210329211438915](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210329211438915.png?raw=tru)
        ```
 
-     - 위와 같이 config 파일저장해두기
-
-     - 그리고 SSH VScode로 연결해보면 아주 잘된다.     
-     ![image-20210329211438915](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210329211438915.png?raw=tru)
   
 
-  
 ## 4. Ubuntu Docker 설치 및 Container 실행
-  
+
   1. [Docker 설치](https://docs.docker.com/engine/install/ubuntu/) : 기본 Docker 를 설치해줘야 NVIDA docker로 업그레이드 가능
   
   2. [우분투에 NVIDA Driver 설치](https://www.oofbird.me/55) 
-  
+
    - `$ sudo ubuntu-drivers devices` 
      - `$ sudo ubuntu-drivers autoinstall`
    - `$ reboot`
      - 꼭 드라이버 설치하고, $ nvida-smi 하기 전에, reboot 꼭 해보기. 
      - `$ nvidia-smi`
-  
+
   3. [NVIDIA-Docker 설치](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
   
      - ```sh
@@ -143,7 +147,7 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
            --restart always \
            mltooling/ml-workspace:0.12.1
        ```
-  
+      
      - ```sh
        ### 설명 추가
        $ sudo docker run -d \ # background 실행
@@ -156,12 +160,15 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
            --shm-size 512m \ # 일단 해놈. 안해도 될듯 
          --restart always \ # 알지? 
            mltooling/ml-workspace:0.12.1 # docker-hub에 버전 참고
+       ```
      ```
-  
+     
+     ```
 
-  
 
-  
+
+
+
   ## 5. Docker Container 연결하기
 
   1. 참고
@@ -213,4 +220,56 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
 1. 아래와 같이 Python Interpreter 설정을 해야한다. 
 2. ML-workspace자체에 conda가 설치되어 있고, base env는 `opt/conda/bin/python` 에 존재한다. interpreter에 마우스 길게 갖다 대고 있으면 path가 나온다. 나의 window conda path와 겹칠일은 없겠지만 그래도 조심하자.   
    ![image-20210329223237549](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210329223237549.png)
+
+
+
+# 8. docker container에서 code 명령어 사용하기
+
+- reference site : [The “code” command does not work when connecting to a Docker container remotely with VSCode](https://stackoverflow.com/questions/62867991/the-code-command-does-not-work-when-connecting-to-a-docker-container-remotely) 
+
+- 종합적으로, 아래의 명령어를 docker container Terminal에 입력했다.     
+
+  ```sh
+  $ cd ~/.vscode-server/bin
+  $ ls # hash name 파악하기
+  $ export PATH="$PATH:$HOME/.vscode-server/bin/<hash name>/bin/"
+  (예시) $ export PATH="$PATH:$HOME/.vscode-server/bin/08a217c4d27a02a5bcde898fd7981bda5b49391b/bin/"`
+  ```
+
+
+
+# 9. --shm-size 의 중요성
+
+mmclassification 을 돌리면서 만난 에러가 다음과 같았다.    
+`RuntimeError: DataLoader worker (pid 167565) is killed by signal: Bus error. It is possible that dataloader's workers are out of shared memory. Please try to raise your shared memory limit`      
+
+찾아보니 원인은 다음과 같았다. 
+
+1. 도커로 컨테이너를 생성하게 되면 호스트와 컨테이너는 공유하는 메모리 공간이 생기게 되는데 이 공간에 여유가 없어서 발생되는 에러이다.([참조사이트)](https://jybaek.tistory.com/785)
+
+2. container `$ df -h` 명령어로,  shm가 얼마인지 확인할 수 있다.
+
+3. container run 할 때 충분한 *-shm-size* 를 설정해주는 방법이 답이다. 
+
+4. ML-workspace github 참조    
+   ![image](https://user-images.githubusercontent.com/46951365/114405018-37bcd080-9be1-11eb-8097-f0fbad637fa1.png)
+
+5. 찾아보니, 대강 이 문제가 발생한 사람들은 `docker run --shm-size=2G` 설정한다. [어떤 글](https://curioso365.tistory.com/136)을 보니 `docker run --ipc=host` 이런식으로 설정해주는 사람도 있었다. 어떤 사람은 `8G`로 설정하는 경우도 있었다. (문제 안생기나?)   
+
+   ```sh
+   # 최종 실행 터미널 코드
+   $ sudo docker run -d -it      \
+   --gpus all         \
+   --restart always     \
+   -p 8000:8080         \
+   --name "mmcf"          \
+   --shm-size 2G      \
+   -v ~/docker/mmclf/mmclassification:/workspace   \
+   -v ~/hdd1T:/dataset   \
+   pytorch/pytorch:1.5.1-cuda10.1-cudnn7-devel
+   ```
+
+6. 또한 `$ watch -d- n 1 df -h` 명령어를 사용해서 현재 container가 어느정도의 --shm-size를 사용하고 있는지 알 수 있다. 
+
+7. 참조 사이트 : [pytorch-issue](https://github.com/pytorch/pytorch/issues/5040), [share-memory-8G](https://github.com/pytorch/pytorch/issues/2244)
 
