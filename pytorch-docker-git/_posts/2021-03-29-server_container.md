@@ -147,7 +147,7 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
            --restart always \
            mltooling/ml-workspace:0.12.1
        ```
-      
+     
      - ```sh
        ### 설명 추가
        $ sudo docker run -d \ # background 실행
@@ -230,10 +230,12 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
 - 종합적으로, 아래의 명령어를 docker container Terminal에 입력했다.     
 
   ```sh
-  $ cd ~/.vscode-server/bin
-  $ ls # hash name 파악하기
+  $ ls ~/.vscode-server/bin # hash name 파악하기
   $ export PATH="$PATH:$HOME/.vscode-server/bin/<hash name>/bin/"
-  (예시) $ export PATH="$PATH:$HOME/.vscode-server/bin/08a217c4d27a02a5bcde898fd7981bda5b49391b/bin/"`
+  (예시) $ export PATH="$PATH:$HOME/.vscode-server/bin/08a217c4d27a02a5bcde8555d7981bda5b49391b/bin/"`
+  
+  $ code ~/.bashrc
+  (Addding in the file) export PATH="$PATH:$HOME/.vscode-server/bin/08a217c4d27a02a5bcde898555981bda5b49391b/bin/"` 
   ```
 
 
@@ -252,7 +254,7 @@ mmclassification 을 돌리면서 만난 에러가 다음과 같았다.
 3. container run 할 때 충분한 *-shm-size* 를 설정해주는 방법이 답이다. 
 
 4. ML-workspace github 참조    
-   ![image](https://user-images.githubusercontent.com/46951365/114405018-37bcd080-9be1-11eb-8097-f0fbad637fa1.png)
+   <img src="https://user-images.githubusercontent.com/46951365/114405018-37bcd080-9be1-11eb-8097-f0fbad637fa1.png" alt="image" style="zoom:90%;" />
 
 5. 찾아보니, 대강 이 문제가 발생한 사람들은 `docker run --shm-size=2G` 설정한다. [어떤 글](https://curioso365.tistory.com/136)을 보니 `docker run --ipc=host` 이런식으로 설정해주는 사람도 있었다. 어떤 사람은 `8G`로 설정하는 경우도 있었다. (문제 안생기나?)   
 
