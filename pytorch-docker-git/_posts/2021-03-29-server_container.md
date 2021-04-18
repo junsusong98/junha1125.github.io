@@ -275,3 +275,10 @@ mmclassification 을 돌리면서 만난 에러가 다음과 같았다.
 
 7. 참조 사이트 : [pytorch-issue](https://github.com/pytorch/pytorch/issues/5040), [share-memory-8G](https://github.com/pytorch/pytorch/issues/2244)
 
+
+
+# 10. 새로운 windows로 원격 vscode 코드 열기
+
+1. vscode에서 단축키 변경으로 `ctrl + k + s`
+2. `duplicateWorkspaceInNewWindow`를 `ctrl+shift+n` 으로 단축키 지정해주기
+3. [참조 사이트](https://stackoverflow.com/questions/43362133/visual-studio-code-open-tab-in-new-window)
