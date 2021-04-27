@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【LightWeight】Understanding EfficentNet+EfficentDet paper w/ code
+title: 【LightWeight】Understanding EfficientNet+EfficientDet paper w/ code
 ---
 
 - **논문1** : [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/pdf/1905.11946.pdf) / [Youtube Link](https://www.youtube.com/watch?v=Vhz0quyvR7I)
