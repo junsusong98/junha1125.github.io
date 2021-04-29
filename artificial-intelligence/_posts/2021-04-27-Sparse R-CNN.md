@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【분류】Sparse R -CNN-End-to-End Object Detection with Learnable Proposals
+title: 【Detection】Sparse R -CNN-End-to-End Object Detection with Learnable Proposals
 ---
 
 - **논문** : Sparse R-CNN, End-to-End Object Detection with Learnable Proposals
