@@ -3,12 +3,11 @@ layout: post
 title: 【분류】제목
 ---
 
-- **논문** : 
-- **분류** : 
-- **읽는 배경** : 
-- **느낀점** : 
-- **참고 사이트** : 
-- **목차**
+- **Paper**: 
+- **Type**: 
+- **Opinion**: 
+- **Reference site**: 
+- **Contents**
   1. 
 
 
