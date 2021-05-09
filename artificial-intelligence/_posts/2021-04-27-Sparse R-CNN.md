@@ -3,7 +3,7 @@ layout: post
 title: 【Detection】Sparse R -CNN-End-to-End Object Detection with Learnable Proposals
 ---
 
-- **논문** : Sparse R-CNN, End-to-End Object Detection with Learnable Proposals
+- **논문** : [Sparse R-CNN, End-to-End Object Detection with Learnable Proposals](https://arxiv.org/pdf/2011.12450.pdf)
 - **분류** : Object Detection
 - 요즘에 계속 Transformer만을 이용하겠다고 아이디어 생각하고 그랬는데, GPU 성능을 생각하고 학습시간을 생각한다면, 다시 과거로 돌아가는 이런 아이디어도 굉장히 좋은 것 같다.
 
