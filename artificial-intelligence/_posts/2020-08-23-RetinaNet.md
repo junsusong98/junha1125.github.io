@@ -52,6 +52,14 @@ FPN에 대한 자세한 내용 정리는 제가 이전에 정리해놓은 [FPN �
 
     <p align="center"><img src='https://user-images.githubusercontent.com/46951365/92298586-6a388800-ef85-11ea-9c63-20101c371d08.png' alt='drawing' width='800'/></p>
 
+alpha 항까지 추가하여 정리한 Focal loss
+
+![img](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-5/focal_loss.jpg?raw=true)
+
+
+
+
+
 
 
 # 3. Featur Pyramid Network

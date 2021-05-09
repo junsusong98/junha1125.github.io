@@ -23,7 +23,7 @@ $ sudo docker run -d -it      \
     --name "Sparse-RCNN"          \
     --shm-size 8gb      \
     -v /home/junha/docker:/workspace  \
-    -v /hdd1T:/dataset   \
+    -v /ssdB:/dataset   \
     sb020518/detectron2:4.29
 ```
 
@@ -43,6 +43,17 @@ $ python setup.py build develop
 # 2. Sparse R-CNN github
 
 코드 링크 : [https://github.com/PeizeSun/SparseR-CNN](https://github.com/PeizeSun/SparseR-CNN)
+
+Detectron 기초 공부 : [detectron2 teardown reports](https://junha1125.github.io/blog/pytorch-docker-git/2021-04-29-detectron2/)
+
+**Dataset Setting**
+
+```sh
+mkdir -p datasets/coco
+ln -s /path_to_coco_dataset/annotations datasets/coco/annotations
+ln -s /path_to_coco_dataset/train2017 datasets/coco/train2017
+ln -s /path_to_coco_dataset/val2017 datasets/coco/val2017
+```
 
 **Train SparseR-CNN**
 

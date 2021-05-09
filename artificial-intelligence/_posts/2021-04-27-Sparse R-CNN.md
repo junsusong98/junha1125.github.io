@@ -37,9 +37,9 @@ title: 【Detection】Sparse R -CNN-End-to-End Object Detection with Learnable P
 - learnable parameter로써 다음의 2개를 이용한다. sparse property 
   1. (1) sparse boxes: 많은 이미지를 학습해서 얻은 이미지에서 객체가 위치할 만한 100개의 박스 좌표
   2. (2) sparse features: 각 box에 좀더 구체적인 정보를 제공해 준다. 모양, 형태 등. ROI Align된 feature map을 conv 1x1의 형식으로 통과시킬때 layer의 weight 역할을 한다. 
-- DETR은 pure spase가 아니다. 왜냐면 하나의 객체를 탐지하기 위해서 모든 full images feature map을 사용하기 때문이다.
+- DETR은 pure sparse가 아니다. 왜냐면 하나의 객체를 탐지하기 위해서 모든 full images feature map을 사용하기 때문이다.
 - 이래의 2개의 proposal = learnable parameter을 사용해서 `Dynamic Instance Interactive Head`에서 연산 후 예측 결과를 도출한다. 
-  1. `proposal boxs`: Sparse RCNN은 pure sparse method이다. ` a fixed small set of learnable bounding boxes represented` 를 사용하고, ROIPool, ROIAlign을 사용해서 해당 영역의 feature를 뽑아서(모두 같은 resolution s x s) 그것만을 사용한다.
+  1. `proposal boxs`: Sparse RCNN은 pure sparse method이다. `a fixed small set of learnable bounding boxes represented` 를 사용하고, ROIPool, ROIAlign을 사용해서 해당 영역의 feature를 뽑아서(모두 같은 resolution s x s) 그것만을 사용한다.
   2. `proposal features`: 4개의 좌표값만을 사용한 `sparse boxs=proposal boxs`정보만으로는 부족한 정보를 담고 있으므로, `proposal feature`를 사용한다. 이것은 256차원과 같은 높은 차원의 Vector이고 동일하게 N개를 사용한다. `proposal feature`에는 rich instance characteristics이 저장되어 있다. 
 - 처음에 필요한 Input은 (1) backbone에서 나온 feature map, coco train dataset를 통해 학습된 a sparse set of (적은 수의) (2) proposal boxes, (3) proposal features 이다. 
 - dense VS sparse : RetinaNet과 같이 WxHxk 개의 anchor와 같은 `dense candidates`와 DETR에서 full image feature map을 사용하는 `global dense feature` 와 같은 모듈은 존재하지 않는다. Deformable-DETR은 일부의 key만을 사용하기 때문에 sparse method라고 할 수 있다. 
