@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【DG】 RobustNet: Improving Domain Generalization
+title: 【DG】 RobustNet- Improving Domain Generalization
 ---
 
 - **Paper**: [RobustNet: Improving Domain Generalization in Urban-Scene Segmentation via Instance Selective Whitening](https://arxiv.org/abs/2103.15597)
