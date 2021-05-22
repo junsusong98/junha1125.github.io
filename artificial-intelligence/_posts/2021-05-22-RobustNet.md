@@ -86,22 +86,63 @@ title: 【DG】 RobustNet: Improving Domain Generalization
 
 이 논문의 핵심은 `instance selective whitening loss`이다! Style을 지우는 WT는 Style change 관련 논문 [23, 25]에서 이미 많이 사용된 기술이다.
 
-## 4.1. Instance Whitening Loss 
+## 4.1. IW loss: Instance Whitening Loss 
 
 ![image-20210521195434582](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210521195434582.png)
 
+- Equation(5)를 분리해서, 아래의 Equation(6), Equation(7) 과 같이 표현할 수 있다. 
+- Equation(6), Equation(7)를 모두 동시에 만족하는, xi 를 얻기는 힘들기 때문에, instance normalization Equ(8) 을 해준다. (Equation(6)은 |xi| -> sqrt(HW) 이 되도록, Equation(7)은 |xi| -> 0 이 되도록 유도한다. 동시에 만족하는 xi를 얻을 수는 없다!) 
+- 이것을 해주면 Equation(6)는 자동으로 만족된다. 따라서 Equation(7, 9, 10) 만 만족하도록 유도해주면 된다.이 식은 xi와 xj의 cosθ 값에 의해서만 결정된다. 
+- 위 그림에 필요한 수식들을 정리하면, 아래와 같이 정리할 수 있다. 
+
+<img src="/Users/junha/Library/Application Support/typora-user-images/image-20210522152136894.png" alt="image-20210522152136894" style="zoom:80%;" />
 
 
 
+## 4.2 IRW loss: Margin-based relaxation of whitening loss
+
+![image-20210522152739327](/Users/junha/Library/Application Support/typora-user-images/image-20210522152739327.png)
 
 
 
+## 4.3 ISW loss: Separating Covariance Elements
+
+- IW loss는 covariance matrix에서 대각 원소가 아닌 원소를 모두 0이 되도록 유도한다. 
+- 이렇게 되면 domain-specific & domain-invariant representation 모두 제거된다. 따라서 domain-specific representation만 제거해보자. 
+- 이 방법의 가정은 다음과 같다. 
+  - domain에 의한 변화는 color jittering and Gaussian blurring 으로 시뮬레이션 할 수 있다.
+
+![image-20210522153154417](/Users/junha/Library/Application Support/typora-user-images/image-20210522153154417.png)
+
+- 위 그림에서 variance(분산이 아니라, 차이) matrix V를 찾는 수식은 아래와 같다.   
+  <img src="/Users/junha/Library/Application Support/typora-user-images/image-20210522162656083.png" alt="image-20210522162656083" style="zoom:80%;" />
+- 
+- V값 중에서, 작은 값들의 위치는 domain-invariant info이고 V값 중에서 큰 값들은 위치는 domain-specific info라고 가정할 수 있다. 따라서 V값 중에서 큰 값들의 위치를 찾기 위해서 아래와 작업을 한다. (코드 레벨로 이해한 내용이다.)
+
+![image-20210522163522255](/Users/junha/Library/Application Support/typora-user-images/image-20210522163522255.png)
+
+
+
+## 4.4 Network architecture with proposed ISW loss
+
+![image-20210522163854953](/Users/junha/Library/Application Support/typora-user-images/image-20210522163854953.png)
+
+- IBN-Net에 따르면, Earlier layers는 style information을 encoding하는 경향이 있다고 한다. 따라서 이논문에서는 ISW loss를 layer 초기에 적용한다.
 
 ---
 
 # 4. Experiments
 
-- ㅇ
+- Experimental Setup
+  1. Source: several datasets (*e.g.,* Cityscapes)
+  2. Targer(Unseen): other datasets (*e.g.,* BDD- 100K, Mapillary, GTAV, and SYNTHIA)
+  3. 평가 지표 : mIoU
+- Implementation details
+  - DeepLabV3+
+  - train for 40K iteration
+- Dataset
+  - Real world: Cityscapes, BDD-100K, Mapillary
+  - Synthetic dataset: GTAV, SYNTHIA
 
 
 
@@ -109,7 +150,7 @@ title: 【DG】 RobustNet: Improving Domain Generalization
 
 # 5. Results
 
-- ㅇ
+![image-20210522165542409](/Users/junha/Library/Application Support/typora-user-images/image-20210522165542409.png)
 
 
 
