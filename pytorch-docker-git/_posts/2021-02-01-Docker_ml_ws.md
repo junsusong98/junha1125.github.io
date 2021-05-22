@@ -69,7 +69,6 @@ title: 【docker】container setting using ML-workspace
    - 굳이 IP설정을 해주지 않더라도 잘 연결된다. ([GCP에서의 SSH 설정하기](https://junha1125.github.io/blog/ubuntu-python-algorithm/2020-09-19-SSHvscode/) 이것과는 달리..)
    - 만약 문제가 생기면 config 파일 여는 방법
    - ctrl+shift+p -> Remote-Containers: Open Attached Container Configuration File
-   
 
 
 
@@ -78,24 +77,24 @@ title: 【docker】container setting using ML-workspace
 1. ```sh
    import torch, torchvision
     print(torch.__version__, torch.cuda.is_available())
-
+   
     import detectron2
     from detectron2.utils.logger import setup_logger
     setup_logger()
-
+   
     # import some common libraries
     import numpy as np
     import os, json, cv2, random
-
+   
     # import some common detectron2 utilities
     from detectron2 import model_zoo
     from detectron2.engine import DefaultPredictor
     from detectron2.config import get_cfg
     from detectron2.utils.visualizer import Visualizer
     from detectron2.data import MetadataCatalog, DatasetCatalog
-
+   
     im = cv2.imread("./input.jpg")
-
+   
     cfg = get_cfg()
     cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5  # set threshold for this model
@@ -103,7 +102,7 @@ title: 【docker】container setting using ML-workspace
     cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")
     predictor = DefaultPredictor(cfg)
     outputs = predictor(im)
-
+   
     print(outputs["instances"].pred_classes)
     print(outputs["instances"].pred_boxes)
    ```
@@ -247,6 +246,8 @@ title: 【docker】container setting using ML-workspace
    - 참고한 사이트 : [stack overflow - Python debugging - Step into](https://stackoverflow.com/questions/53594900/visual-studio-code-python-debugging-step-into-the-code-of-external-functions)
    
    - 우분투에서 ctrl + shift + p -> `> debug : launch json` 검색-> Python file 선택 이 파일 내부의 내용을 아래 처럼 수정한다.    
+     
+   - 사실 아래처럼 다 바꿀 필요는 없고, 진짜 중요한 것은 `justMyCode : false` 이다. 이것만 처리해주면 된다.
      
      ```
      {

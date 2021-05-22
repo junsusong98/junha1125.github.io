@@ -52,6 +52,16 @@ title: 【Detection】Sparse R -CNN-End-to-End Object Detection with Learnable P
 
 # 3. Sparse R-CNN
 
+**PS1. 6번의 iteration을 돈다. 0~5 중 하나를 k라고 정의할 때, 아래와 같이 k번째 iteration head가 아래의 그림과 같이 나와 있는 것이다.**
+
+**PS2. k번째 head는 (1) proposal boxes(Nx4), (2) Proposal Featuers(Nxc), (3) Dynamic Convolution 이렇게가 한쌍이다.**
+
+**PS3. Inference 중, 1번째 head는 (1) Learned init proposal boxes(Nx4), (2) Learned init Proposal Featuers(Nxc), (3) 1번째 head의 Dynamic Convolution가 사용된다.**
+
+**PS3. Inference 중 k번째 head는 (1) 이전 head에서 추출된 regrassion boxes(Nx4), (2) 이전 head의 Dynamic conv에서 추출된 obj_features(NxC), (3) k번째 head의 Dynamic convolution이 사용된다. **
+
+ 
+
 <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210427202057641.png?raw=tru" alt="image-20210427202057641" style="zoom:67%;" />
 
 전체 구조는 위와 같고 하나하나의 모듈에 대해서 간략히 알아가보자.

@@ -116,8 +116,26 @@ python projects/SparseRCNN/train_net.py --num-gpus 2 \
    - worker, batch 를 크게하고 sleep을 적용하면 어떤 size더라도 GPU사용량 30퍼 만을 사용한다. 
    - worker 2 batch 2를 하고 sleep을 적용하면, 서버 접속이 끊기기 전에 GPU의 사용량이 70~80퍼 이다. 
    - 따라서 나의 결론! 전력 부족 가능성이 가장 크다.
+   - 현재 1080Ti 2개 Power 700w.. 이다. 본체의 Power를 1000w 짜리로 업그레이드 하니 모든 문제 해결
+   - **결론: 본체 파워 용량 부족**
 
 
 
+# 4. Evaluation 처리 순서 (for visualization)
 
+1. /projects/**SparseRCNN**/train_net.py
+   - res = Trainer.test(cfg, model)
+2. /**detectotron2**/engine/defaults.py > DefaultTrainer > test
+   - results_i = inference_on_dataset(model, data_loader, evaluator)
+3. /**detectron2**/evaluation/evaluator.py > inference_on_dataset
+   - results = evaluator.evaluate()
+   - evaluator의 맴버변수 `self._predictions`에 모든 이미지에 대한 모델 추론 결과 저장되어 있음
+4. /**detectron2**/evaluation/coco_evaluation.py > COCOEvaluator > _eval_predictions
+   - coco_eval = _evaluate_predictions_on_coco( coco_json , 모델 예측결과 , task='bbox'(object detection))
+5. /**detectron2**/evaluation/coco_evaluation.py > _evaluate_predictions_on_coco()
+   - coco_dt = coco_gt.loadRes(coco_results)
+6. /pip-packages/**pycocotools**/coco.py > COCO class > loadRes 맴버함수
+   - 디버깅을 위해서 launch.json 파일에 `"justMyCode" : false` config 추가
+   - 오늘은 코드를 계속봐서 눈에 안들어 온다. 남은 시간은 논문 읽고 다음에 코드 더 보자. 
+   - 혹은 DETR의 코드를 이용해도 좋을 것 같다. ㅇ
 
