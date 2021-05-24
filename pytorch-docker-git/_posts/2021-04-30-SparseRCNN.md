@@ -139,3 +139,16 @@ python projects/SparseRCNN/train_net.py --num-gpus 2 \
    - 오늘은 코드를 계속봐서 눈에 안들어 온다. 남은 시간은 논문 읽고 다음에 코드 더 보자. 
    - 혹은 DETR의 코드를 이용해도 좋을 것 같다. ㅇ
 
+
+
+
+
+# 5. Code 수정
+
+1. Config 에 새로운 변수 추가하는 방법
+   - from sparsercnn import SparseRCNNDatasetMapper, **add_sparsercnn_config**
+   - **add_sparsercnn_config**(cfg)
+   - 해당 파일을 보면, `Add config for SparseRCNN.` 을 위한 방법이 나와있다.
+2. 원래 패키지에서 아래와 같이 수정시 AP가 1프로 밖에 안떨어짐
+   `proposal_boxes = torch.stack([torch.tensor([0.5, 0.5, 1, 1]) for _ in range(self.num_proposals)]).to(self.device)`
+3. 

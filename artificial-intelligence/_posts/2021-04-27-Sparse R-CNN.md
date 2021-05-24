@@ -87,6 +87,8 @@ title: 【Detection】Sparse R -CNN-End-to-End Object Detection with Learnable P
    - 이 내부에서 이뤄지는 연산은 아래와 같다. (bmm이 저렇게 연산되는게 맞는지 불확실.)
    - 아래의 연산은 parallel operation이 많이 아뤄지기 때문에 매우 효율적이다.
    - <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210427203142531.png?raw=tru" alt="image-20210427203142531" style="zoom: 60%;" />
+   - ![image-20210523124629542](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210523124629542.png?raw=tru)    
+   - 
    - 추가적으로 논문에서는 아래의 2가지 기법도 사용했다. (구체적으로 어떻게 사용했는지는 좀더 논문을 통해 알아봐야할 듯 하다.)
      1. Cascade-RCNN에서 사용하는 iteration structure: 위 dynamic head 보라색 라인과 같이, `newly generated object boxes and object features`(score 사용 x)가 다음의 같은 dynamic head의 `the proposal boxes and proposal features `로써 전달 된다.
      2. Multi head self attention model 사용: objects사이의 관계를 추론하기 위해서 `dynamic instance interaction`(위 Architecture의 사다리꼴 module)를 하기 전에 `the set of object features`(~ Proposal feature ) 들에 대하여 MultiheadAttention을 적용하여 서로가 communication하게 만든다.
