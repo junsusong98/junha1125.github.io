@@ -30,6 +30,18 @@ title: 【Domain】Open Compound Domain Adaptation
        1. **Digits**: <u>conventional</u> unsupervised domain adaptation (ADDA [48], JAN [30], MCD [42])
        2. **Digits**: the <u>recent</u> multi-target domain adaptation methods (MTDA [9], BTDA [5], DADA [39])
        3. **segmentation**: three state-of-the-art methods, AdaptSeg [47], CBST [58], IBN-Net [35] and PyCDA [26]
+  
+  
+  
+  ## 논문 핵심
+  
+  1. Domain encoder를 만들어 내는 것. (Equation말고 Algorithm 2 figure 먼저 볼 것)
+     1. 처음에는 Classification을 위한 class encoder와 같은 방식으로 학습시키다가, 
+     2. `Decoder( classEncoder(x), domainEncoder(x) ) = x` 이처럼 완벽한 reconstruction이 되게 만들면서, 
+     3. classification 능력은 random label을 이용한 cross entropy loss로 제거해버린다. 
+  2. Domain encoder를 활용해서, target domain image feature와 source domain image feature 사이의 거리 계산하기
+  3. Memory module(class centroids)을 사용해서, taget domain의 feature denoising 하기. (ProDA에서는 class centroids와의 거리 정보를 target domain feature에 곱해서 denoising 해줬지만...) 여기서는 V_transfer feature를 만드는 수식 사용했다. 
+  4. 자세한 내용은 코드를 보기. (논문보지 말고)
 
 
 
