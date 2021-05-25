@@ -63,9 +63,9 @@ title: 【DG】 RobustNet- Improving Domain Generalization
   - 조건2: 각 채널의 Variance(분산)이 1이 되도록 만든다.
   - 조건3: 각 채널끼리의 covariance이 0이 되도록 만든다.
 - 이 조건을 수식으로 쓰면 이렇게 된다. 아래의[관점 1\] 내부의 내용에 조건 2, 조건 3 이 모두 들어가 있다.   
-  <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210521170030912.png?raw=tru" alt="image-20210521170030912" style="zoom:80%;" />
+  <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210521170030912.png?raw=tru" alt="image-20210521170030912" style="zoom:80%;" />
 - 그리고 위 수식을 만족하는 X는 아래와 같이 정의할 수 있다. sqrt(공분산행렬)을 구하기 위해 고유값 분해를 한다. 이 내용은 [선형대수3 - 49강](https://junha1125.github.io/blog/self-study/2021-01-10-linearalgebra3_youtube/) 부분을 참고할 것.    
-  ![image-20210521170607729](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210521170607729.png?raw=tru)
+  ![image-20210521170607729](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210521170607729.png?raw=tru)
 
 
 
@@ -75,7 +75,7 @@ title: 【DG】 RobustNet- Improving Domain Generalization
   - 문제점1: 고유값 분해는 computational cost가 크다
   - 문제점2: back-propagation을 막는 연산이다. 
 - 따라서 처음부터 WT이 된 feature가 나오도록 신경망에 추가적인 Loss함수를 사용하는 방법이, Deep WT이다. 또는 Approximating the whitening transformation matrix (using Newton's iteration) 방법도 있다. 하지만 우리는 아래 공식과 같이 DWT Loss를 적용할 것이다. 이 Loss를 통해 학습시키면, Feature map 자체가 (처음부터) WT 조건을 만족하는 feature map이 나오도록 유도된다.     
-  <img src="C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210521171547529.png?raw=tru" alt="image-20210521171547529" style="zoom: 67%;" />
+  <img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210521171547529.png?raw=tru" alt="image-20210521171547529" style="zoom: 67%;" />
 - 하지만 위 Loss를 적용해서 WT처리가 된 feature map이 나오도록 유도하는 것은, Network에게 Domain-specific representation과 Domain-invariant representation을 모두 지워버리게 만든다. 특히 Domain-invariant representation는 class간의 특징차이, boundary 검출등에 사용되어야 하므로, 다 지워버리면 안된다. (문제점 Z)
 
 
@@ -88,7 +88,7 @@ title: 【DG】 RobustNet- Improving Domain Generalization
 
 ## 4.1. IW loss: Instance Whitening Loss 
 
-![image-20210521195434582](C:\Users\sb020\AppData\Roaming\Typora\typora-user-images\image-20210521195434582.png?raw=tru)
+![image-20210521195434582](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210521195434582.png?raw=tru)
 
 - Equation(5)를 분리해서, 아래의 Equation(6), Equation(7) 과 같이 표현할 수 있다. 
 - Equation(6), Equation(7)를 모두 동시에 만족하는, xi 를 얻기는 힘들기 때문에, instance normalization Equ(8) 을 해준다. (Equation(6)은 |xi| -> sqrt(HW) 이 되도록, Equation(7)은 |xi| -> 0 이 되도록 유도한다. 동시에 만족하는 xi를 얻을 수는 없다!) 

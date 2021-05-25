@@ -63,9 +63,9 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
        $ sudo service ssh status
        $ sudo service ssh start
        방화벽
-     $ sudo ufw enable
+       $ sudo ufw enable
        $ sudo ufw allow 22
-     $ sudo ufw reload
+       $ sudo ufw reload
        ```
   
   3. 윈도우 agent 세팅해주기
@@ -89,7 +89,7 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
      - VScode -> ctrl+shift+p == F1 -> `Remote-SSH: Connect to Host`
   
      - ```sh
-     Host server1
+       Host server1
        	HostName 143.283.153.11 # 꼭! ifconfig해서 ip확인
        ```
      
@@ -127,9 +127,9 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
        2$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
           && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
           && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-     3$ sudo apt-get update
+       3$ sudo apt-get update
        4$ sudo apt-get install -y nvidia-docker2
-     5$ sudo systemctl restart docker
+       5$ sudo systemctl restart docker
        6test-$ sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
        ```
   
@@ -223,7 +223,7 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
 
 
 
-# 8. docker container에서 code 명령어 사용하기
+## 8. docker container에서 code 명령어 사용하기
 
 - reference site : [The “code” command does not work when connecting to a Docker container remotely with VSCode](https://stackoverflow.com/questions/62867991/the-code-command-does-not-work-when-connecting-to-a-docker-container-remotely) 
 
@@ -240,7 +240,7 @@ title: 【docker】Windows10에서 원격서버의 docker container에 접속하
 
 
 
-# 9. --shm-size 의 중요성
+## 9. --shm-size 의 중요성
 
 mmclassification 을 돌리면서 만난 에러가 다음과 같았다.    
 `RuntimeError: DataLoader worker (pid 167565) is killed by signal: Bus error. It is possible that dataloader's workers are out of shared memory. Please try to raise your shared memory limit`      
@@ -277,8 +277,19 @@ mmclassification 을 돌리면서 만난 에러가 다음과 같았다.
 
 
 
-# 10. 새로운 windows로 원격 vscode 코드 열기
+## 10. 새로운 windows로 원격 vscode 코드 열기
 
 1. vscode에서 단축키 변경으로 `ctrl + k + s`
 2. `duplicateWorkspaceInNewWindow`를 `ctrl+shift+n` 으로 단축키 지정해주기
 3. [참조 사이트](https://stackoverflow.com/questions/43362133/visual-studio-code-open-tab-in-new-window)
+
+
+
+
+
+## 11. permission denied
+
+[참고 나의 포스트](https://junha1125.github.io/blog/pytorch-docker-git/2021-04-29-detectron2/#11-error-eacces-permission-denied-%ED%95%B4%EA%B2%B0)
+
+- 핵심 : `$ sudo chown -R junha:junha ./detectron2/`
+

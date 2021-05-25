@@ -5,14 +5,6 @@ title: 【Pytorch】Sparse-RCNN(detectron2) teardown reports
 
 Sparse-RCNN teardown reports 
 
-
-
-**최종목표!!** 
-
-내가 생각한 아이디어 완전히 조져버리기!
-
-
-
 # 1. docker build & run
 
 ```sh
@@ -136,19 +128,123 @@ python projects/SparseRCNN/train_net.py --num-gpus 2 \
    - coco_dt = coco_gt.loadRes(coco_results)
 6. /pip-packages/**pycocotools**/coco.py > COCO class > loadRes 맴버함수
    - 디버깅을 위해서 launch.json 파일에 `"justMyCode" : false` config 추가
-   - 오늘은 코드를 계속봐서 눈에 안들어 온다. 남은 시간은 논문 읽고 다음에 코드 더 보자. 
-   - 혹은 DETR의 코드를 이용해도 좋을 것 같다. ㅇ
+7. 결국엔 COCOAPI를 이용해서 쉽게 해결했다. [참고 나의 포스트](https://junha1125.github.io/blog/ubuntu-python-algorithm/2021-05-22-cocoAPI/)
+8. **여기서 얻은 나의 결론** "Small objects 성능이 낮은 이유는 확실히 물체가 작다는 근본적인 "
 
 
 
-
-
-# 5. Code 수정
+# 5. Detectron2 추가 사용법
 
 1. Config 에 새로운 변수 추가하는 방법
+
    - from sparsercnn import SparseRCNNDatasetMapper, **add_sparsercnn_config**
-   - **add_sparsercnn_config**(cfg)
+   - main > **add_sparsercnn_config**(cfg)
    - 해당 파일을 보면, `Add config for SparseRCNN.` 을 위한 방법이 나와있다.
-2. 원래 패키지에서 아래와 같이 수정시 AP가 1프로 밖에 안떨어짐
+
+2. 원래 패키지에서 아래와 같이 수정시 (Inference 과정에서) AP가 1프로 밖에 안떨어짐
    `proposal_boxes = torch.stack([torch.tensor([0.5, 0.5, 1, 1]) for _ in range(self.num_proposals)]).to(self.device)`
-3. 
+
+3. projects/SparseRCNN/train_net.py 파일에 `parser.add_argument` 내용이 없는 이유
+
+   - Detectron2 > engine > defaults.py > def **default_argument_parser** 함수를 사용함
+
+4. checkpoints_model.pth 파일을 load해서 학습 재시작하기
+
+   - [참고 사이트](https://github.com/facebookresearch/detectron2/issues/148)
+   - `python projects/SparseRCNN/train_net.py --num-gpus 2     --config-file projects/SparseRCNN/configs/sparsercnn.res50.100pro.3x.yaml --resume OUTPUT_DIR "./output"`
+
+5. projects.SparseRCNN.**Train_net.py** 의 역할
+
+   - Detectron2 > engine > defaults.py > class **DefaultTrainer** 
+   - 위의 DefaultTrainer에는 사용자가 필요하면 바꿀 수 있게, 오버라이딩 맴버함수들이 이미 구현되어 있다. 오버라이딩하지 않으면, default로 실행된다. 
+   - Train_net.py 에서 오버라이딩을 해서, 원하는 구현을 하였다.
+
+6. parameter learning rate 모두 다르게 설정하는 방법
+
+   ```python
+   # projects > SparseRCNN > train_net.py
+   for key, value in model.named_parameters(recurse=True):
+               lr = cfg.SOLVER.BASE_LR
+               weight_decay = cfg.SOLVER.WEIGHT_DECAY
+               if "backbone" in key:
+                   lr = lr * cfg.SOLVER.BACKBONE_MULTIPLIER
+               params += [{"params": [value], "lr": lr, "weight_decay": weight_decay}]
+   ```
+
+7. Config 설정에 필요한 파일들 정리
+
+   1. **Detectron2** > config > defaults.py
+   2. Projects > **SparseRCNN** > config.py > def add_sparsercnn_config(cfg)
+   3. Projects > **SparseRCNN** > configs > Base-SparseRCNN.yaml
+   4. Projects > **SparseRCNN** > configs > sparsercnn.res50.100.3x.yaml
+
+8. Sparse-RCNN 코드의 핵심 파일들
+
+   1. Projects > **SparseRCNN** > train_net.py
+   2. Projects > **SparseRCNN** > sparsercnn > detector.py
+   3. Projects > **SparseRCNN** > sparsercnn > head.py
+   4. Projects > **SparseRCNN** > sparsercnn > loss.py 
+   5. Projects > **SparseRCNN** > sparsercnn > box_transformer.py (내가 개인적으로 만든 파일) 
+
+9. 개인적으로 Visualization하기 위해 만든 코드
+
+   1. boxdrawer.py (detectron2의 visualizer를 이용하자)
+   2. via.py
+
+
+
+# 6. Detectron2 코드 수정 과정 요약
+
+- 성능이 오르지 않을 때.
+
+  - 왜 안되는지 -> 이유를 찾아야 한다. -> 코드 내부 feature visualization
+  - 변수 제거 - 나의 코드의 문제점을 파악할 수 있도록. 최대한 baseline 코드와 같게 설정 ex) lr
+
+- Projects > **SparseRCNN** > sparsercnn > detector.py.   
+
+  ```python
+  ## Before ======
+  class SparseRCNN(nn.Module):
+    	def __init__(self, cfg):
+          self.init_proposal_features = nn.Embedding(self.num_proposals, self.hidden_dim)
+          self.init_proposal_boxes = nn.Embedding(self.num_proposals, 4)
+          nn.init.constant_(self.init_proposal_boxes.weight[:, :2], 0.5)
+          nn.init.constant_(self.init_proposal_boxes.weight[:, 2:], 1.0)
+      def forward(self, batched_inputs):
+          proposal_boxes = self.init_proposal_boxes.weight.clone()
+          
+  ## After =======
+  from .box_transformer import build_position_encoding, box_transformer
+  class SparseRCNN(nn.Module):
+    	def __init__(self, cfg):
+          self.init_proposal_features = nn.Embedding(self.num_proposals, self.hidden_dim)
+          self.init_proposal_boxes = nn.Embedding(self.num_proposals, self.hidden_dim) # 4 -> self.hidden_dim
+          self.position_embedding = build_position_encoding(cfg)
+          self.box_transformer = box_transformer(cfg)
+      def forward(self, batched_inputs):
+          # 1.attention - mask 추출하기
+          # 2.positional embeding
+          tensor_list = NestedTensor(features[self.PE_level], masks[self.PE_level]).to(self.device)
+          pos = self.position_embedding(tensor_list)
+          # 3.Transformer 
+          proposal_boxes_queries = self.init_proposal_boxes.weight
+          proposal_boxes = self.box_transformer(tensor_list, proposal_boxes_queries, pos) # ([1, 2, 100, 4])
+          proposal_boxes = self.init_proposal_boxes.weight.clone()
+  ```
+
+- Projects > **SparseRCNN** > config.py > def add_sparsercnn_config(cfg)    
+
+  ```python
+  # 내용 추가
+      # Proposal Box self-attention
+      cfg.MODEL.SparseRCNN.NUM_LAYER_BOX = 2
+      cfg.MODEL.SparseRCNN.DROPOUT_BOX = 0.1
+      cfg.MODEL.SparseRCNN.NHEADS_BOX = 8 # attention head 갯수
+      cfg.MODEL.SparseRCNN.PE = "sine"
+      cfg.MODEL.SparseRCNN.PE_LEVEL = 2 # 낮을 수록, high resolution
+  
+      cfg.MODEL.SparseRCNN.MLP_HI_DIM = 256
+      cfg.MODEL.SparseRCNN.MLP_N_LAYERS = 2
+  ```
+
+  
