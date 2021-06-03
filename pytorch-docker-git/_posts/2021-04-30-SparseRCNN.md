@@ -171,29 +171,38 @@ python projects/SparseRCNN/train_net.py --num-gpus 2 \
                params += [{"params": [value], "lr": lr, "weight_decay": weight_decay}]
    ```
 
-7. Config 설정에 필요한 파일들 정리
+7. iter 와 batch_size 그리고 coco epoch과의 관계
 
-   1. **Detectron2** > config > defaults.py
-   2. Projects > **SparseRCNN** > config.py > def add_sparsercnn_config(cfg)
-   3. Projects > **SparseRCNN** > configs > Base-SparseRCNN.yaml
-   4. Projects > **SparseRCNN** > configs > sparsercnn.res50.100.3x.yaml
-
-8. Sparse-RCNN 코드의 핵심 파일들
-
-   1. Projects > **SparseRCNN** > train_net.py
-   2. Projects > **SparseRCNN** > sparsercnn > detector.py
-   3. Projects > **SparseRCNN** > sparsercnn > head.py
-   4. Projects > **SparseRCNN** > sparsercnn > loss.py 
-   5. Projects > **SparseRCNN** > sparsercnn > box_transformer.py (내가 개인적으로 만든 파일) 
-
-9. 개인적으로 Visualization하기 위해 만든 코드
-
-   1. boxdrawer.py (detectron2의 visualizer를 이용하자)
-   2. via.py
+   1. iteration x batch size = the number of Image which we habe seen.
+   2. coco 에는 120K개의 이미지가 들어 있다. 
+   3. 1 epoch = 120K / batch_size
+   4. 27000 max_iteration이라면,batch_size x iteration = images which we have seen.
+   5. epoch = MAX_ITER * BATCH_SIZE / TOTAL_NUM_IMAGES
+   6. [참고 사이트 maskrcnn-benchmark/issues](https://github.com/facebookresearch/maskrcnn-benchmark/issues/184)
 
 
 
 # 6. Detectron2 코드 수정 과정 요약
+
+- Config 설정에 필요한 파일들 정리
+
+  1. **Detectron2** > config > defaults.py
+  2. Projects > **SparseRCNN** > config.py > def add_sparsercnn_config(cfg)
+  3. Projects > **SparseRCNN** > configs > Base-SparseRCNN.yaml
+  4. Projects > **SparseRCNN** > configs > sparsercnn.res50.100.3x.yaml
+
+- Sparse-RCNN 코드의 핵심 파일들
+
+  1. Projects > **SparseRCNN** > train_net.py
+  2. Projects > **SparseRCNN** > sparsercnn > detector.py
+  3. Projects > **SparseRCNN** > sparsercnn > head.py
+  4. Projects > **SparseRCNN** > sparsercnn > loss.py 
+  5. Projects > **SparseRCNN** > sparsercnn > box_transformer.py (내가 개인적으로 만든 파일) 
+
+- 개인적으로 Visualization하기 위해 만든 코드
+
+  1. boxdrawer.py (detectron2의 visualizer를 이용하자)
+  2. via.py
 
 - 성능이 오르지 않을 때.
 
