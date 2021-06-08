@@ -54,6 +54,8 @@ title: 【IE】 Zero-Reference or Low-Light Image Enhancement
   1. Better preserve the inherent color
   2. Reduce the risk of over-saturation
 
+![image-20210608132407583](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210608132407583.png?raw=tru)
+
 
 
 ---
@@ -105,7 +107,7 @@ title: 【IE】 Zero-Reference or Low-Light Image Enhancement
 - Y and I as the average intensity value of the local region in the enhanced version and input image
 - [코드](https://github.com/Li-Chongyi/Zero-DCE/blob/master/Zero-DCE_code/Myloss.py#L29)
 
-![image-20210608124548198](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210608124548198.png?raw=tru)
+<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210608124548198.png?raw=tru" alt="image-20210608124548198" style="zoom:67%;" />
 
 
 
@@ -115,7 +117,7 @@ title: 【IE】 Zero-Reference or Low-Light Image Enhancement
 - M represents the number of nonoverlapping local re- gions of size 16×16, Y is the average intensity value
 - [코드](https://github.com/Li-Chongyi/Zero-DCE/blob/master/Zero-DCE_code/Myloss.py#L74)
 
-![image-20210608124717538](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210608124717538.png?raw=tru)
+<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210608124717538.png?raw=tru" alt="image-20210608124717538" style="zoom:67%;" />
 
 
 
@@ -126,7 +128,7 @@ title: 【IE】 Zero-Reference or Low-Light Image Enhancement
 - 아래 수식의 J_p denotes the average intensity value of p channel
 - [코드](https://github.com/Li-Chongyi/Zero-DCE/blob/master/Zero-DCE_code/Myloss.py#L9)
 
-![image-20210608124840292](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210608124840292.png?raw=tru)
+<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210608124840292.png?raw=tru" alt="image-20210608124840292" style="zoom:67%;" />
 
 
 
@@ -135,6 +137,7 @@ title: 【IE】 Zero-Reference or Low-Light Image Enhancement
 ## 4.4. Illumination Smoothness Loss
 
 - To preserve the monotonicity relations between neighboring pixels
+- [코드](https://github.com/Li-Chongyi/Zero-DCE/blob/master/Zero-DCE_code/Myloss.py#L90)
 - ![image-20210608125701311](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210608125701311.png?raw=tru)
 
 
