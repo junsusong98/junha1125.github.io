@@ -1,9 +1,9 @@
 ---
 layout: post
-title: 【Python-Module】Module, Function research of Pytorch tuto 
+title: 【Python-Module】 Module, Function research of Pytorch tuto 
 description: >
     Pytorch tutorial을 공부하면서, 새로운 함수나 모듈이 나왔을 때 고찰해보고 공부해본 내용을 담아 놓았다.
----  
+​---  
 - 너무 깊이 들어가지 말자. 1단계만 타고 들어가자. 
 - 2단계 초과로 타고 들어가지 말자!!! 나는 너무 끝도 없이 타고 들어간다. 
 
@@ -395,7 +395,6 @@ The recommended way to build tensors in Pytorch is to use the following two fact
     - (torchvision.transroms.)Grayscale, Colorjitter, CenterCrop,Pad 등등.. 또한 하나의 nn모듈이다. 그래서 다 forward가 있고, 그것을 사용하는 것이다. 
     - compose([list of Transforms]) 내부에는 위와 같은 nn모듈 클래스가 들어가고, 자동으로, forward에 들어가는 input은 img input이 된다. 여기에 들어가야할 자료형은 위에 정리 완료
     - scripted_transforms = torch.jit.script(transforms); # 이렇게 script를 사용하기 위해서는 compose말고  nn.Sequential로 묶으라는데 아직 뭔지 모르겠음.
-    
 
 
 ```
@@ -589,14 +588,14 @@ dir_valable, list(dir_valable.keys()), (dir_valable.values())
     torchvision.models.detection.faster_rcnn.FastRCNNPredictor
     >>> type(model.roi_heads.box_predictor.bbox_pred )
     torch.nn.modules.linear.Linear
-        ```
+    ```
 2. **내가 여기서 신기하다고 생각하는 것은 이거다** : mask_rcnn.py 파일에는 FastRCNNPredictor를 import내용이 전혀없다. 그럼에도 불구하고... from .faster_rcnn import FasterRCNN 를 호출했다는 이유만으로 FastRCNNPredictor가 Mask_crnn의 init의 super에 의해서 호출된다. 이게 가능한 이유가 뭘까?? 
     - 이 코드가 문제 없이 구동 되는 이유가 뭘까?
         ```python
         import torchvision
         model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=True) # 이거를 그대로 부르면 num_classes = 91 이다. 
         type(model.roi_heads.box_predictor)
-
+        
         >>> torchvision.models.detection.faster_rcnn.FastRCNNPredictor # (에러 안남)
         ```
 
@@ -627,14 +626,13 @@ dir_valable, list(dir_valable.keys()), (dir_valable.values())
         from torchvision.models.detection.anchor_utils import AnchorGenerator 
         # torchvision 0.5.0에서는 rpn.py에 import AnchorGenerator 정의
         # torchvision 0.1.5에서는 anchor_utils.py에 import AnchorGenerator 정의
-        ``` 
+        ```
     - 하지만 torchvision 0.1.5에서도 from torchvision.models.detection.rpn import AnchorGenerator를 해도 아주 잘 된다. 
     - 왜냐하면, rpn.py에서  아래와 같이 정의 되어 있기 때문이다. 
         ```python
         # Import AnchorGenerator to keep compatibility.
         from .anchor_utils import AnchorGenerator
         ```
-        
 
 
 
@@ -817,7 +815,7 @@ uploaded = files.upload()
 
 
     Saving testimage.png to testimage.png
-    
+
 
 
 ```
@@ -952,21 +950,21 @@ temp1.shape, temp2.shape, t3.shape, t4.shape
 3. 만약 나의 데이터가 다음과 같은 구조로 정리 되어 있다면, 이 모듈을 사용하면 된다.
 
     ```txt
-
+    
     root/dog/xxx.png
-
+    
     root/dog/xxy.png
-
+    
     root/dog/xxz.png
 
 
 
     root/cat/123.png
-
+    
     root/cat/nsdf3.png
-
+    
     root/cat/asd932_.png
-
+    
     ```
 
 4. torchvision.datasets.ImageFolder(root : str, transform : Optional[Callable] = None)
@@ -1020,43 +1018,43 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 - 예제 코드 2 : 그냥 이거 항상 이용하기
 
     ```python
-
+    
         def imshow(inp, title=None):
-
+    
             """Imshow for Tensor."""
-
+    
             inp = inp.numpy().transpose((1, 2, 0))
-
+    
             mean = np.array([0.485, 0.456, 0.406])
-
+    
             std = np.array([0.229, 0.224, 0.225])
-
+    
             inp = std * inp + mean
-
+    
             inp = np.clip(inp, 0, 1)
-
+    
             plt.imshow(inp)
-
+    
             if title is not None:
-
+    
                 plt.title(title)
-
+    
             plt.pause(0.001)  # pause a bit so that plots are updated
-
+    
         # Get a batch of training data
-
+    
         inputs, classes = next(iter(dataloaders['train']))
 
 
 
         # Make a grid from batch
-
+    
         out = torchvision.utils.make_grid(inputs)
 
 
 
         imshow(out, title=[class_names[x] for x in classes])
-
+    
     ```
 
 
@@ -1095,7 +1093,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
                 print(a == b, a is b) >> True, False
                 a[0] = 4
                 print(b[0]) >> 1
-              ```   
+            ```
         - 하지만!! a의 **'원소'**가 mutable이면 문제가 발생한다. ex) a = [[1,2],[3,4]]
             - a = b[:] 
                 - a is b >> False, BUT!!!

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Pytorch】Sparse-RCNN(detectron2) teardown reports
+title: 【Pytorch】 Sparse-RCNN(detectron2) teardown reports
 ---
 
 Sparse-RCNN teardown reports 

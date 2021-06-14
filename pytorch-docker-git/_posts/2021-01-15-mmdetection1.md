@@ -1,7 +1,7 @@
 ---
 
 layout: post
-title: 【mmdetection】mmdetection Tutorial and Overview
+title: 【mmdetection】 mmdetection Tutorial and Overview
 ---
 
 - [mmdetection Github](https://github.com/open-mmlab/mmdetection) 

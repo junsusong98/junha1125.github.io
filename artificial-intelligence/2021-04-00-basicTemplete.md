@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【분류】제목
+title: 【분류】 제목
 ---
 
 - **Paper**: 
@@ -27,7 +27,7 @@ title: 【분류】제목
 
 # 제목
 
-# 1. Conclusion, Abstract
+# 1. Abstract, Instruction, Relative work
 
 - ㅇ
 
@@ -35,7 +35,7 @@ title: 【분류】제목
 
 ---
 
-# 2. Instruction, Relative work
+# 2. Method
 
 - ㅇ
 
@@ -43,23 +43,7 @@ title: 【분류】제목
 
 ---
 
-# 3. Method
-
-- ㅇ
-
-
-
----
-
-# 4. Experiments
-
-- ㅇ
-
-
-
----
-
-# 5. Results
+# 3. Experiments, Results
 
 - ㅇ
 

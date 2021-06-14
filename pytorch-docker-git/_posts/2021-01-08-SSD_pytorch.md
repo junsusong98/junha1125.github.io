@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Pytorch Package】SSD Pytorch Research / Detectron2 & mmdetection short research
+title: 【Pytorch Package】 SSD Pytorch Research / Detectron2 & mmdetection short research
 description: >
     Pytorch tuto를 모두 공부하고, 더 깊은 공부를 위해 SSD package를 공부한다.
 ---  
@@ -36,7 +36,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
     %cd SSD
     !pip install -r requirements.txt
     !python setup.py install
-
+    
     import ssd.config
     print(ssd.config.cfg)
     ```
@@ -236,7 +236,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
                     if pretrained:
                         model.init_from_pretrain(load_state_dict_from_url(model_urls['vgg']))
                     return model
-
+            
                 # ssd/modeling/backbone/__init__.py
                 def build_backbone(cfg):
                     return registry.BACKBONES[cfg.MODEL.BACKBONE.NAME](cfg, cfg.MODEL.BACKBONE.PRETRAINED)
@@ -271,7 +271,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
             class ToTensor(object):
                 def __call__(self, cvimage, boxes=None, labels=None):
                     return torch.from_numpy(cvimage.astype(np.float32)).permute(2, 0, 1), boxes, labels
-
+            
             transform = [RandomSampleCrop(),
                             RandomMirror(),
                             ToTensor()]
@@ -320,7 +320,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
     3. print   
         ```
         Loaded configuration file configs/vgg_ssd300_voc0712.yaml
-
+        
         MODEL:
         NUM_CLASSES: 21
         INPUT:
@@ -398,7 +398,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
                 self.cfg = cfg
                 self.backbone = build_backbone(cfg)
                 self.box_head = build_box_head(cfg)
-
+        
             def forward(self, images, targets=None):
                 features = self.backbone(images)
                 detections, detector_losses = self.box_head(features, targets)
@@ -446,7 +446,7 @@ I will use lufficc/SSC repo. I think that this is up-to-date repository and deve
             loss.backward()
             optimizer.step()
             scheduler.step()
-
+        
             if iteration % args.log_step == 0:
                 logger.info( # 현재 학습 상태 출력
                 summary_writer.add_scalar

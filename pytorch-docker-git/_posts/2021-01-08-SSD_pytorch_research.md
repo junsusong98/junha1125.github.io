@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Pytorch Package】SSD Pytorch 'Module' Research
+title: 【Pytorch Package】 SSD Pytorch 'Module' Research
 description: >
     SSD package를 공부하면서 새로 익힌 내용들을 정리한다.
 ---  
@@ -98,9 +98,9 @@ description: >
             size = cfg.INPUT.IMAGE_SIZE
             vgg_config = vgg_base[str(size)]
             extras_config = extras_base[str(size)]
-
+    
             self.vgg = nn.ModuleList(add_vgg(vgg_config : [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'C', 512, 512, 512, 'M', 512, 512, 512]))
-
+    
     def add_vgg(cfg, batch_norm=False):
         layers = []
         in_channels = 3
@@ -152,10 +152,10 @@ description: >
         self.b = b
         self.c = 1
         self.set_c()
-
+    
     def set_c(self):
         self.c = self.a + self.b
-
+    
     obj = a(4,3)
     print(obj.c) 
     >> 7
@@ -167,7 +167,7 @@ description: >
         size = cfg.INPUT.IMAGE_SIZE
         vgg_config = vgg_base[str(size)]
         extras_config = extras_base[str(size)]
-
+    
         self.vgg = nn.ModuleList(add_vgg(vgg_config))
         self.extras = nn.ModuleList(add_extras(extras_config, i=1024, size=size))
         self.l2_norm = L2Norm(512, scale=20)
@@ -188,7 +188,7 @@ description: >
     - [torch.Tensor.permute](https://pytorch.org/docs/stable/tensors.html?highlight=permute#torch.Tensor.permute) 를 사용해서 tenor 연산 이뤄지는 중
     - [torch.Tensor.contiguous](https://pytorch.org/docs/stable/tensors.html#torch.Tensor.contiguous)
 - torch document에 적혀 있는 view는 tensor의 shape, size를 의미한다. view라는 단어를 더 자주쓰지 하나의 명사로 알아두기
-    
+  
     - [torch.tensor.view](https://pytorch.org/docs/stable/tensors.html?highlight=permute#torch.Tensor.permute)
 
 # 7. os.environ(\["variable"\])

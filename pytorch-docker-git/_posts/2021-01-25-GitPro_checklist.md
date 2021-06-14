@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Git】Git-blog PRO VERSION check list
+title: 【Git】 Git-blog PRO VERSION check list
 
 ---
 
