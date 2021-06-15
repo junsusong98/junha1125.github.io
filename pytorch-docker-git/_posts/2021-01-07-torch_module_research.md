@@ -3,7 +3,9 @@ layout: post
 title: 【Python-Module】 Module, Function research of Pytorch tuto 
 description: >
     Pytorch tutorial을 공부하면서, 새로운 함수나 모듈이 나왔을 때 고찰해보고 공부해본 내용을 담아 놓았다.
-​---  
+---
+
+
 - 너무 깊이 들어가지 말자. 1단계만 타고 들어가자. 
 - 2단계 초과로 타고 들어가지 말자!!! 나는 너무 끝도 없이 타고 들어간다. 
 
@@ -20,7 +22,7 @@ description: >
     drwxr-xr-x 1 root root 4096 Jan  5 07:34 ..
     drwxr-xr-x 1 root root 4096 Dec 21 17:29 .config
     drwxr-xr-x 1 root root 4096 Dec 21 17:29 sample_data
-    
+
 
 - 꼭 먼저 아래의 사진 부터 보기
 
@@ -48,7 +50,7 @@ arr[1,:,2], torch.max(arr[1,:,2]), max_value1[1,2]
     torch.Size([6, 9])
     torch.Size([3, 9])
     torch.Size([3, 6])
-    
+
 
 
 
@@ -80,7 +82,7 @@ for i, el in zip(preds, output):
     tensor([36, 80, 87, 30, 26,  8,  3, 89, 96, 83]) torch.Size([10]) tensor([3])
     tensor([62, 35, 60, 90, 20, 84, 32, 72, 64, 83]) torch.Size([10]) tensor([7])
     tensor([81, 23, 72, 88, 43, 79, 59,  2, 12, 40]) torch.Size([10]) tensor([4])
-    
+
 
 
 ```
@@ -96,7 +98,7 @@ print(c.shape, d.shape)
 
     (1, 4) (4, 1)
     torch.Size([1, 3]) torch.Size([3, 1])
-    
+
 
  - np.sqeeze는 2차원으로 감지되는 행렬을, 1차원으로 바꿔주는 역할도 한다. 
 
@@ -114,7 +116,7 @@ print(a.shape, b.shape)
 
     (4,) (4,)
     (4,) (4,)
-    
+
 
 
 ```
@@ -195,7 +197,7 @@ for i in zip(preds, output):
     tensor([-0.1235,  1.0481, -0.3385, -0.6615,  1.2481, -1.0524, -0.3961,  0.7990,
              1.6359, -0.3628]) torch.Size([10])
     <class 'tuple'> 2 elements :  3 [-0.12354857474565506, 1.0481327772140503, -0.3384615480899811, -0.6614770889282227, 1.248133897781372, -1.0524193048477173, -0.3961334228515625, 0.7990166544914246, 1.635870337486267, -0.36283737421035767]
-    
+
 
 
 ```
@@ -265,7 +267,7 @@ print('stack_dim0 :\n',stack_dim1, stack_dim1.shape)
             [[ 0.1946,  1.9841, -0.4614],
              [ 0.1946,  1.9841, -0.4614],
              [ 0.1946,  1.9841, -0.4614]]]) torch.Size([2, 3, 3])
-    
+
 
 # 6. PIL.Image
 - [depth checking](https://stackoverflow.com/questions/1996577/how-can-i-get-the-depth-of-a-jpg-file)
