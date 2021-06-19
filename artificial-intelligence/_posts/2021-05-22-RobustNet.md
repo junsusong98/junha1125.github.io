@@ -91,7 +91,7 @@ title: 【DG】 RobustNet- Improving Domain Generalization
 ![image-20210521195434582](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210521195434582.png?raw=tru)
 
 - Equation(5)를 분리해서, 아래의 Equation(6), Equation(7) 과 같이 표현할 수 있다. 
-- Equation(6), Equation(7)를 모두 동시에 만족하는, xi 를 얻기는 힘들기 때문에, instance normalization Equ(8) 을 해준다. (Equation(6)은 |xi| -> sqrt(HW) 이 되도록, Equation(7)은 |xi| -> 0 이 되도록 유도한다. 동시에 만족하는 xi를 얻을 수는 없다!) 
+- Equation(6), Equation(7)를 모두 동시에 만족하는, xi 를 얻기는 힘들기 때문에, instance normalization Equ(8) 을 해준다. (Equation(6)은 \|xi\| -> sqrt(HW) 이 되도록, Equation(7)은 \|xi\| -> 0 이 되도록 유도한다. 동시에 만족하는 xi를 얻을 수는 없다!) 
 - 이것을 해주면 Equation(6)는 자동으로 만족된다. 따라서 Equation(7, 9, 10) 만 만족하도록 유도해주면 된다.이 식은 xi와 xj의 cosθ 값에 의해서만 결정된다. 
 - 위 그림에 필요한 수식들을 정리하면, 아래와 같이 정리할 수 있다. 
 
