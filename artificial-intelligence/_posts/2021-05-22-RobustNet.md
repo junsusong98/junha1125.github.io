@@ -9,13 +9,14 @@ title: 【DG】 RobustNet- Improving Domain Generalization
   - 여기 있는게 다 새로워보이지만, 사실은 다 어디있던 개념이라는 것을 잊지말자. 
   - 이미 normalization 에 대한 연구나, Style Transform에 대한 연구에 있던 내용들이다. 
 - **Key words**
-  1. Whitening Transformation을 정확하게 하려면 Eigen-decomposion이 필요하다. 하지만 이것은 computation-cost가 크다.
-  2. 이것을 대체하기 위해서, deep whitening transformation Loss를 적용하면, Whitening Transformation이 이미 적용된 Feature가 나오도록 유도된다.
-  3. deep whitening transformation Loss(Equ(5)) 함수를 그대로 적용해 학습시키면, 사실 수렴이 잘 되지 않는다. 
-  4. Feature map에 Instance normalization 을 적용하고, Equ(5) 를 적용하면 수렴가능하다!
-  5. 하지만, Equ(5)이 covariance metric 내부 원소들에 모두 적용되면(-> Equ(10)와 같이) 그건 domain-specific info, domain-invariant info를 모두 지워버리는 행동이다. 
-  6. Covariance metrix에서 domain-invariant info 정보만! 들어간 원소 위치를 찾는다. 딱 그 부분에만 deep whitening transformation Loss(-> Equ(17)과 같이) 를 적용한다.
-  7. 이렇게 하면 domain-specific info에 대한 covariance는 죽이고, domain-invariant info는 살릴 수 있어서, 옮바른 segmentation(recognition)이 가능하다!
+  1. Whitening Transformation이란, **초기 Layer의 Feature map에 대해 채널 방향 공분산 행렬이 단위행렬이 되도록 만든 변환**이다. (==Feature map (CxHxW)를 \[HW 백터 C개\] 로 변환한 후, C개의 백터들에 대한 Covariance Matrix를 Identity Matirx 형태가 되도록 하는 것이다.), 이렇게 하면 **이미지의 Style 정보가 제거 된다는 가설**이 있기 때문에, 이 논문에서는 WT를 적절히 적용하기 위한 노력들을 하고 있다.
+  2. Whitening Transformation을 정확하게 하려면 Eigen-decomposion이 필요하다. 하지만 이것은 computation-cost가 크다.
+  3. 이것을 대체하기 위해서, deep whitening transformation Loss를 적용하면, Whitening Transformation이 이미 적용된 Feature가 나오도록 유도된다.
+  4. deep whitening transformation Loss(Equ(5)) 함수를 그대로 적용해 학습시키면, 사실 수렴이 잘 되지 않는다. 
+  5. Feature map에 Instance normalization 을 적용하고, Equ(5) 를 적용하면 수렴가능하다!
+  6. 하지만, Equ(5)이 covariance metric 내부 원소들에 모두 적용되면(-> Equ(10)와 같이) 그건 domain-specific info, domain-invariant info를 모두 지워버리는 행동이다. 
+  7. Covariance metrix에서 domain-invariant info 정보만! 들어간 원소 위치를 찾는다. 딱 그 부분에만 deep whitening transformation Loss(-> Equ(17)과 같이) 를 적용한다.
+  8. 이렇게 하면 domain-specific info에 대한 covariance는 죽이고, domain-invariant info는 살릴 수 있어서, 옮바른 segmentation(recognition)이 가능하다!
 - Reference Site
   - Normalization: [batch, layer, instance](https://becominghuman.ai/all-about-normalization-6ea79e70894b), [group](https://m.blog.naver.com/chrhdhkd/222014776700)
 - Quastion
