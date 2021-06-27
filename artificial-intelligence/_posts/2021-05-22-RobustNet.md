@@ -15,7 +15,7 @@ title: 【DG】 RobustNet- Improving Domain Generalization
   4. deep whitening transformation Loss(Equ(5)) 함수를 그대로 적용해 학습시키면, 사실 수렴이 잘 되지 않는다. 
   5. Feature map에 Instance normalization 을 적용하고, Equ(5) 를 적용하면 수렴가능하다!
   6. 하지만, Equ(5)이 covariance metric 내부 원소들에 모두 적용되면(-> Equ(10)와 같이) 그건 domain-specific info, domain-invariant info를 모두 지워버리는 행동이다. 
-  7. Covariance metrix에서 domain-invariant info 정보만! 들어간 원소 위치를 찾는다. 딱 그 부분에만 deep whitening transformation Loss(-> Equ(17)과 같이) 를 적용한다.
+  7. Covariance metrix에서 domain-specific element position만! 딱 그 부분에만 deep whitening transformation Loss(-> Equ(17)과 같이) 를 적용한다.
   8. 이렇게 하면 domain-specific info에 대한 covariance는 죽이고, domain-invariant info는 살릴 수 있어서, 옮바른 segmentation(recognition)이 가능하다!
 - Reference Site
   - Normalization: [batch, layer, instance](https://becominghuman.ai/all-about-normalization-6ea79e70894b), [group](https://m.blog.naver.com/chrhdhkd/222014776700)
