@@ -44,8 +44,6 @@ Survey DG papers
 
 # 2.0 Relative work & Paper list
 
-![image-20210702123655830](/Users/junha/Library/Application Support/typora-user-images/image-20210702123655830.png)
-
 - **Multiple Source Domains** DG 논문들: Shared representation (general feature extractor) 학습하기.
   1. 아래 과거 DG들의 문제점: 어쨋든 Multi Domain에 너무 많이 의지. Sources 갯수에 성능 변화 큼.
   2. (#2.7) [29] Domain generalization with adversarial feature learning -CVPR18
@@ -57,12 +55,12 @@ Survey DG papers
   8. (#2.8) [2] Metareg: Towards domain generalization using metaregularization -NIPS18
   9. (#2.11) [28] Episodic training for domain generalization -ICCV19
   10. (#2.12) [33] Feature-critic networks for heterogeneous domain generalization -ICML19
-  11. Generalizing Across Domains via Cross-Gradient Training -ICLR18  
-  12. Generalizing to unseen domains via adversarial data augmentatio -NIPS18
+  11. Generalizing Across Domains via Cross-Gradient Training -ICLR18 (Next) 
+  12. Generalizing to unseen domains via adversarial data augmentatio -NIPS18 (Next)
   13. (#2.13) Domain generalization by solving jigsaw puzzles -CVPR19
 - **Sementic Segmentation DG**
   1. [64]
-  2. [44] IBN net
+  2. [44]
 - **Correlation Matrix(CM)** 은 Image Style 정보를 담고 있다.
   1. (#2.3) Texture synthesis using convolutional neural networks -NIPS15
   2. (#2.4) Image style transfer using convolutional neural networks -CVPR16 (= A neural algorithm of artistic style)
@@ -190,7 +188,7 @@ Survey DG papers
 - `meta regularization` 이라는 새로운 신경망을 사용한 DG. 
 - MAML가 DA이지만, 우리는 DG이고,  MLDG의 Generalization cost가 많이 필요하지만 우리는 Fixed F 를 사용해서 Cost 낮다. 
 - Regularizer 라는 신경망을 먼저 이렇게 정의한다. "Generalization에 도움을 주는, 모델이 하나의 Domain으로 학습될 때 overfitting 되지 않도록 규제해주는 역할을 하는 신경망" 처음에는 Φ(파이) 신경망을 무작정 사용하고, 이게 Iteration을 돌수록 점점 저런 역할을 하는 신경망이 될거라고 기대한다. (강화학습의 Policy, Q network 처럼.. 처음에는 아무 역할도 안하는 신경망이지만, 점점 원하는 역할을 하는 신경망이 되도록 유도한다.)
-- (**주의! 코드가 이상하니 신경쓰지 말기 // (#2.12) 내용과 거의 일치하다 **) novel regularization function in meta-learning framework: 아래의 순서로 Regularizer(nn.Linear( T network weight, 1))가 학습된다. [코드 확인](https://github.com/elliotbeck/MetaReg_PyTorch/blob/master/train.py#L148) Regularizer는 T network에 새로운 Loss를 줌으로써 T가 Generalization 되도록 도와주는 신경망이다. T network를 받고 Loss값이 스칼라값으로 나오는 신경망이다. 다시말해, **Generalization을 위해서 a domian을 학습하는 동안, "b와 c domain도 고려하니까 적당히 학습해!" 라는 느낌으로 beta 갱신에 사용된다** 
+- (**주의! 코드가 이상하니 신경쓰지 말기**) novel regularization function in meta-learning framework: 아래의 순서로 Regularizer(nn.Linear( T network weight, 1))가 학습된다. [코드 확인](https://github.com/elliotbeck/MetaReg_PyTorch/blob/master/train.py#L148) Regularizer는 T network에 새로운 Loss를 줌으로써 T가 Generalization 되도록 도와주는 신경망이다. T network를 받고 Loss값이 스칼라값으로 나오는 신경망이다. 다시말해, **Generalization을 위해서 a domian을 학습하는 동안, "b와 c domain도 고려하니까 적당히 학습해!" 라는 느낌으로 beta 갱신에 사용된다** 
   1. ([Step1](https://github.com/elliotbeck/MetaReg_PyTorch/blob/master/train.py#L152)) Base model updates: 각 Domain data를 사용해서, 공통된 F 그리고 T1~Tp 모델을 학습시킨다.
   2. Episode creating: 랜덤으로 2개의 domain을 선택해서, (1) metatrain set (`a` domain) (2) metatest set (`b` domain) 으로 설정한다.
   3. ([Step2](https://github.com/elliotbeck/MetaReg_PyTorch/blob/master/train.py#L167))  Re-traing using metatrain set: 위 1번에서 학습되된 `a` domain 으로 파라미터로 Init한 F+Tnew 모델을 `l` gradient steps 까지. New domain dataset으로 F+Ta를 학습시킨다. 
@@ -235,91 +233,8 @@ Survey DG papers
 
 
 
-# 2.11. DG: Episodic Training for Domain Generalization  -ICCV19
+# 2.11.
 
-![image-20210701101650773](/Users/junha/Library/Application Support/typora-user-images/image-20210701101650773.png)
-
-- `Backprobagation` 의 흐름을 바꿔 학습시키는 DG
 - 현재 domain과는 정반대의 partner model과 상호작용하면서, Domain shift를 시뮬레이션 한 episodic로 Traning 진행했다. 
-- Equ(5) 에서 ψ_r 은 Label space를 어떤 것을 가지든 상관없는 Classifier이다. 따라서 `heterogeneous domains generalization` 이 된 Feature Extractor (theta) 획득이 가능하다.
-- Figure 그림 추가 설명
-  - Figure1: Aggregation multi domain learning (AGG) 그냥 모든 Domain을 한꺼번에 묶어서 학습시킨다.
-  - Figure2: N개의 Domain, N개의 모델
-  - Figure3: 하나의 AGG 모델을 두고, Figure2에서 Domain Sepecific Model을 가져와서 AGG의 Generalization 성능을 높힌다.
-  - Figure4: 하나의 AGG 모델을 두고, heterogeneous DG Feature Extractor (Theta, Equ(5))를 학습시키고, 원하는 Classifier(ψ) 를 Equ(4)로 학습시킨다.
-
-
-
-
-
-
-
-# 2.12. DG: Feature-critic networks for heterogeneous domain generalization -ICML19
-
-![image-20210701144719169](/Users/junha/Library/Application Support/typora-user-images/image-20210701144719169.png)
-
-- `Feature-critic networks` ("현재의 Feature Extractor 파라미터가, MetaTest-domain의 성능일 올려줄지 아닐지"를 예측해주는 네트워크)를 이용하는 DG
-- `Learning to learn approach`: Feature가 얼마나 Robust한지 판단하는 `Feature-critic Network`를 사용해서, Ausilliary Loss를 뽑아낸다. 이를 통해 Generalization 을 학습한다. 
-- 추가설명
-  - Equ (6), (7): h(w) = `Feature critic network` 가 될 수 있는 Architecture
-  - Equ (2): 전체 Classification 모델을 학습시키는데 사용할 Loss
-  - Equ (3): h(w) 의 parameter인 w가 가져야할 조건. (Meta_test Domain에서 더 좋은 결과를 가지도록 Loss를 유도해 줘야 함)
-  - Euq (5): h(w)를 optimize 하기 위해서, 사용할 h(w) Loss function
-
-
-
-
-
-# 2.13. DG: Domain Generalization by Solving Jigsaw Puzzles  -CVPR19
-
-![image-20210701165056363](/Users/junha/Library/Application Support/typora-user-images/image-20210701165056363.png)
-
-- `jigsaw puzzles task` 를 추가한 DG
-- Jigsaw puzzle task는 **(generalization을 위한/ overfitting을 막는) Network Regularizer** 역할을 한다. 
-- Episodic Training 논문에서 주장하는 그당시 SOTA 논문이다. (개인적으로 Contrstive와 Classification을 동시에 하면 당연히 Generalization 성능이 좋아지는 거랑 같은 원리인듯 하다)
-- 그림 추가 설명
-  - 1~P 개의 permutation 중에서 하나를 골라 맞추면 되는 Jigsaw classifier task
-  - Original ordered image 뿐만아니라 Shuffled Images 까지 Label Classication loss가 주어진다.
-
-
-
-
-
-
-
-
-
-# 2.14. WT: Iterative Normalization: Beyond Standardization towards Efficient Whitening -CVPR19
-
-![image-20210702093209673](/Users/junha/Library/Application Support/typora-user-images/image-20210702093209673.png)
-
-- RobustNet에 따르면, IBN-net보다는 성능이 낮고 SW(Switchable whitening) 보다는 성능이 좋은 WT Method
-- Stochastic Normalization Disturbance 개념을 소개하고 이용해서, 왜 group-wise whitening 이 좋았는지, BN에서 Batch size가 작으면 왜 성능이 떨어지는지 확인해본다. 
-- DBN(Decorrelated Batch Norm)은 Eigen value decomposition을 한다는 문제점이 있었다. (Back-propagation는 DBN 논문에서 되도록 만들었지만, Computer Cost 문제는 어쩔 수 없었다.) 
-- Whitening의 핵심 연산은 covariance matrix^(-1/2) 를 구하는 것이다. 이것을 구하기 위해 `Eigen value decomposition` 이 필수적이었다. 하지만, 이 논문에서는 `Newton’s iteration methods ` 를 사용해서 구하고자 한다. 
-
-
-
-
-
-# 2.15. WT: Switchable whitening for deep representation learning -ICCV19
-
-![image-20210702103830780](/Users/junha/Library/Application Support/typora-user-images/image-20210702103830780.png)
-
-- RobustNet에 따르면, IBN-net과 Iter-Norm에 비해 Generalization 성능은 낮지만, 같은 Domain에서의 mIoU 성능유지는 가장 좋은 WT Method
-- BW(Batch Whiten) // IW(Instance Whiten) // BN // IN // LN(Layer Norm) // SN(Switchable Norm=왼쪽 3개의 Norm을 섞어 사용) // SW(Switchable Whiten=왼쪽 모든 Whiten, Norm 방법을 적절히 섞어 사용)
-- Switchable whitening
-  1. SW adaptively selects appropriate "whitening" or "standardization" statistics for different tasks 
-  2. SW controls the ratio of each technique by learning their importance weights
-
-
-
-
-
-
-
-
-
-
-
+- If a layer can be trained to perform well in this situation of **badly tuned neighbours**, then its robustness to domain-shift has increased. heterogeneous DG.
 
