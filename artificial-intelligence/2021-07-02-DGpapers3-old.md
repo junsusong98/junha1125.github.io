@@ -72,7 +72,7 @@ CVPR 21 paper list
 
 # 3.1 TTT: Tent-Fully Test-Time Adaptation by Entropy Minimization -ICLR21
 
-![image-20210702191800592](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210702191800592.png?raw=tru)
+![image-20210702191800592](/Users/junha/Library/Application Support/typora-user-images/image-20210702191800592.png)
 
 - Abstract
   - Entropy Confidence를 최적화하기 위해서, Norm statistics and channel-wise affine transformations 등을 추정하고 업데이트한다. 
@@ -93,7 +93,7 @@ CVPR 21 paper list
 
 # 3.2. TTT: Test-Time Training with Self-Supervision for Generalization under Distribution Shifts -arXiv19
 
-<img src="https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210702165155595.png?raw=tru" alt="image-20210702165155595" style="zoom:80%;" />
+<img src="/Users/junha/Library/Application Support/typora-user-images/image-20210702165155595.png" alt="image-20210702165155595" style="zoom:80%;" />
 
 - TTT 논문
 - Training에서는 Equ(2) 와 같이 2가지 Loss를 사용해서 학습하고, Test에서는 Feature Extractor를 Self-supervised learning으로 Fine-turning한다.
@@ -125,7 +125,7 @@ CVPR 21 paper list
 
 # 3.4. DG: Generalization on Unseen Domains via Inference-time Label-Preserving Target Projections -CVPR21
 
-![image-20210703175008266](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210703175008266.png?raw=tru)
+![image-20210703175008266](/Users/junha/Library/Application Support/typora-user-images/image-20210703175008266.png)
 
 - classification을 잘 할 수 있는 `manifold space`로 feature를 던져버리는 DG // Image style transfer와 비슷한 느낌의 `Target feature projection` 이라고 표현된다.
 - Z_s라는 Space를 source data feature manifold라고 하자. classifier는 이 manifold 내부의 feature 만을 classification 잘 할 수 있다. 하지만 unseen target feature는 분명 manifold 내부에 잊지 않을 가능성이 크다. 따라서 target feature를 manifold 내부로 던져 (push) 버리는 G network를 학습하여 사용한다. 
@@ -146,7 +146,7 @@ CVPR 21 paper list
 
 # 3.5. Generalizable Semantic Segmentation via Model-agnostic Learning and Target-specific Normalization -arXiv20
 
-![image-20210703184934550](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/Typora-rcv/image-20210703184934550.png?raw=tru)
+![image-20210703184934550](/Users/junha/Library/Application Support/typora-user-images/image-20210703184934550.png)
 
 - Meta-learning을 활용하는 DG
 - Method는 과거의 MAML, MLDG 방법을 Segmentaion 에 적용한게 전부이다. 
