@@ -1,7 +1,6 @@
 ---
 layout: post
-title: 【Pytorch】 RobustNt & ProDA teardown reports
-
+title: 【Pytorch】 RobustNt & ProDA & DA-SAC teardown reports
 ---
 
 RobustNet teardown reports 
@@ -199,8 +198,6 @@ $ python -m torch.distributed.launch --nproc_per_node=2 train.py \
 
 
 
----
-
 -> 일단 여기까지 보고, ProDA로 넘어가자
 
 
@@ -210,6 +207,8 @@ $ python -m torch.distributed.launch --nproc_per_node=2 train.py \
 # 2. ProDA
 
 Code Link: https://github.com/microsoft/ProDA
+
+논문 설명 Post: [Prototypical Pseudo Label Denoising and Target Structure](https://junha1125.github.io/blog/artificial-intelligence/2021-04-02-ProDA/)
 
 Directory Tree
 
@@ -244,6 +243,8 @@ ProDA
 1. Pseudo label을 생성해야 하기 때문에, 몇가지 Step을 거쳐야 한다. 따라서 학습과정이 매우 복잡하다.
 2. [학습과정 순서](https://github.com/microsoft/ProDA/blob/main/README.md#training)
 3. [추론과정 순서](https://github.com/microsoft/ProDA/blob/main/README.md#inference-using-pretrained-model)
+
+아래의 과정은 Target Structure 에서 **Origin Image & Augmentation Image pair를 어떻게 만드는지** 분석하기 위한 과정이다.
 
 
 
@@ -291,7 +292,7 @@ ProDA
        validation(model, logger, datasets, device, running_metrics_val, iters = model.iter, opt=opt)
    ```
 
-3. [ProDA/models/adaptation_modelv2.py : 이전에 만든 Pseudo Label을 사용하고, Target Structure Learning (Contrastive Learning)을 수행한다.    
+3. ProDA/models/adaptation_modelv2.py : 이전에 만든 Pseudo Label을 사용하고, Target Structure Learning (Contrastive Learning)을 수행한다.    
 
    ```python
    def step(self, source_x, source_label, target_x, target_imageS=None, target_params=None, target_lp=None, 
@@ -331,4 +332,62 @@ ProDA
            return input_dict
    ```
 
-   
+
+
+
+
+
+
+
+# 3. DA-SAC
+
+논문 설명 Post: [Self-supervised Augmentation Consistency for DA](https://junha1125.github.io/blog/artificial-intelligence/2021-06-12-DA+MoCo/)
+
+**Origin Image & Augmentation Image pair를 어떻게 만드는지** 분석하기 위한 과정이다.
+
+[DA-SAC/datasets/dataloader_target.py](https://github.com/visinf/da-sac/blob/main/datasets/dataloader_target.py)
+
+```python
+## 아래의 3가지 Transform이 존재한다.
+def __getitem__(self, index):
+  self.tf_pre # 가장 기본적 augmentation
+  self.tf_augm # clean image에 적용할 augmentation
+  self.tf_post # Noisy image에 적용할 augmentaiton
+
+  # 가장 기본 Augmentation 적용한 Iamge와 Label이 적혀 있는 Mask
+  augms = self.tf_pre(images, masks) 
+  
+  affine_params = augms[-1]
+  augms = augms[:-1]
+
+  # 위 Image와 Mask 그대로
+  augms2 = copy.deepcopy(augms) 
+  # Strong augmentation 까지 적용한 Image와 Mask
+  augms1 = self.tf_augm(*augms) 
+
+  images1, masks = self.tf_post(*augms1)
+  images2, _ = self.tf_post(*augms2)
+  
+  # Cleen Image로 부터 나온 Pseudo Label과 Strong augmentation image의 detection result를 매칭시켜줄 떄 필요한 듯 하다.
+  affine = self._get_affine(affine_params)
+  affine_inv = self._get_affine_inv(affine, affine_params)
+  
+  return images1, masks, images2, affine, affine_inv
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
