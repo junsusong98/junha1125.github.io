@@ -85,6 +85,8 @@ But not limited to.
 
 - Detection of Surrounding Vehicles using Deep Neural Network and Fusion of Panoramic Camera and Lidar Sensor, KOFAC(한국과학창의재단), Korea (2019)
 - Satellite image precision object detection, DACON(국방과학연구소), Korea (2020)
+- Development of real-time masking/unmasking system for personal video information, National Research Foundation of Korea(한국연구재단) , Korea (2021)
+- Development of robust segmentation network having environment/domain invariance, HYUNDAI MOBIS (현대모비스), Korea (2021)
 
 
 
