@@ -53,9 +53,7 @@ title: 【In-Segmen】BlendMask - Top-Down Meets Bottom-Up w/ my advice
 
 ![SmartSelect_20210311-125649_Noteshelf.jpg](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/blendMask/SmartSelect_20210311-125649_Noteshelf.jpg?raw=true)
 
-![SmartSelect_20210311-125616_Noteshelf.jpg](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/blendMask/SmartSelect_20210311-125616_Noteshelf.jpg?raw=true)
-
-- **수정본** 
+- **수정본** (그림 중간에 MxM 에 엑스(X)가 처진것은, MxM ==> RxR 로 Interpolate가 되는 것을 의미한다.)
 
 ![SmartSelect_20210311-143514_Noteshelf.jpg](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/blendMask/SmartSelect_20210311-143514_Noteshelf.jpg?raw=true)
 
@@ -84,15 +82,8 @@ title: 【In-Segmen】BlendMask - Top-Down Meets Bottom-Up w/ my advice
 
 
 
-
-
-
-
-
-
-
-
-
+- 잘못 필기한 그림 (혹시나 필요하면 참고하기)      
+  ![SmartSelect_20210311-125616_Noteshelf.jpg](https://github.com/junha1125/Imgaes_For_GitBlog/blob/master/2021-3/blendMask/SmartSelect_20210311-125616_Noteshelf.jpg?raw=true)
 
 
 
