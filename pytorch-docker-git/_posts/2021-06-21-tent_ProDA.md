@@ -111,7 +111,9 @@ outputs = tented_model(inputs)  # now it infers and adapts!
 
 
 
+---
 
+---
 
 
 
@@ -125,35 +127,46 @@ Directory Tree
 
 ```sh
 ProDA
-|-- calc_prototype.py
+|-- calc_prototype.py   				# protopype 를 계산해서 찾아주는 함수
 |-- data
-|   |-- DataProvider.py
+|   |-- DataProvider.py   			# 3개의 dataset loader 중 하나를 최종 return해주는 함수
 |   |-- __init__.py
-|   |-- augmentations.py
-|   |-- base_dataset.py
+|   |-- augmentations.py				# augmentation
+|   |-- randaugment.py
+|   |-- base_dataset.py  				# 3개의 dataset loader의 뿌리
 |   |-- cityscapes_dataset.py
 |   |-- gta5_dataset.py
-|   |-- randaugment.py
 |   └-- synthia_dataset.py
-|-- generate_pseudo_label.py
+|-- generate_pseudo_label.py		# 지금까지 학습된 pretrained-parameter를 가지고 pseudo_label 임시로 만들어 줌
 |-- models
 |   |-- adaptation_modelv2.py
 |   |-- deeplabv2.py
 |   |-- discriminator.py
 |   |-- sync_batchnorm
 |   └-- utils.py
-|-- metrics.py
-|-- parser_train.py
-|-- test.py
+|-- metrics.py									# score를 계산해서 return 해준다
+|-- parser_train.py							# parser.add_argument
+|-- utils.py										# logger and fliplr
 |-- train.py
-└-- utils.py
+└-- test.py
 ```
 
 학습 과정 및 추론 과정 
 
 1. Pseudo label을 생성해야 하기 때문에, 몇가지 Step을 거쳐야 한다. 따라서 학습과정이 매우 복잡하다.
 2. [학습과정 순서](https://github.com/microsoft/ProDA/blob/main/README.md#training)
+   - Stage1
+     - `generate_pseudo_label.py` >> soft pseudo label 만들기
+     - `calc_prototype.py` >> momentum update를 사용해서 Prototype(centroids) 1개만 계산해 놓는다.
+     - `train.py` >> moving_prototype는 물론이고, [Total loss](https://junha1125.github.io/blog/artificial-intelligence/2021-04-02-ProDA/#42-structure-learning-by-enforcing-consistency) 의 모든 연산을 적용한다. (structure learning & regular)
+   - Stage2: `knowledge distillation` 를 적용해서 SimCLR으로 init된 모델을 다시 학습시킨다. 
+     - `generate_pseudo_label.py` >> flip까지 사용해서, pseudo label 만들기
+     - `train.py` >> moving_prototype는 더 이상 안하고, 위에서 미리 생성된 pseudo_label을 사용해서 distillation 으로 학습 수행
+   - Stage3: Stage2 반복
+     - `generate_pseudo_label.py` >> (위와 동일) + bn_clr 사용
+     - `train.py` >> (위와 동일) + ema_bn 사용
 3. [추론과정 순서](https://github.com/microsoft/ProDA/blob/main/README.md#inference-using-pretrained-model)
+4. [Parser argument 모음](https://github.com/microsoft/ProDA/blob/main/parser_train.py)
 
 아래의 과정은 Target Structure 에서 **Origin Image & Augmentation Image pair를 어떻게 만드는지** 분석하기 위한 과정이다.
 
@@ -247,5 +260,57 @@ ProDA
 
 
 
+## 2.2 source only 학습시키기 위한 여정
+
+1. dataset 문제
+
+   1. gta5 : split.mat 파일 다운받아야함
+   2. synthia : 데이터셋 잘못 받음
+
+2. ```python
+   def train(opt, logger):
+   	if opt.stage == 'warm_up':
+     elif opt.stage == 'stage1':  
+     elif opt.stage == 'src_only':
+     	loss_GTA = model.step_source(images, labels, source_imageS, source_params)
+   
+   # ProDA/models/adaptation_modelv2.py 
+   # step_adv 에서 Adversarial learning & Discriminator 만 제거하면 돼서, 아래와 같이 쉽게 만들었다. 
+   class CustomModel()
+   	def def step_source(self, source_x, source_label, source_imageS, source_params):
+   ```
+
+3. ```sh
+   $ python /workspace/ttt_memory/ProDA/train.py --config '/workspace/ttt_memory/ProDA/configs/src_only_cityscapes.py'
+   $ python /workspace/ttt_memory/ProDA/train.py --config '/workspace/ttt_memory/ProDA/configs/src_only_synthia.py'
+   $ python /workspace/ttt_memory/ProDA/train.py --config '/workspace/ttt_memory/ProDA/configs/src_only_gta5.py'
+   ```
 
 
+
+## 2.3 args -> conf
+
+- https://github.com/open-mmlab/mmdetection/blob/master/tools/train.py
+
+- https://github.com/open-mmlab/mmcv/blob/d9effbd1d0da393b46ee4524e8ce8f52245e9bba/mmcv/utils/config.py
+
+- ```sh
+  wget https://raw.githubusercontent.com/open-mmlab/mmcv/master/mmcv/utils/config.py
+  wget https://raw.githubusercontent.com/open-mmlab/mmcv/master/mmcv/utils/misc.py
+  wget https://raw.githubusercontent.com/open-mmlab/mmcv/master/mmcv/utils/path.py
+  pip install addict
+  pip install yapf
+  ```
+
+- ```python
+  ## read conf and merge with parse
+  opt = Config.fromfile(args.config)
+  # opt.merge_from_dict(vars(args))
+  print(f'Config:\n{opt.pretty_text}\n=========== Start Traning ===========')
+  ```
+
+
+
+## 2.4 logger 
+
+print 및 내용 저장에 좋으니, 나중에 참고해서 사용하자

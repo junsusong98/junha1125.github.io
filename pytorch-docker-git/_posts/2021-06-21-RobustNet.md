@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【Pytorch】 RobustNt & DA-SAC teardown reports
+title: 【Pytorch】 RobustNet & DA-SAC teardown reports
 ---
 
 RobustNet teardown reports 
@@ -156,10 +156,9 @@ $ python -m torch.distributed.launch --nproc_per_node=2 train.py \
 
 \<나의 생각 정리\>
 
-- 위와 같이 Inference를 하는데 옷갖 노력을 다하는데... 성능이 안나올 수가 있나??
+- Inference
   1. `Multi-Scale Testing`
   2. `Sliding window Predicting`
-- "SOTA를 찍기위해서 정말 미친 노력을 하는구나" 라는 생각이 든다.
 - 그럼에도 불구하고.. 모든 모델에 대해서 같은 프로세스를 적용하니, 그렇게 큰 문제는 아닌듯 하고. 모르겠다.
 - 참고로 mmsegmentation [test.py](https://github.com/open-mmlab/mmsegmentation/blob/master/tools/test.py) 를 참고해보면 다음의 Inference 과정이 있는 것을 알 수 있었다. RobustNet은 Flip 까지는 적용하지 않았다.
   1. cfg.[aug-test](https://github.com/open-mmlab/mmsegmentation/blob/master/tools/test.py#L22): Use **Flip** and Multi scale aug
