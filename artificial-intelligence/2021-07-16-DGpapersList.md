@@ -50,35 +50,28 @@ Survey DG papers
 
 # 3.0. Paper list & Relative work
 
-1. Domain Randomization and Pyramid Consistency: Simulation-to-Real Generalization without Accessing Target Domain Data -ICCV18
-2. DLOW: Domain Flow for Adaptation and Generalization -CVPR19
-3. Learning from Extrinsic and Intrinsic Supervisions for Domain Generalization -ECCV20
-4. Reducing Domain Gap by Reducing Style Bias -CVPR21
-5. MetaAlign: Coordinating Domain Alignment and Classification for Unsupervised Domain Adaptation -CVPR21
-6. ACE: Adapting to Changing Environments for Semantic Segmentation -ICCV19
-7. ~~In Search of Lost Domain Generalization -ICLR21~~
-8. ~~Domain Generalization with MixStyle -ICLR21~~
-9. ~~Generalizable Semantic Segmentation via Model-agnostic Learning and Target-specific Normalization -arXiv20~~
+**2020 이전 추천 논문** 🌗
+
+1. (pass) Domain Randomization and Pyramid Consistency: Simulation-to-Real Generalization without Accessing Target Domain Data -ICCV18
+2. (pass) DLOW: Domain Flow for Adaptation and Generalization -CVPR19
+3. (pass) Learning from Extrinsic and Intrinsic Supervisions for Domain Generalization -ECCV20
+4. Domain Agnostic Learning with Disentangled Representations -ICML19
+5. (pass) ACE: Adapting to Changing Environments for Semantic Segmentation -ICCV19 (인규형 추천 스타일 메모리)
+6. Contrastive Syn-to-Real Generalization -ICLR21(인규형 추천)
+7. Unsupervised Domain Adaptation through Self-Supervision -ICLR20 (인규형 추천)
+8. Confidence Regularized Self-Training -ICCV19 (CRST)
+9. Domain Adaptation for Semantic Segmentation via Class-Balanced Self-Training -ECCV18 (CBST)
 
 
 
-**CVPR 21 paper list**
+**CVPR 21 paper list** ⭐️
 
-1. FSDR: Frequency Space Domain Randomization for Domain Generalization
-2. Open Domain Generalization with Domain-Augmented Meta-Learning
-3. MOS- Towards Scaling Out-of-distribution Detection for Large Semantic Space
-4. MOOD- Multi-level Out-of-distribution Detection
-5. Prototypical Cross-domain Self-supervised Learning for Few-shot Unsupervised Domain Adaptation
-6. Domain-Irrelevant Representation Learning for Unsupervised Domain Generalization
-7. ~~Deep Stable Learning for Out-Of-Distribution Generalization~~
-8. ~~Adversarial Invariant Learning~~
-9. ~~Strong Out-of-Domain Generalization~~
-10. ~~Reducing Domain Gap by Reducing Style Bias~~
-11. ~~Tent-Fully Test-Time Adaptation by Entropy Minimization~~
-12. ~~Adaptive Methods for Real-World Domain Generalization~~
-13. ~~Generalization on Unseen Domains via Inference-time Label-Preserving Target Projections~~
-
-
+1. (pass) FSDR: Frequency Space Domain Randomization for Domain Generalization
+2. (pass) Open Domain Generalization with Domain-Augmented Meta-Learning
+3. (pass) MOS- Towards Scaling Out-of-distribution Detection for Large Semantic Space
+4. (pass) MOOD- Multi-level Out-of-distribution Detection
+5. (pass) Prototypical Cross-domain Self-supervised Learning for Few-shot Unsupervised Domain Adaptation
+6. (pass) Domain-Irrelevant Representation Learning for Unsupervised Domain Generalization
 
 
 
@@ -86,43 +79,39 @@ Survey DG papers
 
 # 4.0. Paper list & Relative work
 
-[**추천 Paper**]
+[**꼭 읽어야 하는 추천 Paper**] ⭐️⭐️
 
-1. Contrastive Syn-to-Real Generalization -ICLR21
-2. Unsupervised Domain Adaptation through Self-Supervision -ICLR20
-3. Learning to Balance Specificity and Invariance for In and Out of Domain Generalization -ECCV20
-
-
-
-[**Adaptive/Dynamic Network DG papers**] 
-
-(이 논문들이 대해서는 Inference time Adaptive/Dynamic을 어떻게 적용했는지만 파악해보자. 만약 이런의미의 Adaptive가 아니라면 무시하고 넘어가자)
-
-3. Iterative Filter Adaptive Network for Single Image Defocus Deblurring -CVPR21
-4. Cross-View Regularization for Domain Adaptive Panoptic Segmentation -CVPR21
-5. Coarse-to-Fine Domain Adaptive Semantic Segmentation with Photometric Alignment and Category-Center Regularization -CVPR21
-6. Adaptive Aggregation Networks for Class-Incremental Learning -CVPR21
-7. Dynamic Transfer for Multi-Source Domain Adaptation -CVPR21
-8. Progressive Domain Expansion Network for Single Domain Generalization -CVPR21
-9. ~~Adversarially Adaptive Normalization for Single Domain Generalization -CVPR21~~
-10. ~~MeGA-CDA: Memory Guided Attention for Category-Aware Unsupervised Domain Adaptive Object Detection -CVPR21~~
-
-**하지만 Test time adaptive recognition task가 아닌 논문들** / 혹은 일단 패스..
-
-1. ~~Dynamic Domain Adaptation for Efficient Inference -CVPR21~~
-2. ~~RPN Prototype Alignment For Domain Adaptive Object Detector - CVPR21~~
-3. ~~Domain-Specific Suppression for Adaptive Object Detection -CVPR21~~
-4. Cluster, Split, Fuse, and Update: Meta-Learning for Open Compound Domain Adaptive Semantic Segmentation -CVPR21
-5. Adaptive Convolutions for Structure-Aware Style Transfer -CVPR21
-6. Dynamic Weighted Learning for Unsupervised Domain Adaptation -CVPR21
+1. ~~Source-Free Open Compound Domain Adaptation in Semantic Segmentation -CVPR21 (Source-free 공부)~~
+2. ~~Adaptive Risk Minimization: A Meta-Learning Approach for Tackling Group Distribution Shift -ICLR21 (인규형 추천, 리뷰도 보기)~~
+3. ~~Test-Time Adaptation to Distribution Shift by Confidence Maximization and Input Transformation -(Tent 후속 관용추천)~~
+4. Source-free domain adaptation for semantic segmentation via self-supervised selective self-training -(Tent 디스 영택 추천)
+5. Domain Adaptation for Semantic Segmentation with Maximum Squares Loss -ICCV19
 
 
 
-[**공부할 Code**]
+[**Adaptive/Dynamic Network DG papers**] ⭐️
+
+**(Adaptive / Sementic Segmentation 을 키워드로 내가 사용할 수 있는 아이디어가 뭘까? 고민해보기!)**
+
+1. Coarse-to-Fine Domain Adaptive Semantic Segmentation with Photometric Alignment and Category-Center Regularization -CVPR21
+2. Iterative Filter Adaptive Network for Single Image Defocus Deblurring -CVPR21
+3. Cross-View Regularization for Domain Adaptive Panoptic Segmentation -CVPR21
+4. Adaptive Aggregation Networks for Class-Incremental Learning -CVPR21
+5. Dynamic Transfer for Multi-Source Domain Adaptation -CVPR21
+6. Progressive Domain Expansion Network for Single Domain Generalization -CVPR21
+7. Cluster, Split, Fuse, and Update: Meta-Learning for Open Compound Domain Adaptive Semantic Segmentation -CVPR21
+
+**하지만 Test time / adaptive modules가 아닌 논문들** / 혹은 일단 패스..
+
+5. (pass) Adaptive Convolutions for Structure-Aware Style Transfer -CVPR21
+6. (pass) Dynamic Weighted Learning for Unsupervised Domain Adaptation -CVPR21
+
+
+
+[**공부할 Code/New DG paper**]
 
 1. [facebookresearch/DomainBed](https://github.com/facebookresearch/DomainBed)
-2. [prithv1/DMG](https://github.com/prithv1/DMG) : Domain-Specific-Masks-for-Generalization
-3. [VSumanth99/InferenceTimeDG](https://github.com/VSumanth99/InferenceTimeDG) : Generalization on Unseen Domains via Inference-Time Label-Preserving Target Projections
+2. CBST / CRST 논문 및 코드 공부하기 ([CRST 논문](https://github.com/yzou2/CRST), [CBST 논문](https://github.com/yzou2/CBST))
 
 
 
@@ -132,12 +121,6 @@ Survey DG papers
 2. https://github.com/52CV/CVPR-2021-Papers
 3. https://github.com/zhaoxin94/awesome-domain-adaptation
 4. https://github.com/amber0309/Domain-generalization
-
-
-
-**[논문 읽으면서 추가로 보면 좋을 것 같은 논문]**
-
-1. Domain Agnostic Learning with Disentangled Representations -ICML19 ([Reducing Style Bias](https://arxiv.org/pdf/1910.11645.pdf) 논문과 비슷한 것 같은 논문)
 
 
 

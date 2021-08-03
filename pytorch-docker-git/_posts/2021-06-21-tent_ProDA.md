@@ -71,6 +71,7 @@ outputs = tented_model(inputs)  # now it infers and adapts!
    - model 안의 parameter 들의 requires_grad_ 를 false로 모두 바꾸고
    - BatchNorm2d 만 True 처리를 해준다. 
    - 이때 track_running_stats == False 처리는 것 잊지말기. ([참고 코드](https://github.com/pytorch/pytorch/blob/master/torch/nn/modules/batchnorm.py#L144), [BN document](https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm2d.html), [what is track_runing](https://discuss.pytorch.org/t/why-track-running-stats-is-not-set-to-false-during-eval/25412))
+   - track_running_stats(:bool)이란? γ, β (rescaling 계수)에 대해서 이야기하는게 아니다. standardization 을 위한 channel-wise-mean, channel-wise-std 를 구하기 위해서 momentum update를 할 것인가? 를 의미한다. evaluation에서는 지금까지 momentum update로 구한 channel-wise-mean, channel-wise-std를 사용해서 standarization을 수행한다. 이렇게 하는게 안정적인 prediction을 위한 E(x), V(x)이고 (대신 test 때도 비슷한 domain이 들어올거라는 가정이 필요하다), "γ, β"와 적절히 매칭되는 값들로 standarization을 한다고도 할 수 있다.
    - (지금까지 나 스스로 명명해서 사용하던 모델의 하나하나 layer를, torch에서는 module이라고 표현한다. 그래서 model.modules() 라는 for를 위한 함수도 존재한다.)
 2. `def collect_params`
    - NetModule.named_parameters() 을 사용해서 
@@ -283,8 +284,14 @@ ProDA
 3. ```sh
    $ python /workspace/ttt_memory/ProDA/train.py --config '/workspace/ttt_memory/ProDA/configs/src_only_cityscapes.py'
    $ python /workspace/ttt_memory/ProDA/train.py --config '/workspace/ttt_memory/ProDA/configs/src_only_synthia.py'
-   $ python /workspace/ttt_memory/ProDA/train.py --config '/workspace/ttt_memory/ProDA/configs/src_only_gta5.py'
+   $ python /workspace/ttt_memory/ProDA/train.py --config '/workspace/ttt_memory/ProDA/configs/src_only_gta5.py''
    ```
+
+4. Source only에서 몇개의 클래스에서 성능이 낮게 나온이유
+
+   - 지금까지 iter만 있으면 되지, Epoch이 이제는 무슨 쓸모지? 라고 생각했다. 하지만 Epoch은 전체 데이터셋을 한바퀴 다 봤다는 의미이므로 몇 Epoch으로 데이터셋을 학습했는지도 굉장히 중요한 지표이다. 얘를들어서 GTA5는 2만개의 dataset이 존재한다. 2만 iter를 돌았다고 하더라도 겨우 1epoch만 돌은 것이다. 이런 경우 적은 클래스를 가지는 객체는 당연히 학습이 잘 안될 수 있다. 
+   - 더군다나, AdpatSeg에서는 resize로 데이터를 확장하고 crop을 하지 않는다. only [1024, 512] crop만을 진행한다. 반면에 ProDA에서는 2200 resize를 하고 [812, 512] crop을 진행한다. 이러니.. 드믈게 존재하는 class pixel에 대해서 학습이 더욱더 안될만하다. 
+   - 이러한 점들이 내가 남긴 이 Issue에 대한 답변이라고 할 수 있고, 내가 해야하는 것은! 학습을 더 많이 해보는 것이다!
 
 
 
@@ -314,3 +321,11 @@ ProDA
 ## 2.4 logger 
 
 print 및 내용 저장에 좋으니, 나중에 참고해서 사용하자
+
+
+
+## 2.5 debug
+
+1. 뭔가 안된다면, worker = 1 로 해놓고 디버깅 할 것.
+2. 왜 안되는지 앞으로 따라가 보고, 앞으로 따라가도 모르겠으면
+3. 뒤로 가야한다. 뒤로가서 무엇을 하고 나서 이상이 생긴건지. 
